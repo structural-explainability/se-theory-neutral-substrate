@@ -1,4 +1,4 @@
-# ./AGENTS.md
+# ./AGENTS.md (SE Theory)
 
 ## Scope
 
@@ -9,34 +9,59 @@
 - Do not introduce hidden logic where declarative structure is possible.
 - Prefer explicit, inspectable structure over implicit behavior.
 
-## Formal Contract Constraints
+## Theory Constraints
 
-- Files under `data/contract/` are **generated artifacts**.
-- Do **not** edit JSON contract registries manually.
-- All contract artifacts must be produced via:
+- Lean files are the **authoritative source of all formal definitions and theorems**.
 
-```shell
-lake exe export_contract
-```
+- Do **not** introduce:
+  - runtime execution paths
+  - export pipelines
+  - contract artifact generation
+  - semantic validation outside Lean
 
-- The Lean surface (`NeutralSubstrate/*.lean`) is the **authoritative source of structural constraints**.
-- Python code may **serialize and validate**, but must not redefine contract semantics.
+- There is **no executable surface** in theory repositories.
+
+## Documentation Constraints
+
+- Documentation is descriptive only.
+- Documentation must mirror Lean module structure.
+- Documentation must not:
+  - redefine formal semantics
+  - introduce new definitions
+  - encode invariants not present in Lean
+  - diverge from Lean naming
+
+If documentation and Lean differ, **Lean is correct**.
+
+## Python Tooling Constraints
+
+Python may be used only for:
+
+- documentation generation (Zensical)
+- repository hygiene (pre-commit, ruff)
+- lightweight automation
+
+Python must not:
+
+- define correctness
+- validate theory semantics
+- interpret Lean results
+- export contract artifacts
+
+There must be **no Python application or CLI surface**.
 
 ## WHY
 
-- This repo defines the **formal contract layer** for the SE ecosystem.
-- Operational repositories depend on these exported artifacts.
-- Divergence between Lean, export, and JSON invalidates the contract.
+- These repositories define the **formal theory layer** of Structural Explainability.
+- Correctness is expressed exclusively as **machine-checked Lean theorems**.
+- Introducing parallel semantic systems creates drift and invalidates guarantees.
 
 ## Requirements
 
-- Use **uv** for all environment, dependency, and run commands.
+- Use **uv** for all environment and tooling commands.
 - Do **not** recommend or use `pip install ...` as the primary workflow.
 - The canonical Python version is defined in `.python-version`.
 - Commands must work on Windows, macOS, and Linux.
-- If shell-specific commands are unavoidable, provide both:
-  - PowerShell (Windows)
-  - bash/zsh (macOS/Linux)
 
 ## Quickstart
 
@@ -48,25 +73,12 @@ uv sync --extra dev --extra docs --upgrade
 
 ## Common Tasks
 
-### Export contract artifacts
+### Build Lean theory
 
 ```shell
+elan self update
 lake update
 lake build
-lake exe export_contract
-```
-
-### Validate contract artifacts
-
-```shell
-uv run python -m se_theory validate
-```
-
-### Lint / format
-
-```shell
-uv run python -m ruff format .
-uv run python -m ruff check . --fix
 ```
 
 ### Build documentation
@@ -82,10 +94,13 @@ uv run python -m zensical build
 
 ## Non-goals
 
-- This repository does **not** define:
-  - operational validation pipelines
-  - domain mappings
-  - runtime systems
-  - interpretation semantics
+This repository does **not** define:
 
-- Those belong to downstream SE repositories.
+- identity-regime execution behavior
+- operational validation pipelines
+- domain mappings
+- runtime systems
+- contract artifact exports
+- interpretation semantics
+
+These belong to downstream SE repositories.

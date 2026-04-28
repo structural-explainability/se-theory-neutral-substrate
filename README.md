@@ -2,7 +2,7 @@
 
 [![Docs Site](https://img.shields.io/badge/docs-site-blue?logo=github)](https://structural-explainability.github.io/se-theory-neutral-substrate/)
 [![Repo](https://img.shields.io/badge/repo-GitHub-black?logo=github)](https://github.com/structural-explainability/se-theory-neutral-substrate)
-[![Python 3.15+](https://img.shields.io/badge/python-3.15%2B-blue?logo=python)](./pyproject.toml)
+[![Tooling](https://img.shields.io/badge/python-3.15%2B-blue?logo=python)](./pyproject.toml)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 
 [![CI-Lean](https://github.com/structural-explainability/se-theory-neutral-substrate/actions/workflows/ci-lean.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-theory-neutral-substrate/actions/workflows/ci-lean.yml)
@@ -45,7 +45,8 @@ or operational behavior.
 
 ## Documentation Constraints
 
-The documentation layer is descriptive only.
+- The documentation layer is descriptive only.
+- Documentation sections must mirror Lean module structure.
 
 ### Authority
 
@@ -56,17 +57,6 @@ The documentation layer is descriptive only.
   - proof obligations
 
 - Documentation must not introduce or redefine formal semantics.
-
-### Alignment
-
-- Documentation sections must mirror Lean module structure:
-  - Basic
-  - Structure
-  - Admissibility
-  - Separation
-  - Invariants
-  - Theorems
-  - Witness
 
 ### Prohibited in docs
 
