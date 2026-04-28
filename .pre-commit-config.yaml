@@ -1,10 +1,8 @@
 # ============================================================
-# .pre-commit-config.yaml (Spec Hygiene)
+# .pre-commit-config.yaml (Theory Hygiene)
 # ============================================================
-# VARIANT: spec-hygiene
-# ROLE: constitutional / specification repository
-
-# Fast, consistent repository hygiene before commit.
+# Updated 2026-04-28 THEORY VARIANT
+# Fast, consistent repo hygiene before commit.
 #
 # These hooks complement and do not replace:
 # - .editorconfig
@@ -89,20 +87,6 @@ repos:
 
       - id: check-case-conflict
         name: C3) Check for filename case conflicts
-
-  # === REPO: RUFF PRE-COMMIT (for Python code) ===
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.10
-    hooks:
-      - id: ruff-check
-        name: D1) Ruff linter with autofix (runs first in pre-commit)
-        # WHY: Lint fixes run first so formatter sees the corrected code.
-        args: [--fix, --exit-non-zero-on-fix]
-
-      - id: ruff-format
-        name: D2) Ruff formatter (runs after linter fixes)
-        # WHY: Formats whatever structure the linter left behind.
 
 # === GLOBAL SETTINGS ===
 # ALT: Set fail_fast to true to stop at first failure.
