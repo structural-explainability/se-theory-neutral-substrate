@@ -1,0 +1,42 @@
+# ============================================================
+# .github/workflows/ci-lean.yml (Continuous Integration)
+# ============================================================
+# Updated: 2026-04-28 THEORY VARIANT, ONLY BUILD
+
+name: CI Lean
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    name: Build Lean and export contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      # ============================================================
+      # A) ASSEMBLE: Get code and set up Lean
+      # ============================================================
+
+      - name: A1) Checkout repository code
+        uses: actions/checkout@v6
+
+      - name: A2) Set up Lean toolchain
+        uses: leanprover/lean-action@v1
+
+      # ============================================================
+      # B) BUILD: Compile Lean project
+      # ============================================================
+
+      - name: B1) Build Lean project
+        run: lake build
+        # WHY: Compiles the Lean formal contract surface.
+        # OBS: Uses the Lean version declared in lean-toolchain.

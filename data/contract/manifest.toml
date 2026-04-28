@@ -1,0 +1,23 @@
+# ============================================================
+# SE Formal Contract Manifest
+# ============================================================
+
+[contract]
+name = "se-theory-neutral-substrate"
+version = "0.1.0"
+schema = "se-theory-neutral-substrate-1"
+lean_package = "NeutralSubstrate"
+
+[toolchain]
+lean = "leanprover/lean4:v4.26.0"
+
+[exports]
+invariant_registry = "invariant-registry.json"
+regime_registry = "regime-registry.json"
+relation_registry = "relation-registry.json"
+proof_registry = "proof-registry.json"
+
+[status]
+formal_contract = "draft"
+proof_surface = "partial"
+operational_export = "active"

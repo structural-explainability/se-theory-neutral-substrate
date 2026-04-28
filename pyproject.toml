@@ -1,0 +1,22 @@
+# ============================================================
+# pyproject.toml (Tooling only; NOT a Python package)
+# ============================================================
+# Updated: 2026-04-28 (THEORY VERSION)
+# Used for docs and pre-commit checks ONLY.
+
+[project]
+name = "se-theory-neutral-substrate"
+version = "0.1.0"  # Required by PEP 621 (tooling only; not authoritative)
+description = "Tooling configuration only (pre-commit, docs). Not a Python package."
+readme = "README.md"
+requires-python = ">=3.15"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ruff",
+]
+docs = [
+    "zensical",
+]

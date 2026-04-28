@@ -1,0 +1,46 @@
+# ============================================================
+# CITATION.cff (How to cite this project)
+# ============================================================
+
+# REQ.UNIVERSAL: Professional open projects SHOULD include this file.
+# USAGE: See https://citation-file-format.github.io/ for details.
+
+cff-version: "1.2.0"
+type: software
+
+title: "SE Theory: Neutral Substrate"
+version: "0.1.0"
+date-released: "2026-04-28"
+
+authors:
+  - family-names: Case
+    given-names: Denise M.
+    orcid: "https://orcid.org/0000-0001-6165-7389"
+    affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
+
+year: 2026
+repository-code: "https://github.com/structural-explainability/se-theory-neutral-substrate"
+url: "https://github.com/structural-explainability/se-theory-neutral-substrate"
+
+license: MIT
+
+abstract: >
+  Lean 4 formalization of the neutral structural substrate of Structural
+  Explainability. This repository defines substrate primitives,
+  well-formedness, admissibility conditions, separation constraints, and
+  substrate-level invariants without encoding identity regimes, persistence
+  behavior, domain semantics, or operational validation.
+
+keywords:
+  - structural-explainability
+  - neutral-substrate
+  - lean4
+  - theorem-proving
+  - formal-verification
+  - admissibility
+  - separation
+  - invariants
+  - structural-constraints
+  - proof-carrying
+
+message: "If you use this work, please cite it using the metadata in this file."
