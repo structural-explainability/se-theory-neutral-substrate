@@ -8,8 +8,8 @@ see `NeutralSubstrate.lean` (the authoritative source).
 This document provides a brief orientation only.
 See [process](./process.md) for an overview of the Lean implementation process.
 See [process-040](./process-040.md) for an overview of
-proving NS from a conjunction (ExtensionStable ∧ InterpretivelyNonCommitted)
-rather than a single proposition (ExtensionStable).
+proving NS from a conjunction (`ExtensionStable ∧ InterpretivelyNonCommitted`)
+rather than a single proposition (`ExtensionStable`).
 
 ## Core
 
@@ -26,14 +26,15 @@ May change without notice provided the public surface
 **Types:** `PrimitiveKind`, `Primitive`, `Ontology`, `Framework`
 
 **Predicates:** `Neutral`, `Admissible`, `ExtensionStable`,
-`containsCausalOrNormative`, `extensionInconsistent`,
-`FrameworkVariant`, `FrameworksContradict`
+`InterpretivelyNonCommitted`, `containsCausalOrNormative`,
+`extensionInconsistent`, `FrameworkVariant`, `FrameworksContradict`
 
 **Axioms:** `framework_relativity`, `neutral_primitives_undisputed`,
 `causal_normative_affirmed`
 
 **Theorems:** `ontological_neutrality_theorem`,
 `not_neutral_if_causal_or_normative`, `neutral_if_only_neutral`,
+`only_neutral_primitives_implies_INC`,
 `framework_contestability_lemma`, `separate_stability`
 
 ## Spec

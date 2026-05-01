@@ -6,26 +6,25 @@
 
 The SE-100 paper defines neutrality as requiring two properties:
 
-- **EXT** - Extension Stability: S remains consistent when extended
+- **EXT** Extension Stability: S remains consistent when extended
   by any admissible framework
-- **INC** - Interpretive Non-Commitment: S does not assert any
+- **INC** Interpretive Non-Commitment: S does not assert any
   framework-variant proposition at the substrate layer
 
-The current formalization defines:
+The 0.3.0 formalization encoded EXT only:
 
 ```lean
 def Neutral (S : Ontology) : Prop := ExtensionStable S
 ```
 
-It encodes EXT only.
-The paper's full neutrality requires:
+The 0.4.0 formalization encodes both:
 
 ```lean
 def Neutral (S : Ontology) : Prop :=
   ExtensionStable S ∧ InterpretivelyNonCommitted S
 ```
 
-## Breaking Change
+## Why This Is a Breaking Change
 
 Lean proofs are fragile under definition changes.
 When `Neutral` acquires a second conjunct, every proof that unfolds
@@ -37,12 +36,11 @@ Concretely, this tactic:
 unfold Neutral ExtensionStable extensionInconsistent
 ```
 
-currently exposes a single universally quantified proposition.
+previously exposed a single universally quantified proposition.
 After 0.4.0 it exposes a conjunction.
-Every proof using this pattern
-must be updated to handle both conjuncts.
+Every proof using this pattern required updating to handle both conjuncts.
 
-Affected proofs in Core.lean:
+Affected proofs in `Core.lean`:
 
 ```text
 neutral_if_only_neutral
@@ -52,20 +50,19 @@ framework_contestability_lemma
 separate_stability
 ```
 
-Affected proofs in TestRegime.lean:
+Affected proofs in `TestRegime.lean`:
 
-```lean
+```text
 toySubstrate_is_neutral
 incidentSubstrate_is_neutral
 ```
 
-So 0.4.0 is a minor version bump, not a patch;
-it requires coordinated updates across multiple files.
+This is why 0.4.0 is a minor version bump, not a patch.
 
 ## Build Order
 
-Make additive changes first, breaking changes last.
-Keeps build green as long as possible during transition.
+Additive changes first, breaking changes last.
+This kept the build green as long as possible during transition.
 
 ### Phase 1. Additive (no breakage)
 
@@ -76,6 +73,7 @@ Keeps build green as long as possible during transition.
      ∀ p ∈ S, ¬FrameworkVariant p
 
    WHY: Pure addition. Nothing depends on it yet.
+   Build stayed green after this step.
 
 2. Prove standalone lemma in Core Section 5
 
@@ -83,124 +81,100 @@ Keeps build green as long as possible during transition.
      ∀ S, containsCausalOrNormative S = false →
      InterpretivelyNonCommitted S
 
-   WHY: Establishes that INC follows from the same condition
-   as the upper bound of the main theorem.
+   WHY: Established that INC follows from neutral_primitives_undisputed
+   alone. Answered the open question: no new axiom needed for Phase 2.
 
-3. Add NS_ID_DEF_INTERPRETIVELY_NON_COMMITTED to Spec
-4. Export InterpretivelyNonCommitted from Surface
-5. Add #check to TestBasic
-   Build and confirm green.
+3. Added NS_ID_DEF_INTERPRETIVELY_NON_COMMITTED to Spec
+4. Exported InterpretivelyNonCommitted from Surface
+5. Added #check to TestBasic
+   Build confirmed green before Phase 2.
 ```
 
 ### Phase 2. Breaking (change Neutral, fix all downstream)
 
-All of these are done in a single editing session.
+All changes made in a single editing session.
+Build not committed until fully green.
 
 ```text
-1. Update Neutral definition in Core Section 2
-
+1. Updated Neutral definition in Core Section 2
    def Neutral (S : Ontology) : Prop :=
      ExtensionStable S ∧ InterpretivelyNonCommitted S
 
-   Build will temporarily fail on steps 7-12 below.
+2. Updated neutral_if_only_neutral
+   constructor splits into EXT and INC conjuncts.
+   INC direction: exact only_neutral_primitives_implies_INC S h_only_neutral
+   EXT direction: unchanged from 0.3.0.
 
-2. Update `neutral_if_only_neutral`
-   Establish both ExtensionStable and InterpretivelyNonCommitted.
-   The INC direction uses only_neutral_primitives_implies_INC (from step 2).
-   The EXT direction is unchanged.
+3. Updated not_neutral_if_causal_or_normative
+   Extracted h_neutral.1 (EXT conjunct) before proceeding.
+   INC conjunct never needed for this direction.
 
-3. Update `not_neutral_if_causal_or_normative`
-   Goal shape changes. May need to extract EXT conjunct explicitly.
-   Check whether proof closes or needs adjustment.
+4. Updated ontological_neutrality_theorem
+   No change to proof body; forward and backward still delegate
+   to not_neutral_if_causal_or_normative and neutral_if_only_neutral.
 
-4. Update `ontological_neutrality_theorem`
-   Both directions affected. Rebuild from updated helper theorems.
+5. Updated framework_contestability_lemma
+   Now uses INC directly: h_neutral.2 p hp_in_S h_variant
+   Both EXT and INC violations documented.
+   "deferred to 0.4.0" note removed.
 
-5.  Update `framework_contestability_lemma`
-    Add INC violation as second conclusion.
-    Remove "deferred" note from doc comment.
+6. Updated separate_stability
+   Uses h_neutral.1 to extract EXT before applying to F1 and F2.
 
-6.  Update `separate_stability`
-    Uses Neutral - check whether proof closes.
-    Likely minor adjustment.
-
-7.  Update `TestRegime` proofs
-    `toySubstrate_is_neutral` and `incidentSubstrate_is_neutral`
-    both call `neutral_if_only_neutral`. If that proof
-    strategy changes, these may need updating.
-
-    Build green before committing.
+7. TestRegime proofs closed without changes.
+   neutral_if_only_neutral signature unchanged; proofs still apply.
 ```
 
-## The INC Proof Question
+## The INC Proof Question Resolved
 
-The key question for Phase 2 is whether the INC direction of the
-updated `neutral_if_only_neutral` requires a new axiom.
+The key question for Phase 2 was whether the INC direction of the
+updated `neutral_if_only_neutral` required a new axiom.
 
-The claim to prove is:
+**Answer: no new axiom needed.**
 
-```text
-containsCausalOrNormative S = false →
-InterpretivelyNonCommitted S
-```
-
-Which unfolds to:
+The proof of `only_neutral_primitives_implies_INC` only needs to
+negate the denial half of `FrameworkVariant`:
 
 ```lean
-containsCausalOrNormative S = false →
-∀ p ∈ S, ¬FrameworkVariant p
+FrameworkVariant p :=
+  ∃ F1 F2, Admissible F1 ∧ Admissible F2 ∧
+    F1.affirms p = true ∧ F2.denies p = true
 ```
 
-Which unfolds to:
+To prove `¬FrameworkVariant p` for a neutral primitive, it suffices
+to show no admissible F2 can satisfy `F2.denies p = true`.
+This follows directly from `neutral_primitives_undisputed`.
+The affirmation half (`F1.affirms p`) is never consulted.
+
+The proof:
 
 ```lean
-containsCausalOrNormative S = false →
-∀ p ∈ S, ¬∃ F1 F2, Admissible F1 ∧ Admissible F2 ∧
-  F1.affirms p = true ∧ F2.denies p = true
-```
-
-For p ∈ S where containsCausalOrNormative S = false, we know p.kind = neutral.
-We need to show no admissible framework denies a neutral primitive
-(from neutral_primitives_undisputed) AND no admissible framework affirms
-a neutral primitive in a way that creates variance.
-
-The denial half follows from neutral_primitives_undisputed.
-The affirmation half is not currently axiomatized.
-
-This means Phase 2 may require a new axiom:
-
-```lean
-axiom neutral_primitives_not_affirmed_as_variant :
-  ∀ p : Primitive, p.kind = PrimitiveKind.neutral →
-  ∀ F : Framework, Admissible F → F.affirms p = false
-```
-
-Or FrameworkVariant can be weakened to only require
-the denial direction, making it provably false for neutral primitives
-using neutral_primitives_undisputed alone.
-Attempt proof without a new axiom first.
-Add axiom if proof does not close.
-
-## No Changes in 0.4.0
-
-```text
-Spec IDs for existing theorems: stable, no rename
-Surface exports for existing names: stable, additive only
-NeutralSubstrate.lean §1-§4: structure unchanged
-TestBasic type checks for existing names: stable
-CITATION.cff, lakefile.toml: version bump only
+theorem only_neutral_primitives_implies_INC :
+    ∀ S : Ontology, containsCausalOrNormative S = false →
+    InterpretivelyNonCommitted S := by
+  intro S h_only_neutral
+  unfold InterpretivelyNonCommitted FrameworkVariant
+  intro p hp_in_S
+  intro ⟨_F1, F2, _hF1_adm, hF2_adm, _hF1_affirms, hF2_denies⟩
+  have h_all_neutral := any_false_implies_none S _ h_only_neutral
+  have hp_neutral_kind : (p.kind != PrimitiveKind.neutral) = false :=
+    h_all_neutral p hp_in_S
+  simp at hp_neutral_kind
+  have h_not_denied := neutral_primitives_undisputed p hp_neutral_kind F2 hF2_adm
+  rw [h_not_denied] at hF2_denies
+  contradiction
 ```
 
 ## Definition of Done for 0.4.0
 
 ```text
-DONE lake build        - 0 errors
-DONE lake build TestBasic - all #check entries pass
-DONE lake build TestRegime- incident example still proves separate_stability
-DONE Neutral defined as EXT ∧ INC
-DONE framework_contestability_lemma proves both violations
-DONE "deferred to 0.4.0" note removed from all doc comments
-DONE NeutralSubstrate.lean Section 2 updated with InterpretivelyNonCommitted
-DONE CHANGELOG.md 0.4.0 section added
-DONE CITATION.cff and lakefile.toml bumped to 0.4.0
+DONE  lake build                 0 errors
+DONE  lake build TestBasic       all #check entries pass
+DONE  lake build TestRegime      incident example still proves separate_stability
+DONE  Neutral defined as EXT ∧ INC
+DONE  framework_contestability_lemma proves both EXT and INC violations
+DONE  "deferred to 0.4.0" note removed from all doc comments
+DONE  NeutralSubstrate.lean Section 2 updated with InterpretivelyNonCommitted
+DONE  CHANGELOG.md 0.4.0 section added
+DONE  CITATION.cff and lakefile.toml bumped to 0.4.0
 ```
