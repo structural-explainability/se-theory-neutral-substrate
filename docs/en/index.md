@@ -1,184 +1,66 @@
-# SE Theory: Neutral Substrate
+# SE Theory: Neutral Substrate (NS)
 
-> Lean 4 formalization of the neutral structural substrate
-> of Structural Explainability.
+Lean 4 formalization of the Neutral Substrate specification from
+Structural Explainability (SE) theory.
 
-This repository defines the minimal structural conditions
-under which identity regimes may be applied,
-without encoding identity, persistence, domain semantics,
-or operational behavior.
+For normative definitions, stability guarantees, and theorem statements,
+see `NeutralSubstrate.lean` (the authoritative source).
+This document provides a brief orientation only.
+See [process](./process.md) for an overview of the Lean implementation process.
 
-## Boundary
+## Core
 
-This documentation is non-authoritative.
-All formal definitions, invariants, and theorems are defined exclusively
-in Lean source files under `NeutralSubstrate/`.
+- **File:** `NeutralSubstrate/Core.lean`
+- **Namespace:** `SE.NeutralSubstrate`
 
-If documentation and Lean diverge, Lean is correct.
+All mathematical content:
+types, predicates, axioms, helper lemmas, and theorems.
+Nothing is exported from this file directly.
+Internal structure.
+May change without notice provided the public surface
+(see Surface) remains stable.
 
-## Purpose
+**Types:** `PrimitiveKind`, `Primitive`, `Ontology`, `Framework`
 
-The neutral substrate establishes the **admissibility boundary**
-for Structural Explainability.
+**Predicates:** `Neutral`, `Admissible`, `ExtensionStable`,
+`containsCausalOrNormative`, `extensionInconsistent`,
+`FrameworkVariant`, `FrameworksContradict`
 
-It answers:
+**Axioms:** `framework_relativity`, `neutral_primitives_undisputed`,
+`causal_normative_affirmed`
 
-- What must be true of a structure before any identity regime can be applied?
-- What must remain absent to preserve neutrality?
-- What invariants hold independently of any regime?
+**Theorems:** `ontological_neutrality_theorem`,
+`not_neutral_if_causal_or_normative`, `neutral_if_only_neutral`,
+`framework_contestability_lemma`, `separate_stability`
 
-It does not define identity regimes or their behavior.
+## Spec
 
-## Scope
+- **File:** `NeutralSubstrate/Spec.lean`
+- **Namespace:** `SE.NeutralSubstrate.Spec`
 
-### Includes
+Canonical citation identifiers for all public names.
+Stable string constants of the form `NS.{KIND}.{NAME}`.
+No logic, no Prop, no dependency on Core.
 
-- Neutral structural primitives
-- Substrate well-formedness
-- Admissibility conditions
-- Separation constraints (non-encoding of regimes)
-- Substrate-level invariants
-- Machine-checked Lean theorems
-
-### Excludes
-
-- Identity regimes (OBL, NOR, OCC, CTX, REC, ENR)
-- Regime profiles and derivation
-- Persistence behavior
-- Mapping semantics
-- Domain-specific data or examples
-- Operational validation logic
-- Runtime systems
-
----
-
-## Basic
-
-The neutral substrate is a typed structure `S = (N, E, τ)` where:
-
-- `N` is a finite set of nodes
-- `E ⊆ N × N` is a set of directed edges
-- `τ : N → T` is a type assignment over a fixed type alphabet `T`
-
-No identity, persistence, or domain semantics are attached at this layer.
-
-## Structure
-
-The root file provides a single import surface:
+Use these IDs in regime documentation and conformance trace matrices:
 
 ```lean
-import NeutralSubstrate
+open SE.NeutralSubstrate.Spec
+#check NS_ID_THEOREM_ONTOLOGICAL_NEUTRALITY
+-- "NS.THEOREM.ONTOLOGICAL_NEUTRALITY"
 ```
 
-All definitions are organized under `NeutralSubstrate/` and exported
-through this entry point. Consumers import `NeutralSubstrate` only;
-internal module paths are not part of the public interface.
+## Surface
 
-## Admissibility
+- **File:** `NeutralSubstrate/Surface.lean`
 
-A structure must satisfy explicit conditions before it can support regime
-application.
+Explicit re-export of all normative public names from Core.
+Controls what `import NeutralSubstrate` provides.
+Names not listed in this file are internal.
+Do not import Surface directly;
+import `NeutralSubstrate` and receive the surface automatically.
 
-Admissibility is necessary but not sufficient for any particular regime.
+## Metadata
 
-A substrate `S` is **admissible** if and only if it satisfies all of:
-
-- **Finiteness**: `N` and `E` are finite
-- **Type coverage**: `τ` is total over `N`
-- **Acyclicity**: the graph `(N, E)` contains no directed cycles
-- **Non-emptiness**: `N` is non-empty
-
-Admissibility is a precondition for regime application.
-No identity regime may be applied to a structure that fails admissibility.
-
-Formal definition: `NeutralSubstrate.Admissible`
-
-## Separation
-
-The substrate must remain free of regime-specific encoding.
-Separation constraints prohibit the substrate from encoding:
-
-- identity labels or regime selectors
-- persistence markers or temporal ordering
-- mapping targets or interpretation hints
-- operational flags or validation state
-
-A substrate that encodes any of the above is **not neutral**
-and falls outside the scope of this repository.
-
-Formal definition: `NeutralSubstrate.Separated`
-
-## Invariants
-
-The following invariants hold for all admissible, separated substrates,
-independently of any regime applied above them:
-
-- **Type stability**: `τ` does not change under structural operations
-  that preserve node identity
-- **Edge integrity**: every edge `(u, v) ∈ E` has `u, v ∈ N`
-- **Acyclicity preservation**: structural operations defined at this
-  layer do not introduce cycles
-
-Formal definitions: `NeutralSubstrate.Invariants`
-
-## Theorems
-
-Machine-checked theorems established at this layer:
-
-- **Admissibility is decidable**: given a finite structure, admissibility
-  can be determined algorithmically
-- **Separation is preserved under substrate operations**: operations
-  defined here cannot introduce regime encoding
-- **Invariants are stable**: all substrate invariants hold after any
-  admissibility-preserving operation
-
-Formal proofs: `NeutralSubstrate.Theorems`
-
-## Witness
-
-A minimal concrete witness demonstrating that the admissibility conditions
-are satisfiable:
-
-- A single-node structure `S₀ = ({n₀}, ∅, {n₀ ↦ t₀})` for any `t₀ ∈ T`
-- Satisfies finiteness, type coverage, acyclicity, and non-emptiness
-- Satisfies all separation constraints
-- Establishes that the admissibility definition is non-vacuous
-
-Formal definition: `NeutralSubstrate.Witness`
-
----
-
-## Design Principles
-
-### Neutrality
-
-The substrate must not encode identity-regime behavior.
-
-All regime semantics are external to this layer.
-
-### Lean as Authority
-
-All correctness is expressed and verified in Lean.
-
-No external system defines or validates theory semantics.
-
-## Build
-
-```shell
-elan self update
-lake update
-lake build
-```
-
-## Tooling
-
-Python tooling is used for:
-
-- documentation generation (Zensical)
-- repository hygiene (pre-commit, ruff)
-
-Python tooling must not:
-
-- define correctness
-- validate theory semantics
-- replace Lean proofs
+Version, authorship, and release date: see `CITATION.cff`.
+Scope, layer, and governance: see `SE_MANIFEST.toml`.

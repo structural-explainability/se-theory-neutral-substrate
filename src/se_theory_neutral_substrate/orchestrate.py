@@ -4,10 +4,10 @@ Owns run_validate(). Called by cli.py. Always syncs before validating.
 This is the only file in this package that knows the full validation order.
 
 Validation order:
-  1. sync_all()                  — align CITATION.cff and pyproject.toml
-  2. validate_tag()              — repo.version matches git tag (--require-tag only)
-  3. validate_schema_internal()  — manifest-schema.toml is self-consistent
-  4. validate_manifest()         — SE_MANIFEST.toml conforms to the schema
+  1. sync_all()                  - align CITATION.cff and pyproject.toml
+  2. validate_tag()              - repo.version matches git tag (--require-tag only)
+  3. validate_schema_internal()  - manifest-schema.toml is self-consistent
+  4. validate_manifest()         - SE_MANIFEST.toml conforms to the schema
 
 Consumers in other repos do not call run_validate here.
 They import validate_manifest directly:

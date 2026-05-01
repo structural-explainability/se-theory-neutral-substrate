@@ -1,13 +1,15 @@
+# ============================================================
+# lakefile.toml
+# ============================================================
+
 # REQ.FILE.PROJECT.IDENTITY
 #   Declares the externally visible identity and build surface of this package.
 #   Sections marked CUSTOM are expected to vary by repository.
 
-# ============================================================
-# REQUIRED PROJECT IDENTITY
-# ============================================================
+# === REQUIRED PROJECT IDENTITY
 
 name = "NeutralSubstrate"
-version = "0.1.0"
+version = "0.3.0"
 license = "MIT"
 
 keywords = [
@@ -23,15 +25,22 @@ keywords = [
   "lean4",
 ]
 
-# ============================================================
-# Build configuration
-# ============================================================
+
+# === BUILD CONFIGURATION
 
 defaultTargets = ["NeutralSubstrate"]
 
-# ============================================================
-# Libraries provided by this package
-# ============================================================
+# === EXPORT LIBRARY (public, exported)
 
 [[lean_lib]]
 name = "NeutralSubstrate"
+
+# === TEST LIBRARIES (internal, not exported)
+
+[[lean_lib]]
+name = "TestBasic"
+srcDir = "test"
+
+[[lean_lib]]
+name = "TestRegime"
+srcDir = "test"

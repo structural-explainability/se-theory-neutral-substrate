@@ -9,8 +9,8 @@ cff-version: "1.2.0"
 type: software
 
 title: "SE Theory: Neutral Substrate"
-version: "0.1.0"
-date-released: "2026-04-30"
+version: "0.3.0"
+date-released: "2026-05-01"
 
 authors:
   - family-names: Case

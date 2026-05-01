@@ -20,7 +20,6 @@ dependencies = [
     "se-manifest-schema==0.2.1", # WHY: Required for parsing and validating SE_MANIFEST.toml at runtime.
 ]
 
-
 [project.optional-dependencies]
 # WHY: Optional dependency groups keep the core install clean and focused.
 dev = [
@@ -167,5 +166,5 @@ packages = ["src/se_theory_neutral_substrate"]  # REQ.PACKAGES: Discovery rooted
 [tool.hatch.version]
 # WHY: Version derived from git tags at build time
 source = "vcs"
-fallback-version = "0.1.0"              # Used when no git tags present (fresh clone, CI).
+fallback-version = "0.3.0"              # Used when no git tags present (fresh clone, CI).
 tag-pattern = "^(?:v)?(?P<version>\\d+\\.\\d+\\.\\d+)$"

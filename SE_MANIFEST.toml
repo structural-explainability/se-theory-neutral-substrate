@@ -49,7 +49,7 @@ includes = [
 ]
 
 excludes = [
-  "identity regime definitions (OBL, NOR, OCC, CTX, REC, ENR)",
+  "identity regime definitions",
   "regime-profile derivation",
   "persistence behavior",
   "mapping semantics",

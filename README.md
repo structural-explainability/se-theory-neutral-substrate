@@ -27,7 +27,7 @@ or operational behavior.
 
 ## Does not own
 
-- Identity regimes (OBL, NOR, OCC, CTX, REC, ENR)
+- Identity regimes
 - Regime profiles
 - Persistence behavior
 - Mapping semantics
@@ -86,6 +86,8 @@ import NeutralSubstrate
 elan self update
 lake update
 lake build
+lake build TestBasic
+lake build TestRegime
 ```
 
 ## Tooling
