@@ -4,18 +4,25 @@
 # ============================================================
 
 schema = "se-manifest-2"
+schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/v0.2.0/manifest-schema.toml"
 
 # === Identity ===
 
 [meta]
-name = "se-theory-neutral-substrate"
-org = "structural-explainability"
-status = "active"
-version = "0.1.0"
+purpose = "Formalize the neutral structural substrate in Lean 4, defining admissibility, separation, and substrate invariants without encoding identity regimes."
 
 [repo]
+name = "se-theory-neutral-substrate"
+org = "structural-explainability"
 class = "theory"
+kind = "foundation"
+status = "active"
+since = "2026"
 summary = "Lean 4 formalization of the neutral structural substrate defining admissibility, separation, and substrate invariants without encoding identity regimes."
+
+[layer]
+space = "formal-theory"
+role = "theory"
 
 # === Structural contract ===
 

@@ -133,8 +133,12 @@ uvx pre-commit run --all-files
 git add -A
 uvx pre-commit run --all-files
 
+# validate
+uv run python -m se_theory_neutral_substrate validate --strict
+
 # do chores
-npx markdownlint-cli "**/*.md" --fix
+uv run python -m pyright
+uv run python -m pytest
 uv run python -m zensical build
 
 # save progress
