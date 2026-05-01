@@ -52,6 +52,7 @@ export SE.NeutralSubstrate (ExtensionStable)
 export SE.NeutralSubstrate (Neutral)
 export SE.NeutralSubstrate (FrameworkVariant)
 export SE.NeutralSubstrate (FrameworksContradict)
+export SE.NeutralSubstrate (InterpretivelyNonCommitted)
 
 
 -- ============================================================
@@ -79,5 +80,6 @@ export SE.NeutralSubstrate (causal_normative_affirmed)
 export SE.NeutralSubstrate (not_neutral_if_causal_or_normative)
 export SE.NeutralSubstrate (neutral_if_only_neutral)
 export SE.NeutralSubstrate (ontological_neutrality_theorem)
+export SE.NeutralSubstrate (only_neutral_primitives_implies_INC)
 export SE.NeutralSubstrate (framework_contestability_lemma)
 export SE.NeutralSubstrate (separate_stability)

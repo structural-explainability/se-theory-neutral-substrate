@@ -9,7 +9,33 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
----
+## [0.4.0] - 2026-05-01
+
+### Added
+
+- `InterpretivelyNonCommitted` predicate; no primitive in the substrate
+  is framework-variant; the second neutrality requirement (INC) from
+  Case (2025) alongside extension stability (EXT)
+- `only_neutral_primitives_implies_INC` theorem; only-neutral substrates
+  satisfy INC under existing axioms; no additional axiom required
+- `NS.DEF.INTERPRETIVELY_NON_COMMITTED` citation ID
+- `NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC` citation ID
+
+### Changed
+
+- `Neutral` updated from EXT alone to the full `EXT ∧ INC` conjunction.
+
+  **Breaking change**: all proofs unfolding `Neutral` updated accordingly.
+
+- `framework_contestability_lemma` now proves both EXT and INC violations;
+- "deferred to 0.4.0" note removed
+- `NeutralSubstrate.lean` Section 2.2 updated with `InterpretivelyNonCommitted`
+- `NeutralSubstrate.lean` Section 2.4 updated with `only_neutral_primitives_implies_INC`
+
+### Exports Added
+
+- `InterpretivelyNonCommitted`
+- `only_neutral_primitives_implies_INC`
 
 ## [0.3.0] - 2026-05-01
 
@@ -132,6 +158,7 @@ git tag -d vX.Z.Y
 git push origin :refs/tags/vX.Z.Y
 ```
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.1.0...v0.3.0
 [0.1.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.1.0

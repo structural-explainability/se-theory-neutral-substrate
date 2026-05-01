@@ -7,6 +7,9 @@ For normative definitions, stability guarantees, and theorem statements,
 see `NeutralSubstrate.lean` (the authoritative source).
 This document provides a brief orientation only.
 See [process](./process.md) for an overview of the Lean implementation process.
+See [process-040](./process-040.md) for an overview of
+proving NS from a conjunction (ExtensionStable ∧ InterpretivelyNonCommitted)
+rather than a single proposition (ExtensionStable).
 
 ## Core
 

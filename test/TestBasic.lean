@@ -33,6 +33,7 @@ open SE.NeutralSubstrate
 #check @extensionInconsistent
 #check @FrameworkVariant
 #check @FrameworksContradict
+#check @InterpretivelyNonCommitted
 #check @framework_relativity
 #check @neutral_primitives_undisputed
 #check @causal_normative_affirmed
@@ -61,6 +62,10 @@ open SE.NeutralSubstrate
 
 #check @framework_contestability_lemma
 -- ∀ (p : Primitive), FrameworkVariant p → ∀ (S : Ontology), p ∈ S → ¬Neutral S
+
+#check @only_neutral_primitives_implies_INC
+-- ∀ (S : Ontology), containsCausalOrNormative S = false →
+--   InterpretivelyNonCommitted S
 
 #check @separate_stability
 -- ∀ (S : Ontology), Neutral S → ∀ (F1 F2 : Framework),
@@ -132,6 +137,8 @@ open SE.NeutralSubstrate.Spec in
 open SE.NeutralSubstrate.Spec in
 #check NS_ID_DEF_FRAMEWORKS_CONTRADICT
 open SE.NeutralSubstrate.Spec in
+#check NS_ID_DEF_INTERPRETIVELY_NON_COMMITTED
+open SE.NeutralSubstrate.Spec in
 #check NS_ID_AXIOM_FRAMEWORK_RELATIVITY
 open SE.NeutralSubstrate.Spec in
 #check NS_ID_AXIOM_NEUTRAL_PRIMITIVES_UNDISPUTED
@@ -149,3 +156,5 @@ open SE.NeutralSubstrate.Spec in
 #check NS_ID_THEOREM_FRAMEWORK_CONTESTABILITY
 open SE.NeutralSubstrate.Spec in
 #check NS_ID_THEOREM_SEPARATE_STABILITY
+open SE.NeutralSubstrate.Spec in
+#check NS_ID_THEOREM_ONLY_NEUTRAL_IMPLIES_INC

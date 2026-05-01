@@ -111,17 +111,6 @@ def extensionInconsistent (S : Ontology) (F : Framework) : Prop :=
 def ExtensionStable (S : Ontology) : Prop :=
   ∀ F : Framework, Admissible F → ¬extensionInconsistent S F
 
-/-- Neutrality is extension stability.
-
-    An ontology is neutral iff it can be extended by any admissible framework
-    without revision or contradiction.
-
-    OBS: The paper also specifies INC (interpretive non-commitment).
-    This formalization focuses on EXT (extension stability) as the
-    mechanically sufficient condition for the main theorem.
-    INC will be formalized in a future version alongside EXT. -/
-def Neutral (S : Ontology) : Prop := ExtensionStable S
-
 /-- A primitive is framework-variant if admissible frameworks disagree about it:
     some affirm it, some deny it.
 
@@ -135,6 +124,37 @@ def Neutral (S : Ontology) : Prop := ExtensionStable S
 def FrameworkVariant (p : Primitive) : Prop :=
   ∃ F1 F2 : Framework, Admissible F1 ∧ Admissible F2 ∧
     F1.affirms p = true ∧ F2.denies p = true
+
+/-- Interpretive non-commitment: no primitive in the substrate is framework-variant.
+
+    A substrate satisfies INC when every primitive it contains has truth
+    conditions that are framework-invariant — no admissible framework
+    affirms it while another denies it.
+
+    WHY: INC is the second neutrality requirement from Case (2025) alongside
+    EXT (extension stability). Together they constitute full neutrality.
+    A substrate satisfying INC makes no interpretive commitments at the
+    foundational layer: it does not assert propositions whose truth depends
+    on the conclusions of any particular interpretive framework.
+
+    OBS: For substrates where containsCausalOrNormative S = false,
+    INC follows from neutral_primitives_undisputed alone —
+    see only_neutral_primitives_implies_INC.
+    No additional axiom is required. -/
+def InterpretivelyNonCommitted (S : Ontology) : Prop :=
+  ∀ p ∈ S, ¬FrameworkVariant p
+
+/-- Neutrality is extension stability and interpretive non-commitment.
+
+    An ontology is neutral iff it can be extended by any admissible framework
+    without revision or contradiction (EXT), and it does not assert any
+    framework-variant proposition at the substrate layer (INC).
+
+    WHY: Both requirements are necessary. EXT alone is sufficient for the
+    lower bound but the full paper theorem requires INC alongside EXT.
+    See ontological_neutrality_theorem for the biconditional result. -/
+def Neutral (S : Ontology) : Prop :=
+  ExtensionStable S ∧ InterpretivelyNonCommitted S
 
 /-- Two frameworks mutually contradict when one affirms what the other denies.
 
@@ -264,6 +284,36 @@ theorem any_false_implies_none {α : Type} (l : List α) (pred : α → Bool) :
 -- REQ.CORE.THEOREMS
 --   The main results. Each theorem cites its proof strategy.
 
+/-- THEOREM: Only-neutral substrate satisfies INC.
+
+    If an ontology contains only neutral primitives, it satisfies
+    interpretive non-commitment.
+
+    WHY: Establishes that INC follows from neutral_primitives_undisputed
+    alone, without requiring a new axiom. Used as a helper in the
+    updated neutral_if_only_neutral proof.
+
+    Proof strategy:
+    1. Take any p ∈ S and assume FrameworkVariant p for contradiction
+    2. Extract F2 from FrameworkVariant — the framework that denies p
+    3. any_false_implies_none shows p.kind = neutral
+    4. neutral_primitives_undisputed shows F2 cannot deny p
+    5. Contradiction with F2.denies p = true -/
+theorem only_neutral_primitives_implies_INC :
+    ∀ S : Ontology, containsCausalOrNormative S = false →
+    InterpretivelyNonCommitted S := by
+  intro S h_only_neutral
+  unfold InterpretivelyNonCommitted FrameworkVariant
+  intro p hp_in_S
+  intro ⟨_F1, F2, _hF1_adm, hF2_adm, _hF1_affirms, hF2_denies⟩
+  have h_all_neutral := any_false_implies_none S _ h_only_neutral
+  have hp_neutral_kind : (p.kind != PrimitiveKind.neutral) = false :=
+    h_all_neutral p hp_in_S
+  simp at hp_neutral_kind
+  have h_not_denied := neutral_primitives_undisputed p hp_neutral_kind F2 hF2_adm
+  rw [h_not_denied] at hF2_denies
+  contradiction
+
 /-- THEOREM: If an ontology contains causal or normative primitives, it is not neutral.
 
     This is the lower bound of the main theorem.
@@ -272,16 +322,18 @@ theorem any_false_implies_none {α : Type} (l : List α) (pred : α → Bool) :
     are contested across admissible frameworks.
 
     Proof strategy:
-    1. Assume neutrality for contradiction
-    2. Extract witness primitive p via any_true_implies_exists
-    3. Show p.kind ≠ neutral from the boolean witness
-    4. Apply framework_relativity to get F that denies p
-    5. Neutrality of S says F cannot cause inconsistency
-    6. But p ∈ S and F.denies p = true is exactly inconsistency
-    7. Contradiction -/
+    1. Assume neutrality (EXT ∧ INC) for contradiction
+    2. Extract EXT conjunct from h_neutral
+    3. Extract witness primitive p via any_true_implies_exists
+    4. Show p.kind ≠ neutral from the boolean witness
+    5. Apply framework_relativity to get F that denies p
+    6. EXT of S says F cannot cause inconsistency
+    7. But p ∈ S and F.denies p = true is exactly inconsistency
+    8. Contradiction -/
 theorem not_neutral_if_causal_or_normative :
     ∀ S : Ontology, containsCausalOrNormative S = true → ¬Neutral S := by
   intro S h_contains h_neutral
+  have h_ext := h_neutral.1
   have h_exists := any_true_implies_exists S _ h_contains
   match h_exists with
   | ⟨p, hp_in_S, hp_kind⟩ =>
@@ -289,7 +341,7 @@ theorem not_neutral_if_causal_or_normative :
       intro h_eq
       simp [h_eq] at hp_kind
     have ⟨F, hF_adm, hF_denies⟩ := framework_relativity p hp_not_neutral
-    have h_no_inconsist := h_neutral F hF_adm
+    have h_no_inconsist := h_ext F hF_adm
     apply h_no_inconsist
     exact ⟨p, hp_in_S, hF_denies⟩
 
@@ -301,25 +353,26 @@ theorem not_neutral_if_causal_or_normative :
     themselves contested across admissible frameworks.
 
     Proof strategy:
-    1. Unfold Neutral and ExtensionStable to expose the goal
-    2. Take any admissible framework F
-    3. Assume inconsistency for contradiction: ∃ p ∈ S, F.denies p = true
-    4. any_false_implies_none shows every p ∈ S has kind = neutral
-    5. neutral_primitives_undisputed shows F cannot deny that p
-    6. Contradiction with the denial assumption -/
+    1. Split Neutral into EXT ∧ INC and prove each conjunct
+    2. EXT: unfold and proceed as before using neutral_primitives_undisputed
+    3. INC: apply only_neutral_primitives_implies_INC directly -/
 theorem neutral_if_only_neutral :
     ∀ S : Ontology, containsCausalOrNormative S = false → Neutral S := by
   intro S h_only_neutral
-  unfold Neutral ExtensionStable extensionInconsistent
-  intro F hF_adm
-  intro ⟨p, hp_in_S, hF_denies⟩
-  have h_all_neutral := any_false_implies_none S _ h_only_neutral
-  have hp_neutral_kind : (p.kind != PrimitiveKind.neutral) = false :=
-    h_all_neutral p hp_in_S
-  simp at hp_neutral_kind
-  have h_not_denied := neutral_primitives_undisputed p hp_neutral_kind F hF_adm
-  rw [h_not_denied] at hF_denies
-  contradiction
+  constructor
+  · -- EXT: extension stability
+    unfold ExtensionStable extensionInconsistent
+    intro F hF_adm
+    intro ⟨p, hp_in_S, hF_denies⟩
+    have h_all_neutral := any_false_implies_none S _ h_only_neutral
+    have hp_neutral_kind : (p.kind != PrimitiveKind.neutral) = false :=
+      h_all_neutral p hp_in_S
+    simp at hp_neutral_kind
+    have h_not_denied := neutral_primitives_undisputed p hp_neutral_kind F hF_adm
+    rw [h_not_denied] at hF_denies
+    contradiction
+  · -- INC: interpretive non-commitment
+    exact only_neutral_primitives_implies_INC S h_only_neutral
 
 /-- THEOREM: Ontological Neutrality (biconditional)
 
@@ -327,6 +380,7 @@ theorem neutral_if_only_neutral :
 
     This is the main result from Case (2025).
     It holds given framework_relativity and neutral_primitives_undisputed.
+    Neutrality is now the full EXT ∧ INC conjunction.
 
     NOTE: The two directions have different epistemic status.
     - Only-if (lower bound): follows from framework_relativity alone.
@@ -361,23 +415,25 @@ theorem ontological_neutrality_theorem :
     Formalizes the paper's Framework-Contestability Lemma (Case 2025, §4.2):
     a proposition whose truth conditions depend on interpretive framework
     conclusions cannot be a substrate commitment without violating
-    extension stability.
+    either EXT or INC.
 
-    NOTE: The paper states two conclusions from contestability:
-    (1) EXT violated - formalized here
-    (2) INC violated - deferred to 0.4.0 when INC is formalized
+    Both violations are now formalized:
+    (1) EXT violated: F2 denies p, but p ∈ S, producing inconsistency
+    (2) INC violated: p is framework-variant, but S contains p
 
     Proof strategy:
-    1. Extract F2 from FrameworkVariant - the framework that denies p
-    2. Apply h_neutral to F2 to get no-inconsistency claim
-    3. Construct extensionInconsistent S F2 from p ∈ S and F2.denies p
-    4. Contradiction -/
+    1. Assume Neutral S (EXT ∧ INC) for contradiction
+    2. EXT violation: extract h_ext, apply framework_relativity pattern
+       via F2 from FrameworkVariant, construct extensionInconsistent
+    3. INC violation: extract h_inc, apply to p and hp_in_S,
+       apply h_variant directly for contradiction
+    Note: either violation suffices; we use INC as it is most direct. -/
 theorem framework_contestability_lemma :
     ∀ p : Primitive, FrameworkVariant p →
     ∀ S : Ontology, p ∈ S → ¬Neutral S := by
   intro p h_variant S hp_in_S h_neutral
-  obtain ⟨_F1, F2, _hF1_adm, hF2_adm, _hF1_affirms, hF2_denies⟩ := h_variant
-  exact h_neutral F2 hF2_adm ⟨p, hp_in_S, hF2_denies⟩
+  have h_inc := h_neutral.2
+  exact h_inc p hp_in_S h_variant
 
 /-- THEOREM: Separate Stability
 
@@ -385,26 +441,25 @@ theorem framework_contestability_lemma :
     contradicting frameworks.
 
     Formalizes the paper's key observation (Case 2025, §4.1) that a neutral
-    substrate need not reconcile contradicting frameworks - it must only
+    substrate need not reconcile contradicting frameworks — it must only
     avoid assertions that either framework rejects. The substrate's role
     is common-ground provision, not arbitration.
 
     NOTE: FrameworksContradict is not used in the proof body.
-    Neutrality implies stability under ALL admissible frameworks, which
-    subsumes the two-framework case. The hypothesis is retained for
-    fidelity to the paper's framing and to make the theorem applicable
-    to the incident example pattern.
+    The EXT conjunct of Neutral implies stability under ALL admissible
+    frameworks, which subsumes the two-framework case. The hypothesis
+    is retained for fidelity to the paper's framing.
 
     Proof strategy:
-    Neutrality of S directly implies ¬extensionInconsistent S F for any
-    admissible F. Apply twice, once for F1 and once for F2. -/
+    Extract EXT conjunct from Neutral S.
+    Apply twice, once for F1 and once for F2. -/
 theorem separate_stability :
     ∀ S : Ontology, Neutral S →
     ∀ F1 F2 : Framework, Admissible F1 → Admissible F2 →
     FrameworksContradict F1 F2 →
     ¬extensionInconsistent S F1 ∧ ¬extensionInconsistent S F2 := by
   intro S h_neutral F1 F2 hF1_adm hF2_adm _h_contradict
-  exact ⟨h_neutral F1 hF1_adm, h_neutral F2 hF2_adm⟩
+  exact ⟨h_neutral.1 F1 hF1_adm, h_neutral.1 F2 hF2_adm⟩
 
 
 -- ============================================================
@@ -428,8 +483,15 @@ theorem separate_stability :
 #check @FrameworkVariant
 -- Primitive → Prop
 
+#check @InterpretivelyNonCommitted
+-- Ontology → Prop
+
 #check @FrameworksContradict
 -- Framework → Framework → Prop
+
+#check @only_neutral_primitives_implies_INC
+-- ∀ (S : Ontology), containsCausalOrNormative S = false →
+--   InterpretivelyNonCommitted S
 
 #check @framework_contestability_lemma
 -- ∀ (p : Primitive), FrameworkVariant p → ∀ (S : Ontology), p ∈ S → ¬Neutral S

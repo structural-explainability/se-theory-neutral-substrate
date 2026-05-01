@@ -74,6 +74,10 @@ def NS_ID_DEF_FRAMEWORK_VARIANT : String :=
 def NS_ID_DEF_FRAMEWORKS_CONTRADICT : String :=
   "NS.DEF.FRAMEWORKS_CONTRADICT"
 
+/-- Cite when a regime depends on the definition of InterpretivelyNonCommitted. -/
+def NS_ID_DEF_INTERPRETIVELY_NON_COMMITTED : String :=
+  "NS.DEF.INTERPRETIVELY_NON_COMMITTED"
+
 
 -- ============================================================
 -- AXIOMS
@@ -130,6 +134,11 @@ def NS_ID_THEOREM_FRAMEWORK_CONTESTABILITY : String :=
 /-- Cite when a regime applies or instantiates separate stability. -/
 def NS_ID_THEOREM_SEPARATE_STABILITY : String :=
   "NS.THEOREM.SEPARATE_STABILITY"
+
+/-- Cite when a regime depends on the result that only-neutral substrates satisfy INC.
+    This theorem confirms no new axiom is needed for the INC direction. -/
+def NS_ID_THEOREM_ONLY_NEUTRAL_IMPLIES_INC : String :=
+  "NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC"
 
 
 end SE.NeutralSubstrate.Spec
