@@ -32,7 +32,7 @@ env:
   PYTHONIOENCODING: "utf-8" # WHY: Consistent encoding across platforms.
   PYTHON_VERSION: "3.15"
   UV_PYTHON: "3.15"
-  DOC_SECTIONS: "Core, Spec, Surface"   # WHY: Enforce critical docs sections for theory repositories.
+  DOC_SECTIONS: "Core,Spec,Surface"   # WHY: Enforce critical docs sections for theory repositories.
    # OBS: This is a comma-separated list of required section headers in docs/en/index.md.
   MODULE_PREFIX: "NeutralSubstrate/"
 
