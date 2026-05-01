@@ -1,0 +1,63 @@
+# ============================================================
+# Neutral Substrate Theorems
+# se-theory-neutral-substrate
+# ============================================================
+
+schema = "se-substrate-theorem-registry-1"
+repo = "se-theory-neutral-substrate"
+surface_module = "NeutralSubstrate.Surface"
+namespace = "SE.NeutralSubstrate"
+
+[theorem.not_neutral_if_causal_or_normative]
+id = "not_neutral_if_causal_or_normative"
+cite_id = "NS.THEOREM.not_neutral_if_causal_or_normative"
+name = "Not neutral if causal or normative"
+lean_symbol = "not_neutral_if_causal_or_normative"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "If causal or normative commitment is present, the relevant substrate or framework is not neutral."
+
+[theorem.neutral_if_only_neutral]
+id = "neutral_if_only_neutral"
+cite_id = "NS.THEOREM.neutral_if_only_neutral"
+name = "Neutral if only neutral"
+lean_symbol = "neutral_if_only_neutral"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "If only neutral primitives or commitments are present, the relevant substrate or framework is neutral."
+
+[theorem.ontological_neutrality_theorem]
+id = "ontological_neutrality_theorem"
+cite_id = "NS.THEOREM.ontological_neutrality_theorem"
+name = "Ontological neutrality theorem"
+lean_symbol = "ontological_neutrality_theorem"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "Main theorem establishing ontological neutrality under the required neutral-substrate conditions."
+
+[theorem.only_neutral_primitives_implies_INC]
+id = "only_neutral_primitives_implies_INC"
+cite_id = "NS.THEOREM.only_neutral_primitives_implies_INC"
+name = "Only neutral primitives implies interpretive non-commitment"
+lean_symbol = "only_neutral_primitives_implies_INC"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "If only neutral primitives are present, interpretive non-commitment follows."
+
+[theorem.framework_contestability_lemma]
+id = "framework_contestability_lemma"
+cite_id = "NS.THEOREM.framework_contestability_lemma"
+name = "Framework contestability lemma"
+lean_symbol = "framework_contestability_lemma"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "Lemma supporting contestability or relativity among frameworks."
+
+[theorem.separate_stability]
+id = "separate_stability"
+cite_id = "NS.THEOREM.separate_stability"
+name = "Separate stability"
+lean_symbol = "separate_stability"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "Theorem or lemma establishing separate stability under the relevant neutral-substrate conditions."

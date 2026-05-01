@@ -6,7 +6,7 @@ import pytest
 from se_manifest_schema.load import load_manifest
 
 from se_theory_neutral_substrate.load import (
-    load_schema,
+    load_manifest_schema,
     load_toml,
 )
 
@@ -19,9 +19,9 @@ def test_load_toml(tmp_path: Path) -> None:
     assert result["section"]["key"] == "value"
 
 
-def test_load_schema_returns_dict() -> None:
-    """load_schema returns a non-empty dict from the installed package."""
-    schema = load_schema()
+def test_load_manifest_schema_returns_dict() -> None:
+    """load_manifest_schema returns a non-empty dict from the installed package."""
+    schema = load_manifest_schema()
     assert isinstance(schema, dict)
     assert len(schema) > 0
 

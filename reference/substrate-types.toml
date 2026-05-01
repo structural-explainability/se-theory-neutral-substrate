@@ -1,0 +1,41 @@
+# ============================================================
+# Neutral Substrate Types
+# se-theory-neutral-substrate
+# ============================================================
+
+schema = "se-substrate-type-registry-1"
+repo = "se-theory-neutral-substrate"
+surface_module = "NeutralSubstrate.Surface"
+namespace = "SE.NeutralSubstrate"
+
+[type.PrimitiveKind]
+id = "PrimitiveKind"
+cite_id = "NS.TYPE.PrimitiveKind"
+name = "Primitive kind"
+lean_symbol = "PrimitiveKind"
+source_module = "NeutralSubstrate.Core"
+description = "Classifies the kind of primitive available in the neutral substrate."
+
+[type.Primitive]
+id = "Primitive"
+cite_id = "NS.TYPE.Primitive"
+name = "Primitive"
+lean_symbol = "Primitive"
+source_module = "NeutralSubstrate.Core"
+description = "A primitive structural item in the neutral substrate."
+
+[type.Ontology]
+id = "Ontology"
+cite_id = "NS.TYPE.Ontology"
+name = "Ontology"
+lean_symbol = "Ontology"
+source_module = "NeutralSubstrate.Core"
+description = "A collection or organization of primitives and their interpretive commitments."
+
+[type.Framework]
+id = "Framework"
+cite_id = "NS.TYPE.Framework"
+name = "Framework"
+lean_symbol = "Framework"
+source_module = "NeutralSubstrate.Core"
+description = "A framework over which neutrality, admissibility, and interpretive non-commitment may be evaluated."

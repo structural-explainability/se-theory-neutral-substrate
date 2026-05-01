@@ -1,0 +1,33 @@
+# ============================================================
+# Neutral Substrate Axioms
+# se-theory-neutral-substrate
+# ============================================================
+
+schema = "se-substrate-axiom-registry-1"
+repo = "se-theory-neutral-substrate"
+surface_module = "NeutralSubstrate.Surface"
+namespace = "SE.NeutralSubstrate"
+
+[axiom.framework_relativity]
+id = "framework_relativity"
+cite_id = "NS.AXIOM.framework_relativity"
+name = "Framework relativity"
+lean_symbol = "framework_relativity"
+source_module = "NeutralSubstrate.Core"
+description = "Axiom expressing that relevant neutrality or interpretation claims may be relative to a framework."
+
+[axiom.neutral_primitives_undisputed]
+id = "neutral_primitives_undisputed"
+cite_id = "NS.AXIOM.neutral_primitives_undisputed"
+name = "Neutral primitives undisputed"
+lean_symbol = "neutral_primitives_undisputed"
+source_module = "NeutralSubstrate.Core"
+description = "Axiom asserting the availability or undisputed status of neutral primitives."
+
+[axiom.causal_normative_affirmed]
+id = "causal_normative_affirmed"
+cite_id = "NS.AXIOM.causal_normative_affirmed"
+name = "Causal or normative affirmed"
+lean_symbol = "causal_normative_affirmed"
+source_module = "NeutralSubstrate.Core"
+description = "Axiom identifying when causal or normative commitment is affirmed."

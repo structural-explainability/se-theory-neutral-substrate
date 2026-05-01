@@ -1,0 +1,73 @@
+# ============================================================
+# Neutral Substrate Predicates
+# se-theory-neutral-substrate
+# ============================================================
+
+schema = "se-substrate-predicate-registry-1"
+repo = "se-theory-neutral-substrate"
+surface_module = "NeutralSubstrate.Surface"
+namespace = "SE.NeutralSubstrate"
+
+[predicate.Admissible]
+id = "Admissible"
+cite_id = "NS.DEF.Admissible"
+name = "Admissible"
+lean_symbol = "Admissible"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate indicating that a framework or substrate satisfies the conditions required for downstream regime reasoning."
+
+[predicate.containsCausalOrNormative]
+id = "containsCausalOrNormative"
+cite_id = "NS.DEF.containsCausalOrNormative"
+name = "Contains causal or normative commitment"
+lean_symbol = "containsCausalOrNormative"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate indicating that an ontology or framework contains causal or normative commitments."
+
+[predicate.extensionInconsistent]
+id = "extensionInconsistent"
+cite_id = "NS.DEF.extensionInconsistent"
+name = "Extension inconsistent"
+lean_symbol = "extensionInconsistent"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate indicating inconsistency under extension."
+
+[predicate.ExtensionStable]
+id = "ExtensionStable"
+cite_id = "NS.DEF.ExtensionStable"
+name = "Extension stable"
+lean_symbol = "ExtensionStable"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate indicating stability under extension."
+
+[predicate.Neutral]
+id = "Neutral"
+cite_id = "NS.DEF.Neutral"
+name = "Neutral"
+lean_symbol = "Neutral"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate indicating that the substrate or framework remains neutral with respect to causal, normative, or domain-specific interpretive commitments."
+
+[predicate.FrameworkVariant]
+id = "FrameworkVariant"
+cite_id = "NS.DEF.FrameworkVariant"
+name = "Framework variant"
+lean_symbol = "FrameworkVariant"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate or relation identifying a framework variant."
+
+[predicate.FrameworksContradict]
+id = "FrameworksContradict"
+cite_id = "NS.DEF.FrameworksContradict"
+name = "Frameworks contradict"
+lean_symbol = "FrameworksContradict"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate indicating contradiction between frameworks."
+
+[predicate.InterpretivelyNonCommitted]
+id = "InterpretivelyNonCommitted"
+cite_id = "NS.DEF.InterpretivelyNonCommitted"
+name = "Interpretively non-committed"
+lean_symbol = "InterpretivelyNonCommitted"
+source_module = "NeutralSubstrate.Core"
+description = "Predicate indicating absence of interpretive commitment beyond the neutral structural substrate."

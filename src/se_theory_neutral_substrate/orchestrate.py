@@ -1,4 +1,4 @@
-"""orchestrate.py - Validation orchestrator for se-manifest-schema.
+"""orchestrate.py - Validation orchestrator for se-theory-neutral-substrate.
 
 Owns run_validate(). Called by cli.py. Always syncs before validating.
 This is the only file in this package that knows the full validation order.
@@ -8,10 +8,10 @@ Validation order:
   2. validate_tag()              - repo.version matches git tag (--require-tag only)
   3. validate_schema_internal()  - manifest-schema.toml is self-consistent
   4. validate_manifest()         - SE_MANIFEST.toml conforms to the schema
+  5. validate_reference()        - reference/index.toml and reference artifacts are coherent
 
-Consumers in other repos do not call run_validate here.
-They import validate_manifest directly:
-  from se_theory_neutral_substrate.validate_manifest import validate_manifest
+Consumers in other repos should not call run_validate().
+They should call the specific validation function they need.
 """
 
 from typing import cast
@@ -23,11 +23,12 @@ from se_manifest_schema.validate_contract import validate_tag
 from se_manifest_schema.validate_manifest import validate_manifest
 from se_manifest_schema.validate_schema import validate_schema_internal
 
-from se_theory_neutral_substrate.load import load_schema
+from se_theory_neutral_substrate.load import load_manifest_schema
+from se_theory_neutral_substrate.validate_reference import validate_reference
 
 
 def run_validate(*, require_tag: bool = False, strict: bool = False) -> int:
-    """Sync and validate manifest-schema.toml and SE_MANIFEST.toml.
+    """Sync and validate this theory repository.
 
     Args:
         require_tag: If True, verify repo.version matches current git tag.
@@ -43,7 +44,7 @@ def run_validate(*, require_tag: bool = False, strict: bool = False) -> int:
 
     try:
         manifest = load_manifest()
-        schema = load_schema()
+        schema = load_manifest_schema()
     except FileNotFoundError as e:
         print(f"ERROR: {e}")
         return 1
@@ -56,6 +57,7 @@ def run_validate(*, require_tag: bool = False, strict: bool = False) -> int:
 
     errors.extend(validate_schema_internal(cast(ManifestSchemaData, schema)))
     errors.extend(validate_manifest(manifest, cast(ManifestSchemaData, schema)))
+    errors.extend(validate_reference())
 
     for e in errors:
         print(f"ERROR: {e}")
@@ -67,5 +69,5 @@ def run_validate(*, require_tag: bool = False, strict: bool = False) -> int:
     if strict and warnings:
         return 1
 
-    print("Manifest schema validation passed.")
+    print("Repository validation passed.")
     return 0

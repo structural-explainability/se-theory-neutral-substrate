@@ -1,0 +1,57 @@
+{
+  "schema": "se-proof-registry-1",
+  "repo": "se-theory-neutral-substrate",
+  "surface_module": "NeutralSubstrate.Surface",
+  "namespace": "SE.NeutralSubstrate",
+  "proof_system": "lean4",
+  "proofs": [
+    {
+      "id": "proof_not_neutral_if_causal_or_normative",
+      "theorem_id": "not_neutral_if_causal_or_normative",
+      "cite_id": "NS.THEOREM.not_neutral_if_causal_or_normative",
+      "status": "proved",
+      "lean_symbol": "not_neutral_if_causal_or_normative",
+      "source_module": "NeutralSubstrate.Core"
+    },
+    {
+      "id": "proof_neutral_if_only_neutral",
+      "theorem_id": "neutral_if_only_neutral",
+      "cite_id": "NS.THEOREM.neutral_if_only_neutral",
+      "status": "proved",
+      "lean_symbol": "neutral_if_only_neutral",
+      "source_module": "NeutralSubstrate.Core"
+    },
+    {
+      "id": "proof_ontological_neutrality_theorem",
+      "theorem_id": "ontological_neutrality_theorem",
+      "cite_id": "NS.THEOREM.ontological_neutrality_theorem",
+      "status": "proved",
+      "lean_symbol": "ontological_neutrality_theorem",
+      "source_module": "NeutralSubstrate.Core"
+    },
+    {
+      "id": "proof_only_neutral_primitives_implies_INC",
+      "theorem_id": "only_neutral_primitives_implies_INC",
+      "cite_id": "NS.THEOREM.only_neutral_primitives_implies_INC",
+      "status": "proved",
+      "lean_symbol": "only_neutral_primitives_implies_INC",
+      "source_module": "NeutralSubstrate.Core"
+    },
+    {
+      "id": "proof_framework_contestability_lemma",
+      "theorem_id": "framework_contestability_lemma",
+      "cite_id": "NS.THEOREM.framework_contestability_lemma",
+      "status": "proved",
+      "lean_symbol": "framework_contestability_lemma",
+      "source_module": "NeutralSubstrate.Core"
+    },
+    {
+      "id": "proof_separate_stability",
+      "theorem_id": "separate_stability",
+      "cite_id": "NS.THEOREM.separate_stability",
+      "status": "proved",
+      "lean_symbol": "separate_stability",
+      "source_module": "NeutralSubstrate.Core"
+    }
+  ]
+}

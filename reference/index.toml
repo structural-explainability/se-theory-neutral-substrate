@@ -1,0 +1,66 @@
+# ============================================================
+# Reference Artifact Index
+# se-theory-neutral-substrate
+# ============================================================
+
+schema = "se-reference-index-1"
+repo = "se-theory-neutral-substrate"
+ref_kind = "formal-theory-reference"
+surface_module = "NeutralSubstrate.Surface"
+
+[[artifact]]
+id = "substrate-types"
+path = "reference/substrate-types.toml"
+kind = "substrate-type-registry"
+format = "toml"
+generated = false
+required = true
+
+[[artifact]]
+id = "substrate-predicates"
+path = "reference/substrate-predicates.toml"
+kind = "substrate-predicate-registry"
+format = "toml"
+generated = false
+required = true
+
+[[artifact]]
+id = "substrate-axioms"
+path = "reference/substrate-axioms.toml"
+kind = "substrate-axiom-registry"
+format = "toml"
+generated = false
+required = true
+
+[[artifact]]
+id = "substrate-theorems"
+path = "reference/substrate-theorems.toml"
+kind = "substrate-theorem-registry"
+format = "toml"
+generated = false
+required = true
+
+[[artifact]]
+id = "proof-registry"
+path = "reference/proof-registry.json"
+kind = "proof-registry"
+format = "json"
+generated = true
+generator = "lean4"
+required = true
+
+[[artifact]]
+id = "dependency-registry"
+path = "reference/dependency-registry.toml"
+kind = "dependency-registry"
+format = "toml"
+generated = false
+required = true
+
+[[artifact]]
+id = "traceability-registry"
+path = "reference/traceability-registry.toml"
+kind = "traceability-registry"
+format = "toml"
+generated = false
+required = true

@@ -1,0 +1,73 @@
+# ============================================================
+# Traceability Registry
+# se-theory-neutral-substrate
+# ============================================================
+
+schema = "se-traceability-registry-1"
+repo = "se-theory-neutral-substrate"
+
+[trace.not_neutral_if_causal_or_normative]
+id = "trace-not-neutral-if-causal-or-normative"
+from = "not_neutral_if_causal_or_normative"
+to = [
+  "containsCausalOrNormative",
+  "Neutral",
+  "causal_normative_affirmed"
+]
+relation = "depends_on"
+
+[trace.neutral_if_only_neutral]
+id = "trace-neutral-if-only-neutral"
+from = "neutral_if_only_neutral"
+to = [
+  "Neutral",
+  "neutral_primitives_undisputed"
+]
+relation = "depends_on"
+
+[trace.ontological_neutrality_theorem]
+id = "trace-ontological-neutrality-theorem"
+from = "ontological_neutrality_theorem"
+to = [
+  "PrimitiveKind",
+  "Primitive",
+  "Ontology",
+  "Framework",
+  "Neutral",
+  "InterpretivelyNonCommitted",
+  "framework_relativity",
+  "neutral_primitives_undisputed",
+  "causal_normative_affirmed"
+]
+relation = "depends_on"
+
+[trace.only_neutral_primitives_implies_INC]
+id = "trace-only-neutral-primitives-implies-inc"
+from = "only_neutral_primitives_implies_INC"
+to = [
+  "Primitive",
+  "Neutral",
+  "InterpretivelyNonCommitted",
+  "neutral_primitives_undisputed"
+]
+relation = "depends_on"
+
+[trace.framework_contestability_lemma]
+id = "trace-framework-contestability-lemma"
+from = "framework_contestability_lemma"
+to = [
+  "Framework",
+  "FrameworkVariant",
+  "FrameworksContradict",
+  "framework_relativity"
+]
+relation = "depends_on"
+
+[trace.separate_stability]
+id = "trace-separate-stability"
+from = "separate_stability"
+to = [
+  "ExtensionStable",
+  "extensionInconsistent"
+]
+relation = "depends_on"

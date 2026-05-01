@@ -1,0 +1,30 @@
+# ============================================================
+# Dependency Registry
+# se-theory-neutral-substrate
+# ============================================================
+
+schema = "se-dependency-registry-1"
+repo = "se-theory-neutral-substrate"
+
+[dependency.se_manifest_schema]
+id = "se-manifest-schema"
+target_repo = "se-manifest-schema"
+dependency_kind = "schema"
+required = true
+description = "Neutral substrate repo declares conformance through the shared SE manifest schema."
+
+[dependency.no_identity_regimes_dependency]
+id = "no-identity-regimes-dependency"
+target_repo = "se-theory-identity-regimes"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral substrate must not depend on identity regimes; regimes build on the neutral substrate, not the reverse."
+
+[dependency.no_structural_explainability_dependency]
+id = "no-structural-explainability-dependency"
+target_repo = "se-theory-structural-explainability"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral substrate must not depend on structural explainability integration theory."
