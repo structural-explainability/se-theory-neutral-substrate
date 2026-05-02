@@ -52,6 +52,22 @@
       "status": "proved",
       "lean_symbol": "separate_stability",
       "source_module": "NeutralSubstrate.Core"
+    },
+    {
+      "id": "proof_any_false_implies_none",
+      "theorem_id": "any_false_implies_none",
+      "cite_id": "NS.THEOREM.any_false_implies_none",
+      "status": "proved",
+      "lean_symbol": "any_false_implies_none",
+      "source_module": "NeutralSubstrate.Core"
+    },
+    {
+      "id": "proof_any_true_implies_exists",
+      "theorem_id": "any_true_implies_exists",
+      "cite_id": "NS.THEOREM.any_true_implies_exists",
+      "status": "proved",
+      "lean_symbol": "any_true_implies_exists",
+      "source_module": "NeutralSubstrate.Core"
     }
   ]
 }

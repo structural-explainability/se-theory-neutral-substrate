@@ -128,7 +128,7 @@ def FrameworkVariant (p : Primitive) : Prop :=
 /-- Interpretive non-commitment: no primitive in the substrate is framework-variant.
 
     A substrate satisfies INC when every primitive it contains has truth
-    conditions that are framework-invariant — no admissible framework
+    conditions that are framework-invariant: no admissible framework
     affirms it while another denies it.
 
     WHY: INC is the second neutrality requirement from Case (2025) alongside
@@ -138,8 +138,8 @@ def FrameworkVariant (p : Primitive) : Prop :=
     on the conclusions of any particular interpretive framework.
 
     OBS: For substrates where containsCausalOrNormative S = false,
-    INC follows from neutral_primitives_undisputed alone —
-    see only_neutral_primitives_implies_INC.
+    INC follows from neutral_primitives_undisputed alone.
+    See only_neutral_primitives_implies_INC.
     No additional axiom is required. -/
 def InterpretivelyNonCommitted (S : Ontology) : Prop :=
   ∀ p ∈ S, ¬FrameworkVariant p
@@ -295,7 +295,7 @@ theorem any_false_implies_none {α : Type} (l : List α) (pred : α → Bool) :
 
     Proof strategy:
     1. Take any p ∈ S and assume FrameworkVariant p for contradiction
-    2. Extract F2 from FrameworkVariant — the framework that denies p
+    2. Extract F2 from FrameworkVariant, the framework that denies p
     3. any_false_implies_none shows p.kind = neutral
     4. neutral_primitives_undisputed shows F2 cannot deny p
     5. Contradiction with F2.denies p = true -/
@@ -412,7 +412,7 @@ theorem ontological_neutrality_theorem :
 
     If a primitive is framework-variant, no substrate containing it is neutral.
 
-    Formalizes the paper's Framework-Contestability Lemma (Case 2025, §4.2):
+    Formalizes the paper's Framework-Contestability Lemma (Case 2025, Section 4.2):
     a proposition whose truth conditions depend on interpretive framework
     conclusions cannot be a substrate commitment without violating
     either EXT or INC.
@@ -440,8 +440,8 @@ theorem framework_contestability_lemma :
     A neutral substrate is separately consistent with each of two mutually
     contradicting frameworks.
 
-    Formalizes the paper's key observation (Case 2025, §4.1) that a neutral
-    substrate need not reconcile contradicting frameworks — it must only
+    Formalizes the paper's key observation (Case 2025, Section 4.1) that a neutral
+    substrate need not reconcile contradicting frameworks. It must only
     avoid assertions that either framework rejects. The substrate's role
     is common-ground provision, not arbitration.
 

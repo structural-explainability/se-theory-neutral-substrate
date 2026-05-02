@@ -5,15 +5,18 @@ Owns nothing except argument parsing and error handling.
 All logic lives in orchestrate.py and sync.py.
 
 Entry points:
-  uv run python -m se_theory_neutral_substrate validate
-  uv run python -m se_theory_neutral_substrate validate --strict
-  uv run python -m se_theory_neutral_substrate validate --require-tag
-  uv run python -m se_theory_neutral_substrate sync
-  uv run python -m se_theory_neutral_substrate scaffold
-  uv run python -m se_theory_neutral_substrate scaffold --dry-run
-  uv run python -m se_theory_neutral_substrate scaffold --overwrite
-  uv run python -m se_theory_neutral_substrate ref-validate
-  uv run python -m se_theory_neutral_substrate ref-validate --strict
+  uv run se-manifest-validate
+  uv run se-manifest-validate --strict
+  uv run se-manifest-validate --require-tag
+
+  uv run se-manifest-version-sync
+
+  uv run se-ref-scaffold
+  uv run se-ref-scaffold --dry-run
+  uv run se-ref-scaffold --overwrite
+
+  uv run se-ref-validate
+  uv run se-ref-validate --strict
 
 Call chain:
   __main__.py -> cli.main()
@@ -24,6 +27,7 @@ Call chain:
 """
 
 import argparse
+import sys
 
 from se_manifest_schema.sync import sync_all
 
@@ -34,8 +38,8 @@ from se_theory_neutral_substrate.reference import run_ref_validate, run_scaffold
 def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser."""
     parser = argparse.ArgumentParser(
-        prog="se-manifest-schema",
-        description="Sync and validate the SE manifest schema.",
+        prog="se-theory-neutral-substrate",
+        description="Manifest and reference tooling for se-theory-neutral-substrate.",
     )
     subparsers = parser.add_subparsers(dest="command")
 
@@ -59,21 +63,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="Sync pyproject.toml fallback-version from CITATION.cff version.",
     )
 
-    # -- scaffold -------------------------------------------------------------
-    scaffold_parser = subparsers.add_parser(
-        "scaffold",
+    # -- ref-scaffold -------------------------------------------------------------
+    ref_scaffold_parser = subparsers.add_parser(
+        "ref-scaffold",
         help=(
             "Scaffold reference/ artifacts from Lean 4 source. "
             "Adds stub entries for symbols not yet in the registry. "
             "Existing descriptions, names, and cite_ids are preserved."
         ),
     )
-    scaffold_parser.add_argument(
+    ref_scaffold_parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Report what would change without writing any files.",
     )
-    scaffold_parser.add_argument(
+    ref_scaffold_parser.add_argument(
         "--overwrite",
         action="store_true",
         help="Overwrite existing descriptions, names, and cite_ids with re-derived values.",
@@ -96,6 +100,26 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def validate_main() -> int:
+    """Validate the manifest schema and sync if needed. Returns 0 on success, 1 on error."""
+    return main(["validate"] + sys.argv[1:])
+
+
+def sync_main() -> int:
+    """Sync the manifest schema. Returns 0 on success, 1 on error."""
+    return main(["sync"] + sys.argv[1:])
+
+
+def ref_scaffold_main() -> int:
+    """Scaffold reference/ artifacts from Lean 4 source. Returns 0 on success, 1 on error."""
+    return main(["ref-scaffold"] + sys.argv[1:])
+
+
+def ref_validate_main() -> int:
+    """Validate reference/ artifacts against Lean 4 source. Returns 0 on success, 1 on error."""
+    return main(["ref-validate"] + sys.argv[1:])
+
+
 def main(argv: list[str] | None = None) -> int:
     """Run the command-line interface.
 
@@ -114,7 +138,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "sync":
             sync_all()
             return 0
-        if args.command == "scaffold":
+        if args.command == "ref-scaffold":
             return run_scaffold(
                 dry_run=args.dry_run,
                 overwrite=args.overwrite,

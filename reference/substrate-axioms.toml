@@ -14,7 +14,7 @@ cite_id = "NS.AXIOM.framework_relativity"
 name = "Framework relativity"
 lean_symbol = "framework_relativity"
 source_module = "NeutralSubstrate.Core"
-description = "Axiom expressing that relevant neutrality or interpretation claims may be relative to a framework."
+description = "For any non-neutral primitive, some admissible framework denies it. Encodes that causal and normative conclusions are inherently contested across interpretive frameworks. Sufficient for the lower bound (not_neutral_if_causal_or_normative) alone. Fails in domains where causal or normative consensus exists."
 
 [axiom.neutral_primitives_undisputed]
 id = "neutral_primitives_undisputed"
@@ -22,7 +22,7 @@ cite_id = "NS.AXIOM.neutral_primitives_undisputed"
 name = "Neutral primitives undisputed"
 lean_symbol = "neutral_primitives_undisputed"
 source_module = "NeutralSubstrate.Core"
-description = "Axiom asserting the availability or undisputed status of neutral primitives."
+description = "Neutral primitives are not denied by any admissible framework. Pure existence and identity claims are framework-invariant. Required for the upper bound (neutral_if_only_neutral); the biconditional holds only when both this axiom and framework_relativity are satisfied. Fails in domains where identity conditions are themselves contested."
 
 [axiom.causal_normative_affirmed]
 id = "causal_normative_affirmed"
@@ -30,4 +30,4 @@ cite_id = "NS.AXIOM.causal_normative_affirmed"
 name = "Causal or normative affirmed"
 lean_symbol = "causal_normative_affirmed"
 source_module = "NeutralSubstrate.Core"
-description = "Axiom identifying when causal or normative commitment is affirmed."
+description = "For any non-neutral primitive, some admissible framework affirms it. Companion to framework_relativity: together they establish that causal and normative primitives are genuinely framework-variant. Some frameworks affirm them, some deny them. Required for framework_contestability_lemma; without it FrameworkVariant cannot be instantiated for any concrete primitive."

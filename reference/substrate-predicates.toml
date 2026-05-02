@@ -14,7 +14,7 @@ cite_id = "NS.DEF.Admissible"
 name = "Admissible"
 lean_symbol = "Admissible"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate indicating that a framework or substrate satisfies the conditions required for downstream regime reasoning."
+description = "All internally consistent frameworks are admissible. Intentionally minimal: defined as Prop := True, meaning every framework satisfying the internal consistency requirement in the Framework structure qualifies. Admissibility is not universality. Admissible frameworks may contradict one another. A richer model could add domain-specific conditions."
 
 [predicate.containsCausalOrNormative]
 id = "containsCausalOrNormative"
@@ -22,7 +22,7 @@ cite_id = "NS.DEF.containsCausalOrNormative"
 name = "Contains causal or normative commitment"
 lean_symbol = "containsCausalOrNormative"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate indicating that an ontology or framework contains causal or normative commitments."
+description = "Boolean function returning true if any primitive in the ontology has kind other than neutral. This is the computational characterization the main theorem is stated over; the biconditional ontological_neutrality_theorem equates Neutral S with containsCausalOrNormative S = false."
 
 [predicate.extensionInconsistent]
 id = "extensionInconsistent"
@@ -30,7 +30,7 @@ cite_id = "NS.DEF.extensionInconsistent"
 name = "Extension inconsistent"
 lean_symbol = "extensionInconsistent"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate indicating inconsistency under extension."
+description = "A framework denies a primitive that the substrate contains. Models the conflict arising when an interpretive framework contradicts a substrate-level commitment: there exists a primitive p in S such that F.denies p = true."
 
 [predicate.ExtensionStable]
 id = "ExtensionStable"
@@ -38,7 +38,7 @@ cite_id = "NS.DEF.ExtensionStable"
 name = "Extension stable"
 lean_symbol = "ExtensionStable"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate indicating stability under extension."
+description = "No admissible framework causes inconsistency when extending the substrate. For all admissible frameworks F, extending S with F produces no contradiction. Captures the requirement that the substrate survives interpretive disagreement. It is the EXT conjunct of Neutral."
 
 [predicate.Neutral]
 id = "Neutral"
@@ -46,7 +46,7 @@ cite_id = "NS.DEF.Neutral"
 name = "Neutral"
 lean_symbol = "Neutral"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate indicating that the substrate or framework remains neutral with respect to causal, normative, or domain-specific interpretive commitments."
+description = "An ontology is neutral iff it satisfies both extension stability (EXT) and interpretive non-commitment (INC). EXT: no admissible framework contradicts the substrate. INC: no primitive in the substrate is framework-variant. Both conjuncts are necessary; the full biconditional requires both framework_relativity and neutral_primitives_undisputed."
 
 [predicate.FrameworkVariant]
 id = "FrameworkVariant"
@@ -54,7 +54,7 @@ cite_id = "NS.DEF.FrameworkVariant"
 name = "Framework variant"
 lean_symbol = "FrameworkVariant"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate or relation identifying a framework variant."
+description = "Admissible frameworks disagree about this primitive: some affirm it, some deny it. A primitive is framework-variant when there exist admissible F1 and F2 such that F1 affirms p and F2 denies p. This is the structural property that makes a primitive unsafe to embed at the substrate layer. Any substrate asserting a framework-variant primitive will be inconsistent with some admissible framework."
 
 [predicate.FrameworksContradict]
 id = "FrameworksContradict"
@@ -62,7 +62,7 @@ cite_id = "NS.DEF.FrameworksContradict"
 name = "Frameworks contradict"
 lean_symbol = "FrameworksContradict"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate indicating contradiction between frameworks."
+description = "Two frameworks mutually contradict when one affirms what the other denies. Mutual contradiction does not affect admissibility. Each framework may be internally consistent while contradicting the other. Instantiated in the incident example: the engineering and legal frameworks contradict each other over Responsible(a,e) while each remains separately consistent with the neutral substrate."
 
 [predicate.InterpretivelyNonCommitted]
 id = "InterpretivelyNonCommitted"
@@ -70,4 +70,4 @@ cite_id = "NS.DEF.InterpretivelyNonCommitted"
 name = "Interpretively non-committed"
 lean_symbol = "InterpretivelyNonCommitted"
 source_module = "NeutralSubstrate.Core"
-description = "Predicate indicating absence of interpretive commitment beyond the neutral structural substrate."
+description = "No primitive in the substrate is framework-variant. A substrate satisfies INC when every primitive it contains has framework-invariant truth conditions. This is the INC conjunct of Neutral. For substrates where containsCausalOrNormative S = false, INC follows from neutral_primitives_undisputed alone via only_neutral_primitives_implies_INC."

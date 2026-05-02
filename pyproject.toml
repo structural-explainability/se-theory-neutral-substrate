@@ -39,6 +39,12 @@ docs = [
     "zensical==0.0.37", # WHY: Link resolution fails with newer versions; pinning to a known working version.,
 ]
 
+[project.scripts]
+se-manifest-validate = "se_theory_neutral_substrate.cli:validate_main"
+se-manifest-version-sync = "se_theory_neutral_substrate.cli:sync_main"
+se-ref-scaffold = "se_theory_neutral_substrate.cli:ref_scaffold_main"
+se-ref-validate = "se_theory_neutral_substrate.cli:ref_validate_main"
+
 # ============================================================
 # SECTION 2: TOOL CONFIGURATION (Professional basics)
 # ============================================================
@@ -70,7 +76,7 @@ typeCheckingMode = "basic" # strict | basic | off
 # WHY: Consistent test discovery and coverage visibility.
 minversion = "7.0"
 testpaths = ["tests"]
-addopts = "--cov=se_theory_neutral_substrate --cov-report=term-missing --cov-fail-under=15"
+addopts = "--cov=se_theory_neutral_substrate --cov-report=term-missing --cov-fail-under=65"
 
 # === RUFF (PYTHON FORMATTING AND LINTING) ===
 
@@ -166,5 +172,5 @@ packages = ["src/se_theory_neutral_substrate"]  # REQ.PACKAGES: Discovery rooted
 [tool.hatch.version]
 # WHY: Version derived from git tags at build time
 source = "vcs"
-fallback-version = "0.4.0"              # Used when no git tags present (fresh clone, CI).
+fallback-version = "0.5.0"              # Used when no git tags present (fresh clone, CI).
 tag-pattern = "^(?:v)?(?P<version>\\d+\\.\\d+\\.\\d+)$"

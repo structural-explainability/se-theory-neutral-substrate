@@ -11,24 +11,34 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+---
+
+## [0.5.0] - 2026-05-02
+
 ### Added
 
-- Added `reference.py` for checking and scaffolding. Runs; needs a bit of tuning.
-- Added `reference/` artifacts for the public theory surface.
-- Added `reference/index.toml` to declare machine-readable reference artifacts.
-- Added reference validation for:
-  - `reference/index.toml` structure.
-  - declared artifact paths.
-  - declared artifact formats.
-  - Lean public surface coverage.
-- Added `lean_surface.py` to mirror the exported symbols from `Surface.lean`.
-- Added `paths.py` for repository path helpers used by reference validation.
-- Added `proof-registry.json` as the planned Lean-generated proof metadata artifact.
+- `reference/index.toml` declaring all machine-readable reference artifacts
+- `reference/substrate-types.toml` - type registry for PrimitiveKind, Primitive, Ontology, Framework
+- `reference/substrate-predicates.toml` - predicate registry for all eight NS predicates
+- `reference/substrate-axioms.toml` - axiom registry for framework_relativity,
+  neutral_primitives_undisputed, causal_normative_affirmed
+- `reference/substrate-theorems.toml` - theorem registry including helper lemmas
+  any_false_implies_none and any_true_implies_exists
+- `reference/proof-registry.json` - proof status for all eight theorems
+- `reference/dependency-registry.toml` - inter-repo dependency constraints
+- `reference/traceability-registry.toml` - proof-term dependency traces for
+  all theorems
+- `reference.py` - scaffold and validate reference artifacts against Lean 4 source
+- `se-ref-scaffold` CLI command - adds stubs for new Lean symbols,
+  preserves existing descriptions and cite_ids
+- `se-ref-validate` CLI command - validates reference artifacts
+  against Lean source, writes nothing
+- `se-manifest-validate` and `se-manifest-version-sync` CLI entry points
 
 ### Changed
 
-- Extended repository validation to include the `reference/` artifact surface.
-- Updated validation output to show each reference validation step explicitly.
+- `run_validate()` extended to include reference artifact validation as final step
+- Release procedure simplified and updated to use CLI entry points
 
 ---
 
@@ -130,19 +140,15 @@ Follow these steps exactly when creating a new release.
 1.2. lakefile.toml: update version
 1.3. CHANGELOG.md: add section, move unreleased entries, update links
 
-### Task 2. Sync
+### Task 2. Sync and Validate
 
-```shell
-uv run python -m se_theory_neutral_substrate sync
-```
-
-Reads `CITATION.cff` version and `date-released`
+Sync reads `CITATION.cff` version and `date-released`
 and updates `pyproject.toml` fallback-version.
 
-### Task 3. Validate
-
 ```shell
-uv run python -m se_theory_neutral_substrate validate --strict
+uv run se-manifest-version-sync
+uv sync --extra dev --extra docs --upgrade
+uv run se-ref-validate --strict
 git add -A
 uvx pre-commit run --all-files
 uv run python -m pyright
@@ -150,11 +156,11 @@ uv run python -m pytest
 uv run python -m zensical build
 ```
 
-### Task 4. Commit, tag, push
+### Task 3. Commit, tag, push
 
 ```shell
 git add -A
-git commit -m "Release X.Y.Z"
+git commit -m "Prep X.Y.Z"
 git push -u origin main
 ```
 
@@ -165,10 +171,10 @@ git tag vX.Y.Z -m "X.Y.Z"
 git push origin vX.Y.Z
 ```
 
-### Task 5. Verify tag consistency
+### Task 4. Verify tag consistency
 
 ```shell
-uv run python -m se_theory_neutral_substrate validate --strict --require-tag
+uv run se-manifest-validate --require-tag
 ```
 
 Confirms CITATION.cff version matches the pushed git tag.
@@ -181,7 +187,8 @@ git tag -d vX.Z.Y
 git push origin :refs/tags/vX.Z.Y
 ```
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...v0.5.0
 [0.4.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.1.0...v0.3.0
 [0.1.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.1.0

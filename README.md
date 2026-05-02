@@ -135,18 +135,21 @@ uvx pre-commit run --all-files
 git add -A
 uvx pre-commit run --all-files
 
-uv run python -m se_theory_neutral_substrate validate
-uv run python -m se_theory_neutral_substrate validate --strict
-uv run python -m se_theory_neutral_substrate validate --require-tag
+uv run se-manifest-validate
+uv run se-manifest-validate --strict
+uv run se-manifest-validate --require-tag
 
-uv run python -m se_theory_neutral_substrate sync
+uv run se-manifest-version-sync
 
-uv run python -m se_theory_neutral_substrate scaffold
-uv run python -m se_theory_neutral_substrate scaffold --dry-run
-uv run python -m se_theory_neutral_substrate scaffold --overwrite
+# Scaffold reference/ artifacts from Lean 4 source.
+# Adds stubs for new symbols. Preserves existing descriptions and cite_ids.
+uv run se-ref-scaffold
+uv run se-ref-scaffold --dry-run
+uv run se-ref-scaffold --overwrite
 
-uv run python -m se_theory_neutral_substrate ref-validate
-uv run python -m se_theory_neutral_substrate ref-validate --strict
+# Validate reference/ artifacts against Lean 4 source. Writes nothing.
+uv run se-ref-validate
+uv run se-ref-validate --strict
 
 # do chores
 uv run python -m pyright

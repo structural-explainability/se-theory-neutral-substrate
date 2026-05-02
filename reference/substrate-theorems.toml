@@ -1,8 +1,3 @@
-# ============================================================
-# Neutral Substrate Theorems
-# se-theory-neutral-substrate
-# ============================================================
-
 schema = "se-substrate-theorem-registry-1"
 repo = "se-theory-neutral-substrate"
 surface_module = "NeutralSubstrate.Surface"
@@ -15,7 +10,7 @@ name = "Not neutral if causal or normative"
 lean_symbol = "not_neutral_if_causal_or_normative"
 source_module = "NeutralSubstrate.Core"
 status = "proved"
-description = "If causal or normative commitment is present, the relevant substrate or framework is not neutral."
+description = "Lower bound of the main theorem. If an ontology contains any causal or normative primitive, it is not neutral. Follows from framework_relativity alone; holds in any domain where causal and normative primitives are contested across admissible frameworks."
 
 [theorem.neutral_if_only_neutral]
 id = "neutral_if_only_neutral"
@@ -24,7 +19,7 @@ name = "Neutral if only neutral"
 lean_symbol = "neutral_if_only_neutral"
 source_module = "NeutralSubstrate.Core"
 status = "proved"
-description = "If only neutral primitives or commitments are present, the relevant substrate or framework is neutral."
+description = "Upper bound of the main theorem. If an ontology contains only neutral primitives, it is neutral (satisfies both EXT and INC). Requires neutral_primitives_undisputed; holds only in domains where identity conditions are not themselves contested."
 
 [theorem.ontological_neutrality_theorem]
 id = "ontological_neutrality_theorem"
@@ -33,7 +28,7 @@ name = "Ontological neutrality theorem"
 lean_symbol = "ontological_neutrality_theorem"
 source_module = "NeutralSubstrate.Core"
 status = "proved"
-description = "Main theorem establishing ontological neutrality under the required neutral-substrate conditions."
+description = "Main biconditional result from Case (2025). An ontology is neutral if and only if it contains no causal or normative primitives. The two directions have different epistemic status: the lower bound requires only framework_relativity; the upper bound additionally requires neutral_primitives_undisputed."
 
 [theorem.only_neutral_primitives_implies_INC]
 id = "only_neutral_primitives_implies_INC"
@@ -42,7 +37,7 @@ name = "Only neutral primitives implies interpretive non-commitment"
 lean_symbol = "only_neutral_primitives_implies_INC"
 source_module = "NeutralSubstrate.Core"
 status = "proved"
-description = "If only neutral primitives are present, interpretive non-commitment follows."
+description = "If an ontology contains only neutral primitives, it satisfies interpretive non-commitment (INC). Establishes that INC follows from neutral_primitives_undisputed alone without requiring a separate axiom. Used as a helper in neutral_if_only_neutral."
 
 [theorem.framework_contestability_lemma]
 id = "framework_contestability_lemma"
@@ -51,7 +46,7 @@ name = "Framework contestability lemma"
 lean_symbol = "framework_contestability_lemma"
 source_module = "NeutralSubstrate.Core"
 status = "proved"
-description = "Lemma supporting contestability or relativity among frameworks."
+description = "If a primitive is framework-variant, no substrate containing it is neutral. Formalizes Case (2025) Section 4.2: a proposition whose truth conditions depend on interpretive framework conclusions violates either EXT (some admissible framework denies it) or INC (it is framework-variant). Either violation suffices; the proof uses INC as the most direct path."
 
 [theorem.separate_stability]
 id = "separate_stability"
@@ -60,4 +55,22 @@ name = "Separate stability"
 lean_symbol = "separate_stability"
 source_module = "NeutralSubstrate.Core"
 status = "proved"
-description = "Theorem or lemma establishing separate stability under the relevant neutral-substrate conditions."
+description = "A neutral substrate is separately consistent with each of two mutually contradicting frameworks. Formalizes Case (2025) Section 4.1: the substrate's role is common-ground provision, not arbitration. The EXT conjunct of Neutral implies stability under all admissible frameworks, which subsumes the two-framework case."
+
+[theorem.any_false_implies_none]
+id = "any_false_implies_none"
+cite_id = "NS.THEOREM.any_false_implies_none"
+name = "Any false implies none"
+lean_symbol = "any_false_implies_none"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "Helper lemma: if List.any returns false for a predicate, no element in the list satisfies that predicate. Technical machinery connecting boolean List.any computation to propositional reasoning. Not part of the paper's argument; required because the main predicates use Bool computation."
+
+[theorem.any_true_implies_exists]
+id = "any_true_implies_exists"
+cite_id = "NS.THEOREM.any_true_implies_exists"
+name = "Any true implies exists"
+lean_symbol = "any_true_implies_exists"
+source_module = "NeutralSubstrate.Core"
+status = "proved"
+description = "Helper lemma: if List.any returns true for a predicate, a witness element exists in the list satisfying that predicate. Technical machinery connecting boolean List.any computation to propositional reasoning. Not part of the paper's argument; required because the main predicates use Bool computation."

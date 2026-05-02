@@ -268,8 +268,9 @@ def _process_artifact(
     index_surface_module: str,
     dry_run: bool,
     overwrite: bool,
+    all_registered: set[str] | None = None,
 ) -> _ArtifactResult:
-
+    """Process a single artifact from the index, returning an _ArtifactResult with details and messages."""
     art_id = artifact.get("id", "<unnamed>")
     rel_path = artifact.get("path", "")
     fmt = artifact.get("format", "toml")
@@ -292,7 +293,7 @@ def _process_artifact(
             result.fail(f"TOML parse error: {exc}")
             return result
     else:
-        result.note("no existing file — will create")
+        result.note("no existing file; will create")
 
     # Source module resolution
     source_modules: list[str] = []
@@ -320,7 +321,7 @@ def _process_artifact(
 
     lean_by_name: dict[str, LeanDecl] = {d.name: d for d in all_decls}
 
-    # All declared symbols regardless of kind — used to disambiguate orphans
+    # All declared symbols regardless of kind used to disambiguate orphans
     # from kind-mismatches (e.g. inductive refactored to abbrev).
     all_lean_by_name: dict[str, LeanDecl] = {}
     sym_to_mod: dict[str, str] = {}
@@ -339,28 +340,17 @@ def _process_artifact(
             actual = all_lean_by_name[sym].kind
             result.warn(
                 f"lean_symbol declared as {actual!r} not {section!r}: {sym!r}"
-                f"  (kind mismatch — intentional refactor?)"
+                f"  (kind mismatch - intentional refactor?)"
             )
         else:
             result.warn(f"lean_symbol no longer in Lean: {sym!r}  (orphaned)")
             result.orphaned += 1
 
-    # Symbols already registered in any section — prevents duplicate stubs
-    # when a symbol's Lean kind doesn't match its registry section (e.g.
-    # abbrev Ontology living in substrate-types as a semantic type).
-    cross_registered: set[str] = {
-        e["lean_symbol"]
-        for sv in existing_data.values()
-        if isinstance(sv, dict)
-        for e in sv.values()
-        if isinstance(e, dict) and "lean_symbol" in e
-    }
-
     # Missing entries
     section_data: dict = existing_data.setdefault(section, {})
     for name in sorted(set(lean_by_name) - existing_symbols):
-        if name in cross_registered:
-            result.note(f"skipped: {name!r} already registered in another section")
+        if all_registered and name in all_registered:
+            result.note(f"skipped: {name!r} already registered in another artifact")
             continue
         decl = lean_by_name[name]
         stub = _make_stub(decl, sym_to_mod.get(name, source_modules[0]))
@@ -371,7 +361,14 @@ def _process_artifact(
             result.added_sym(f"stub added: {section}.{name}")
             result.added += 1
 
-    # Required-field validation — only applies to Lean symbol sections.
+    # When overwrite=True, re-merge all existing entries against fresh stubs.
+    if overwrite:
+        for name, decl in lean_by_name.items():
+            if name in section_data:
+                stub = _make_stub(decl, sym_to_mod.get(name, source_modules[0]))
+                section_data[name] = _merge(section_data[name], stub, overwrite=True)
+
+    # Required-field validation. Only applies to Lean symbol sections.
     # Dependency and traceability registries use a different schema and are
     # hand-authored; their entries intentionally omit lean_symbol/source_module.
     if section in _SECTION_LEAN_KINDS:
@@ -392,7 +389,7 @@ def _process_artifact(
     existing_data.setdefault("surface_module", index_surface_module)
 
     # Write
-    if not dry_run and (result.added > 0 or not art_path.exists()):
+    if not dry_run and (result.added > 0 or not art_path.exists() or overwrite):
         art_path.parent.mkdir(parents=True, exist_ok=True)
         _write_registry_toml(art_path, existing_data)
         result.wrote = True
@@ -428,7 +425,21 @@ def run_scaffold(dry_run: bool = False, overwrite: bool = False) -> int:
     index_surface_module = index.get("surface_module", "")
 
     if dry_run:
-        print("[dry-run — nothing will be written]")
+        print("[dry-run - nothing will be written]")
+
+    all_registered: set[str] = set()
+    for artifact in index.get("artifact", []):
+        path = repo_root / artifact.get("path", "")
+        if path.exists() and artifact.get("format", "toml") == "toml":
+            try:
+                data = _load_toml(path)
+                for sv in data.values():
+                    if isinstance(sv, dict):
+                        for e in sv.values():
+                            if isinstance(e, dict) and "lean_symbol" in e:
+                                all_registered.add(e["lean_symbol"])
+            except Exception:  # noqa: S110
+                pass
 
     all_ok = True
     for artifact in index.get("artifact", []):
@@ -439,6 +450,7 @@ def run_scaffold(dry_run: bool = False, overwrite: bool = False) -> int:
             index_surface_module,
             dry_run,
             overwrite,
+            all_registered=all_registered,
         )
         tag = "ok  " if r.ok else "FAIL"
         note = "  [wrote]" if r.wrote else ""
@@ -472,6 +484,20 @@ def run_ref_validate(strict: bool = False) -> int:
         return 1
 
     index_surface_module = index.get("surface_module", "")
+
+    all_registered: set[str] = set()
+    for artifact in index.get("artifact", []):
+        path = repo_root / artifact.get("path", "")
+        if path.exists() and artifact.get("format", "toml") == "toml":
+            try:
+                data = _load_toml(path)
+                for sv in data.values():
+                    if isinstance(sv, dict):
+                        for e in sv.values():
+                            if isinstance(e, dict) and "lean_symbol" in e:
+                                all_registered.add(e["lean_symbol"])
+            except Exception:  # noqa: S110
+                pass
     all_ok = True
 
     for artifact in index.get("artifact", []):
@@ -483,8 +509,9 @@ def run_ref_validate(strict: bool = False) -> int:
             index_surface_module,
             dry_run=True,
             overwrite=False,
+            all_registered=all_registered,
         )
-        has_warnings = any("warn" in m for m in r.messages)
+        has_warnings = any("warn" in m and "kind mismatch" not in m for m in r.messages)
         tag = "ok  " if r.ok else "FAIL"
         print(f"  [{tag}]  {r.artifact_id}")
         for msg in r.messages:

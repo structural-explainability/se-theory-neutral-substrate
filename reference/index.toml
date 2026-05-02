@@ -45,8 +45,7 @@ id = "proof-registry"
 path = "reference/proof-registry.json"
 kind = "proof-registry"
 format = "json"
-generated = true
-generator = "lean4"
+generated = false
 required = true
 
 [[artifact]]

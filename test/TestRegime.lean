@@ -9,7 +9,7 @@ Notes:
 - Smoke test: exercises NS exactly as a downstream regime library would.
 - Imports only `NeutralSubstrate`. Never imports Core, Spec, or Surface directly.
 - Defines a minimal toy regime and proves it grounds in NS.
-- Instantiates the incident example from Case (2025) §4.3.
+- Instantiates the incident example from Case (2025) Section 4.3.
 - If the public surface breaks, this file breaks first.
 -/
 
@@ -81,7 +81,7 @@ theorem nonNeutralSubstrate_is_not_neutral : ¬Neutral nonNeutralSubstrate := by
 
 
 -- ============================================================
--- SECTION 5: INCIDENT SUBSTRATE (Case 2025, §4.3)
+-- SECTION 5: INCIDENT SUBSTRATE (Case 2025, Section 4.3)
 -- ============================================================
 
 -- REQ.TEST.REGIME.INCIDENT

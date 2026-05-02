@@ -12,7 +12,10 @@ from = "not_neutral_if_causal_or_normative"
 to = [
   "containsCausalOrNormative",
   "Neutral",
-  "causal_normative_affirmed"
+  "ExtensionStable",
+  "extensionInconsistent",
+  "any_true_implies_exists",
+  "framework_relativity",
 ]
 relation = "depends_on"
 
@@ -21,7 +24,11 @@ id = "trace-neutral-if-only-neutral"
 from = "neutral_if_only_neutral"
 to = [
   "Neutral",
-  "neutral_primitives_undisputed"
+  "ExtensionStable",
+  "extensionInconsistent",
+  "any_false_implies_none",
+  "neutral_primitives_undisputed",
+  "only_neutral_primitives_implies_INC",
 ]
 relation = "depends_on"
 
@@ -29,15 +36,10 @@ relation = "depends_on"
 id = "trace-ontological-neutrality-theorem"
 from = "ontological_neutrality_theorem"
 to = [
-  "PrimitiveKind",
-  "Primitive",
-  "Ontology",
-  "Framework",
   "Neutral",
-  "InterpretivelyNonCommitted",
-  "framework_relativity",
-  "neutral_primitives_undisputed",
-  "causal_normative_affirmed"
+  "containsCausalOrNormative",
+  "not_neutral_if_causal_or_normative",
+  "neutral_if_only_neutral",
 ]
 relation = "depends_on"
 
@@ -45,10 +47,12 @@ relation = "depends_on"
 id = "trace-only-neutral-primitives-implies-inc"
 from = "only_neutral_primitives_implies_INC"
 to = [
-  "Primitive",
-  "Neutral",
+  "Ontology",
+  "containsCausalOrNormative",
   "InterpretivelyNonCommitted",
-  "neutral_primitives_undisputed"
+  "FrameworkVariant",
+  "any_false_implies_none",
+  "neutral_primitives_undisputed",
 ]
 relation = "depends_on"
 
@@ -56,10 +60,10 @@ relation = "depends_on"
 id = "trace-framework-contestability-lemma"
 from = "framework_contestability_lemma"
 to = [
-  "Framework",
+  "Primitive",
   "FrameworkVariant",
-  "FrameworksContradict",
-  "framework_relativity"
+  "Neutral",
+  "InterpretivelyNonCommitted",
 ]
 relation = "depends_on"
 
@@ -67,7 +71,22 @@ relation = "depends_on"
 id = "trace-separate-stability"
 from = "separate_stability"
 to = [
+  "Neutral",
   "ExtensionStable",
-  "extensionInconsistent"
+  "extensionInconsistent",
+  "Admissible",
+  "FrameworksContradict",
 ]
+relation = "depends_on"
+
+[trace.any_false_implies_none]
+id = "trace-any-false-implies-none"
+from = "any_false_implies_none"
+to = []
+relation = "depends_on"
+
+[trace.any_true_implies_exists]
+id = "trace-any-true-implies-exists"
+from = "any_true_implies_exists"
+to = []
 relation = "depends_on"

@@ -14,7 +14,7 @@ cite_id = "NS.TYPE.PrimitiveKind"
 name = "Primitive kind"
 lean_symbol = "PrimitiveKind"
 source_module = "NeutralSubstrate.Core"
-description = "Classifies the kind of primitive available in the neutral substrate."
+description = "The three mutually exclusive kinds a primitive may have: causal (asserts a causal relation), normative (asserts a normative conclusion), or neutral (asserts only existence or identity). The trichotomy is exhaustive. Every primitive is classifiable as exactly one of these."
 
 [type.Primitive]
 id = "Primitive"
@@ -22,7 +22,7 @@ cite_id = "NS.TYPE.Primitive"
 name = "Primitive"
 lean_symbol = "Primitive"
 source_module = "NeutralSubstrate.Core"
-description = "A primitive structural item in the neutral substrate."
+description = "The basic unit of ontological commitment. Carries a kind (PrimitiveKind) and an id (String). DecidableEq enables computational equality checks; Repr enables printing for debugging."
 
 [type.Ontology]
 id = "Ontology"
@@ -30,7 +30,7 @@ cite_id = "NS.TYPE.Ontology"
 name = "Ontology"
 lean_symbol = "Ontology"
 source_module = "NeutralSubstrate.Core"
-description = "A collection or organization of primitives and their interpretive commitments."
+description = "A finite list of primitives, representing any ontology amenable to neutral-substrate analysis. Not restricted to neutral content; causal and normative primitives are valid members. The predicates (containsCausalOrNormative, Neutral, ExtensionStable, InterpretivelyNonCommitted) determine whether a given Ontology satisfies neutrality conditions. Implemented as a transparent type alias (abbrev) for List Primitive to preserve computability for native_decide and List.any."
 
 [type.Framework]
 id = "Framework"
@@ -38,4 +38,4 @@ cite_id = "NS.TYPE.Framework"
 name = "Framework"
 lean_symbol = "Framework"
 source_module = "NeutralSubstrate.Core"
-description = "A framework over which neutrality, admissibility, and interpretive non-commitment may be evaluated."
+description = "An interpretive stance over primitives. Carries affirms and denies functions (Primitive -> Bool) and a consistency proof that no primitive is both affirmed and denied. A framework may be silent on a primitive. Admissible frameworks may contradict each other; each is only required to be internally consistent."

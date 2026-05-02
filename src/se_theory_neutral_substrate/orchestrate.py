@@ -24,7 +24,7 @@ from se_manifest_schema.validate_manifest import validate_manifest
 from se_manifest_schema.validate_schema import validate_schema_internal
 
 from se_theory_neutral_substrate.load import load_manifest_schema
-from se_theory_neutral_substrate.validate_reference import validate_reference
+from se_theory_neutral_substrate.reference import run_ref_validate
 
 
 def run_validate(*, require_tag: bool = False, strict: bool = False) -> int:
@@ -57,7 +57,8 @@ def run_validate(*, require_tag: bool = False, strict: bool = False) -> int:
 
     errors.extend(validate_schema_internal(cast(ManifestSchemaData, schema)))
     errors.extend(validate_manifest(manifest, cast(ManifestSchemaData, schema)))
-    errors.extend(validate_reference())
+
+    ref_result = run_ref_validate(strict=strict)
 
     for e in errors:
         print(f"ERROR: {e}")
@@ -68,6 +69,8 @@ def run_validate(*, require_tag: bool = False, strict: bool = False) -> int:
         return 1
     if strict and warnings:
         return 1
+    if ref_result != 0:
+        return ref_result
 
     print("Repository validation passed.")
     return 0
