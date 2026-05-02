@@ -13,14 +13,15 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ### Added
 
-- Added `reference/` artifacts for the Neutral Substrate public theory surface.
+- Added `reference.py` for checking and scaffolding. Runs; needs a bit of tuning.
+- Added `reference/` artifacts for the public theory surface.
 - Added `reference/index.toml` to declare machine-readable reference artifacts.
 - Added reference validation for:
   - `reference/index.toml` structure.
   - declared artifact paths.
   - declared artifact formats.
   - Lean public surface coverage.
-- Added `lean_surface.py` to mirror the exported symbols from `NeutralSubstrate/Surface.lean`.
+- Added `lean_surface.py` to mirror the exported symbols from `Surface.lean`.
 - Added `paths.py` for repository path helpers used by reference validation.
 - Added `proof-registry.json` as the planned Lean-generated proof metadata artifact.
 

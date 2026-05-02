@@ -60,11 +60,11 @@ Lean 4 provides several tools. Choosing wrong creates pain:
 
 For NS specifically:
 
-- `PrimitiveKind` — `inductive` (three cases: neutral, causal, normative)
-- `Primitive` — `structure` (carries a kind and an id)
-- `Ontology` — `abbrev` (transparent alias for `List Primitive`)
-- `Framework` — `structure` (carries affirms/denies functions + consistency proof)
-- `Admissible` — `def` (see decision below)
+- `PrimitiveKind` - `inductive` (three cases: neutral, causal, normative)
+- `Primitive` - `structure` (carries a kind and an id)
+- `Ontology` - `abbrev` (transparent alias for `List Primitive`)
+- `Framework` - `structure` (carries affirms/denies functions + consistency proof)
+- `Admissible` - `def` (see decision below)
 
 **The Admissible decision:**
 
@@ -118,9 +118,9 @@ Never start the next section until the current section compiles.
 Axioms encode domain assumptions Lean cannot verify.
 Each axiom requires documentation of three things:
 
-1. **WHY** — what empirical claim it encodes
-2. **SCOPE** — in what domains it fails
-3. **ROLE** — which theorems depend on it and how
+1. **WHY** - what empirical claim it encodes
+2. **SCOPE** - in what domains it fails
+3. **ROLE** - which theorems depend on it and how
 
 The NS axioms and their roles:
 
@@ -164,13 +164,13 @@ open SE.NeutralSubstrate
 
 Three files implement this separation:
 
-- `Core.lean` — all definitions, axioms, proofs (internal)
-- `Spec.lean` — stable string citation IDs of the form `NS.{KIND}.{NAME}`
-- `Surface.lean` — explicit `export` statements; curated stable surface
+- `Core.lean` - all definitions, axioms, proofs (internal)
+- `Spec.lean` - stable string citation IDs of the form `NS.{KIND}.{NAME}`
+- `Surface.lean` - explicit `export` statements; curated stable surface
 
 `Surface.lean` controls exactly which names cross the boundary.
 Names not listed there are internal and may change without notice.
-String IDs in `Spec.lean` are stable across all Core refactors —
+String IDs in `Spec.lean` are stable across all Core refactors -
 the ID is the contract, the theorem is the implementation.
 
 ## Step 6. Build Loop

@@ -63,8 +63,11 @@ excludes = [
 # === Validation ===
 
 [validation]
-# no runtime entrypoint; validation occurs via Lean build/check
-entrypoint = "none"
+# Validates repository declaration, manifest schema conformance,
+# reference artifacts, and Lean public surface coverage.
+entrypoint = "uv run python -m se_theory_neutral_substrate validate"
+strict_entrypoint = "uv run python -m se_theory_neutral_substrate validate --strict"
+tag_entrypoint = "uv run python -m se_theory_neutral_substrate validate --require-tag"
 
 # === Behavior / governance ===
 
@@ -78,6 +81,7 @@ authority = "structural-explainability"
 
 [citation]
 cff = "CITATION.cff"
+preferred = "CITATION.cff"
 
 [traceability]
-identifier_map = "none"
+identifier_map = "reference/index.toml"

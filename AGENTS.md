@@ -73,12 +73,23 @@ uv sync --extra dev --extra docs --upgrade
 
 ## Common Tasks
 
-### Build Lean theory
-
 ```shell
 elan self update
 lake update
 lake build
+lake build TestBasic
+lake build TestRegime
+```
+
+### Validate contract artifacts
+
+See README.md or CHANGELOG.md for release workflow.
+
+### Lint / format
+
+```shell
+uv run python -m ruff format .
+uv run python -m ruff check . --fix
 ```
 
 ### Build documentation

@@ -135,8 +135,18 @@ uvx pre-commit run --all-files
 git add -A
 uvx pre-commit run --all-files
 
-# validate
+uv run python -m se_theory_neutral_substrate validate
 uv run python -m se_theory_neutral_substrate validate --strict
+uv run python -m se_theory_neutral_substrate validate --require-tag
+
+uv run python -m se_theory_neutral_substrate sync
+
+uv run python -m se_theory_neutral_substrate scaffold
+uv run python -m se_theory_neutral_substrate scaffold --dry-run
+uv run python -m se_theory_neutral_substrate scaffold --overwrite
+
+uv run python -m se_theory_neutral_substrate ref-validate
+uv run python -m se_theory_neutral_substrate ref-validate --strict
 
 # do chores
 uv run python -m pyright

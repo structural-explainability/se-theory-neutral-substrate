@@ -1,4 +1,4 @@
-"""Module entry point for se-theory-neutral-substrate.
+"""Module entry point.
 
 Enables `uv run python -m se_theory_neutral_substrate`.
 Delegates immediately to the CLI entry point.

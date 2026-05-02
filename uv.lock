@@ -281,14 +281,14 @@ wheels = [
 
 [[package]]
 name = "se-manifest-schema"
-version = "0.2.1"
+version = "0.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/cd/bd/69d4e1bed2e94ebc96fabd7ab7d27d8f9adb07431affad22bde31ac5405a/se_manifest_schema-0.2.1.tar.gz", hash = "sha256:8ab0c2453c509756c8d9cae31d1d5d7d8928d93cd74fc62580143e62bbe83b71", size = 55073, upload-time = "2026-05-01T03:37:27.887Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a5/87/f7d0677606225bcbe51e2617fe0562615e1f4c0b5e85d2fcd7f3c60a8cc5/se_manifest_schema-0.2.3.tar.gz", hash = "sha256:6bfd3beab684849ff4ff63eec14e8861c491b2820eae66661b950e43a2a1d807", size = 55213, upload-time = "2026-05-02T00:05:32.396Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/49/b5/2e4421d2fe82b022b748a807b56457eafa42870e0ba41ea2cbd0e618ce2c/se_manifest_schema-0.2.1-py3-none-any.whl", hash = "sha256:3d1452c299997981acdd21427a68caa426781cb10454dd72101a5c0ba076bbbe", size = 16720, upload-time = "2026-05-01T03:37:26.78Z" },
+    { url = "https://files.pythonhosted.org/packages/07/33/3534429522e8aaa91c5861f5b8fcabcff1c1519cd74b1e70179830cdcd1d/se_manifest_schema-0.2.3-py3-none-any.whl", hash = "sha256:e1965dc95843962e1bd1d173f7d6fe13e9e6ff3d6bd5df74101c899f7206a254", size = 16749, upload-time = "2026-05-02T00:05:30.914Z" },
 ]
 
 [[package]]
@@ -323,7 +323,7 @@ requires-dist = [
     { name = "pytest-cov", marker = "extra == 'dev'" },
     { name = "pyyaml", marker = "extra == 'dev'" },
     { name = "ruff", marker = "extra == 'dev'" },
-    { name = "se-manifest-schema", specifier = "==0.2.1" },
+    { name = "se-manifest-schema" },
     { name = "zensical", marker = "extra == 'docs'", specifier = "==0.0.37" },
 ]
 provides-extras = ["dev", "docs"]
