@@ -123,6 +123,42 @@ def _infer_core_module(surface_module: str) -> str:
     return surface_module.replace("Surface", "Core")
 
 
+def _path_to_module(path: Path, lean_root: Path) -> str:
+    rel = path.relative_to(lean_root).with_suffix("")
+    return ".".join(rel.parts)
+
+
+def _infer_core_modules(surface_module: str, lean_root: Path) -> list[str]:
+    """Infer Core modules under the surface namespace.
+
+    Supports both layouts:
+
+    - MyLib/Core.lean -> MyLib.Core
+    - MyLib/Profile/Core.lean -> MyLib.Profile.Core
+    - MyLib/Transform/Core.lean -> MyLib.Transform.Core
+
+    The root Core.lean file is sorted first when present, followed by
+    nested Core.lean files in deterministic path order.
+    """
+    if not surface_module.endswith(".Surface"):
+        return []
+
+    root_module = surface_module.removesuffix(".Surface")
+    root_dir = lean_root.joinpath(*root_module.split("."))
+
+    if not root_dir.exists():
+        return []
+
+    core_files = sorted(root_dir.rglob("Core.lean"))
+
+    root_core = root_dir / "Core.lean"
+    if root_core in core_files:
+        core_files.remove(root_core)
+        core_files.insert(0, root_core)
+
+    return [_path_to_module(path, lean_root) for path in core_files]
+
+
 def _kind_to_section(artifact_kind: str) -> str:
     """'substrate-type-registry' -> 'type', 'se-theorem-registry' -> 'theorem'."""
     without_suffix = artifact_kind.removesuffix("-registry")
@@ -303,9 +339,13 @@ def _process_artifact(
         source_modules = _source_modules_in_registry(existing_data)
     if not source_modules:
         surface = existing_data.get("surface_module", index_surface_module)
-        derived = _infer_core_module(surface)
-        source_modules = [derived]
-        result.note(f"source module inferred: {derived}")
+        source_modules = _infer_core_modules(surface, lean_root)
+        if source_modules:
+            result.note("source modules inferred: " + ", ".join(source_modules))
+        else:
+            derived = surface.replace("Surface", "Core")
+            source_modules = [derived]
+            result.note(f"source module inferred: {derived}")
 
     # Scan Lean files
     all_decls: list[LeanDecl] = []

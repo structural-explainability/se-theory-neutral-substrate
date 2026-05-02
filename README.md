@@ -82,6 +82,9 @@ import NeutralSubstrate
 
 ## Build
 
+Use VS Code Menu:
+View / Command Palette / `Developer: Reload Window` to refresh.
+
 ```shell
 elan self update
 lake update
@@ -135,21 +138,20 @@ uvx pre-commit run --all-files
 git add -A
 uvx pre-commit run --all-files
 
-uv run se-manifest-validate
-uv run se-manifest-validate --strict
-uv run se-manifest-validate --require-tag
-
-uv run se-manifest-version-sync
-
+# OPTIONAL:
 # Scaffold reference/ artifacts from Lean 4 source.
-# Adds stubs for new symbols. Preserves existing descriptions and cite_ids.
-uv run se-ref-scaffold
+# Adds stubs for new symbols.
+# Preserves existing descriptions, names, and cite_ids.
 uv run se-ref-scaffold --dry-run
+uv run se-ref-scaffold
+
+# OPTIONAL OVERWRITE:
+# Use carefully. Re-derives scaffolded fields and may overwrite
+# existing descriptions, names, and cite_ids.
 uv run se-ref-scaffold --overwrite
 
-# Validate reference/ artifacts against Lean 4 source. Writes nothing.
-uv run se-ref-validate
-uv run se-ref-validate --strict
+# IMPORTANT: Run checks
+uv run se-validate --strict
 
 # do chores
 uv run python -m pyright

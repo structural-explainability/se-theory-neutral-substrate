@@ -40,7 +40,8 @@ docs = [
 ]
 
 [project.scripts]
-se-manifest-validate = "se_theory_neutral_substrate.cli:validate_main"
+se-validate = "se_theory_neutral_substrate.cli:validate_main"
+se-manifest-schema-validate = "se_theory_neutral_substrate.cli:schema_validate_main"
 se-manifest-version-sync = "se_theory_neutral_substrate.cli:sync_main"
 se-ref-scaffold = "se_theory_neutral_substrate.cli:ref_scaffold_main"
 se-ref-validate = "se_theory_neutral_substrate.cli:ref_validate_main"

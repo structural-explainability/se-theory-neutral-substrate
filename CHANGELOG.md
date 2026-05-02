@@ -187,6 +187,8 @@ git tag -d vX.Z.Y
 git push origin :refs/tags/vX.Z.Y
 ```
 
+## Links
+
 [Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.5.0...HEAD
 [0.5.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...v0.5.0
 [0.4.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...v0.4.0
