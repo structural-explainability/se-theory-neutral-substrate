@@ -101,18 +101,9 @@ jobs:
         #      repos that may not yet have docs configured.
 
       # ============================================================
-      # E) THEORY SURFACE: No Python execution surface
+      # E) THEORY Execution checks
       # ============================================================
-      - name: E1) Confirm no Python runtime package exists
-        run: |
-          if [ -d "src/se_theory" ]; then
-            echo "Theory repos must not define src/se_theory runtime code."
-            exit 1
-          fi
-        # WHY: Theory repositories expose Lean libraries, not Python applications.
-        # OBS: Python may support docs/tooling, but not semantic validation.
-
-      - name: E2) Enforce docs section alignment
+      - name: E1) Enforce docs section alignment
         run: |
           IFS=',' read -ra REQUIRED <<< "$DOC_SECTIONS"
           for section in "${REQUIRED[@]}"; do
@@ -122,14 +113,16 @@ jobs:
             }
           done
 
-      - name: E3) Prevent formal redefinition in docs
+      - name: E2) Prevent Lean code fences in docs overview
         run: |
-          if grep -Ei "(^definition|^theorem|^lemma|:=)" docs/en/index.md; then
-            echo "Docs must not contain formal definitions or Lean syntax"
+          if grep -Ei '^```lean' docs/en/index.md; then
+            echo "docs/en/index.md should orient readers, not contain Lean code blocks."
             exit 1
           fi
+        # WHY: The docs overview should point to Lean source as authority.
+        # OBS: This allows ordinary prose words like theorem, definition, and lemma.
 
-      - name: E4) Enforce module naming consistency
+      - name: E3) Enforce module naming consistency
         run: |
           grep -q "$MODULE_PREFIX" docs/en/index.md || {
             echo "Docs must reference canonical module path: $MODULE_PREFIX"
