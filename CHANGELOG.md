@@ -13,18 +13,57 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
-## [0.5.1] - 2026-05-14
+## [0.5.2] - 2026-05-14
 
 ### Changed
 
-- `lean-toolchain` updated to `leanprover/lean4:stable`
-- `.markdownlint-cli2.yaml` replaces `.markdownlint.yml`
-- `.pre-commit-config.yaml` updated
-- `lakefile.toml` updated
+- Updated README to use the standard theory-repository documentation sections.
+- Updated `ci-python-zensical.yml` required documentation sections to match
+  the standard theory-repository README structure.
+
+---
+
+## [0.5.1] - 2026-05-14
 
 ### Added
 
-- `test/TestAll.lean` - top-level test entry point
+- Added `test/TestAll.lean` as the top-level Lean test entry point.
+- Added generated neutral-substrate contract artifacts under `data/neutral-substrate/`.
+- Added `reference/substrate-requirements.toml`
+  to map stable `Spec.lean` citation IDs to implemented Lean symbols.
+- Added `se-ref-export` support for generated reference JSON artifacts.
+- Added split command modules under `src/se_theory_neutral_substrate/commands/`.
+- Added shared reference utility module `src/se_theory_neutral_substrate/ref_utils.py`.
+- Added export tests for generated neutral-substrate data artifacts.
+
+### Changed
+
+- Updated `lean-toolchain` to `leanprover/lean4:stable`.
+- Replaced `.markdownlint.yml` with `.markdownlint-cli2.yaml`.
+- Updated `.pre-commit-config.yaml`.
+- Updated `lakefile.toml`.
+- Updated `NeutralSubstrate.Spec` with stable uppercase citation identifiers for tracked helper theorems.
+- Updated `NeutralSubstrate.Surface` to align with the current public surface.
+- Updated reference TOML files to use uppercase `Spec.lean` citation IDs.
+- Updated `reference/index.toml` to declare hand-authored reference artifacts
+  and generated `data/neutral-substrate/` artifacts.
+- Updated CLI organization so public entry points remain in `cli.py`
+  while command implementations live under `commands/`.
+- Updated reference validation to check citation IDs against `Spec.lean`.
+- Updated README build and reference-artifact guidance.
+
+### Removed
+
+- Removed hand-authored `reference/proof-registry.json`.
+- Removed obsolete `.markdownlint.yml`.
+
+### Fixed
+
+- Fixed neutral-substrate reference export so generated JSON artifacts
+  are written under `data/neutral-substrate/`.
+- Fixed reference validation hygiene by extracting shared Lean/TOML
+  utilities into `ref_utils.py`.
+- Fixed mixed-case `cite_id` values in reference artifacts.
 
 ---
 
@@ -211,7 +250,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.2
 [0.5.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.1
 [0.5.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.0
 [0.4.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.4.0
