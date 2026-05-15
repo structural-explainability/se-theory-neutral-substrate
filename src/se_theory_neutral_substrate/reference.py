@@ -8,7 +8,6 @@ Existing human-authored fields (description, name, cite_id) are never
 overwritten unless run_scaffold is called with overwrite=True.
 
 Artifacts with generated=true or format=json are always skipped.
-proof-registry.json is Lean-generated; this module does not touch it.
 
 Entry points:
   run_scaffold(dry_run, overwrite) -> int

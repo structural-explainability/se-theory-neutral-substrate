@@ -1,22 +1,10 @@
 """Shared reference/ validation utilities for SE theory repositories."""
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 from pathlib import Path
 import re
-import sys
+import tomllib
 from typing import Any
-
-try:
-    import tomllib
-except ImportError:
-    try:
-        import tomli as tomllib  # type: ignore[no-redef]
-    except ImportError:
-        print("error: requires tomllib (Python 3.11+) or: pip install tomli")
-        sys.exit(1)
-
 
 LEAN_DECL_TO_SECTION: dict[str, str] = {
     "inductive": "type",

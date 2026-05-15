@@ -25,14 +25,14 @@ Lean source files are authoritative for formal definitions, predicates, axioms,
 theorems, proof obligations, and reference rules.
 
 Reference artifacts under `reference/` and generated artifacts under
-`data/neutral-substrate/` mirror the Lean public surface. They do not define
-theory semantics independently of Lean.
+`data/neutral-substrate/` mirror the Lean public surface.
+They do not define theory semantics independently of Lean.
 
 ## Import
 
 Downstream Lean projects should import the public surface:
 
-```lean
+```text
 import NeutralSubstrate
 ```
 

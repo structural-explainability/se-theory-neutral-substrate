@@ -149,9 +149,6 @@ lake build TestAll
 uv run se-ref-validate
 uv run se-ref-export --check
 uv run se-validate --strict
-uv run python -m pyright
-uv run python -m pytest
-uv run python -m zensical build
 ```
 
 ## Import
