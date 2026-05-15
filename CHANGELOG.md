@@ -17,9 +17,10 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ### Changed
 
-- Updated README to use the standard theory-repository documentation sections.
+- Updated index.md to use the standard theory-repository documentation sections.
 - Updated `ci-python-zensical.yml` required documentation sections to match
-  the standard theory-repository README structure.
+  the standard theory-repository structure.
+- Updated README.md
 
 ---
 
