@@ -1,65 +1,125 @@
-# ============================================================
-# Reference Artifact Index
-# se-theory-neutral-substrate
-# ============================================================
-
 schema = "se-reference-index-1"
 repo = "se-theory-neutral-substrate"
-ref_kind = "formal-theory-reference"
-surface_module = "NeutralSubstrate.Surface"
+surface_module = "NeutralSubstrate"
+
+# ---------------------------------------------------------------
+# REFERENCE artifacts are hand-authored, canonical, source-of-truth.
+# Paths: reference/*.toml
+# ---------------------------------------------------------------
 
 [[artifact]]
 id = "substrate-types"
-path = "reference/substrate-types.toml"
-kind = "substrate-type-registry"
+kind = "neutral-substrate-type-definitions"
 format = "toml"
+path = "reference/substrate-types.toml"
 generated = false
 required = true
 
 [[artifact]]
 id = "substrate-predicates"
-path = "reference/substrate-predicates.toml"
-kind = "substrate-predicate-registry"
+kind = "neutral-substrate-predicate-definitions"
 format = "toml"
+path = "reference/substrate-predicates.toml"
 generated = false
 required = true
 
 [[artifact]]
 id = "substrate-axioms"
-path = "reference/substrate-axioms.toml"
-kind = "substrate-axiom-registry"
+kind = "neutral-substrate-axiom-definitions"
 format = "toml"
+path = "reference/substrate-axioms.toml"
 generated = false
 required = true
 
 [[artifact]]
 id = "substrate-theorems"
+kind = "neutral-substrate-theorem-definitions"
+format = "toml"
 path = "reference/substrate-theorems.toml"
-kind = "substrate-theorem-registry"
-format = "toml"
 generated = false
 required = true
 
 [[artifact]]
-id = "proof-registry"
-path = "reference/proof-registry.json"
-kind = "proof-registry"
-format = "json"
-generated = false
-required = true
-
-[[artifact]]
-id = "dependency-registry"
-path = "reference/dependency-registry.toml"
-kind = "dependency-registry"
+id = "substrate-requirements"
+kind = "neutral-substrate-requirement-definitions"
 format = "toml"
+path = "reference/substrate-requirements.toml"
 generated = false
 required = true
 
 [[artifact]]
 id = "traceability-registry"
-path = "reference/traceability-registry.toml"
-kind = "traceability-registry"
+kind = "neutral-substrate-traceability-registry"
 format = "toml"
+path = "reference/traceability-registry.toml"
 generated = false
+required = true
+
+[[artifact]]
+id = "dependency-registry"
+kind = "neutral-substrate-dependency-registry"
+format = "toml"
+path = "reference/dependency-registry.toml"
+generated = false
+required = false
+
+# ---------------------------------------------------------------
+# DATA artifacts are machine-generated, derived from reference + Lean.
+# Paths: data/neutral-substrate/*.json
+# ---------------------------------------------------------------
+
+[[artifact]]
+id = "substrate-type-registry"
+kind = "neutral-substrate-type-registry"
+format = "json"
+path = "data/neutral-substrate/substrate-type-registry.json"
+generated = true
+required = true
+
+[[artifact]]
+id = "substrate-predicate-registry"
+kind = "neutral-substrate-predicate-registry"
+format = "json"
+path = "data/neutral-substrate/substrate-predicate-registry.json"
+generated = true
+required = true
+
+[[artifact]]
+id = "substrate-axiom-registry"
+kind = "neutral-substrate-axiom-registry"
+format = "json"
+path = "data/neutral-substrate/substrate-axiom-registry.json"
+generated = true
+required = true
+
+[[artifact]]
+id = "substrate-theorem-registry"
+kind = "neutral-substrate-theorem-registry"
+format = "json"
+path = "data/neutral-substrate/substrate-theorem-registry.json"
+generated = true
+required = true
+
+[[artifact]]
+id = "substrate-requirement-registry"
+kind = "neutral-substrate-requirement-registry"
+format = "json"
+path = "data/neutral-substrate/substrate-requirement-registry.json"
+generated = true
+required = true
+
+[[artifact]]
+id = "traceability-registry"
+kind = "neutral-substrate-traceability-registry"
+format = "json"
+path = "data/neutral-substrate/traceability-registry.json"
+generated = true
+required = true
+
+[[artifact]]
+id = "neutral-substrate-catalog"
+kind = "neutral-substrate-catalog"
+format = "json"
+path = "data/neutral-substrate/neutral-substrate-catalog.json"
+generated = true
 required = true

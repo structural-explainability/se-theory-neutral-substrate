@@ -9,7 +9,7 @@
 # === REQUIRED PROJECT IDENTITY
 
 name = "NeutralSubstrate"
-version = "0.5.0"
+version = "0.5.1"
 license = "MIT"
 
 keywords = [
@@ -38,9 +38,6 @@ name = "NeutralSubstrate"
 # === TEST LIBRARIES (internal, not exported)
 
 [[lean_lib]]
-name = "TestBasic"
+name = "Tests"
 srcDir = "test"
-
-[[lean_lib]]
-name = "TestRegime"
-srcDir = "test"
+roots = ["TestAll", "TestBasic", "TestRegime"]

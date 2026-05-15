@@ -4,65 +4,53 @@ from pathlib import Path
 
 import pytest
 
-from se_theory_neutral_substrate.reference import (
+from se_theory_neutral_substrate.ref_utils import (
     LeanDecl,
+    extract_decls,
+    extract_for_section,
+    find_repo_root,
+    kind_to_section,
+    module_to_path,
+    section_entries,
+    source_modules_in_registry,
+    toml_value,
+    write_registry_toml,
+)
+from se_theory_neutral_substrate.reference import (
     _ArtifactResult,
-    _extract_decls,
-    _extract_for_section,
-    _find_repo_root,
-    _infer_core_module,
-    _kind_to_section,
     _make_stub,
     _merge,
-    _module_to_path,
-    _section_entries,
-    _source_modules_in_registry,
-    _toml_val,
-    _write_registry_toml,
     run_ref_validate,
     run_scaffold,
 )
 
 # ---------------------------------------------------------------------------
-# _toml_val
+# toml_value
 # ---------------------------------------------------------------------------
 
 
-def test_toml_val_string() -> None:
-    assert _toml_val("hello") == '"hello"'
+def test_toml_value_string() -> None:
+    assert toml_value("hello") == '"hello"'
 
 
-def test_toml_val_string_escapes_quotes() -> None:
-    assert _toml_val('say "hi"') == '"say \\"hi\\""'
+def test_toml_value_string_escapes_quotes() -> None:
+    assert toml_value('say "hi"') == '"say \\"hi\\""'
 
 
-def test_toml_val_string_escapes_backslash() -> None:
-    assert _toml_val("a\\b") == '"a\\\\b"'
+def test_toml_value_string_escapes_backslash() -> None:
+    assert toml_value("a\\b") == '"a\\\\b"'
 
 
-def test_toml_val_bool_true() -> None:
-    assert _toml_val(True) == "true"
+def test_toml_value_bool_true() -> None:
+    assert toml_value(True) == "true"
 
 
-def test_toml_val_bool_false() -> None:
-    assert _toml_val(False) == "false"
+def test_toml_value_bool_false() -> None:
+    assert toml_value(False) == "false"
 
 
-def test_toml_val_int() -> None:
-    assert _toml_val(42) == "42"
-
-
-# ---------------------------------------------------------------------------
-# _infer_core_module
-# ---------------------------------------------------------------------------
-
-
-def test_infer_core_module_replaces_surface() -> None:
-    assert _infer_core_module("NeutralSubstrate.Surface") == "NeutralSubstrate.Core"
-
-
-def test_infer_core_module_no_surface_unchanged() -> None:
-    assert _infer_core_module("NeutralSubstrate.Core") == "NeutralSubstrate.Core"
+def test_toml_value_int() -> None:
+    assert toml_value(42) == "42"
 
 
 # ---------------------------------------------------------------------------
@@ -71,27 +59,27 @@ def test_infer_core_module_no_surface_unchanged() -> None:
 
 
 def test_kind_to_section_type() -> None:
-    assert _kind_to_section("substrate-type-registry") == "type"
+    assert kind_to_section("substrate-type-registry") == "type"
 
 
 def test_kind_to_section_predicate() -> None:
-    assert _kind_to_section("substrate-predicate-registry") == "predicate"
+    assert kind_to_section("substrate-predicate-registry") == "predicate"
 
 
 def test_kind_to_section_theorem() -> None:
-    assert _kind_to_section("se-theorem-registry") == "theorem"
+    assert kind_to_section("se-theorem-registry") == "theorem"
 
 
 def test_kind_to_section_axiom() -> None:
-    assert _kind_to_section("substrate-axiom-registry") == "axiom"
+    assert kind_to_section("substrate-axiom-registry") == "axiom"
 
 
 def test_kind_to_section_dependency() -> None:
-    assert _kind_to_section("dependency-registry") == "dependency"
+    assert kind_to_section("dependency-registry") == "dependency"
 
 
 def test_kind_to_section_traceability() -> None:
-    assert _kind_to_section("traceability-registry") == "traceability"
+    assert kind_to_section("traceability-registry") == "traceability"
 
 
 # ---------------------------------------------------------------------------
@@ -100,17 +88,17 @@ def test_kind_to_section_traceability() -> None:
 
 
 def test_module_to_path(tmp_path: Path) -> None:
-    result = _module_to_path("NeutralSubstrate.Core", tmp_path)
+    result = module_to_path("NeutralSubstrate.Core", tmp_path)
     assert result == tmp_path / "NeutralSubstrate" / "Core.lean"
 
 
 def test_module_to_path_single_segment(tmp_path: Path) -> None:
-    result = _module_to_path("Core", tmp_path)
+    result = module_to_path("Core", tmp_path)
     assert result == tmp_path / "Core.lean"
 
 
 def test_module_to_path_three_segments(tmp_path: Path) -> None:
-    result = _module_to_path("SE.Neutral.Core", tmp_path)
+    result = module_to_path("SE.Neutral.Core", tmp_path)
     assert result == tmp_path / "SE" / "Neutral" / "Core.lean"
 
 
@@ -122,59 +110,59 @@ def test_module_to_path_three_segments(tmp_path: Path) -> None:
 def test_extract_decls_empty_file(tmp_path: Path) -> None:
     f = tmp_path / "Empty.lean"
     f.write_text("-- nothing here\n", encoding="utf-8")
-    assert _extract_decls(f) == []
+    assert extract_decls(f) == []
 
 
 def test_extract_decls_missing_file(tmp_path: Path) -> None:
-    assert _extract_decls(tmp_path / "Missing.lean") == []
+    assert extract_decls(tmp_path / "Missing.lean") == []
 
 
 def test_extract_decls_theorem(tmp_path: Path) -> None:
     f = tmp_path / "T.lean"
     f.write_text("theorem my_thm : True := trivial\n", encoding="utf-8")
-    decls = _extract_decls(f)
+    decls = extract_decls(f)
     assert any(d.name == "my_thm" and d.kind == "theorem" for d in decls)
 
 
 def test_extract_decls_lemma_maps_to_theorem_section(tmp_path: Path) -> None:
     f = tmp_path / "T.lean"
     f.write_text("lemma my_lemma : True := trivial\n", encoding="utf-8")
-    decls = _extract_decls(f)
+    decls = extract_decls(f)
     assert any(d.name == "my_lemma" and d.section == "theorem" for d in decls)
 
 
 def test_extract_decls_inductive_maps_to_type(tmp_path: Path) -> None:
     f = tmp_path / "T.lean"
     f.write_text("inductive MyType where\n  | mk\n", encoding="utf-8")
-    decls = _extract_decls(f)
+    decls = extract_decls(f)
     assert any(d.name == "MyType" and d.section == "type" for d in decls)
 
 
 def test_extract_decls_def_maps_to_predicate(tmp_path: Path) -> None:
     f = tmp_path / "T.lean"
     f.write_text("def myPred (x : Nat) : Bool := true\n", encoding="utf-8")
-    decls = _extract_decls(f)
+    decls = extract_decls(f)
     assert any(d.name == "myPred" and d.section == "predicate" for d in decls)
 
 
 def test_extract_decls_abbrev_maps_to_predicate(tmp_path: Path) -> None:
     f = tmp_path / "T.lean"
     f.write_text("abbrev MyAlias := List Nat\n", encoding="utf-8")
-    decls = _extract_decls(f)
+    decls = extract_decls(f)
     assert any(d.name == "MyAlias" and d.kind == "abbrev" for d in decls)
 
 
 def test_extract_decls_axiom(tmp_path: Path) -> None:
     f = tmp_path / "T.lean"
     f.write_text("axiom my_axiom : True\n", encoding="utf-8")
-    decls = _extract_decls(f)
+    decls = extract_decls(f)
     assert any(d.name == "my_axiom" and d.section == "axiom" for d in decls)
 
 
 def test_extract_decls_noncomputable_def(tmp_path: Path) -> None:
     f = tmp_path / "T.lean"
     f.write_text("noncomputable def myDef : Nat := 0\n", encoding="utf-8")
-    decls = _extract_decls(f)
+    decls = extract_decls(f)
     assert any(d.name == "myDef" for d in decls)
 
 
@@ -184,7 +172,7 @@ def test_extract_decls_multiple(tmp_path: Path) -> None:
         "inductive A where\ndef b : Bool := true\ntheorem c : True := trivial\n",
         encoding="utf-8",
     )
-    names = {d.name for d in _extract_decls(f)}
+    names = {d.name for d in extract_decls(f)}
     assert names == {"A", "b", "c"}
 
 
@@ -198,7 +186,7 @@ def test_extract_for_section_type_only(tmp_path: Path) -> None:
     f.write_text(
         "inductive MyType where\ndef myPred : Bool := true\n", encoding="utf-8"
     )
-    decls = _extract_for_section(f, "type")
+    decls = extract_for_section(f, "type")
     assert all(d.section == "type" for d in decls)
     assert any(d.name == "MyType" for d in decls)
     assert not any(d.name == "myPred" for d in decls)
@@ -209,9 +197,9 @@ def test_extract_for_section_unknown_returns_empty(tmp_path: Path) -> None:
     f.write_text(
         "def x : Bool := true\ntheorem y : True := trivial\n", encoding="utf-8"
     )
-    assert _extract_for_section(f, "dependency") == []
-    assert _extract_for_section(f, "traceability") == []
-    assert _extract_for_section(f, "unknown") == []
+    assert extract_for_section(f, "dependency") == []
+    assert extract_for_section(f, "traceability") == []
+    assert extract_for_section(f, "unknown") == []
 
 
 # ---------------------------------------------------------------------------
@@ -221,17 +209,17 @@ def test_extract_for_section_unknown_returns_empty(tmp_path: Path) -> None:
 
 def test_section_entries_returns_dict_entries() -> None:
     data = {"type": {"A": {"id": "A"}, "B": {"id": "B"}}, "schema": "x"}
-    result = _section_entries(data, "type")
+    result = section_entries(data, "type")
     assert set(result.keys()) == {"A", "B"}
 
 
 def test_section_entries_missing_section() -> None:
-    assert _section_entries({}, "type") == {}
+    assert section_entries({}, "type") == {}
 
 
 def test_section_entries_skips_non_dict_values() -> None:
     data = {"type": {"A": {"id": "A"}, "B": "not-a-dict"}}
-    result = _section_entries(data, "type")
+    result = section_entries(data, "type")
     assert "B" not in result
 
 
@@ -250,13 +238,13 @@ def test_source_modules_in_registry_collects_unique() -> None:
             "C": {"lean_symbol": "C", "source_module": "Other"},
         },
     }
-    result = _source_modules_in_registry(data)
+    result = source_modules_in_registry(data)
     assert set(result) == {"Core", "Other"}
 
 
 def test_source_modules_in_registry_skips_empty() -> None:
     data = {"type": {"A": {"lean_symbol": "A", "source_module": ""}}}
-    assert _source_modules_in_registry(data) == []
+    assert source_modules_in_registry(data) == []
 
 
 # ---------------------------------------------------------------------------
@@ -347,7 +335,7 @@ def test_write_registry_toml_roundtrip(tmp_path: Path) -> None:
             "A": {"id": "A", "lean_symbol": "A", "description": "desc A"},
         },
     }
-    _write_registry_toml(path, data)
+    write_registry_toml(path, data)
     parsed = tomllib.loads(path.read_text(encoding="utf-8"))
     assert parsed["schema"] == "test-1"
     assert parsed["type"]["A"]["lean_symbol"] == "A"
@@ -356,7 +344,7 @@ def test_write_registry_toml_roundtrip(tmp_path: Path) -> None:
 def test_write_registry_toml_header_keys_first(tmp_path: Path) -> None:
     path = tmp_path / "out.toml"
     data = {"schema": "s", "repo": "r", "type": {"A": {"id": "A"}}}
-    _write_registry_toml(path, data)
+    write_registry_toml(path, data)
     lines = path.read_text(encoding="utf-8").splitlines()
     assert lines[0].startswith("schema")
     assert lines[1].startswith("repo")
@@ -395,7 +383,7 @@ def test_artifact_result_warn_preserves_ok() -> None:
 
 
 def test_find_repo_root_returns_path() -> None:
-    result = _find_repo_root()
+    result = find_repo_root()
     assert isinstance(result, Path)
     assert (result / "pyproject.toml").exists()
 
@@ -412,7 +400,7 @@ def test_run_scaffold_dry_run_returns_0() -> None:
 
 def test_run_scaffold_dry_run_writes_nothing(tmp_path: Path) -> None:
     """run_scaffold --dry-run does not create any new files."""
-    root = _find_repo_root()
+    root = find_repo_root()
     ref_dir = root / "reference"
     before = set(ref_dir.iterdir()) if ref_dir.exists() else set()
     run_scaffold(dry_run=True)
@@ -485,7 +473,7 @@ def test_run_scaffold_adds_stub_for_new_symbol(
     existing_toml = 'schema = "se-my-type-registry-1"\nrepo = "test"\nsurface_module = "MyLib.Surface"\n'
     repo = _make_synthetic_repo(tmp_path, lean, existing_toml)
     monkeypatch.setattr(
-        "se_theory_neutral_substrate.reference._find_repo_root", lambda: repo
+        "se_theory_neutral_substrate.reference.find_repo_root", lambda: repo
     )
 
     result = run_scaffold(dry_run=False, overwrite=False)
@@ -510,7 +498,7 @@ def test_run_scaffold_preserves_existing_description(
     )
     repo = _make_synthetic_repo(tmp_path, lean, existing_toml)
     monkeypatch.setattr(
-        "se_theory_neutral_substrate.reference._find_repo_root", lambda: repo
+        "se_theory_neutral_substrate.reference.find_repo_root", lambda: repo
     )
 
     run_scaffold(dry_run=False, overwrite=False)
@@ -539,7 +527,7 @@ def test_run_scaffold_overwrite_replaces_description(
     )
     repo = _make_synthetic_repo(tmp_path, lean, existing_toml)
     monkeypatch.setattr(
-        "se_theory_neutral_substrate.reference._find_repo_root", lambda: repo
+        "se_theory_neutral_substrate.reference.find_repo_root", lambda: repo
     )
 
     run_scaffold(dry_run=False, overwrite=True)
@@ -562,7 +550,7 @@ def test_run_scaffold_missing_index_returns_1(
     """run_scaffold returns 1 when reference/index.toml does not exist."""
     (tmp_path / "pyproject.toml").touch()
     monkeypatch.setattr(
-        "se_theory_neutral_substrate.reference._find_repo_root", lambda: tmp_path
+        "se_theory_neutral_substrate.reference.find_repo_root", lambda: tmp_path
     )
     assert run_scaffold() == 1
 
@@ -573,6 +561,6 @@ def test_run_ref_validate_missing_index_returns_1(
     """run_ref_validate returns 1 when reference/index.toml does not exist."""
     (tmp_path / "pyproject.toml").touch()
     monkeypatch.setattr(
-        "se_theory_neutral_substrate.reference._find_repo_root", lambda: tmp_path
+        "se_theory_neutral_substrate.reference.find_repo_root", lambda: tmp_path
     )
     assert run_ref_validate() == 1

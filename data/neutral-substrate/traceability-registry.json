@@ -1,0 +1,95 @@
+{
+  "schema": "se-neutral-substrate-traceability-registry-1",
+  "source": "se-theory-neutral-substrate",
+  "namespace": "se.neutral_substrate",
+  "artifact": "traceability-registry",
+  "reference_artifact": "traceability-registry",
+  "reference_path": "C:/Users/edaci/Documents/structural-explainability/se-theory-neutral-substrate/reference/traceability-registry.toml",
+  "traces": [
+    {
+      "id": "trace-any-false-implies-none",
+      "from": "any_false_implies_none",
+      "to": [],
+      "relation": "depends_on"
+    },
+    {
+      "id": "trace-any-true-implies-exists",
+      "from": "any_true_implies_exists",
+      "to": [],
+      "relation": "depends_on"
+    },
+    {
+      "id": "trace-framework-contestability-lemma",
+      "from": "framework_contestability_lemma",
+      "to": [
+        "Primitive",
+        "FrameworkVariant",
+        "Neutral",
+        "InterpretivelyNonCommitted"
+      ],
+      "relation": "depends_on"
+    },
+    {
+      "id": "trace-neutral-if-only-neutral",
+      "from": "neutral_if_only_neutral",
+      "to": [
+        "Neutral",
+        "ExtensionStable",
+        "extensionInconsistent",
+        "any_false_implies_none",
+        "neutral_primitives_undisputed",
+        "only_neutral_primitives_implies_INC"
+      ],
+      "relation": "depends_on"
+    },
+    {
+      "id": "trace-not-neutral-if-causal-or-normative",
+      "from": "not_neutral_if_causal_or_normative",
+      "to": [
+        "containsCausalOrNormative",
+        "Neutral",
+        "ExtensionStable",
+        "extensionInconsistent",
+        "any_true_implies_exists",
+        "framework_relativity"
+      ],
+      "relation": "depends_on"
+    },
+    {
+      "id": "trace-only-neutral-primitives-implies-inc",
+      "from": "only_neutral_primitives_implies_INC",
+      "to": [
+        "Ontology",
+        "containsCausalOrNormative",
+        "InterpretivelyNonCommitted",
+        "FrameworkVariant",
+        "any_false_implies_none",
+        "neutral_primitives_undisputed"
+      ],
+      "relation": "depends_on"
+    },
+    {
+      "id": "trace-ontological-neutrality-theorem",
+      "from": "ontological_neutrality_theorem",
+      "to": [
+        "Neutral",
+        "containsCausalOrNormative",
+        "not_neutral_if_causal_or_normative",
+        "neutral_if_only_neutral"
+      ],
+      "relation": "depends_on"
+    },
+    {
+      "id": "trace-separate-stability",
+      "from": "separate_stability",
+      "to": [
+        "Neutral",
+        "ExtensionStable",
+        "extensionInconsistent",
+        "Admissible",
+        "FrameworksContradict"
+      ],
+      "relation": "depends_on"
+    }
+  ]
+}

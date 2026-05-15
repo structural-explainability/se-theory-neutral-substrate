@@ -1,3 +1,6 @@
+import NeutralSubstrate.Core
+import NeutralSubstrate.Spec
+
 -- ============================================================
 -- NeutralSubstrate/Surface.lean
 -- ============================================================
@@ -18,9 +21,6 @@
 --   import NeutralSubstrate
 --   open SE.NeutralSubstrate        -- types, predicates, axioms, theorems
 --   open SE.NeutralSubstrate.Spec   -- citation IDs (optional)
-
-import NeutralSubstrate.Core
-import NeutralSubstrate.Spec
 
 
 -- ============================================================

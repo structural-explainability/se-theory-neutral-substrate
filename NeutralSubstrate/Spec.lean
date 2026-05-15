@@ -140,5 +140,14 @@ def NS_ID_THEOREM_SEPARATE_STABILITY : String :=
 def NS_ID_THEOREM_ONLY_NEUTRAL_IMPLIES_INC : String :=
   "NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC"
 
+/-- Cite when a proof depends on the helper lemma connecting
+    List.any = false to absence of witnesses. -/
+def NS_ID_THEOREM_ANY_FALSE_IMPLIES_NONE : String :=
+  "NS.THEOREM.ANY_FALSE_IMPLIES_NONE"
+
+/-- Cite when a proof depends on the helper lemma connecting
+    List.any = true to existence of a witness. -/
+def NS_ID_THEOREM_ANY_TRUE_IMPLIES_EXISTS : String :=
+  "NS.THEOREM.ANY_TRUE_IMPLIES_EXISTS"
 
 end SE.NeutralSubstrate.Spec

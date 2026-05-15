@@ -10,7 +10,7 @@ namespace = "SE.NeutralSubstrate"
 
 [predicate.Admissible]
 id = "Admissible"
-cite_id = "NS.DEF.Admissible"
+cite_id = "NS.DEF.ADMISSIBLE"
 name = "Admissible"
 lean_symbol = "Admissible"
 source_module = "NeutralSubstrate.Core"
@@ -18,7 +18,7 @@ description = "All internally consistent frameworks are admissible. Intentionall
 
 [predicate.containsCausalOrNormative]
 id = "containsCausalOrNormative"
-cite_id = "NS.DEF.containsCausalOrNormative"
+cite_id = "NS.DEF.CONTAINS_CAUSAL_OR_NORMATIVE"
 name = "Contains causal or normative commitment"
 lean_symbol = "containsCausalOrNormative"
 source_module = "NeutralSubstrate.Core"
@@ -26,7 +26,7 @@ description = "Boolean function returning true if any primitive in the ontology 
 
 [predicate.extensionInconsistent]
 id = "extensionInconsistent"
-cite_id = "NS.DEF.extensionInconsistent"
+cite_id = "NS.DEF.EXTENSION_INCONSISTENT"
 name = "Extension inconsistent"
 lean_symbol = "extensionInconsistent"
 source_module = "NeutralSubstrate.Core"
@@ -34,7 +34,7 @@ description = "A framework denies a primitive that the substrate contains. Model
 
 [predicate.ExtensionStable]
 id = "ExtensionStable"
-cite_id = "NS.DEF.ExtensionStable"
+cite_id = "NS.DEF.EXTENSION_STABLE"
 name = "Extension stable"
 lean_symbol = "ExtensionStable"
 source_module = "NeutralSubstrate.Core"
@@ -42,7 +42,7 @@ description = "No admissible framework causes inconsistency when extending the s
 
 [predicate.Neutral]
 id = "Neutral"
-cite_id = "NS.DEF.Neutral"
+cite_id = "NS.DEF.NEUTRAL"
 name = "Neutral"
 lean_symbol = "Neutral"
 source_module = "NeutralSubstrate.Core"
@@ -50,7 +50,7 @@ description = "An ontology is neutral iff it satisfies both extension stability 
 
 [predicate.FrameworkVariant]
 id = "FrameworkVariant"
-cite_id = "NS.DEF.FrameworkVariant"
+cite_id = "NS.DEF.FRAMEWORK_VARIANT"
 name = "Framework variant"
 lean_symbol = "FrameworkVariant"
 source_module = "NeutralSubstrate.Core"
@@ -58,7 +58,7 @@ description = "Admissible frameworks disagree about this primitive: some affirm 
 
 [predicate.FrameworksContradict]
 id = "FrameworksContradict"
-cite_id = "NS.DEF.FrameworksContradict"
+cite_id = "NS.DEF.FRAMEWORKS_CONTRADICT"
 name = "Frameworks contradict"
 lean_symbol = "FrameworksContradict"
 source_module = "NeutralSubstrate.Core"
@@ -66,7 +66,7 @@ description = "Two frameworks mutually contradict when one affirms what the othe
 
 [predicate.InterpretivelyNonCommitted]
 id = "InterpretivelyNonCommitted"
-cite_id = "NS.DEF.InterpretivelyNonCommitted"
+cite_id = "NS.DEF.INTERPRETIVELY_NON_COMMITTED"
 name = "Interpretively non-committed"
 lean_symbol = "InterpretivelyNonCommitted"
 source_module = "NeutralSubstrate.Core"

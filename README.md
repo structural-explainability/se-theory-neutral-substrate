@@ -89,8 +89,11 @@ View / Command Palette / `Developer: Reload Window` to refresh.
 elan self update
 lake update
 lake build
-lake build TestBasic
-lake build TestRegime
+lake build TestAll
+uv run se-validate --strict
+uv run python -m pyright
+uv run python -m pytest
+uv run python -m zensical build
 ```
 
 ## Tooling
@@ -130,28 +133,25 @@ uv self update
 uv python pin 3.15
 uv sync --extra dev --extra docs --upgrade
 
+# install git hooks once per clone
 uvx pre-commit install
 
+# build Lean (source of truth)
+lake build
+lake build TestAll
+
+# generate/check registry artifacts
+uv run se-validate --strict
+uv run se-ref-validate
+uv run se-ref-export
+uv run se-ref-export --check  
+
+# autofix and manual fix issues
 git add -A
 uvx pre-commit run --all-files
 # repeat if changes were made
 git add -A
 uvx pre-commit run --all-files
-
-# OPTIONAL:
-# Scaffold reference/ artifacts from Lean 4 source.
-# Adds stubs for new symbols.
-# Preserves existing descriptions, names, and cite_ids.
-uv run se-ref-scaffold --dry-run
-uv run se-ref-scaffold
-
-# OPTIONAL OVERWRITE:
-# Use carefully. Re-derives scaffolded fields and may overwrite
-# existing descriptions, names, and cite_ids.
-uv run se-ref-scaffold --overwrite
-
-# IMPORTANT: Run checks
-uv run se-validate --strict
 
 # do chores
 uv run python -m pyright

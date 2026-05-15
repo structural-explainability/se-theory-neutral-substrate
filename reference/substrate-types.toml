@@ -10,7 +10,7 @@ namespace = "SE.NeutralSubstrate"
 
 [type.PrimitiveKind]
 id = "PrimitiveKind"
-cite_id = "NS.TYPE.PrimitiveKind"
+cite_id = "NS.TYPE.PRIMITIVE_KIND"
 name = "Primitive kind"
 lean_symbol = "PrimitiveKind"
 source_module = "NeutralSubstrate.Core"
@@ -18,7 +18,7 @@ description = "The three mutually exclusive kinds a primitive may have: causal (
 
 [type.Primitive]
 id = "Primitive"
-cite_id = "NS.TYPE.Primitive"
+cite_id = "NS.TYPE.PRIMITIVE"
 name = "Primitive"
 lean_symbol = "Primitive"
 source_module = "NeutralSubstrate.Core"
@@ -26,7 +26,7 @@ description = "The basic unit of ontological commitment. Carries a kind (Primiti
 
 [type.Ontology]
 id = "Ontology"
-cite_id = "NS.TYPE.Ontology"
+cite_id = "NS.TYPE.ONTOLOGY"
 name = "Ontology"
 lean_symbol = "Ontology"
 source_module = "NeutralSubstrate.Core"
@@ -34,7 +34,7 @@ description = "A finite list of primitives, representing any ontology amenable t
 
 [type.Framework]
 id = "Framework"
-cite_id = "NS.TYPE.Framework"
+cite_id = "NS.TYPE.FRAMEWORK"
 name = "Framework"
 lean_symbol = "Framework"
 source_module = "NeutralSubstrate.Core"

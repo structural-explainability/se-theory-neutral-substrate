@@ -1,0 +1,34 @@
+{
+  "schema": "se-neutral-substrate-axiom-registry-1",
+  "source": "se-theory-neutral-substrate",
+  "namespace": "se.neutral_substrate",
+  "artifact": "substrate-axiom-registry",
+  "reference_artifact": "substrate-axioms",
+  "reference_path": "C:/Users/edaci/Documents/structural-explainability/se-theory-neutral-substrate/reference/substrate-axioms.toml",
+  "axioms": [
+    {
+      "id": "causal_normative_affirmed",
+      "cite_id": "NS.AXIOM.CAUSAL_NORMATIVE_AFFIRMED",
+      "name": "Causal or normative affirmed",
+      "lean_symbol": "causal_normative_affirmed",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "For any non-neutral primitive, some admissible framework affirms it. Companion to framework_relativity: together they establish that causal and normative primitives are genuinely framework-variant. Some frameworks affirm them, some deny them. Required for framework_contestability_lemma; without it FrameworkVariant cannot be instantiated for any concrete primitive."
+    },
+    {
+      "id": "framework_relativity",
+      "cite_id": "NS.AXIOM.FRAMEWORK_RELATIVITY",
+      "name": "Framework relativity",
+      "lean_symbol": "framework_relativity",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "For any non-neutral primitive, some admissible framework denies it. Encodes that causal and normative conclusions are inherently contested across interpretive frameworks. Sufficient for the lower bound (not_neutral_if_causal_or_normative) alone. Fails in domains where causal or normative consensus exists."
+    },
+    {
+      "id": "neutral_primitives_undisputed",
+      "cite_id": "NS.AXIOM.NEUTRAL_PRIMITIVES_UNDISPUTED",
+      "name": "Neutral primitives undisputed",
+      "lean_symbol": "neutral_primitives_undisputed",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "Neutral primitives are not denied by any admissible framework. Pure existence and identity claims are framework-invariant. Required for the upper bound (neutral_if_only_neutral); the biconditional holds only when both this axiom and framework_relativity are satisfied. Fails in domains where identity conditions are themselves contested."
+    }
+  ]
+}

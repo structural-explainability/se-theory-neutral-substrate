@@ -1,0 +1,74 @@
+{
+  "schema": "se-neutral-substrate-predicate-registry-1",
+  "source": "se-theory-neutral-substrate",
+  "namespace": "se.neutral_substrate",
+  "artifact": "substrate-predicate-registry",
+  "reference_artifact": "substrate-predicates",
+  "reference_path": "C:/Users/edaci/Documents/structural-explainability/se-theory-neutral-substrate/reference/substrate-predicates.toml",
+  "predicates": [
+    {
+      "id": "Admissible",
+      "cite_id": "NS.DEF.ADMISSIBLE",
+      "name": "Admissible",
+      "lean_symbol": "Admissible",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "All internally consistent frameworks are admissible. Intentionally minimal: defined as Prop := True, meaning every framework satisfying the internal consistency requirement in the Framework structure qualifies. Admissibility is not universality. Admissible frameworks may contradict one another. A richer model could add domain-specific conditions."
+    },
+    {
+      "id": "ExtensionStable",
+      "cite_id": "NS.DEF.EXTENSION_STABLE",
+      "name": "Extension stable",
+      "lean_symbol": "ExtensionStable",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "No admissible framework causes inconsistency when extending the substrate. For all admissible frameworks F, extending S with F produces no contradiction. Captures the requirement that the substrate survives interpretive disagreement. It is the EXT conjunct of Neutral."
+    },
+    {
+      "id": "FrameworkVariant",
+      "cite_id": "NS.DEF.FRAMEWORK_VARIANT",
+      "name": "Framework variant",
+      "lean_symbol": "FrameworkVariant",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "Admissible frameworks disagree about this primitive: some affirm it, some deny it. A primitive is framework-variant when there exist admissible F1 and F2 such that F1 affirms p and F2 denies p. This is the structural property that makes a primitive unsafe to embed at the substrate layer. Any substrate asserting a framework-variant primitive will be inconsistent with some admissible framework."
+    },
+    {
+      "id": "FrameworksContradict",
+      "cite_id": "NS.DEF.FRAMEWORKS_CONTRADICT",
+      "name": "Frameworks contradict",
+      "lean_symbol": "FrameworksContradict",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "Two frameworks mutually contradict when one affirms what the other denies. Mutual contradiction does not affect admissibility. Each framework may be internally consistent while contradicting the other. Instantiated in the incident example: the engineering and legal frameworks contradict each other over Responsible(a,e) while each remains separately consistent with the neutral substrate."
+    },
+    {
+      "id": "InterpretivelyNonCommitted",
+      "cite_id": "NS.DEF.INTERPRETIVELY_NON_COMMITTED",
+      "name": "Interpretively non-committed",
+      "lean_symbol": "InterpretivelyNonCommitted",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "No primitive in the substrate is framework-variant. A substrate satisfies INC when every primitive it contains has framework-invariant truth conditions. This is the INC conjunct of Neutral. For substrates where containsCausalOrNormative S = false, INC follows from neutral_primitives_undisputed alone via only_neutral_primitives_implies_INC."
+    },
+    {
+      "id": "Neutral",
+      "cite_id": "NS.DEF.NEUTRAL",
+      "name": "Neutral",
+      "lean_symbol": "Neutral",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "An ontology is neutral iff it satisfies both extension stability (EXT) and interpretive non-commitment (INC). EXT: no admissible framework contradicts the substrate. INC: no primitive in the substrate is framework-variant. Both conjuncts are necessary; the full biconditional requires both framework_relativity and neutral_primitives_undisputed."
+    },
+    {
+      "id": "containsCausalOrNormative",
+      "cite_id": "NS.DEF.CONTAINS_CAUSAL_OR_NORMATIVE",
+      "name": "Contains causal or normative commitment",
+      "lean_symbol": "containsCausalOrNormative",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "Boolean function returning true if any primitive in the ontology has kind other than neutral. This is the computational characterization the main theorem is stated over; the biconditional ontological_neutrality_theorem equates Neutral S with containsCausalOrNormative S = false."
+    },
+    {
+      "id": "extensionInconsistent",
+      "cite_id": "NS.DEF.EXTENSION_INCONSISTENT",
+      "name": "Extension inconsistent",
+      "lean_symbol": "extensionInconsistent",
+      "source_module": "NeutralSubstrate.Core",
+      "description": "A framework denies a primitive that the substrate contains. Models the conflict arising when an interpretive framework contradicts a substrate-level commitment: there exists a primitive p in S such that F.denies p = true."
+    }
+  ]
+}

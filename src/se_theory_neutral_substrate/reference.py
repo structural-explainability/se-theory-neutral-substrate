@@ -14,257 +14,30 @@ Entry points:
   run_scaffold(dry_run, overwrite) -> int
   run_ref_validate(strict)         -> int
 
-Copy this file unchanged to each theory repo.  _find_repo_root() locates
+Copy this file unchanged to each theory repo.  find_repo_root() locates
 the repo root via pyproject.toml, so the same source works in all three.
 """
 
 from dataclasses import dataclass, field
 from pathlib import Path
-import re
-import sys
 from typing import Any
 
-try:
-    import tomllib
-except ImportError:
-    try:
-        import tomli as tomllib  # type: ignore[no-redef]
-    except ImportError:
-        print("error: requires tomllib (Python 3.11+) or: pip install tomli")
-        sys.exit(1)
-
-
-# ---------------------------------------------------------------------------
-# Repo root detection
-# ---------------------------------------------------------------------------
-
-
-def _find_repo_root() -> Path:
-    """Walk up from this file until pyproject.toml is found."""
-    for parent in Path(__file__).resolve().parents:
-        if (parent / "pyproject.toml").exists():
-            return parent
-    raise FileNotFoundError(
-        "Cannot locate repo root: no pyproject.toml found above "
-        f"{Path(__file__).resolve()}"
-    )
-
-
-# ---------------------------------------------------------------------------
-# Lean 4 declaration extraction
-# ---------------------------------------------------------------------------
-
-LEAN_DECL_TO_SECTION: dict[str, str] = {
-    "inductive": "type",
-    "structure": "type",
-    "theorem": "theorem",
-    "lemma": "theorem",
-    "axiom": "axiom",
-    "def": "predicate",
-    "abbrev": "predicate",
-}
-
-_DECL_RE = re.compile(
-    r"^(?:private\s+|protected\s+)?(?:noncomputable\s+)?"
-    r"(theorem|lemma|def|abbrev|inductive|structure|axiom|class|instance)\s+(\w+)",
-    re.MULTILINE,
+from se_theory_neutral_substrate.ref_utils import (
+    SECTION_LEAN_KINDS,
+    LeanDecl,
+    extract_decls,
+    extract_for_section,
+    extract_spec_ids,
+    find_repo_root,
+    infer_core_modules,
+    infer_spec_module,
+    kind_to_section,
+    load_toml,
+    module_to_path,
+    section_entries,
+    source_modules_in_registry,
+    write_registry_toml,
 )
-
-_SECTION_LEAN_KINDS: dict[str, set[str]] = {
-    "type": {"inductive", "structure"},
-    "predicate": {"def", "abbrev"},
-    "theorem": {"theorem", "lemma"},
-    "axiom": {"axiom"},
-    "witness": {"def", "abbrev"},
-}
-
-
-@dataclass
-class LeanDecl:
-    """Lean declaration with name, kind (inductive, theorem, etc), and section (type, theorem, etc)."""
-
-    name: str
-    kind: str
-    section: str
-
-
-def _extract_decls(lean_file: Path) -> list[LeanDecl]:
-    if not lean_file.exists():
-        return []
-    text = lean_file.read_text(encoding="utf-8")
-    return [
-        LeanDecl(
-            name=m.group(2),
-            kind=m.group(1),
-            section=LEAN_DECL_TO_SECTION.get(m.group(1), "unknown"),
-        )
-        for m in _DECL_RE.finditer(text)
-    ]
-
-
-def _extract_for_section(lean_file: Path, target_section: str) -> list[LeanDecl]:
-    wanted = _SECTION_LEAN_KINDS.get(target_section)
-    if wanted is None:
-        return []  # non-Lean section (dependency, traceability, etc.): skip extraction
-    return [d for d in _extract_decls(lean_file) if d.kind in wanted]
-
-
-# ---------------------------------------------------------------------------
-# Module path resolution
-# ---------------------------------------------------------------------------
-
-
-def _module_to_path(module: str, lean_root: Path) -> Path:
-    parts = module.split(".")
-    return lean_root.joinpath(*parts[:-1]) / f"{parts[-1]}.lean"
-
-
-def _infer_core_module(surface_module: str) -> str:
-    return surface_module.replace("Surface", "Core")
-
-
-def _path_to_module(path: Path, lean_root: Path) -> str:
-    rel = path.relative_to(lean_root).with_suffix("")
-    return ".".join(rel.parts)
-
-
-def _infer_core_modules(surface_module: str, lean_root: Path) -> list[str]:
-    """Infer Core modules under the surface namespace.
-
-    Supports both layouts:
-
-    - MyLib/Core.lean -> MyLib.Core
-    - MyLib/Profile/Core.lean -> MyLib.Profile.Core
-    - MyLib/Transform/Core.lean -> MyLib.Transform.Core
-
-    The root Core.lean file is sorted first when present, followed by
-    nested Core.lean files in deterministic path order.
-    """
-    if not surface_module.endswith(".Surface"):
-        return []
-
-    root_module = surface_module.removesuffix(".Surface")
-    root_dir = lean_root.joinpath(*root_module.split("."))
-
-    if not root_dir.exists():
-        return []
-
-    core_files = sorted(root_dir.rglob("Core.lean"))
-
-    root_core = root_dir / "Core.lean"
-    if root_core in core_files:
-        core_files.remove(root_core)
-        core_files.insert(0, root_core)
-
-    return [_path_to_module(path, lean_root) for path in core_files]
-
-
-def _kind_to_section(artifact_kind: str) -> str:
-    """'substrate-type-registry' -> 'type', 'se-theorem-registry' -> 'theorem'."""
-    without_suffix = artifact_kind.removesuffix("-registry")
-    return (
-        without_suffix.rsplit("-", 1)[-1] if "-" in without_suffix else without_suffix
-    )
-
-
-# ---------------------------------------------------------------------------
-# TOML helpers
-# ---------------------------------------------------------------------------
-
-
-def _load_toml(path: Path) -> dict[str, Any]:
-    return tomllib.loads(path.read_text(encoding="utf-8"))
-
-
-def _section_entries(data: dict, section: str) -> dict[str, dict]:
-    return {k: v for k, v in data.get(section, {}).items() if isinstance(v, dict)}
-
-
-def _source_modules_in_registry(data: dict) -> list[str]:
-    seen: set[str] = set()
-    result: list[str] = []
-    for section_val in data.values():
-        if not isinstance(section_val, dict):
-            continue
-        for entry in section_val.values():
-            if isinstance(entry, dict):
-                mod = entry.get("source_module", "")
-                if mod and mod not in seen:
-                    seen.add(mod)
-                    result.append(mod)
-    return result
-
-
-# ---------------------------------------------------------------------------
-# Minimal TOML writer (no external dependency)
-# ---------------------------------------------------------------------------
-
-_HEADER_KEYS = ["schema", "repo", "surface_module", "namespace"]
-
-
-def _toml_val(v: Any) -> str:
-    if isinstance(v, bool):
-        return "true" if v else "false"
-    if isinstance(v, str):
-        return '"' + v.replace("\\", "\\\\").replace('"', '\\"') + '"'
-    return str(v)
-
-
-def _write_registry_toml(path: Path, data: dict) -> None:
-    lines: list[str] = []
-    for key in _HEADER_KEYS:
-        if key in data and not isinstance(data[key], dict):
-            lines.append(f"{key} = {_toml_val(data[key])}")
-    lines.append("")
-    for section_key, section_val in data.items():
-        if section_key in _HEADER_KEYS or not isinstance(section_val, dict):
-            continue
-        for entry_id, entry in section_val.items():
-            if not isinstance(entry, dict):
-                continue
-            lines.append(f"[{section_key}.{entry_id}]")
-            for fk, fv in entry.items():
-                lines.append(f"{fk} = {_toml_val(fv)}")
-            lines.append("")
-    path.write_text("\n".join(lines), encoding="utf-8")
-
-
-# ---------------------------------------------------------------------------
-# Stub generation and merge
-# ---------------------------------------------------------------------------
-
-_PLACEHOLDER = ""
-_HUMAN_FIELDS = {"description", "name", "cite_id"}
-_REQUIRED_BASE = {"id", "cite_id", "lean_symbol", "source_module", "description"}
-_REQUIRED_STATUS = {"theorem"}  # axioms are postulated in Lean, not proved/pending
-
-
-def _make_stub(decl: LeanDecl, source_module: str) -> dict[str, Any]:
-    entry: dict[str, Any] = {
-        "id": decl.name,
-        "cite_id": _PLACEHOLDER,
-        "name": _PLACEHOLDER,
-        "lean_symbol": decl.name,
-        "source_module": source_module,
-        "description": _PLACEHOLDER,
-    }
-    if decl.section in _REQUIRED_STATUS:
-        entry["status"] = "pending"
-    return entry
-
-
-def _merge(existing: dict, stub: dict, overwrite: bool) -> dict:
-    result = dict(existing)
-    for key, val in stub.items():
-        if (
-            key not in existing
-            or overwrite
-            or key in _HUMAN_FIELDS
-            and existing[key] == _PLACEHOLDER
-        ):
-            result[key] = val
-    return result
-
 
 # ---------------------------------------------------------------------------
 # Per-artifact processing
@@ -312,7 +85,7 @@ def _process_artifact(
     fmt = artifact.get("format", "toml")
     generated = artifact.get("generated", False)
     kind = artifact.get("kind", "")
-    section = _kind_to_section(kind)
+    section = kind_to_section(kind)
     result = _ArtifactResult(artifact_id=art_id)
 
     if generated or fmt != "toml":
@@ -324,7 +97,7 @@ def _process_artifact(
 
     if art_path.exists():
         try:
-            existing_data = _load_toml(art_path)
+            existing_data = load_toml(art_path)
         except Exception as exc:
             result.fail(f"TOML parse error: {exc}")
             return result
@@ -336,10 +109,10 @@ def _process_artifact(
     if "source_module" in artifact:
         source_modules = [artifact["source_module"]]
     if not source_modules and existing_data:
-        source_modules = _source_modules_in_registry(existing_data)
+        source_modules = source_modules_in_registry(existing_data)
     if not source_modules:
         surface = existing_data.get("surface_module", index_surface_module)
-        source_modules = _infer_core_modules(surface, lean_root)
+        source_modules = infer_core_modules(surface, lean_root)
         if source_modules:
             result.note("source modules inferred: " + ", ".join(source_modules))
         else:
@@ -350,11 +123,11 @@ def _process_artifact(
     # Scan Lean files
     all_decls: list[LeanDecl] = []
     for mod in source_modules:
-        lean_file = _module_to_path(mod, lean_root)
+        lean_file = module_to_path(mod, lean_root)
         if not lean_file.exists():
             result.fail(f"lean file not found: {lean_file}")
             continue
-        all_decls.extend(_extract_for_section(lean_file, section))
+        all_decls.extend(extract_for_section(lean_file, section))
 
     if not result.ok:
         return result
@@ -366,10 +139,10 @@ def _process_artifact(
     all_lean_by_name: dict[str, LeanDecl] = {}
     sym_to_mod: dict[str, str] = {}
     for mod in source_modules:
-        for d in _extract_decls(_module_to_path(mod, lean_root)):
+        for d in extract_decls(module_to_path(mod, lean_root)):
             all_lean_by_name.setdefault(d.name, d)
             sym_to_mod.setdefault(d.name, mod)
-    existing_entries = _section_entries(existing_data, section)
+    existing_entries = section_entries(existing_data, section)
     existing_symbols: set[str] = {
         e["lean_symbol"] for e in existing_entries.values() if "lean_symbol" in e
     }
@@ -411,14 +184,23 @@ def _process_artifact(
     # Required-field validation. Only applies to Lean symbol sections.
     # Dependency and traceability registries use a different schema and are
     # hand-authored; their entries intentionally omit lean_symbol/source_module.
-    if section in _SECTION_LEAN_KINDS:
+    if section in SECTION_LEAN_KINDS:
         required = _REQUIRED_BASE | (
             {"status"} if section in _REQUIRED_STATUS else set()
         )
-        for entry_id, entry in _section_entries(existing_data, section).items():
+        for entry_id, entry in section_entries(existing_data, section).items():
             for req in sorted(required):
                 if req not in entry:
                     result.warn(f"missing field {req!r} on {section}.{entry_id}")
+        spec_module = infer_spec_module(index_surface_module)
+        spec_file = module_to_path(spec_module, lean_root)
+        spec_ids = extract_spec_ids(spec_file)
+        _validate_cite_ids_against_spec(
+            existing_data,
+            section,
+            spec_ids,
+            result,
+        )
 
     if result.orphaned == 0 and result.added == 0:
         result.note("all lean_symbols match")
@@ -431,9 +213,68 @@ def _process_artifact(
     # Write
     if not dry_run and (result.added > 0 or not art_path.exists() or overwrite):
         art_path.parent.mkdir(parents=True, exist_ok=True)
-        _write_registry_toml(art_path, existing_data)
+        write_registry_toml(art_path, existing_data)
         result.wrote = True
 
+    return result
+
+
+def _validate_cite_ids_against_spec(
+    existing_data: dict,
+    section: str,
+    spec_ids: set[str],
+    result: _ArtifactResult,
+) -> None:
+    """Warn when reference cite_id values are absent from Spec.lean."""
+    if not spec_ids:
+        result.warn("no Spec.lean citation IDs found")
+        return
+
+    for entry_id, entry in section_entries(existing_data, section).items():
+        cite_id = entry.get("cite_id")
+        if not cite_id:
+            continue
+        if cite_id not in spec_ids:
+            result.warn(
+                f"cite_id not declared in Spec.lean on {section}.{entry_id}: "
+                f"{cite_id!r}"
+            )
+
+
+# ---------------------------------------------------------------------------
+# Stub generation and merge
+# ---------------------------------------------------------------------------
+
+_PLACEHOLDER = ""
+_HUMAN_FIELDS = {"description", "name", "cite_id"}
+_REQUIRED_BASE = {"id", "cite_id", "lean_symbol", "source_module", "description"}
+_REQUIRED_STATUS = {"theorem"}  # axioms are postulated in Lean, not proved/pending
+
+
+def _make_stub(decl: LeanDecl, source_module: str) -> dict[str, Any]:
+    entry: dict[str, Any] = {
+        "id": decl.name,
+        "cite_id": _PLACEHOLDER,
+        "name": _PLACEHOLDER,
+        "lean_symbol": decl.name,
+        "source_module": source_module,
+        "description": _PLACEHOLDER,
+    }
+    if decl.section in _REQUIRED_STATUS:
+        entry["status"] = "pending"
+    return entry
+
+
+def _merge(existing: dict, stub: dict, overwrite: bool) -> dict:
+    result = dict(existing)
+    for key, val in stub.items():
+        if (
+            key not in existing
+            or overwrite
+            or key in _HUMAN_FIELDS
+            and existing[key] == _PLACEHOLDER
+        ):
+            result[key] = val
     return result
 
 
@@ -448,7 +289,7 @@ def run_scaffold(dry_run: bool = False, overwrite: bool = False) -> int:
     Returns:
         0 on success, 1 if any artifact fails.
     """
-    repo_root = _find_repo_root()
+    repo_root = find_repo_root()
     lean_root = repo_root
     index_path = repo_root / "reference" / "index.toml"
 
@@ -457,7 +298,7 @@ def run_scaffold(dry_run: bool = False, overwrite: bool = False) -> int:
         return 1
 
     try:
-        index = _load_toml(index_path)
+        index = load_toml(index_path)
     except Exception as exc:
         print(f"error: cannot parse reference/index.toml: {exc}")
         return 1
@@ -472,7 +313,7 @@ def run_scaffold(dry_run: bool = False, overwrite: bool = False) -> int:
         path = repo_root / artifact.get("path", "")
         if path.exists() and artifact.get("format", "toml") == "toml":
             try:
-                data = _load_toml(path)
+                data = load_toml(path)
                 for sv in data.values():
                     if isinstance(sv, dict):
                         for e in sv.values():
@@ -509,7 +350,7 @@ def run_ref_validate(strict: bool = False) -> int:
     Returns:
         0 on success, 1 on any failure or (with strict) any warning.
     """
-    repo_root = _find_repo_root()
+    repo_root = find_repo_root()
     lean_root = repo_root
     index_path = repo_root / "reference" / "index.toml"
 
@@ -518,7 +359,7 @@ def run_ref_validate(strict: bool = False) -> int:
         return 1
 
     try:
-        index = _load_toml(index_path)
+        index = load_toml(index_path)
     except Exception as exc:
         print(f"error: cannot parse reference/index.toml: {exc}")
         return 1
@@ -530,7 +371,7 @@ def run_ref_validate(strict: bool = False) -> int:
         path = repo_root / artifact.get("path", "")
         if path.exists() and artifact.get("format", "toml") == "toml":
             try:
-                data = _load_toml(path)
+                data = load_toml(path)
                 for sv in data.values():
                     if isinstance(sv, dict):
                         for e in sv.values():

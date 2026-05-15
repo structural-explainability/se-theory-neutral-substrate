@@ -13,6 +13,21 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
+## [0.5.1] - 2026-05-14
+
+### Changed
+
+- `lean-toolchain` updated to `leanprover/lean4:stable`
+- `.markdownlint-cli2.yaml` replaces `.markdownlint.yml`
+- `.pre-commit-config.yaml` updated
+- `lakefile.toml` updated
+
+### Added
+
+- `test/TestAll.lean` - top-level test entry point
+
+---
+
 ## [0.5.0] - 2026-05-02
 
 ### Added
@@ -148,7 +163,14 @@ and updates `pyproject.toml` fallback-version.
 ```shell
 uv run se-manifest-version-sync
 uv sync --extra dev --extra docs --upgrade
+
+lake build
+lake build TestAll
+
 uv run se-ref-validate --strict
+uv run se-ref-export
+uv run se-ref-export --check
+
 git add -A
 uvx pre-commit run --all-files
 uv run python -m pyright
@@ -189,8 +211,9 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.5.0...HEAD
-[0.5.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...v0.5.0
-[0.4.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.1.0...v0.3.0
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.1
+[0.5.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.0
+[0.4.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.4.0
+[0.3.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.3.0
 [0.1.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.1.0

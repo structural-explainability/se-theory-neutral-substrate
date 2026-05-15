@@ -10,7 +10,7 @@ namespace = "SE.NeutralSubstrate"
 
 [axiom.framework_relativity]
 id = "framework_relativity"
-cite_id = "NS.AXIOM.framework_relativity"
+cite_id = "NS.AXIOM.FRAMEWORK_RELATIVITY"
 name = "Framework relativity"
 lean_symbol = "framework_relativity"
 source_module = "NeutralSubstrate.Core"
@@ -18,7 +18,7 @@ description = "For any non-neutral primitive, some admissible framework denies i
 
 [axiom.neutral_primitives_undisputed]
 id = "neutral_primitives_undisputed"
-cite_id = "NS.AXIOM.neutral_primitives_undisputed"
+cite_id = "NS.AXIOM.NEUTRAL_PRIMITIVES_UNDISPUTED"
 name = "Neutral primitives undisputed"
 lean_symbol = "neutral_primitives_undisputed"
 source_module = "NeutralSubstrate.Core"
@@ -26,7 +26,7 @@ description = "Neutral primitives are not denied by any admissible framework. Pu
 
 [axiom.causal_normative_affirmed]
 id = "causal_normative_affirmed"
-cite_id = "NS.AXIOM.causal_normative_affirmed"
+cite_id = "NS.AXIOM.CAUSAL_NORMATIVE_AFFIRMED"
 name = "Causal or normative affirmed"
 lean_symbol = "causal_normative_affirmed"
 source_module = "NeutralSubstrate.Core"

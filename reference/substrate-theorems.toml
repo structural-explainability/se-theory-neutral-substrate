@@ -5,7 +5,7 @@ namespace = "SE.NeutralSubstrate"
 
 [theorem.not_neutral_if_causal_or_normative]
 id = "not_neutral_if_causal_or_normative"
-cite_id = "NS.THEOREM.not_neutral_if_causal_or_normative"
+cite_id = "NS.THEOREM.NOT_NEUTRAL_IF_CAUSAL_OR_NORMATIVE"
 name = "Not neutral if causal or normative"
 lean_symbol = "not_neutral_if_causal_or_normative"
 source_module = "NeutralSubstrate.Core"
@@ -14,7 +14,7 @@ description = "Lower bound of the main theorem. If an ontology contains any caus
 
 [theorem.neutral_if_only_neutral]
 id = "neutral_if_only_neutral"
-cite_id = "NS.THEOREM.neutral_if_only_neutral"
+cite_id = "NS.THEOREM.NEUTRAL_IF_ONLY_NEUTRAL"
 name = "Neutral if only neutral"
 lean_symbol = "neutral_if_only_neutral"
 source_module = "NeutralSubstrate.Core"
@@ -23,7 +23,7 @@ description = "Upper bound of the main theorem. If an ontology contains only neu
 
 [theorem.ontological_neutrality_theorem]
 id = "ontological_neutrality_theorem"
-cite_id = "NS.THEOREM.ontological_neutrality_theorem"
+cite_id = "NS.THEOREM.ONTOLOGICAL_NEUTRALITY"
 name = "Ontological neutrality theorem"
 lean_symbol = "ontological_neutrality_theorem"
 source_module = "NeutralSubstrate.Core"
@@ -32,7 +32,7 @@ description = "Main biconditional result from Case (2025). An ontology is neutra
 
 [theorem.only_neutral_primitives_implies_INC]
 id = "only_neutral_primitives_implies_INC"
-cite_id = "NS.THEOREM.only_neutral_primitives_implies_INC"
+cite_id = "NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC"
 name = "Only neutral primitives implies interpretive non-commitment"
 lean_symbol = "only_neutral_primitives_implies_INC"
 source_module = "NeutralSubstrate.Core"
@@ -41,7 +41,7 @@ description = "If an ontology contains only neutral primitives, it satisfies int
 
 [theorem.framework_contestability_lemma]
 id = "framework_contestability_lemma"
-cite_id = "NS.THEOREM.framework_contestability_lemma"
+cite_id = "NS.THEOREM.FRAMEWORK_CONTESTABILITY"
 name = "Framework contestability lemma"
 lean_symbol = "framework_contestability_lemma"
 source_module = "NeutralSubstrate.Core"
@@ -50,7 +50,7 @@ description = "If a primitive is framework-variant, no substrate containing it i
 
 [theorem.separate_stability]
 id = "separate_stability"
-cite_id = "NS.THEOREM.separate_stability"
+cite_id = "NS.THEOREM.SEPARATE_STABILITY"
 name = "Separate stability"
 lean_symbol = "separate_stability"
 source_module = "NeutralSubstrate.Core"
@@ -59,7 +59,7 @@ description = "A neutral substrate is separately consistent with each of two mut
 
 [theorem.any_false_implies_none]
 id = "any_false_implies_none"
-cite_id = "NS.THEOREM.any_false_implies_none"
+cite_id = "NS.THEOREM.ANY_FALSE_IMPLIES_NONE"
 name = "Any false implies none"
 lean_symbol = "any_false_implies_none"
 source_module = "NeutralSubstrate.Core"
@@ -68,7 +68,7 @@ description = "Helper lemma: if List.any returns false for a predicate, no eleme
 
 [theorem.any_true_implies_exists]
 id = "any_true_implies_exists"
-cite_id = "NS.THEOREM.any_true_implies_exists"
+cite_id = "NS.THEOREM.ANY_TRUE_IMPLIES_EXISTS"
 name = "Any true implies exists"
 lean_symbol = "any_true_implies_exists"
 source_module = "NeutralSubstrate.Core"

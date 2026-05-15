@@ -13,6 +13,22 @@ dependency_kind = "schema"
 required = true
 description = "Neutral substrate repo declares conformance through the shared SE manifest schema."
 
+[dependency.no_transformation_dependency]
+id = "no-transformation-dependency"
+target_repo = "se-theory-transformation"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral substrate must not depend on transformation theory; persistence and integration layers consume both separately."
+
+[dependency.no_persistence_dependency]
+id = "no-persistence-dependency"
+target_repo = "se-theory-persistence"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral substrate must not depend on persistence theory; persistence depends on neutral substrate, not the reverse."
+
 [dependency.no_identity_regimes_dependency]
 id = "no-identity-regimes-dependency"
 target_repo = "se-theory-identity-regimes"
