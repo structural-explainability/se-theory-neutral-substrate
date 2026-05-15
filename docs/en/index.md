@@ -158,7 +158,7 @@ uv run python -m zensical build
 
 Downstream Lean projects should import the public surface:
 
-```lean
+```text
 import NeutralSubstrate
 ```
 
