@@ -7,8 +7,6 @@ from those references.
 This module does not define theory semantics.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 import json
 from pathlib import Path

@@ -1,15 +1,18 @@
 # ============================================================
 # SE_MANIFEST.toml (Repository Declaration)
-# se-theory-neutral-substrate
 # ============================================================
 
-schema = "se-manifest-2"
-schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/v0.2.0/manifest-schema.toml"
+schema = "se-manifest-schema"
+schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/main/manifest-schema.toml"
 
-# === Identity ===
+# === Framework Context ===
 
 [meta]
-purpose = "Formalize the neutral structural substrate in Lean 4, defining admissibility, separation, and substrate invariants without encoding identity regimes."
+framework = "Structural Explainability"
+framework_url = "https://github.com/structural-explainability"
+purpose = "Declares this repository's role in the Structural Explainability ecosystem."
+
+# === Repository Identity ===
 
 [repo]
 name = "se-theory-neutral-substrate"
@@ -20,16 +23,20 @@ status = "active"
 since = "2026"
 summary = "Lean 4 formalization of the neutral structural substrate defining admissibility, separation, and substrate invariants without encoding identity regimes."
 
+# === Layer Position ===
+
 [layer]
 space = "formal-theory"
 role = "theory"
 
-# === Structural contract ===
+# === Dependency Declarations ===
 
 [depends]
 # foundational theory repo
 optional = []
 required = []
+
+# === Provided Artifacts ===
 
 [provides]
 # theory repos expose Lean modules, not operational artifacts
@@ -37,6 +44,8 @@ artifacts = [
   "lean-library",
   "theorem-set",
 ]
+
+# === Scope ===
 
 [scope]
 includes = [

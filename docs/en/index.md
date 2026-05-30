@@ -72,7 +72,7 @@ This repository does not own:
 - regime-specific persistence semantics
 - mapping semantics
 - accountable entities
-- exchange protocols
+- evolution protocols
 - domain examples
 - operational validation
 - runtime systems
