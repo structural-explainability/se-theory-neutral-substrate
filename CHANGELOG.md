@@ -13,6 +13,29 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
+## [0.6.0] - 2026-05-31
+
+### Changed
+
+- Moved Lean public modules under the `SE.NeutralSubstrate` namespace.
+- Updated Lake configuration, Lean imports, tests, and reference metadata for the new module layout.
+- Reworked reference tooling into a structured `reference_tool` package.
+- Moved generated reference export logic under `reference_tool/export.py`.
+- Updated generated neutral-substrate JSON artifacts from the refreshed reference TOML registries.
+- Replaced manifest-sync command surface with reference validation and export commands.
+- Added `rel.ps1` release validation script with explicit staged checks.
+- Updated CI, pre-commit, markdownlint, documentation, manifest, citation,
+  and agent guidance for the updated structure.
+- Expanded Python tests for reference tooling, path handling, export freshness, and validation behavior.
+
+### Removed
+
+- Removed obsolete manifest-sync command module.
+- Removed legacy top-level Lean module paths.
+- Removed obsolete top-level `lean_surface.py` and `ref_utils.py` modules.
+
+---
+
 ## [0.5.2] - 2026-05-14
 
 ### Changed
@@ -179,8 +202,8 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 ## Notes on versioning and releases
 
 - We use **SemVer**:
-  - **MAJOR** – breaking changes to artifact structure or validation semantics
-  - **MINOR** – backward-compatible additions to schema or validation rules
+  - **MAJOR** – breaking changes
+  - **MINOR** – backward-compatible additions
   - **PATCH** – fixes, documentation, tooling
 - Versions are driven by git tags. Tag `vX.Y.Z` to release.
 - Docs are deployed per version tag and aliased to **latest**.
@@ -194,14 +217,14 @@ Follow these steps exactly when creating a new release.
 1.1. CITATION.cff: update version and date-released
 1.2. lakefile.toml: update version
 1.3. CHANGELOG.md: add section, move unreleased entries, update links
+1.4. pyproject.toml: update build fallback-version (near end of the file)
 
-### Task 2. Sync and Validate
+### Task 2. Validate
 
 Sync reads `CITATION.cff` version and `date-released`
 and updates `pyproject.toml` fallback-version.
 
 ```shell
-uv run se-manifest-version-sync
 uv sync --extra dev --extra docs --upgrade
 
 lake build
@@ -210,9 +233,15 @@ lake build TestAll
 uv run se-ref-validate --strict
 uv run se-ref-export
 uv run se-ref-export --check
+uv run se-validate --strict
+
+uvx --from se-manifest-schema se-manifest validate-manifest --strict
 
 git add -A
 uvx pre-commit run --all-files
+# repeat if changes were made
+uvx pre-commit run --all-files
+
 uv run python -m pyright
 uv run python -m pytest
 uv run python -m zensical build
@@ -251,7 +280,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.5.2...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.6.0
 [0.5.2]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.2
 [0.5.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.1
 [0.5.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.0

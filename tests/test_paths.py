@@ -5,11 +5,13 @@ from pathlib import Path
 import pytest
 
 from se_theory_neutral_substrate.paths import (
-    reference_artifact_path,
-    reference_dir,
     reference_index_path,
     repo_root,
     resolve_repo_path,
+)
+from se_theory_neutral_substrate.reference_tool.paths import (
+    reference_artifact_path,
+    reference_dir,
 )
 
 # ---------------------------------------------------------------------------

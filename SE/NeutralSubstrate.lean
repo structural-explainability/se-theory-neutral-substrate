@@ -1,6 +1,6 @@
-import NeutralSubstrate.Core
-import NeutralSubstrate.Spec
-import NeutralSubstrate.Surface
+import SE.NeutralSubstrate.Core
+import SE.NeutralSubstrate.Spec
+import SE.NeutralSubstrate.Surface
 
 /-!
 # Neutral Substrate (NS)

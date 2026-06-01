@@ -1,29 +1,21 @@
-"""Combined command dispatcher for se-theory-persistence."""
+"""Combined command dispatcher for se-theory-neutral-substrate."""
 
 import argparse
 
-from se_theory_neutral_substrate.commands.manifest import (
-    sync_main,
-)
 from se_theory_neutral_substrate.commands.validate import validate_main
 
 
 def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser."""
     parser = argparse.ArgumentParser(
-        prog="se-theory-persistence",
-        description="Manifest and reference tooling for se-theory-persistence.",
+        prog="se-theory-neutral-substrate",
+        description="Reference tooling for se-theory-neutral-substrate.",
     )
     subparsers = parser.add_subparsers(dest="command")
 
     subparsers.add_parser(
         "validate",
         help="Run repository validation.",
-    )
-
-    subparsers.add_parser(
-        "sync",
-        help="Sync pyproject.toml fallback-version from CITATION.cff version.",
     )
 
     ref_scaffold_parser = subparsers.add_parser(
@@ -57,9 +49,6 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "validate":
             return validate_main()
 
-        if args.command == "sync":
-            return sync_main()
-
         if args.command == "ref-scaffold":
             from se_theory_neutral_substrate.reference import run_scaffold
 
@@ -74,12 +63,12 @@ def main(argv: list[str] | None = None) -> int:
             return run_ref_validate(strict=args.strict)
 
         if args.command == "ref-export":
-            from se_theory_neutral_substrate.export import run_ref_export
+            from se_theory_neutral_substrate.reference_tool.export import run_ref_export
 
             return run_ref_export(check=args.check)
 
-    except (ValueError, FileNotFoundError, RuntimeError) as e:
-        print(f"Error: {e}")
+    except (ValueError, FileNotFoundError, RuntimeError) as exc:
+        print(f"Error: {exc}")
         return 1
 
     parser.print_help()

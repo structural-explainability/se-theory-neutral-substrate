@@ -45,6 +45,29 @@ artifacts = [
   "theorem-set",
 ]
 
+[provides.formalization.public_surface]
+kind = "lean-surface"
+status = "active"
+symbols = [
+  "SE.NeutralSubstrate",
+]
+path = "SE/NeutralSubstrate.lean"
+reason = "Public Lean import surface for the neutral-substrate theory."
+
+[provides.formalization.theorems]
+kind = "lean-theorem-set"
+status = "active"
+symbols = [
+  "not_neutral_if_causal_or_normative",
+  "neutral_if_only_neutral",
+  "ontological_neutrality_theorem",
+  "only_neutral_primitives_implies_INC",
+  "framework_contestability_lemma",
+  "separate_stability",
+]
+path = "SE/NeutralSubstrate/Core.lean"
+reason = "Machine-checked theorem set for neutral-substrate admissibility and separation."
+
 # === Scope ===
 
 [scope]
@@ -74,9 +97,11 @@ excludes = [
 [validation]
 # Validates repository declaration, manifest schema conformance,
 # reference artifacts, and Lean public surface coverage.
-entrypoint = "uv run python -m se_theory_neutral_substrate validate"
-strict_entrypoint = "uv run python -m se_theory_neutral_substrate validate --strict"
-tag_entrypoint = "uv run python -m se_theory_neutral_substrate validate --require-tag"
+entrypoint = "uv run se-validate"
+reference_entrypoint = "uv run se-ref-validate"
+export_check_entrypoint = "uv run se-ref-export --check"
+strict_entrypoint = "uv run se-validate --strict"
+tag_entrypoint = "uv run se-validate --require-tag"
 
 # === Behavior / governance ===
 

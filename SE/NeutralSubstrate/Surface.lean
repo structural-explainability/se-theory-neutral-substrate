@@ -1,5 +1,5 @@
-import NeutralSubstrate.Core
-import NeutralSubstrate.Spec
+import SE.NeutralSubstrate.Core
+import SE.NeutralSubstrate.Spec
 
 -- ============================================================
 -- NeutralSubstrate/Surface.lean

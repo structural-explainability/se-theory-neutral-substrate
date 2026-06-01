@@ -1,17 +1,11 @@
 """tests/test_orchestrate.py - Tests for orchestrate.py."""
 
 from collections.abc import Generator
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
 from se_theory_neutral_substrate.orchestrate import run_validate
-
-
-@pytest.fixture(autouse=True)
-def mock_sync_all() -> Generator[MagicMock]:
-    with patch("se_theory_neutral_substrate.orchestrate.sync_all") as m:
-        yield m
 
 
 @pytest.fixture()

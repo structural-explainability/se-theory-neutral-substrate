@@ -18,7 +18,7 @@
       "cite_id": "NS.TYPE.FRAMEWORK",
       "name": "Framework",
       "lean_symbol": "Framework",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "An interpretive stance over primitives. Carries affirms and denies functions (Primitive -> Bool) and a consistency proof that no primitive is both affirmed and denied. A framework may be silent on a primitive. Admissible frameworks may contradict each other; each is only required to be internally consistent."
     },
     {
@@ -26,7 +26,7 @@
       "cite_id": "NS.TYPE.ONTOLOGY",
       "name": "Ontology",
       "lean_symbol": "Ontology",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "A finite list of primitives, representing any ontology amenable to neutral-substrate analysis. Not restricted to neutral content; causal and normative primitives are valid members. The predicates (containsCausalOrNormative, Neutral, ExtensionStable, InterpretivelyNonCommitted) determine whether a given Ontology satisfies neutrality conditions. Implemented as a transparent type alias (abbrev) for List Primitive to preserve computability for native_decide and List.any."
     },
     {
@@ -34,7 +34,7 @@
       "cite_id": "NS.TYPE.PRIMITIVE",
       "name": "Primitive",
       "lean_symbol": "Primitive",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "The basic unit of ontological commitment. Carries a kind (PrimitiveKind) and an id (String). DecidableEq enables computational equality checks; Repr enables printing for debugging."
     },
     {
@@ -42,7 +42,7 @@
       "cite_id": "NS.TYPE.PRIMITIVE_KIND",
       "name": "Primitive kind",
       "lean_symbol": "PrimitiveKind",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "The three mutually exclusive kinds a primitive may have: causal (asserts a causal relation), normative (asserts a normative conclusion), or neutral (asserts only existence or identity). The trichotomy is exhaustive. Every primitive is classifiable as exactly one of these."
     }
   ],
@@ -52,7 +52,7 @@
       "cite_id": "NS.DEF.ADMISSIBLE",
       "name": "Admissible",
       "lean_symbol": "Admissible",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "All internally consistent frameworks are admissible. Intentionally minimal: defined as Prop := True, meaning every framework satisfying the internal consistency requirement in the Framework structure qualifies. Admissibility is not universality. Admissible frameworks may contradict one another. A richer model could add domain-specific conditions."
     },
     {
@@ -60,7 +60,7 @@
       "cite_id": "NS.DEF.EXTENSION_STABLE",
       "name": "Extension stable",
       "lean_symbol": "ExtensionStable",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "No admissible framework causes inconsistency when extending the substrate. For all admissible frameworks F, extending S with F produces no contradiction. Captures the requirement that the substrate survives interpretive disagreement. It is the EXT conjunct of Neutral."
     },
     {
@@ -68,7 +68,7 @@
       "cite_id": "NS.DEF.FRAMEWORK_VARIANT",
       "name": "Framework variant",
       "lean_symbol": "FrameworkVariant",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "Admissible frameworks disagree about this primitive: some affirm it, some deny it. A primitive is framework-variant when there exist admissible F1 and F2 such that F1 affirms p and F2 denies p. This is the structural property that makes a primitive unsafe to embed at the substrate layer. Any substrate asserting a framework-variant primitive will be inconsistent with some admissible framework."
     },
     {
@@ -76,7 +76,7 @@
       "cite_id": "NS.DEF.FRAMEWORKS_CONTRADICT",
       "name": "Frameworks contradict",
       "lean_symbol": "FrameworksContradict",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "Two frameworks mutually contradict when one affirms what the other denies. Mutual contradiction does not affect admissibility. Each framework may be internally consistent while contradicting the other. Instantiated in the incident example: the engineering and legal frameworks contradict each other over Responsible(a,e) while each remains separately consistent with the neutral substrate."
     },
     {
@@ -84,7 +84,7 @@
       "cite_id": "NS.DEF.INTERPRETIVELY_NON_COMMITTED",
       "name": "Interpretively non-committed",
       "lean_symbol": "InterpretivelyNonCommitted",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "No primitive in the substrate is framework-variant. A substrate satisfies INC when every primitive it contains has framework-invariant truth conditions. This is the INC conjunct of Neutral. For substrates where containsCausalOrNormative S = false, INC follows from neutral_primitives_undisputed alone via only_neutral_primitives_implies_INC."
     },
     {
@@ -92,7 +92,7 @@
       "cite_id": "NS.DEF.NEUTRAL",
       "name": "Neutral",
       "lean_symbol": "Neutral",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "An ontology is neutral iff it satisfies both extension stability (EXT) and interpretive non-commitment (INC). EXT: no admissible framework contradicts the substrate. INC: no primitive in the substrate is framework-variant. Both conjuncts are necessary; the full biconditional requires both framework_relativity and neutral_primitives_undisputed."
     },
     {
@@ -100,7 +100,7 @@
       "cite_id": "NS.DEF.CONTAINS_CAUSAL_OR_NORMATIVE",
       "name": "Contains causal or normative commitment",
       "lean_symbol": "containsCausalOrNormative",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "Boolean function returning true if any primitive in the ontology has kind other than neutral. This is the computational characterization the main theorem is stated over; the biconditional ontological_neutrality_theorem equates Neutral S with containsCausalOrNormative S = false."
     },
     {
@@ -108,7 +108,7 @@
       "cite_id": "NS.DEF.EXTENSION_INCONSISTENT",
       "name": "Extension inconsistent",
       "lean_symbol": "extensionInconsistent",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "A framework denies a primitive that the substrate contains. Models the conflict arising when an interpretive framework contradicts a substrate-level commitment: there exists a primitive p in S such that F.denies p = true."
     }
   ],
@@ -118,7 +118,7 @@
       "cite_id": "NS.AXIOM.CAUSAL_NORMATIVE_AFFIRMED",
       "name": "Causal or normative affirmed",
       "lean_symbol": "causal_normative_affirmed",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "For any non-neutral primitive, some admissible framework affirms it. Companion to framework_relativity: together they establish that causal and normative primitives are genuinely framework-variant. Some frameworks affirm them, some deny them. Required for framework_contestability_lemma; without it FrameworkVariant cannot be instantiated for any concrete primitive."
     },
     {
@@ -126,7 +126,7 @@
       "cite_id": "NS.AXIOM.FRAMEWORK_RELATIVITY",
       "name": "Framework relativity",
       "lean_symbol": "framework_relativity",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "For any non-neutral primitive, some admissible framework denies it. Encodes that causal and normative conclusions are inherently contested across interpretive frameworks. Sufficient for the lower bound (not_neutral_if_causal_or_normative) alone. Fails in domains where causal or normative consensus exists."
     },
     {
@@ -134,7 +134,7 @@
       "cite_id": "NS.AXIOM.NEUTRAL_PRIMITIVES_UNDISPUTED",
       "name": "Neutral primitives undisputed",
       "lean_symbol": "neutral_primitives_undisputed",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "description": "Neutral primitives are not denied by any admissible framework. Pure existence and identity claims are framework-invariant. Required for the upper bound (neutral_if_only_neutral); the biconditional holds only when both this axiom and framework_relativity are satisfied. Fails in domains where identity conditions are themselves contested."
     }
   ],
@@ -144,7 +144,7 @@
       "cite_id": "NS.THEOREM.ANY_FALSE_IMPLIES_NONE",
       "name": "Any false implies none",
       "lean_symbol": "any_false_implies_none",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "Helper lemma: if List.any returns false for a predicate, no element in the list satisfies that predicate. Technical machinery connecting boolean List.any computation to propositional reasoning. Not part of the paper's argument; required because the main predicates use Bool computation."
     },
@@ -153,7 +153,7 @@
       "cite_id": "NS.THEOREM.ANY_TRUE_IMPLIES_EXISTS",
       "name": "Any true implies exists",
       "lean_symbol": "any_true_implies_exists",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "Helper lemma: if List.any returns true for a predicate, a witness element exists in the list satisfying that predicate. Technical machinery connecting boolean List.any computation to propositional reasoning. Not part of the paper's argument; required because the main predicates use Bool computation."
     },
@@ -162,7 +162,7 @@
       "cite_id": "NS.THEOREM.FRAMEWORK_CONTESTABILITY",
       "name": "Framework contestability lemma",
       "lean_symbol": "framework_contestability_lemma",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "If a primitive is framework-variant, no substrate containing it is neutral. Formalizes Case (2025) Section 4.2: a proposition whose truth conditions depend on interpretive framework conclusions violates either EXT (some admissible framework denies it) or INC (it is framework-variant). Either violation suffices; the proof uses INC as the most direct path."
     },
@@ -171,7 +171,7 @@
       "cite_id": "NS.THEOREM.NEUTRAL_IF_ONLY_NEUTRAL",
       "name": "Neutral if only neutral",
       "lean_symbol": "neutral_if_only_neutral",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "Upper bound of the main theorem. If an ontology contains only neutral primitives, it is neutral (satisfies both EXT and INC). Requires neutral_primitives_undisputed; holds only in domains where identity conditions are not themselves contested."
     },
@@ -180,7 +180,7 @@
       "cite_id": "NS.THEOREM.NOT_NEUTRAL_IF_CAUSAL_OR_NORMATIVE",
       "name": "Not neutral if causal or normative",
       "lean_symbol": "not_neutral_if_causal_or_normative",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "Lower bound of the main theorem. If an ontology contains any causal or normative primitive, it is not neutral. Follows from framework_relativity alone; holds in any domain where causal and normative primitives are contested across admissible frameworks."
     },
@@ -189,7 +189,7 @@
       "cite_id": "NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC",
       "name": "Only neutral primitives implies interpretive non-commitment",
       "lean_symbol": "only_neutral_primitives_implies_INC",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "If an ontology contains only neutral primitives, it satisfies interpretive non-commitment (INC). Establishes that INC follows from neutral_primitives_undisputed alone without requiring a separate axiom. Used as a helper in neutral_if_only_neutral."
     },
@@ -198,7 +198,7 @@
       "cite_id": "NS.THEOREM.ONTOLOGICAL_NEUTRALITY",
       "name": "Ontological neutrality theorem",
       "lean_symbol": "ontological_neutrality_theorem",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "Main biconditional result from Case (2025). An ontology is neutral if and only if it contains no causal or normative primitives. The two directions have different epistemic status: the lower bound requires only framework_relativity; the upper bound additionally requires neutral_primitives_undisputed."
     },
@@ -207,7 +207,7 @@
       "cite_id": "NS.THEOREM.SEPARATE_STABILITY",
       "name": "Separate stability",
       "lean_symbol": "separate_stability",
-      "source_module": "NeutralSubstrate.Core",
+      "source_module": "SE.NeutralSubstrate.Core",
       "status": "proved",
       "description": "A neutral substrate is separately consistent with each of two mutually contradicting frameworks. Formalizes Case (2025) Section 4.1: the substrate's role is common-ground provision, not arbitration. The EXT conjunct of Neutral implies stability under all admissible frameworks, which subsumes the two-framework case."
     }
@@ -219,9 +219,9 @@
       "cite_id": "NS.TYPE.PRIMITIVE_KIND",
       "name": "Primitive kind type requirement",
       "lean_symbol": "NS_ID_TYPE_PRIMITIVE_KIND",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "PrimitiveKind",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the PrimitiveKind enumeration."
     },
     {
@@ -230,9 +230,9 @@
       "cite_id": "NS.TYPE.PRIMITIVE",
       "name": "Primitive type requirement",
       "lean_symbol": "NS_ID_TYPE_PRIMITIVE",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "Primitive",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the Primitive structure."
     },
     {
@@ -241,9 +241,9 @@
       "cite_id": "NS.TYPE.ONTOLOGY",
       "name": "Ontology type requirement",
       "lean_symbol": "NS_ID_TYPE_ONTOLOGY",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "Ontology",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for Ontology as the finite substrate primitive collection."
     },
     {
@@ -252,9 +252,9 @@
       "cite_id": "NS.TYPE.FRAMEWORK",
       "name": "Framework type requirement",
       "lean_symbol": "NS_ID_TYPE_FRAMEWORK",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "Framework",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the Framework structure."
     },
     {
@@ -263,9 +263,9 @@
       "cite_id": "NS.DEF.ADMISSIBLE",
       "name": "Admissible predicate requirement",
       "lean_symbol": "NS_ID_DEF_ADMISSIBLE",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "Admissible",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the Admissible predicate."
     },
     {
@@ -274,9 +274,9 @@
       "cite_id": "NS.DEF.CONTAINS_CAUSAL_OR_NORMATIVE",
       "name": "Contains causal or normative predicate requirement",
       "lean_symbol": "NS_ID_DEF_CONTAINS_CAUSAL_OR_NORMATIVE",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "containsCausalOrNormative",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the boolean test detecting causal or normative substrate content."
     },
     {
@@ -285,9 +285,9 @@
       "cite_id": "NS.DEF.EXTENSION_INCONSISTENT",
       "name": "Extension inconsistent predicate requirement",
       "lean_symbol": "NS_ID_DEF_EXTENSION_INCONSISTENT",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "extensionInconsistent",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for extension inconsistency."
     },
     {
@@ -296,9 +296,9 @@
       "cite_id": "NS.DEF.EXTENSION_STABLE",
       "name": "Extension stable predicate requirement",
       "lean_symbol": "NS_ID_DEF_EXTENSION_STABLE",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "ExtensionStable",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for extension stability."
     },
     {
@@ -307,9 +307,9 @@
       "cite_id": "NS.DEF.NEUTRAL",
       "name": "Neutral predicate requirement",
       "lean_symbol": "NS_ID_DEF_NEUTRAL",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "Neutral",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the Neutral predicate."
     },
     {
@@ -318,9 +318,9 @@
       "cite_id": "NS.DEF.FRAMEWORK_VARIANT",
       "name": "Framework variant predicate requirement",
       "lean_symbol": "NS_ID_DEF_FRAMEWORK_VARIANT",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "FrameworkVariant",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for framework variance."
     },
     {
@@ -329,9 +329,9 @@
       "cite_id": "NS.DEF.FRAMEWORKS_CONTRADICT",
       "name": "Frameworks contradict predicate requirement",
       "lean_symbol": "NS_ID_DEF_FRAMEWORKS_CONTRADICT",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "FrameworksContradict",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for contradiction between frameworks."
     },
     {
@@ -340,9 +340,9 @@
       "cite_id": "NS.DEF.INTERPRETIVELY_NON_COMMITTED",
       "name": "Interpretively non-committed predicate requirement",
       "lean_symbol": "NS_ID_DEF_INTERPRETIVELY_NON_COMMITTED",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "InterpretivelyNonCommitted",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for interpretive non-commitment."
     },
     {
@@ -351,9 +351,9 @@
       "cite_id": "NS.AXIOM.FRAMEWORK_RELATIVITY",
       "name": "Framework relativity axiom requirement",
       "lean_symbol": "NS_ID_AXIOM_FRAMEWORK_RELATIVITY",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "framework_relativity",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the framework relativity axiom."
     },
     {
@@ -362,9 +362,9 @@
       "cite_id": "NS.AXIOM.NEUTRAL_PRIMITIVES_UNDISPUTED",
       "name": "Neutral primitives undisputed axiom requirement",
       "lean_symbol": "NS_ID_AXIOM_NEUTRAL_PRIMITIVES_UNDISPUTED",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "neutral_primitives_undisputed",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the neutral primitives undisputed axiom."
     },
     {
@@ -373,9 +373,9 @@
       "cite_id": "NS.AXIOM.CAUSAL_NORMATIVE_AFFIRMED",
       "name": "Causal normative affirmed axiom requirement",
       "lean_symbol": "NS_ID_AXIOM_CAUSAL_NORMATIVE_AFFIRMED",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "causal_normative_affirmed",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the causal normative affirmed axiom."
     },
     {
@@ -384,9 +384,9 @@
       "cite_id": "NS.THEOREM.NOT_NEUTRAL_IF_CAUSAL_OR_NORMATIVE",
       "name": "Not neutral if causal or normative theorem requirement",
       "lean_symbol": "NS_ID_THEOREM_NOT_NEUTRAL_IF_CAUSAL_OR_NORMATIVE",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "not_neutral_if_causal_or_normative",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the lower-bound neutrality theorem."
     },
     {
@@ -395,9 +395,9 @@
       "cite_id": "NS.THEOREM.NEUTRAL_IF_ONLY_NEUTRAL",
       "name": "Neutral if only neutral theorem requirement",
       "lean_symbol": "NS_ID_THEOREM_NEUTRAL_IF_ONLY_NEUTRAL",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "neutral_if_only_neutral",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the upper-bound neutrality theorem."
     },
     {
@@ -406,9 +406,9 @@
       "cite_id": "NS.THEOREM.ONTOLOGICAL_NEUTRALITY",
       "name": "Ontological neutrality theorem requirement",
       "lean_symbol": "NS_ID_THEOREM_ONTOLOGICAL_NEUTRALITY",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "ontological_neutrality_theorem",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the main ontological neutrality biconditional."
     },
     {
@@ -417,9 +417,9 @@
       "cite_id": "NS.THEOREM.LOWER_BOUND_ONLY",
       "name": "Lower bound only theorem requirement",
       "lean_symbol": "NS_ID_THEOREM_LOWER_BOUND_ONLY",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "not_neutral_if_causal_or_normative",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier used when only the lower-bound theorem applies."
     },
     {
@@ -428,9 +428,9 @@
       "cite_id": "NS.THEOREM.FRAMEWORK_CONTESTABILITY",
       "name": "Framework contestability theorem requirement",
       "lean_symbol": "NS_ID_THEOREM_FRAMEWORK_CONTESTABILITY",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "framework_contestability_lemma",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the framework contestability lemma."
     },
     {
@@ -439,9 +439,9 @@
       "cite_id": "NS.THEOREM.SEPARATE_STABILITY",
       "name": "Separate stability theorem requirement",
       "lean_symbol": "NS_ID_THEOREM_SEPARATE_STABILITY",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "separate_stability",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for separate stability."
     },
     {
@@ -450,10 +450,32 @@
       "cite_id": "NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC",
       "name": "Only neutral implies INC theorem requirement",
       "lean_symbol": "NS_ID_THEOREM_ONLY_NEUTRAL_IMPLIES_INC",
-      "source_module": "NeutralSubstrate.Spec",
+      "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "only_neutral_primitives_implies_INC",
-      "target_module": "NeutralSubstrate.Core",
+      "target_module": "SE.NeutralSubstrate.Core",
       "description": "Stable citation identifier for the theorem that only-neutral substrates satisfy interpretive non-commitment."
+    },
+    {
+      "order": 23,
+      "id": "NS_ID_THEOREM_ANY_FALSE_IMPLIES_NONE",
+      "cite_id": "NS.THEOREM.ANY_FALSE_IMPLIES_NONE",
+      "name": "Any false implies none theorem requirement",
+      "lean_symbol": "NS_ID_THEOREM_ANY_FALSE_IMPLIES_NONE",
+      "source_module": "SE.NeutralSubstrate.Spec",
+      "target_symbol": "any_false_implies_none",
+      "target_module": "SE.NeutralSubstrate.Core",
+      "description": "Stable citation identifier for the theorem that any false predicate implies no all-true result."
+    },
+    {
+      "order": 24,
+      "id": "NS_ID_THEOREM_ANY_TRUE_IMPLIES_EXISTS",
+      "cite_id": "NS.THEOREM.ANY_TRUE_IMPLIES_EXISTS",
+      "name": "Any true implies exists theorem requirement",
+      "lean_symbol": "NS_ID_THEOREM_ANY_TRUE_IMPLIES_EXISTS",
+      "source_module": "SE.NeutralSubstrate.Spec",
+      "target_symbol": "any_true_implies_exists",
+      "target_module": "SE.NeutralSubstrate.Core",
+      "description": "Stable citation identifier for the theorem that any true predicate implies an existing satisfying primitive."
     }
   ],
   "traces": [

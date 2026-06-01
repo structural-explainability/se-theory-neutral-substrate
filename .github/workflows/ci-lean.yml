@@ -38,5 +38,8 @@ jobs:
 
       - name: B1) Build Lean project
         run: lake build
-        # WHY: Compiles the Lean formal contract surface.
-        # OBS: Uses the Lean version declared in lean-toolchain.
+        # WHY: Compiles the public Lean theory surface.
+
+      - name: B2) Build Lean test surface
+        run: lake build TestAll
+        # WHY: Confirms the declared Lean test imports and public surface compile.

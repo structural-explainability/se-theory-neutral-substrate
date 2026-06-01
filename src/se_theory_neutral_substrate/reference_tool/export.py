@@ -1,4 +1,4 @@
-"""Export generated JSON artifacts from reference TOML files.
+"""reference_tool/export.py - Export generated JSON artifacts from reference TOML files.
 
 The reference/*.toml files are hand-authored registry mirrors.
 The data/neutral-substrate/*.json files are generated artifacts derived
@@ -10,12 +10,23 @@ This module does not define theory semantics.
 from dataclasses import dataclass
 import json
 from pathlib import Path
-import tomllib
 from typing import Any
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
-REFERENCE_DIR = ROOT_DIR / "reference"
-DATA_DIR = ROOT_DIR / "data" / "neutral-substrate"
+from se_theory_neutral_substrate.load import load_toml
+from se_theory_neutral_substrate.paths import repo_root
+from se_theory_neutral_substrate.reference_tool.config import (
+    ARTIFACT_SLUG,
+    CATALOG_ARTIFACT_NAME,
+    CATALOG_SCHEMA,
+    GENERATED_DATA_DIR,
+    REFERENCE_DIR_NAME,
+    REFERENCE_NAMESPACE,
+    REPO_SLUG,
+)
+
+ROOT_DIR = repo_root()
+REFERENCE_DIR = ROOT_DIR / REFERENCE_DIR_NAME
+DATA_DIR = ROOT_DIR / GENERATED_DATA_DIR
 
 JsonObject = dict[str, Any]
 
@@ -31,56 +42,60 @@ class ExportSpec:
     payload_key: str
 
 
+def registry_schema(registry_name: str) -> str:
+    """Return the generated JSON schema id for one registry."""
+    return f"se-{ARTIFACT_SLUG}-{registry_name}-registry-1"
+
+
 EXPORT_SPECS: tuple[ExportSpec, ...] = (
     ExportSpec(
         source_name="substrate-types.toml",
         source_table="type",
         output_name="substrate-type-registry.json",
-        schema="se-neutral-substrate-type-registry-1",
+        schema=registry_schema("type"),
         payload_key="types",
     ),
     ExportSpec(
         source_name="substrate-predicates.toml",
         source_table="predicate",
         output_name="substrate-predicate-registry.json",
-        schema="se-neutral-substrate-predicate-registry-1",
+        schema=registry_schema("predicate"),
         payload_key="predicates",
     ),
     ExportSpec(
         source_name="substrate-axioms.toml",
         source_table="axiom",
         output_name="substrate-axiom-registry.json",
-        schema="se-neutral-substrate-axiom-registry-1",
+        schema=registry_schema("axiom"),
         payload_key="axioms",
     ),
     ExportSpec(
         source_name="substrate-theorems.toml",
         source_table="theorem",
         output_name="substrate-theorem-registry.json",
-        schema="se-neutral-substrate-theorem-registry-1",
+        schema=registry_schema("theorem"),
         payload_key="theorems",
     ),
     ExportSpec(
         source_name="substrate-requirements.toml",
         source_table="requirement",
         output_name="substrate-requirement-registry.json",
-        schema="se-neutral-substrate-requirement-registry-1",
+        schema=registry_schema("requirement"),
         payload_key="requirements",
     ),
     ExportSpec(
         source_name="traceability-registry.toml",
         source_table="trace",
         output_name="traceability-registry.json",
-        schema="se-neutral-substrate-traceability-registry-1",
+        schema=f"se-{ARTIFACT_SLUG}-traceability-registry-1",
         payload_key="traces",
     ),
 )
 
 
-def read_toml(path: Path) -> JsonObject:
-    """Read a TOML file as a dictionary."""
-    with path.open("rb") as file:
-        data = tomllib.load(file)
+def read_reference_toml(path: Path) -> JsonObject:
+    """Read a reference TOML file as a dictionary."""
+    data = load_toml(path)
 
     if not isinstance(data, dict):
         msg = f"Expected TOML object in {path}"
@@ -128,14 +143,14 @@ def artifact_meta(document: JsonObject) -> JsonObject:
 def build_registry_payload(spec: ExportSpec) -> JsonObject:
     """Build one generated registry payload from one reference TOML file."""
     source_path = REFERENCE_DIR / spec.source_name
-    document = read_toml(source_path)
+    document = read_reference_toml(source_path)
     meta = artifact_meta(document)
     entries = ordered_table_values(document, spec.source_table)
 
     return {
         "schema": spec.schema,
-        "source": meta.get("source", "se-theory-neutral-substrate"),
-        "namespace": meta.get("namespace", "se.neutral_substrate"),
+        "source": meta.get("source", REPO_SLUG),
+        "namespace": meta.get("namespace", REFERENCE_NAMESPACE),
         "artifact": spec.output_name.removesuffix(".json"),
         "reference_artifact": meta.get(
             "artifact",
@@ -146,63 +161,57 @@ def build_registry_payload(spec: ExportSpec) -> JsonObject:
     }
 
 
+def reference_file_path(file_name: str) -> Path:
+    """Return the path to a reference TOML file."""
+    return REFERENCE_DIR / file_name
+
+
+def reference_file_posix(file_name: str) -> str:
+    """Return the POSIX path to a reference TOML file."""
+    return reference_file_path(file_name).as_posix()
+
+
+def table_values(file_name: str, table_name: str) -> list[JsonObject]:
+    """Load ordered table values from one reference TOML file."""
+    return ordered_table_values(
+        read_reference_toml(reference_file_path(file_name)),
+        table_name,
+    )
+
+
 def build_neutral_substrate_catalog() -> JsonObject:
     """Build the generated neutral substrate catalog from reference artifacts."""
-    types = ordered_table_values(
-        read_toml(REFERENCE_DIR / "substrate-types.toml"),
-        "type",
-    )
-    predicates = ordered_table_values(
-        read_toml(REFERENCE_DIR / "substrate-predicates.toml"),
-        "predicate",
-    )
-    axioms = ordered_table_values(
-        read_toml(REFERENCE_DIR / "substrate-axioms.toml"),
-        "axiom",
-    )
-    theorems = ordered_table_values(
-        read_toml(REFERENCE_DIR / "substrate-theorems.toml"),
-        "theorem",
-    )
-    requirements = ordered_table_values(
-        read_toml(REFERENCE_DIR / "substrate-requirements.toml"),
-        "requirement",
-    )
-    traces = ordered_table_values(
-        read_toml(REFERENCE_DIR / "traceability-registry.toml"),
-        "trace",
-    )
-
-    reference_paths = [
-        (REFERENCE_DIR / "substrate-types.toml").as_posix(),
-        (REFERENCE_DIR / "substrate-predicates.toml").as_posix(),
-        (REFERENCE_DIR / "substrate-axioms.toml").as_posix(),
-        (REFERENCE_DIR / "substrate-theorems.toml").as_posix(),
-        (REFERENCE_DIR / "substrate-requirements.toml").as_posix(),
-        (REFERENCE_DIR / "traceability-registry.toml").as_posix(),
+    reference_files = [
+        "substrate-types.toml",
+        "substrate-predicates.toml",
+        "substrate-axioms.toml",
+        "substrate-theorems.toml",
+        "substrate-requirements.toml",
+        "traceability-registry.toml",
     ]
 
-    dependency_path = REFERENCE_DIR / "dependency-registry.toml"
+    reference_paths = [reference_file_posix(file_name) for file_name in reference_files]
+
+    dependency_file = "dependency-registry.toml"
+    dependency_path = reference_file_path(dependency_file)
     dependencies: list[JsonObject] = []
+
     if dependency_path.exists():
-        dependencies = ordered_table_values(
-            read_toml(dependency_path),
-            "dependency",
-        )
+        dependencies = table_values(dependency_file, "dependency")
         reference_paths.append(dependency_path.as_posix())
 
     return {
-        "schema": "se-neutral-substrate-catalog-1",
-        "source": "se-theory-neutral-substrate",
-        "namespace": "se.neutral_substrate",
-        "artifact": "neutral-substrate-catalog",
+        "schema": CATALOG_SCHEMA,
+        "source": REPO_SLUG,
+        "namespace": REFERENCE_NAMESPACE,
+        "artifact": CATALOG_ARTIFACT_NAME,
         "reference_paths": reference_paths,
-        "types": types,
-        "predicates": predicates,
-        "axioms": axioms,
-        "theorems": theorems,
-        "requirements": requirements,
-        "traces": traces,
+        "types": table_values("substrate-types.toml", "type"),
+        "predicates": table_values("substrate-predicates.toml", "predicate"),
+        "axioms": table_values("substrate-axioms.toml", "axiom"),
+        "theorems": table_values("substrate-theorems.toml", "theorem"),
+        "requirements": table_values("substrate-requirements.toml", "requirement"),
+        "traces": table_values("traceability-registry.toml", "trace"),
         "dependencies": dependencies,
     }
 
@@ -255,7 +264,7 @@ def export_registry(spec: ExportSpec, *, check: bool) -> bool:
 def export_catalog(*, check: bool) -> bool:
     """Export the combined neutral substrate catalog JSON artifact."""
     payload = build_neutral_substrate_catalog()
-    output_path = DATA_DIR / "neutral-substrate-catalog.json"
+    output_path = DATA_DIR / f"{CATALOG_ARTIFACT_NAME}.json"
     return write_or_check(output_path, encode_json(payload), check=check)
 
 

@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from se_theory_neutral_substrate import export
+from se_theory_neutral_substrate.reference_tool import export
 
 
 def test_encode_json_is_deterministic() -> None:

@@ -1,6 +1,6 @@
 schema = "se-reference-index-1"
 repo = "se-theory-neutral-substrate"
-surface_module = "NeutralSubstrate"
+surface_module = "SE.NeutralSubstrate"
 
 # ---------------------------------------------------------------
 # REFERENCE artifacts are hand-authored, canonical, source-of-truth.

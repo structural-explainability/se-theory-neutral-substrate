@@ -1,15 +1,15 @@
 # ============================================================
 # lakefile.toml
 # ============================================================
+# Declares the public Lean package identity, import surface,
+# build targets, dependencies, and verification executables.
 
-# REQ.FILE.PROJECT.IDENTITY
-#   Declares the externally visible identity and build surface of this package.
-#   Sections marked CUSTOM are expected to vary by repository.
+# ============================================================
+# PROJECT IDENTITY
+# ============================================================
 
-# === REQUIRED PROJECT IDENTITY
-
-name = "NeutralSubstrate"
-version = "0.5.2"
+name = "SETheoryNeutralSubstrate"
+version = "0.6.0"
 license = "MIT"
 
 keywords = [
@@ -25,15 +25,21 @@ keywords = [
   "lean4",
 ]
 
+# ============================================================
+# BUILD SURFACE
+# ============================================================
+# defaultTargets must include the public Lean library root.
 
-# === BUILD CONFIGURATION
+defaultTargets = ["SE.NeutralSubstrate"]
 
-defaultTargets = ["NeutralSubstrate"]
-
-# === EXPORT LIBRARY (public, exported)
+# ============================================================
+# PUBLIC LIBRARY
+# ============================================================
+# Downstream Lean projects import this library root.
+# Lake discovers modules under the matching source directory.
 
 [[lean_lib]]
-name = "NeutralSubstrate"
+name = "SE.NeutralSubstrate"
 
 # === TEST LIBRARIES (internal, not exported)
 

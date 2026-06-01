@@ -1,4 +1,4 @@
-"""paths.py - Repository path helpers for se-theory-neutral-substrate.
+"""paths.py - General repository path helpers.
 
 Owns:
   - repo_root()              - find the repository root
@@ -7,29 +7,21 @@ Owns:
   - resolve_repo_path()      - resolve repo-relative paths safely
 
 Does not own:
+  - Lean module path resolution
+  - reference artifact path policy
   - file loading
   - validation logic
   - CLI argument parsing
-  - synchronization logic
 
-Path helpers keep validation code from scattering hard-coded path literals and
-make future path changes local to this module.
-
-Expected local boundaries:
-  reference/index.toml declares the repo's public reference artifacts.
-  reference/*.toml and reference/*.json are resolved relative to the repo root.
-
-Call chain:
-  __main__.py -> cli.main()
-              -> orchestrate.run_validate()
-              -> validate_reference.validate_reference()
-              -> paths.reference_index_path()
+Reference-tool-specific helpers live in reference_tool/paths.py.
 """
 
 from pathlib import Path
 
-_REFERENCE_DIR_NAME = "reference"
-_REFERENCE_INDEX_NAME = "index.toml"
+from se_theory_neutral_substrate.reference_tool.config import (
+    REFERENCE_DIR_NAME,
+    REFERENCE_INDEX_NAME,
+)
 
 
 def repo_root(start: Path | None = None) -> Path:
@@ -61,16 +53,6 @@ def repo_root(start: Path | None = None) -> Path:
     )
 
 
-def reference_dir(root: Path | None = None) -> Path:
-    """Return the path to reference/."""
-    return (root or repo_root()) / _REFERENCE_DIR_NAME
-
-
-def reference_index_path(root: Path | None = None) -> Path:
-    """Return the path to reference/index.toml."""
-    return reference_dir(root) / _REFERENCE_INDEX_NAME
-
-
 def resolve_repo_path(path: str | Path, root: Path | None = None) -> Path:
     """Resolve a repository-relative path safely.
 
@@ -96,33 +78,17 @@ def resolve_repo_path(path: str | Path, root: Path | None = None) -> Path:
 
     try:
         resolved.relative_to(repo)
-    except ValueError as e:
-        raise ValueError(f"Path escapes repository root: {relative_path}") from e
+    except ValueError as exc:
+        raise ValueError(f"Path escapes repository root: {relative_path}") from exc
 
     return resolved
 
 
-def reference_artifact_path(path: str | Path, root: Path | None = None) -> Path:
-    """Resolve a declared reference artifact path.
+def reference_dir(root: Path | None = None) -> Path:
+    """Return the path to reference/."""
+    return resolve_repo_path(REFERENCE_DIR_NAME, root=root)
 
-    Args:
-        path: Repository-relative artifact path declared in reference/index.toml.
-        root: Optional repository root. Defaults to repo_root().
 
-    Returns:
-        Absolute resolved artifact path.
-
-    Raises:
-        ValueError: If the declared path is not under reference/.
-    """
-    resolved = resolve_repo_path(path, root=root)
-    reference = reference_dir(root).resolve()
-
-    try:
-        resolved.relative_to(reference)
-    except ValueError as e:
-        raise ValueError(
-            f"Reference artifact path is not under reference/: {path}"
-        ) from e
-
-    return resolved
+def reference_index_path(root: Path | None = None) -> Path:
+    """Return the path to reference/index.toml."""
+    return reference_dir(root) / REFERENCE_INDEX_NAME

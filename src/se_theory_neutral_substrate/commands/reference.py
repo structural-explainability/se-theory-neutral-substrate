@@ -1,4 +1,4 @@
-"""Reference command entry points."""
+"""commands/reference.py - Reference command entry points."""
 
 import argparse
 import sys
@@ -47,6 +47,6 @@ def ref_export_main() -> int:
     )
     args = parser.parse_args(sys.argv[1:])
 
-    from se_theory_neutral_substrate.export import run_ref_export
+    from se_theory_neutral_substrate.reference_tool.export import run_ref_export
 
     return run_ref_export(check=args.check)

@@ -33,29 +33,14 @@ They do not define theory semantics independently of Lean.
 Downstream Lean projects should import the public surface:
 
 ```text
-import NeutralSubstrate
+import SE.NeutralSubstrate
 ```
 
 The public import surface is curated in:
 
 ```text
-NeutralSubstrate.lean
-NeutralSubstrate/Surface.lean
-```
-
-## Build
-
-Use VS Code Menu:
-View / Command Palette / `Developer: Reload Window` to refresh.
-
-```shell
-elan self update
-lake update
-lake build
-lake build TestAll
-uv run se-ref-validate
-uv run se-ref-export --check
-uv run se-validate --strict
+SE.NeutralSubstrate.lean
+SE.NeutralSubstrate/Surface.lean
 ```
 
 ## Command Reference
@@ -76,7 +61,13 @@ code .
 
 ### In a VS Code terminal
 
+Use VS Code Menu:
+View / Command Palette / `Developer: Reload Window` to refresh.
+
 ```shell
+elan self update
+lake update
+
 uv self update
 uv python pin 3.15
 uv sync --extra dev --extra docs --upgrade
@@ -88,17 +79,27 @@ uvx pre-commit install
 lake build
 lake build TestAll
 
-# generate/check registry artifacts
-uv run se-validate --strict
-uv run se-ref-validate
+# Validate reference TOML against Lean symbols and public-surface coverage.
+uv run se-ref-validate --strict
+# Getting a warn lean_symbol declared as 'abbrev' for 'Ontology'` is ok.
+
+# Regenerate JSON artifacts from reference TOML.
 uv run se-ref-export
+
+# Confirm generated JSON artifacts are current.
 uv run se-ref-export --check
 
-# autofix and manual fix issues
+# Run the full repo validation gate:
+# strict reference validation plus generated-export freshness check.
+uv run se-validate --strict
+
+# validate manifest file
+uvx --from se-manifest-schema se-manifest validate-manifest --strict
+
+# fix issues
 git add -A
 uvx pre-commit run --all-files
 # repeat if changes were made
-git add -A
 uvx pre-commit run --all-files
 
 # do chores
