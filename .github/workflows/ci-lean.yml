@@ -1,7 +1,7 @@
 # ============================================================
 # .github/workflows/ci-lean.yml (Continuous Integration)
 # ============================================================
-# Updated: 2026-04-28 THEORY VARIANT, ONLY BUILD
+# Updated: 2026-05-31 THEORY VARIANT, ONLY BUILD
 
 name: CI Lean
 

@@ -32,7 +32,7 @@ env:
   PYTHONIOENCODING: "utf-8" # WHY: Consistent encoding across platforms.
   PYTHON_VERSION: "3.15"
   DOC_SECTIONS: "Neutral Substrate,Dependencies,Covers,Owns,Does not own,Design Constraints,Documentation Constraints,Contents,Build,Import,Tooling"
-  MODULE_PREFIX: "NeutralSubstrate/"
+  MODULE_PREFIX: "SE.NeutralSubstrate/"
 
 jobs:
   ci:
@@ -83,6 +83,25 @@ jobs:
         #      and JSON/TOML/YAML syntax checks defined in .pre-commit-config.yaml.
         # OBS: Pre-commit hook order (lint then format) differs from manual
         #      command order (format then lint). See .pre-commit-config.yaml.
+
+      # ============================================================
+      # C) THEORY REFERENCE: Shared reference-kit checks
+      # ============================================================
+
+      - name: C1) Inspect resolved theory-reference declarations
+        run: uv run se-theory-reference inspect
+
+      - name: C2) Validate reference artifacts
+        run: uv run se-theory-reference validate --strict
+
+      - name: C3) Check generated exports
+        run: uv run se-theory-reference export --check
+
+      - name: C4) Check generated catalog
+        run: uv run se-theory-reference catalog --check
+
+      - name: C5) Validate SE manifest
+        run: uvx --from se-manifest-schema se-manifest validate-manifest --path SE_MANIFEST.toml --strict
 
       # ============================================================
       # D) Docs build (no deployment)

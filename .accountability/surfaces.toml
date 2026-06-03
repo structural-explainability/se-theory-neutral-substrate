@@ -1,0 +1,242 @@
+# ============================================================
+# .accountability/surfaces.toml (Authority-gated surfaces)
+# ============================================================
+
+schema = "accountable-surface-spec"
+schema_version = "0.1.0"
+schema_url = "https://raw.githubusercontent.com/structural-explainability/accountable-surface-spec/main/data/schema/accountability-surfaces.schema.json"
+
+# === Framework Context ===
+
+[meta]
+framework = "Structural Explainability"
+framework_url = "https://github.com/structural-explainability"
+purpose = "Declares authority-bearing repository surfaces, review requirements, evidence requirements, and permitted AI authority."
+
+# === Repository Identity ===
+
+[repository]
+organization = "structural-explainability"
+name = "se-theory-neutral-substrate"
+profile = "lean-theory-repository"
+description = "Lean theory repository using se-theory-reference-kit to validate, scaffold, inspect, catalog, and export reference artifacts that mirror the Lean public surface."
+
+# === Required Self-Protection ===
+
+[[surface]]
+id = "authority-manifest"
+object_kind = "file"
+paths = [".accountability/surfaces.toml"]
+description = "Self-protecting authority manifest for this repository."
+
+[[surface.role]]
+kind = "authority_boundary"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note", "human_review_record"]
+ai_max_authority = "prohibited"
+
+[[surface.role]]
+kind = "authority_manifest_surface"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note", "human_review_record"]
+ai_max_authority = "prohibited"
+
+# === Declared Repository Surfaces ===
+# Surfaces below are sorted alphabetically by surface id.
+
+[[surface]]
+id = "lean-build-configuration"
+object_kind = "file"
+paths = [
+"lakefile.toml",
+"lean-toolchain",
+"lake-manifest.json",
+]
+description = "Lean build, dependency, toolchain, and package configuration."
+
+[[surface.role]]
+kind = "build_configuration"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "dependency_boundary"
+requires_review = ["human_review", "security_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface]]
+id = "lean-public-surface"
+object_kind = "directory"
+paths = [
+"*.lean",
+"SETheory*/**/*.lean",
+"TestAll.lean",
+]
+description = "Lean public theory surface, theorem development, module structure, and test entry points."
+
+[[surface.role]]
+kind = "theory_surface"
+requires_review = ["human_review", "theory_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "public_contract"
+requires_review = ["human_review", "theory_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "validation_rule"
+requires_review = ["human_review"]
+requires_evidence = ["verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface]]
+id = "python-project-configuration"
+object_kind = "file"
+paths = [
+"pyproject.toml",
+"uv.lock",
+]
+description = "Python project identity, version contract, dependency boundary, tool configuration, and command exposure."
+
+[[surface.role]]
+kind = "project_identity_surface"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "python_version_contract"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "dependency_boundary"
+requires_review = ["human_review", "security_review"]
+requires_evidence = ["verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "tool_configuration"
+requires_review = ["human_review"]
+requires_evidence = ["verification_command_result"]
+ai_max_authority = "drafting"
+
+
+[[surface]]
+id = "reference-kit-command-boundary"
+object_kind = "command"
+paths = [
+"README.md",
+"docs/**",
+]
+description = "Documented use of se-theory-reference-kit commands and validation workflow."
+
+[[surface.role]]
+kind = "documentation_contract"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "public_command_surface"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface]]
+id = "repository-automation"
+object_kind = "directory"
+paths = [
+".github/workflows/**",
+".github/dependabot.yml",
+".pre-commit-config.yaml",
+]
+description = "Repository automation, CI, security, and validation workflow authority."
+
+[[surface.role]]
+kind = "workflow_authority"
+requires_review = ["human_review", "security_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "advisory"
+
+[[surface.role]]
+kind = "release_authority"
+requires_review = ["human_review", "release_review", "security_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "advisory"
+
+[[surface]]
+id = "repository-governance"
+object_kind = "directory"
+paths = [
+".accountability/**",
+"AI_USE.md",
+"AGENTS.md",
+"SECURITY.md",
+"CONTRIBUTING.md",
+"DECISIONS.md",
+"README.md",
+]
+description = "Repository governance, AI-use, security, contribution, and decision records."
+
+[[surface.role]]
+kind = "documentation_contract"
+requires_review = ["human_review"]
+requires_evidence = ["decision_note"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "security_boundary"
+requires_review = ["human_review", "security_review"]
+requires_evidence = ["decision_note"]
+ai_max_authority = "advisory"
+
+
+[[surface]]
+id = "theory-reference-artifacts"
+object_kind = "directory"
+paths = [
+"reference/**/*.toml",
+"data/reference/**/*.toml",
+"data/contract/**/*.json",
+"data/catalog/**/*.json",
+]
+description = "Reference TOML, generated contracts, catalogs, and machine-readable theory artifacts."
+
+[[surface.role]]
+kind = "reference_artifact"
+requires_review = ["human_review", "theory_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "generated_output"
+requires_review = ["human_review"]
+requires_evidence = ["regeneration_record", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[[surface.role]]
+kind = "public_contract"
+requires_review = ["human_review", "theory_review"]
+requires_evidence = ["decision_note", "verification_command_result"]
+ai_max_authority = "drafting"
+
+[verification]
+commands = [
+"elan self update",
+"lake update",
+"uv sync --extra dev --extra docs --upgrade",
+"uvx pre-commit run --all-files",
+"lake build",
+"lake build TestAll",
+"uv run se-theory-reference validate",
+"uv run se-theory-reference validate --strict",
+"uv run se-theory-reference export --check",
+"uv run se-theory-reference catalog --check",
+]

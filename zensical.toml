@@ -25,6 +25,22 @@ social = [
 [project.plugins.search]
 lang = "en" # WHY: Search plugin provides instant search functionality for documentation.
 
+# [project.plugins.gen-files]
+# scripts = ["docs/tools/generate_api.py"]
+
+[project.plugins.mkdocstrings.handlers.python]
+inventories = ["https://docs.python.org/3/objects.inv"]
+paths = ["src"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+inherited_members = true
+show_source = false
+
+# ------------------------------------------------------------
+# Theme
+# ------------------------------------------------------------
+
 [project.theme]
 # SEE: https://zensical.org/docs/setup/navigation/#instant-navigation-zensicaltoml
 features = [

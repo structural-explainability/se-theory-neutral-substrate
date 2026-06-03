@@ -1,9 +1,10 @@
 #Requires -Version 7.0
 
 <#
-Run the release validation sequence for se-theory-neutral-substrate.
+Run the validation sequence for se-theory-neutral-substrate.
 
-The script echoes each exact command before running it.
+This repository is a Lean/reference repository that consumes
+se-theory-reference-kit. It does not build or publish a local Python package.
 #>
 
 Set-StrictMode -Version Latest
@@ -62,31 +63,43 @@ Invoke-Step "B2) Build Lean test surface" "lake build TestAll" {
 }
 
 # ============================================================
-# C) Reference validation and generated artifacts
+# C) Theory-reference validation and generated artifacts
 # ============================================================
 
-Invoke-Step "C1) Validate reference TOML against Lean symbols and public-surface coverage" "uv run se-ref-validate" {
-    uv run se-ref-validate
+Invoke-Step "C1) Inspect resolved theory-reference declarations" "uv run se-theory-reference inspect" {
+    uv run se-theory-reference inspect
 }
 
-Invoke-Step "C2) Regenerate JSON artifacts from reference TOML" "uv run se-ref-export" {
-    uv run se-ref-export
+Invoke-Step "C2) Validate reference artifacts against declared Lean public surface" "uv run se-theory-reference validate" {
+    uv run se-theory-reference validate
 }
 
-Invoke-Step "C3) Confirm generated JSON artifacts are current without writing files" "uv run se-ref-export --check" {
-    uv run se-ref-export --check
+Invoke-Step "C3) Run strict reference validation" "uv run se-theory-reference validate --strict" {
+    uv run se-theory-reference validate --strict
 }
 
-Invoke-Step "C4) Run full repo validation gate: strict reference validation plus generated-export freshness check" "uv run se-validate --strict" {
-    uv run se-validate --strict
+Invoke-Step "C4) Regenerate JSON artifacts from reference TOML" "uv run se-theory-reference export" {
+    uv run se-theory-reference export
 }
 
-Invoke-Step "C5) Validate SE manifest against the published manifest schema" "uvx --from se-manifest-schema se-manifest validate-manifest --strict" {
-    uvx --from se-manifest-schema se-manifest validate-manifest --strict
+Invoke-Step "C5) Confirm generated JSON artifacts are current without writing files" "uv run se-theory-reference export --check" {
+    uv run se-theory-reference export --check
+}
+
+Invoke-Step "C6) Build or refresh generated reference catalog" "uv run se-theory-reference catalog" {
+    uv run se-theory-reference catalog
+}
+
+Invoke-Step "C7) Confirm generated reference catalog is current" "uv run se-theory-reference catalog --check" {
+    uv run se-theory-reference catalog --check
+}
+
+Invoke-Step "C8) Validate SE manifest against the published manifest schema" "uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict" {
+    uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
 }
 
 # ============================================================
-# D) Pre-commit and Python tests
+# D) Pre-commit
 # ============================================================
 
 Invoke-Step "D1) Stage all changes so pre-commit sees tracked/staged files" "git add -A" {
@@ -101,18 +114,6 @@ Invoke-Step "D3) Run pre-commit checks again after autofixes" "uvx pre-commit ru
     uvx pre-commit run --all-files
 }
 
-Invoke-Step "D4) Run Python tests" "uv run python -m pytest" {
-    uv run python -m pytest
-}
-
-Invoke-Step "D5) Run Pyright" "uv run python -m pyright" {
-    uv run python -m pyright
-}
-
-Invoke-Step "D6) Run final pre-commit check after tests/type checks" "uvx pre-commit run --all-files" {
-    uvx pre-commit run --all-files
-}
-
 # ============================================================
 # E) Documentation
 # ============================================================
@@ -122,38 +123,14 @@ Invoke-Step "E1) Build documentation" "uv run python -m zensical build" {
 }
 
 # ============================================================
-# F) Architectural and code-health checks
+# F) Final repository status
 # ============================================================
 
-Invoke-Step "F1) Run import-linter contract checks" "uvx --with-editable . import-linter lint" {
-    uvx --with-editable . import-linter lint
+Invoke-Step "F1) Show git status" "git status --short" {
+    git status --short
 }
-
-Invoke-Step "F2) Find dead code" "uvx --with-editable . vulture src/se_theory_neutral_substrate" {
-    uvx --with-editable . vulture src/se_theory_neutral_substrate
-}
-
-Invoke-Step "F3) Check complexity; any output means C-or-worse complexity exists" "uvx radon cc src/se_theory_neutral_substrate -s -a -n C" {
-    uvx radon cc src/se_theory_neutral_substrate -s -a -n C
-}
-
-Invoke-Step "F4) Report raw code metrics" "uvx radon raw src/se_theory_neutral_substrate -j | uv run python -c `"import json, sys; data=json.load(sys.stdin); keys=('loc','lloc','sloc','comments','multi','blank','single_comments'); totals={k:sum(file[k] for file in data.values()) for k in keys}; print('\n'.join(f'{k.upper()}: {v}' for k,v in totals.items()))`"" {
-    uvx radon raw src/se_theory_neutral_substrate -j | uv run python -c "import json, sys; data=json.load(sys.stdin); keys=('loc','lloc','sloc','comments','multi','blank','single_comments'); totals={k:sum(file[k] for file in data.values()) for k in keys}; print('\n'.join(f'{k.upper()}: {v}' for k,v in totals.items()))"
-}
-
-# ============================================================
-# G) Distribution artifacts
-# ============================================================
-
-Invoke-Step "G1) Build source and wheel distributions" "uv build" {
-    uv build
-}
-
-# Invoke-Step "G2) Check distribution metadata" "uvx twine check dist/*" {
-#     uvx twine check dist/*
-# }
 
 Write-Host ""
 Write-Host "============================================================"
-Write-Host "Release validation completed successfully."
+Write-Host "Repository validation completed successfully."
 Write-Host "============================================================"

@@ -24,9 +24,15 @@ For the full documentation, see [`docs/en/index.md`](./docs/en/index.md).
 Lean source files are authoritative for formal definitions, predicates, axioms,
 theorems, proof obligations, and reference rules.
 
-Reference artifacts under `reference/` and generated artifacts under
-`data/neutral-substrate/` mirror the Lean public surface.
-They do not define theory semantics independently of Lean.
+Reference artifacts under `reference/` declare the repository-owned
+classification, traceability, and export intent for the Lean public surface.
+
+Generated artifacts under `data/neutral-substrate/` are outputs. They do not
+define theory semantics independently of Lean or the reference artifacts.
+
+The reusable `se-theory-reference-kit` owns the generic validation, scaffolding,
+cataloging, inspection, and export machinery. This repository owns its Lean
+source, reference declarations, and generated neutral-substrate artifacts.
 
 ## Import
 
@@ -42,6 +48,18 @@ The public import surface is curated in:
 SE.NeutralSubstrate.lean
 SE.NeutralSubstrate/Surface.lean
 ```
+
+## Reference Configuration
+
+The theory-reference workflow is configured by:
+
+```text
+reference/theory-reference.toml
+```
+
+That file declares this repository's Lean public modules, reference artifact
+layout, export targets, and validation commands. Public symbols are declared in
+the reference artifacts themselves, not duplicated in Python configuration.
 
 ## Command Reference
 
@@ -75,26 +93,40 @@ uv sync --extra dev --extra docs --upgrade
 # install git hooks once per clone
 uvx pre-commit install
 
-# build Lean (source of truth)
+# build Lean source of truth
 lake build
 lake build TestAll
 
-# Validate reference TOML against Lean symbols and public-surface coverage.
-uv run se-ref-validate --strict
-# Getting a warn lean_symbol declared as 'abbrev' for 'Ontology'` is ok.
+# inspect shared theory-reference command surface
+uv run se-theory-reference --help
+uv run se-theory-reference validate --help
+uv run se-theory-reference scaffold --help
+uv run se-theory-reference export --help
+uv run se-theory-reference catalog --help
+uv run se-theory-reference inspect --help
 
-# Regenerate JSON artifacts from reference TOML.
-uv run se-ref-export
+# validate reference artifacts against the declared Lean public surface
+uv run se-theory-reference validate
+uv run se-theory-reference validate --strict
 
-# Confirm generated JSON artifacts are current.
-uv run se-ref-export --check
+# scaffold reference artifacts from Lean public declarations
+uv run se-theory-reference scaffold
+uv run se-theory-reference scaffold --dry-run
+uv run se-theory-reference scaffold --overwrite
 
-# Run the full repo validation gate:
-# strict reference validation plus generated-export freshness check.
-uv run se-validate --strict
+# regenerate or check generated JSON artifacts from reference TOML
+uv run se-theory-reference export
+uv run se-theory-reference export --check
 
-# validate manifest file
-uvx --from se-manifest-schema se-manifest validate-manifest --strict
+# build or verify the generated reference catalog
+uv run se-theory-reference catalog
+uv run se-theory-reference catalog --check
+
+# inspect resolved repository configuration and reference declarations
+uv run se-theory-reference inspect
+
+# validate SE manifest file
+uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
 
 # fix issues
 git add -A
@@ -102,9 +134,7 @@ uvx pre-commit run --all-files
 # repeat if changes were made
 uvx pre-commit run --all-files
 
-# do chores
-uv run python -m pyright
-uv run python -m pytest
+# build docs
 uv run python -m zensical build
 
 # save progress
@@ -115,6 +145,10 @@ git push -u origin main
 
 </details>
 
+## Authority Manifest
+
+[.accountability/surfaces.toml](./.accountability/surfaces.toml)
+
 ## Citation
 
 [CITATION.cff](./CITATION.cff)
@@ -123,6 +157,6 @@ git push -u origin main
 
 [MIT](./LICENSE)
 
-## Manifest
+## Repository Manifest
 
 [SE_MANIFEST.toml](./SE_MANIFEST.toml)

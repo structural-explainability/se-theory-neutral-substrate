@@ -13,6 +13,51 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
+## [0.7.0] - 2026-06-03
+
+### Added
+
+- Added `reference/theory-reference.toml` as the declarative configuration
+  file consumed by `se-theory-reference-kit`.
+- Added shared theory-reference workflow commands using `se-theory-reference`.
+- Added `catalog` and `inspect` command usage to the release validation flow.
+- Added authority manifest linkage through `.accountability/surfaces.toml`.
+
+### Changed
+
+- Reworked this repository as a thin Lean/reference repository that depends on
+  `se-theory-reference-kit` for generic Python tooling.
+- Replaced repo-local reference-tool command usage with shared
+  `se-theory-reference` commands.
+- Updated release validation to run Lean builds, shared reference validation,
+  export freshness checks, catalog checks, manifest validation, pre-commit, and
+  documentation build.
+- Updated README command guidance to use `uv run se-theory-reference ...`
+  directly.
+- Simplified Python project configuration so this repository uses Python tooling
+  as a consumer rather than publishing a repo-local Python package.
+- Clarified that Lean source is authoritative for formal declarations,
+  `reference/*.toml` owns classification, traceability, and export intent, and
+  generated JSON under `data/neutral-substrate/` is output.
+
+### Removed
+
+- Removed repo-local Python package build assumptions from release validation.
+- Removed repo-local Python test, type-check, dead-code, complexity, wheel, and
+  distribution checks from the client-repository release flow.
+- Removed obsolete command references for `se-ref-validate`, `se-ref-export`,
+  and `se-validate`.
+- Removed dependence on the old `reference/index.toml` workflow.
+
+### Fixed
+
+- Fixed release validation commands so they match the shared
+  `se-theory-reference-kit` command surface.
+- Fixed documentation and command guidance after moving theory-reference
+  machinery out of the client repository.
+
+---
+
 ## [0.6.0] - 2026-05-31
 
 ### Changed
@@ -217,33 +262,55 @@ Follow these steps exactly when creating a new release.
 1.1. CITATION.cff: update version and date-released
 1.2. lakefile.toml: update version
 1.3. CHANGELOG.md: add section, move unreleased entries, update links
-1.4. pyproject.toml: update build fallback-version (near end of the file)
+1.4. pyproject.toml: update version (near top of the file)
 
 ### Task 2. Validate
 
-Sync reads `CITATION.cff` version and `date-released`
-and updates `pyproject.toml` fallback-version.
-
 ```shell
+elan self update
+lake update
+
+uv self update
+uv python pin 3.15
 uv sync --extra dev --extra docs --upgrade
 
+# install git hooks once per clone
+uvx pre-commit install
+
+# build Lean (source of truth)
 lake build
 lake build TestAll
 
-uv run se-ref-validate --strict
-uv run se-ref-export
-uv run se-ref-export --check
-uv run se-validate --strict
+# validate reference artifacts against declared Lean public surface
+uv run se-theory-reference validate
+uv run se-theory-reference validate --strict
 
-uvx --from se-manifest-schema se-manifest validate-manifest --strict
+# add / try / regenerate generated JSON artifacts from reference TOML
+uv run se-theory-reference scaffold
+uv run se-theory-reference scaffold --dry-run
+uv run se-theory-reference scaffold --overwrite
 
+# regenerate / check generated JSON artifacts from reference TOML
+uv run se-theory-reference export
+uv run se-theory-reference export --check
+
+# build / verify generated reference catalog
+uv run se-theory-reference catalog
+uv run se-theory-reference catalog --check
+
+# inspect resolved repo configuration and reference declarations
+uv run se-theory-reference inspect
+
+# validate SE manifest file
+uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
+
+# fix issues
 git add -A
 uvx pre-commit run --all-files
 # repeat if changes were made
 uvx pre-commit run --all-files
 
-uv run python -m pyright
-uv run python -m pytest
+# build docs
 uv run python -m zensical build
 ```
 
@@ -262,10 +329,10 @@ git tag vX.Y.Z -m "X.Y.Z"
 git push origin vX.Y.Z
 ```
 
-### Task 4. Verify tag consistency
+### Task 4. After tagging, verify tag consistency
 
 ```shell
-uv run se-manifest-validate --require-tag
+uvx --from se-manifest-schema se-manifest check-version --require-tag
 ```
 
 Confirms CITATION.cff version matches the pushed git tag.
@@ -280,7 +347,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.7.0
 [0.6.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.6.0
 [0.5.2]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.2
 [0.5.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.1
@@ -288,3 +356,5 @@ git push origin :refs/tags/vX.Z.Y
 [0.4.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.4.0
 [0.3.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.3.0
 [0.1.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.1.0
+
+<!-- markdownlint-enable MD024 -->

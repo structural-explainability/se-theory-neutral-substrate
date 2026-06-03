@@ -1,0 +1,68 @@
+# ============================================================
+# reference/theory-reference.toml
+# ============================================================
+# Theory reference configuration for se-theory-reference-kit.
+#
+# WHY: The theory repository owns Lean source, reference TOML, and exported
+# JSON artifacts. The reusable kit owns validation, export, catalog, scaffold,
+# and inspection machinery.
+
+schema = "se-theory-reference"
+schema_version = "0.1.0"
+
+# === Repository Identity ===
+
+[repository]
+organization = "structural-explainability"
+name = "se-theory-neutral-substrate"
+theory = "neutral-substrate"
+description = "Neutral substrate theory repository for Structural Explainability."
+
+# === Lean Public Surface ===
+
+[lean]
+root_module = "SE.NeutralSubstrate"
+public_modules = [
+  "SE.NeutralSubstrate",
+  "SE.NeutralSubstrate.Core",
+  "SE.NeutralSubstrate.Spec",
+  "SE.NeutralSubstrate.Surface",
+]
+
+test_modules = [
+  "TestAll",
+  "TestBasic",
+  "TestRegime",
+]
+
+# === Reference Artifacts ===
+
+[reference]
+root = "reference"
+
+# === Exported Machine Artifacts ===
+
+[export]
+root = "data/neutral-substrate"
+
+# === Surface-Kind Mapping ===
+
+[surface_kinds]
+axiom = "reference/substrate-axioms.toml"
+dependency = "reference/dependency-registry.toml"
+predicate = "reference/substrate-predicates.toml"
+requirement = "reference/substrate-requirements.toml"
+theorem = "reference/substrate-theorems.toml"
+traceability = "reference/traceability-registry.toml"
+type = "reference/substrate-types.toml"
+
+# === Export Mapping ===
+
+[export_map]
+axiom = "data/neutral-substrate/substrate-axiom-registry.json"
+catalog = "data/neutral-substrate/neutral-substrate-catalog.json"
+predicate = "data/neutral-substrate/substrate-predicate-registry.json"
+requirement = "data/neutral-substrate/substrate-requirement-registry.json"
+theorem = "data/neutral-substrate/substrate-theorem-registry.json"
+traceability = "data/neutral-substrate/traceability-registry.json"
+type = "data/neutral-substrate/substrate-type-registry.json"
