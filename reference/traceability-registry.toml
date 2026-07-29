@@ -4,89 +4,191 @@
 # ============================================================
 
 schema = "se-traceability-registry-1"
+kind = "traceability"
 repo = "se-theory-neutral-substrate"
 
-[trace.not_neutral_if_causal_or_normative]
-id = "trace-not-neutral-if-causal-or-normative"
-from = "not_neutral_if_causal_or_normative"
+# ============================================================
+# ATTRIBUTION
+# ============================================================
+
+[trace.attributionProposition_of_permittedAttributionProposition]
+id = "trace-attribution-proposition-of-permitted-attribution-proposition"
+from = "attributionProposition_of_permittedAttributionProposition"
 to = [
-  "containsCausalOrNormative",
+  "AttributionProposition",
+  "PermittedAttributionProposition",
+]
+relation = "depends_on"
+
+[trace.substrateCommitment_of_permittedAttributionProposition]
+id = "trace-substrate-commitment-of-permitted-attribution-proposition"
+from = "substrateCommitment_of_permittedAttributionProposition"
+to = [
+  "PermittedAttributionProposition",
+  "ReferentialCommitments",
+  "SubstrateCommitment",
+]
+relation = "depends_on"
+
+[trace.consistent_permittedAttribution_of_commonGround]
+id = "trace-consistent-permitted-attribution-of-common-ground"
+from = "consistent_permittedAttribution_of_commonGround"
+to = [
+  "PermittedAttributionProposition",
+  "ReferentialCommonGround",
+  "FrameworkCompatibleCommitmentSet",
+  "Consistent",
+]
+relation = "depends_on"
+
+# ============================================================
+# FRAMEWORK VARIANCE
+# ============================================================
+
+[trace.exists_entails_of_frameworkVariantProposition]
+id = "trace-exists-entails-of-framework-variant-proposition"
+from = "exists_entails_of_frameworkVariantProposition"
+to = [
+  "FrameworkVariantProposition",
+  "AdmissibleFramework",
+  "SubstrateFrameworkCommitments",
+]
+relation = "depends_on"
+
+[trace.exists_entailsNeg_of_frameworkVariantProposition]
+id = "trace-exists-entails-neg-of-framework-variant-proposition"
+from = "exists_entailsNeg_of_frameworkVariantProposition"
+to = [
+  "FrameworkVariantProposition",
+  "AdmissibleFramework",
+  "SubstrateFrameworkCommitments",
+]
+relation = "depends_on"
+
+# ============================================================
+# CONTESTABILITY
+# ============================================================
+
+[trace.not_guaranteedFrameworkInvariant_of_contestability]
+id = "trace-not-guaranteed-framework-invariant-of-contestability"
+from = "not_guaranteedFrameworkInvariant_of_contestability"
+to = [
+  "Contestability",
+  "ContestedCausalOrNormativeProposition",
+  "FrameworkInvariantProposition",
+  "GuaranteedAtDesignTime",
+]
+relation = "depends_on"
+
+# ============================================================
+# REFERENTIAL COMMON GROUND
+# ============================================================
+
+[trace.referentialCommitments_compatible_of_referentialCommonGround]
+id = "trace-referential-commitments-compatible-of-common-ground"
+from = "referentialCommitments_compatible_of_referentialCommonGround"
+to = [
+  "ReferentialCommonGround",
+  "ReferentialCommitments",
+  "FrameworkCompatibleCommitmentSet",
+]
+relation = "depends_on"
+
+[trace.permittedAttribution_compatible_of_referentialCommonGround]
+id = "trace-permitted-attribution-compatible-of-common-ground"
+from = "permittedAttribution_compatible_of_referentialCommonGround"
+to = [
+  "ReferentialCommonGround",
+  "PermittedAttributionProposition",
+  "FrameworkCompatibleCommitmentSet",
+]
+relation = "depends_on"
+
+# ============================================================
+# NEUTRALITY PROPERTIES
+# ============================================================
+
+[trace.interpretiveNonCommitment_of_extensionStability]
+id = "trace-interpretive-non-commitment-of-extension-stability"
+from = "interpretiveNonCommitment_of_extensionStability"
+to = [
+  "ExtensionStability",
+  "InterpretiveNonCommitment",
+  "FrameworkVariantProposition",
+  "Consistent",
+]
+relation = "depends_on"
+
+[trace.neutral_of_neutralByDesign]
+id = "trace-neutral-of-neutral-by-design"
+from = "neutral_of_neutralByDesign"
+to = [
+  "NeutralByDesign",
   "Neutral",
-  "ExtensionStable",
-  "extensionInconsistent",
-  "any_true_implies_exists",
-  "framework_relativity",
+  "GuaranteedAtDesignTime",
 ]
 relation = "depends_on"
 
-[trace.neutral_if_only_neutral]
-id = "trace-neutral-if-only-neutral"
-from = "neutral_if_only_neutral"
+[trace.interpretiveNonCommitment_of_neutralByDesign]
+id = "trace-interpretive-non-commitment-of-neutral-by-design"
+from = "interpretiveNonCommitment_of_neutralByDesign"
 to = [
+  "NeutralByDesign",
   "Neutral",
-  "ExtensionStable",
-  "extensionInconsistent",
-  "any_false_implies_none",
-  "neutral_primitives_undisputed",
-  "only_neutral_primitives_implies_INC",
+  "InterpretiveNonCommitment",
 ]
 relation = "depends_on"
 
-[trace.ontological_neutrality_theorem]
-id = "trace-ontological-neutrality-theorem"
-from = "ontological_neutrality_theorem"
+[trace.extensionStability_of_neutralByDesign]
+id = "trace-extension-stability-of-neutral-by-design"
+from = "extensionStability_of_neutralByDesign"
 to = [
+  "NeutralByDesign",
   "Neutral",
-  "containsCausalOrNormative",
-  "not_neutral_if_causal_or_normative",
-  "neutral_if_only_neutral",
+  "ExtensionStability",
 ]
 relation = "depends_on"
 
-[trace.only_neutral_primitives_implies_INC]
-id = "trace-only-neutral-primitives-implies-inc"
-from = "only_neutral_primitives_implies_INC"
+# ============================================================
+# NEUTRALITY CONSTRAINT
+# ============================================================
+
+[trace.neutralByDesign_iff_foundationalLayerRestricted]
+id = "trace-neutral-by-design-iff-foundational-layer-restricted"
+from = "neutralByDesign_iff_foundationalLayerRestricted"
 to = [
-  "Ontology",
-  "containsCausalOrNormative",
-  "InterpretivelyNonCommitted",
-  "FrameworkVariant",
-  "any_false_implies_none",
-  "neutral_primitives_undisputed",
+  "NeutralityConstraint",
+  "Contestability",
+  "ReferentialCommonGround",
+  "NeutralByDesign",
+  "FoundationalLayerRestrictedToPermittedClasses",
 ]
 relation = "depends_on"
 
-[trace.framework_contestability_lemma]
-id = "trace-framework-contestability-lemma"
-from = "framework_contestability_lemma"
+[trace.noObjectLevelCommitment_of_foundationalLayerRestricted]
+id = "trace-no-object-level-commitment-of-foundational-layer-restricted"
+from = "noObjectLevelCommitment_of_foundationalLayerRestricted"
 to = [
-  "Primitive",
-  "FrameworkVariant",
-  "Neutral",
-  "InterpretivelyNonCommitted",
+  "NeutralityConstraint",
+  "Contestability",
+  "ReferentialCommonGround",
+  "FoundationalLayerRestrictedToPermittedClasses",
+  "ObjectLevelCausalOrNormativeCommitment",
+  "NoObjectLevelCausalOrNormativeCommitment",
 ]
 relation = "depends_on"
 
-[trace.separate_stability]
-id = "trace-separate-stability"
-from = "separate_stability"
+[trace.noObjectLevelCommitment_of_neutralByDesign]
+id = "trace-no-object-level-commitment-of-neutral-by-design"
+from = "noObjectLevelCommitment_of_neutralByDesign"
 to = [
-  "Neutral",
-  "ExtensionStable",
-  "extensionInconsistent",
-  "Admissible",
-  "FrameworksContradict",
+  "NeutralityConstraint",
+  "Contestability",
+  "ReferentialCommonGround",
+  "NeutralByDesign",
+  "FoundationalLayerRestrictedToPermittedClasses",
+  "NoObjectLevelCausalOrNormativeCommitment",
+  "neutralByDesign_iff_foundationalLayerRestricted",
+  "noObjectLevelCommitment_of_foundationalLayerRestricted",
 ]
-relation = "depends_on"
-
-[trace.any_false_implies_none]
-id = "trace-any-false-implies-none"
-from = "any_false_implies_none"
-to = []
-relation = "depends_on"
-
-[trace.any_true_implies_exists]
-id = "trace-any-true-implies-exists"
-from = "any_true_implies_exists"
-to = []
 relation = "depends_on"

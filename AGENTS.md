@@ -123,42 +123,7 @@ If documentation and Lean differ, Lean is correct.
 
 ## Quickstart
 
-```shell
-uv self update
-uv python pin 3.15
-uv sync --extra dev --extra docs --upgrade
-```
-
-## Common Lean Tasks
-
-```shell
-elan self update
-lake update
-lake build
-lake build TestAll
-```
-
-## Lint and Format
-
-```shell
-uv run python -m ruff format .
-uv run python -m ruff check . --fix
-```
-
-## Build Documentation
-
-```shell
-uv run python -m zensical build
-```
-
-## pre-commit
-
-pre-commit runs only on tracked or staged files.
-Use `git add -A` before expecting hooks to run on newly created files.
-
-```shell
-uvx pre-commit run --all-files
-```
+See README.md.
 
 ## Non-goals
 

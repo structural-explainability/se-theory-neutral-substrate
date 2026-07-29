@@ -12,10 +12,12 @@
     "ms-python.python", // Core Python support
     "ms-python.vscode-pylance", // Fast IntelliSense and type checking
     "charliermarsh.ruff", // Modern formatting and linting (replaces black + isort + flake8)
+
     // ============================================================
     // === FILE PATH ASSISTANCE ===
     // ============================================================
     "christian-kohler.path-intellisense", // Autocomplete for file paths in Python strings (e.g., "data/file.csv")
+
     // ============================================================
     // === MARKDOWN AND DOCUMENTATION ===
     // ============================================================
@@ -23,16 +25,24 @@
     "bierner.markdown-preview-github-styles", // GitHub-style markdown preview
     "esbenp.prettier-vscode", // Used for Markdown formatting
     // "bierner.markdown-mermaid", // Diagram rendering in markdown (flowcharts, etc.)
+
+    // ============================================================
+    // === EDITOR NAVIGATION ===
+    // ============================================================
+    "denisecase.comment-section-outline", // Shows structured comment section headings in the VS Code outline
+
     // ============================================================
     // === DATA FILES AND CONFIGURATION ===
     // ============================================================
     "redhat.vscode-yaml", // YAML syntax, validation, formatting
     "tamasfe.even-better-toml", // TOML syntax, validation (for pyproject.toml)
+
     // ============================================================
     // === PROJECT INFRASTRUCTURE ===
     // ============================================================
     "editorconfig.editorconfig", // Respects .editorconfig settings (indentation, line endings)
     "github.vscode-github-actions", // GitHub Actions workflow editing, validation, and run support
+
     // ============================================================
     // === LEAN ===
     // ============================================================

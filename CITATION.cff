@@ -7,10 +7,11 @@
 
 cff-version: "1.2.0"
 type: software
+message: "If you use this work, please cite it using the metadata in this file."
 
 title: "se-theory-neutral-substrate"
-version: "0.7.0"
-date-released: "2026-06-03"
+version: "0.8.0"
+date-released: "2026-07-29"
 
 authors:
   - family-names: Case
@@ -42,5 +43,3 @@ keywords:
   - invariants
   - structural-constraints
   - proof-carrying
-
-message: "If you use this work, please cite it using the metadata in this file."

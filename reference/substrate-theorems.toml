@@ -1,76 +1,502 @@
+# ============================================================
+# Neutral Substrate Theorems
+# se-theory-neutral-substrate
+# ============================================================
+
 schema = "se-substrate-theorem-registry-1"
+kind = "theorem"
 repo = "se-theory-neutral-substrate"
-surface_module = "SE.NeutralSubstrate.Surface"
-namespace = "SE.NeutralSubstrate"
+surface_module = "SE"
+namespace = "SE"
 
-[theorem.not_neutral_if_causal_or_normative]
-id = "not_neutral_if_causal_or_normative"
-cite_id = "NS.THEOREM.NOT_NEUTRAL_IF_CAUSAL_OR_NORMATIVE"
-name = "Not neutral if causal or normative"
-lean_symbol = "not_neutral_if_causal_or_normative"
-source_module = "SE.NeutralSubstrate.Core"
-status = "proved"
-description = "Lower bound of the main theorem. If an ontology contains any causal or normative primitive, it is not neutral. Follows from framework_relativity alone; holds in any domain where causal and normative primitives are contested across admissible frameworks."
+# ============================================================
+# THEORY EXTENSION
+# ============================================================
 
-[theorem.neutral_if_only_neutral]
-id = "neutral_if_only_neutral"
-cite_id = "NS.THEOREM.NEUTRAL_IF_ONLY_NEUTRAL"
-name = "Neutral if only neutral"
-lean_symbol = "neutral_if_only_neutral"
-source_module = "SE.NeutralSubstrate.Core"
+[theorem.mem_combine_iff]
+id = "mem_combine_iff"
+name = "Membership in combined theories"
+lean_symbol = "SE.Logic.Theory.mem_combine_iff"
+source_module = "SE.Logic.Theory.TheoryExtension"
 status = "proved"
-description = "Upper bound of the main theorem. If an ontology contains only neutral primitives, it is neutral (satisfies both EXT and INC). Requires neutral_primitives_undisputed; holds only in domains where identity conditions are not themselves contested."
+description = "A proposition belongs to the combination of two commitment theories exactly when it belongs to either constituent theory."
 
-[theorem.ontological_neutrality_theorem]
-id = "ontological_neutrality_theorem"
-cite_id = "NS.THEOREM.ONTOLOGICAL_NEUTRALITY"
-name = "Ontological neutrality theorem"
-lean_symbol = "ontological_neutrality_theorem"
-source_module = "SE.NeutralSubstrate.Core"
+[theorem.mem_adjoin_iff]
+id = "mem_adjoin_iff"
+name = "Membership after adjoining a proposition"
+lean_symbol = "SE.Logic.Theory.mem_adjoin_iff"
+source_module = "SE.Logic.Theory.TheoryExtension"
 status = "proved"
-description = "Main biconditional result from Case (2025). An ontology is neutral if and only if it contains no causal or normative primitives. The two directions have different epistemic status: the lower bound requires only framework_relativity; the upper bound additionally requires neutral_primitives_undisputed."
+description = "A proposition belongs to a theory with another proposition adjoined exactly when it was already in the theory or equals the adjoined proposition."
 
-[theorem.only_neutral_primitives_implies_INC]
-id = "only_neutral_primitives_implies_INC"
-cite_id = "NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC"
-name = "Only neutral primitives implies interpretive non-commitment"
-lean_symbol = "only_neutral_primitives_implies_INC"
-source_module = "SE.NeutralSubstrate.Core"
+[theorem.subset_combine_left]
+id = "subset_combine_left"
+name = "Left theory included in combination"
+lean_symbol = "SE.Logic.Theory.subset_combine_left"
+source_module = "SE.Logic.Theory.TheoryExtension"
 status = "proved"
-description = "If an ontology contains only neutral primitives, it satisfies interpretive non-commitment (INC). Establishes that INC follows from neutral_primitives_undisputed alone without requiring a separate axiom. Used as a helper in neutral_if_only_neutral."
+description = "The left constituent commitment theory is a subset of the combined theory."
 
-[theorem.framework_contestability_lemma]
-id = "framework_contestability_lemma"
-cite_id = "NS.THEOREM.FRAMEWORK_CONTESTABILITY"
-name = "Framework contestability lemma"
-lean_symbol = "framework_contestability_lemma"
-source_module = "SE.NeutralSubstrate.Core"
+[theorem.subset_combine_right]
+id = "subset_combine_right"
+name = "Right theory included in combination"
+lean_symbol = "SE.Logic.Theory.subset_combine_right"
+source_module = "SE.Logic.Theory.TheoryExtension"
 status = "proved"
-description = "If a primitive is framework-variant, no substrate containing it is neutral. Formalizes Case (2025) Section 4.2: a proposition whose truth conditions depend on interpretive framework conclusions violates either EXT (some admissible framework denies it) or INC (it is framework-variant). Either violation suffices; the proof uses INC as the most direct path."
+description = "The right constituent commitment theory is a subset of the combined theory."
 
-[theorem.separate_stability]
-id = "separate_stability"
-cite_id = "NS.THEOREM.SEPARATE_STABILITY"
-name = "Separate stability"
-lean_symbol = "separate_stability"
-source_module = "SE.NeutralSubstrate.Core"
+[theorem.subset_adjoin]
+id = "subset_adjoin"
+name = "Theory included after adjoining"
+lean_symbol = "SE.Logic.Theory.subset_adjoin"
+source_module = "SE.Logic.Theory.TheoryExtension"
 status = "proved"
-description = "A neutral substrate is separately consistent with each of two mutually contradicting frameworks. Formalizes Case (2025) Section 4.1: the substrate's role is common-ground provision, not arbitration. The EXT conjunct of Neutral implies stability under all admissible frameworks, which subsumes the two-framework case."
+description = "A commitment theory is a subset of the theory obtained by adjoining one proposition."
 
-[theorem.any_false_implies_none]
-id = "any_false_implies_none"
-cite_id = "NS.THEOREM.ANY_FALSE_IMPLIES_NONE"
-name = "Any false implies none"
-lean_symbol = "any_false_implies_none"
-source_module = "SE.NeutralSubstrate.Core"
-status = "proved"
-description = "Helper lemma: if List.any returns false for a predicate, no element in the list satisfies that predicate. Technical machinery connecting boolean List.any computation to propositional reasoning. Not part of the paper's argument; required because the main predicates use Bool computation."
+# ============================================================
+# CONSEQUENCE AND CONSISTENCY
+# ============================================================
 
-[theorem.any_true_implies_exists]
-id = "any_true_implies_exists"
-cite_id = "NS.THEOREM.ANY_TRUE_IMPLIES_EXISTS"
-name = "Any true implies exists"
-lean_symbol = "any_true_implies_exists"
-source_module = "SE.NeutralSubstrate.Core"
+[theorem.entailsMono]
+id = "entailsMono"
+name = "Entailment monotonicity"
+lean_symbol = "SE.Logic.ConsequenceSystem.entailsMono"
+source_module = "SE.Logic.Consequence"
 status = "proved"
-description = "Helper lemma: if List.any returns true for a predicate, a witness element exists in the list satisfying that predicate. Technical machinery connecting boolean List.any computation to propositional reasoning. Not part of the paper's argument; required because the main predicates use Bool computation."
+description = "Entailment is preserved when the commitment theory is enlarged."
+
+[theorem.not_entailsBottom_of_consistent]
+id = "not_entailsBottom_of_consistent"
+name = "Consistency excludes contradiction"
+lean_symbol = "SE.Logic.not_entailsBottom_of_consistent"
+source_module = "SE.Logic.Consistency"
+status = "proved"
+description = "A consistent commitment theory does not entail the distinguished contradiction proposition."
+
+[theorem.consistent_of_not_entailsBottom]
+id = "consistent_of_not_entailsBottom"
+name = "Non-entailment of contradiction implies consistency"
+lean_symbol = "SE.Logic.consistent_of_not_entailsBottom"
+source_module = "SE.Logic.Consistency"
+status = "proved"
+description = "A commitment theory is consistent when it does not entail the distinguished contradiction proposition."
+
+# ============================================================
+# SUBSTRATE COMMITMENTS
+# ============================================================
+
+[theorem.entails_of_substrateCommitment]
+id = "entails_of_substrateCommitment"
+name = "Entailment from substrate commitment"
+lean_symbol = "SE.Substrate.entails_of_substrateCommitment"
+source_module = "SE.Substrate.Commitment"
+status = "proved"
+description = "A substrate commitment yields entailment from the selected substrate's commitment theory."
+
+[theorem.substrateCommitment_of_entails]
+id = "substrateCommitment_of_entails"
+name = "Substrate commitment from entailment"
+lean_symbol = "SE.Substrate.substrateCommitment_of_entails"
+source_module = "SE.Substrate.Commitment"
+status = "proved"
+description = "Entailment from the selected substrate's commitment theory yields a substrate commitment."
+
+[theorem.substrateCommitment_of_mem_referentialCommitments]
+id = "substrateCommitment_of_mem_referentialCommitments"
+name = "Referential commitment is a substrate commitment"
+lean_symbol = "SE.Substrate.substrateCommitment_of_mem_referentialCommitments"
+source_module = "SE.Substrate.ReferentialCommitments"
+status = "proved"
+description = "Every member of the referential commitment theory is a substrate commitment."
+
+[theorem.fixedByReferentialRegime_of_mem_referentialCommitments]
+id = "fixedByReferentialRegime_of_mem_referentialCommitments"
+name = "Referential commitment is fixed by the regime"
+lean_symbol = "SE.Substrate.fixedByReferentialRegime_of_mem_referentialCommitments"
+source_module = "SE.Substrate.ReferentialCommitments"
+status = "proved"
+description = "Every member of the referential commitment theory is fixed by the substrate's referential regime."
+
+# ============================================================
+# ATTRIBUTION
+# ============================================================
+
+[theorem.attributionProposition_asserts]
+id = "attributionProposition_asserts"
+name = "Attributed assertion is an attribution proposition"
+lean_symbol = "SE.NeutralSubstrate.Attribution.attributionProposition_asserts"
+source_module = "SE.NeutralSubstrate.Attribution.Basic"
+status = "proved"
+description = "Applying the attribution assertion operation to a source and proposition produces an attribution proposition."
+
+[theorem.attributionProposition_of_permittedAttributionProposition]
+id = "attributionProposition_of_permittedAttributionProposition"
+name = "Permitted attribution is an attribution proposition"
+lean_symbol = "SE.NeutralSubstrate.Attribution.attributionProposition_of_permittedAttributionProposition"
+source_module = "SE.NeutralSubstrate.Attribution.Permitted"
+status = "proved"
+description = "Every permitted attribution proposition is an attribution proposition."
+
+[theorem.referentialCommitments_entails_of_permittedAttributionProposition]
+id = "referentialCommitments_entails_of_permittedAttributionProposition"
+name = "Referential commitments entail permitted attribution"
+lean_symbol = "SE.NeutralSubstrate.Attribution.referentialCommitments_entails_of_permittedAttributionProposition"
+source_module = "SE.NeutralSubstrate.Attribution.Permitted"
+status = "proved"
+description = "The substrate's referential commitment theory entails every permitted attribution proposition."
+
+[theorem.substrateCommitment_of_permittedAttributionProposition]
+id = "substrateCommitment_of_permittedAttributionProposition"
+name = "Permitted attribution is a substrate commitment"
+lean_symbol = "SE.NeutralSubstrate.Attribution.substrateCommitment_of_permittedAttributionProposition"
+source_module = "SE.NeutralSubstrate.Attribution.Permitted"
+status = "proved"
+description = "Every permitted attribution proposition is a commitment of the selected substrate."
+
+# ============================================================
+# FRAMEWORK-RELATIVE PROPERTIES
+# ============================================================
+
+[theorem.entails_substrateFrameworkCommitments_of_substrateCommitment]
+id = "entails_substrateFrameworkCommitments_of_substrateCommitment"
+name = "Substrate commitment persists under framework combination"
+lean_symbol = "SE.NeutralSubstrate.FrameworkRelative.entails_substrateFrameworkCommitments_of_substrateCommitment"
+source_module = "SE.NeutralSubstrate.FrameworkRelative.Variant"
+status = "proved"
+description = "Every substrate commitment is entailed by the theory combining the substrate with any selected framework."
+
+[theorem.exists_entails_of_frameworkVariantProposition]
+id = "exists_entails_of_frameworkVariantProposition"
+name = "Framework-variant proposition has an affirming framework"
+lean_symbol = "SE.NeutralSubstrate.FrameworkRelative.exists_entails_of_frameworkVariantProposition"
+source_module = "SE.NeutralSubstrate.FrameworkRelative.Variant"
+status = "proved"
+description = "A framework-variant proposition has an admissible framework under which the combined theory entails the proposition."
+
+[theorem.exists_entailsNeg_of_frameworkVariantProposition]
+id = "exists_entailsNeg_of_frameworkVariantProposition"
+name = "Framework-variant proposition has a negating framework"
+lean_symbol = "SE.NeutralSubstrate.FrameworkRelative.exists_entailsNeg_of_frameworkVariantProposition"
+source_module = "SE.NeutralSubstrate.FrameworkRelative.Variant"
+status = "proved"
+description = "A framework-variant proposition has an admissible framework under which the combined theory entails its negation."
+
+[theorem.consistent_combine_of_frameworkCompatibleCommitmentSet]
+id = "consistent_combine_of_frameworkCompatibleCommitmentSet"
+name = "Framework-compatible commitment set remains consistent"
+lean_symbol = "SE.NeutralSubstrate.FrameworkRelative.consistent_combine_of_frameworkCompatibleCommitmentSet"
+source_module = "SE.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet"
+status = "proved"
+description = "A framework-compatible commitment set remains consistent when combined with the commitments of any admissible framework."
+
+# ============================================================
+# DESIGN-TIME GUARANTEES
+# ============================================================
+
+[theorem.guaranteedAtDesignTime_iff]
+id = "guaranteedAtDesignTime_iff"
+name = "Design-time guarantee characterization"
+lean_symbol = "SE.NeutralSubstrate.guaranteedAtDesignTime_iff"
+source_module = "SE.NeutralSubstrate.DesignTimeGuarantee"
+status = "proved"
+description = "A proposition is guaranteed at design time exactly when some permitted basis establishes it."
+
+[theorem.holds_of_guaranteedAtDesignTime]
+id = "holds_of_guaranteedAtDesignTime"
+name = "Design-time guarantees are sound"
+lean_symbol = "SE.NeutralSubstrate.holds_of_guaranteedAtDesignTime"
+source_module = "SE.NeutralSubstrate.DesignTimeGuarantee"
+status = "proved"
+description = "Every proposition guaranteed at design time holds."
+
+[theorem.guaranteedAtDesignTime_of_establishes]
+id = "guaranteedAtDesignTime_of_establishes"
+name = "Permitted establishment yields design-time guarantee"
+lean_symbol = "SE.NeutralSubstrate.guaranteedAtDesignTime_of_establishes"
+source_module = "SE.NeutralSubstrate.DesignTimeGuarantee"
+status = "proved"
+description = "A permitted basis that establishes a proposition produces a design-time guarantee for that proposition."
+
+[theorem.exists_permittedBasis_of_guaranteedAtDesignTime]
+id = "exists_permittedBasis_of_guaranteedAtDesignTime"
+name = "Design-time guarantee has a permitted basis"
+lean_symbol = "SE.NeutralSubstrate.exists_permittedBasis_of_guaranteedAtDesignTime"
+source_module = "SE.NeutralSubstrate.DesignTimeGuarantee"
+status = "proved"
+description = "Every design-time guarantee has a permitted basis that establishes the guaranteed proposition."
+
+# ============================================================
+# CONTESTABILITY
+# ============================================================
+
+[theorem.contestability_iff]
+id = "contestability_iff"
+name = "Contestability characterization"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.contestability_iff"
+source_module = "SE.NeutralSubstrate.Assumptions.Contestability"
+status = "proved"
+description = "Contestability is equivalent to the exclusion of design-time guarantees of framework invariance for every contested causal or normative proposition."
+
+[theorem.not_guaranteedFrameworkInvariant_of_contestability]
+id = "not_guaranteedFrameworkInvariant_of_contestability"
+name = "Contestability excludes guaranteed framework invariance"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.not_guaranteedFrameworkInvariant_of_contestability"
+source_module = "SE.NeutralSubstrate.Assumptions.Contestability"
+status = "proved"
+description = "Under contestability, a contested causal or normative proposition is not guaranteed at design time to be framework invariant."
+
+# ============================================================
+# REFERENTIAL COMMON GROUND
+# ============================================================
+
+[theorem.referentialCommonGround_iff]
+id = "referentialCommonGround_iff"
+name = "Referential common ground characterization"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.referentialCommonGround_iff"
+source_module = "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround"
+status = "proved"
+description = "Referential common ground is characterized by compatibility of referential commitments and preservation of compatibility after adjoining permitted attribution."
+
+[theorem.referentialCommitments_compatible_of_referentialCommonGround]
+id = "referentialCommitments_compatible_of_referentialCommonGround"
+name = "Referential commitments are framework compatible"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.referentialCommitments_compatible_of_referentialCommonGround"
+source_module = "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround"
+status = "proved"
+description = "Referential common ground implies that the referential commitment theory is compatible with every admissible framework."
+
+[theorem.permittedAttribution_compatible_of_referentialCommonGround]
+id = "permittedAttribution_compatible_of_referentialCommonGround"
+name = "Permitted attribution preserves framework compatibility"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.permittedAttribution_compatible_of_referentialCommonGround"
+source_module = "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround"
+status = "proved"
+description = "Under referential common ground, adjoining a permitted attribution proposition preserves compatibility with every admissible framework."
+
+[theorem.consistent_referentialCommitments_of_referentialCommonGround]
+id = "consistent_referentialCommitments_of_referentialCommonGround"
+name = "Referential commitments remain consistent"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.consistent_referentialCommitments_of_referentialCommonGround"
+source_module = "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround"
+status = "proved"
+description = "Under referential common ground, referential commitments remain consistent when combined with any admissible framework."
+
+[theorem.consistent_permittedAttribution_of_referentialCommonGround]
+id = "consistent_permittedAttribution_of_referentialCommonGround"
+name = "Permitted attribution remains consistent"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.consistent_permittedAttribution_of_referentialCommonGround"
+source_module = "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround"
+status = "proved"
+description = "Under referential common ground, referential commitments with a permitted attribution proposition remain consistent with every admissible framework."
+
+# ============================================================
+# ATTRIBUTION AND COMMON GROUND
+# ============================================================
+
+[theorem.entailsBottom_combine_adjoin_iff_of_entails]
+id = "entailsBottom_combine_adjoin_iff_of_entails"
+name = "Adjoining an entailed proposition preserves contradiction entailment"
+lean_symbol = "SE.NeutralSubstrate.Attribution.entailsBottom_combine_adjoin_iff_of_entails"
+source_module = "SE.NeutralSubstrate.Attribution.CommonGround"
+status = "proved"
+description = "When a proposition is already entailed, adjoining it before combining theories does not change whether the resulting theory entails contradiction."
+
+[theorem.entailsBottom_permittedAttribution_iff]
+id = "entailsBottom_permittedAttribution_iff"
+name = "Permitted attribution preserves contradiction equivalence"
+lean_symbol = "SE.NeutralSubstrate.Attribution.entailsBottom_permittedAttribution_iff"
+source_module = "SE.NeutralSubstrate.Attribution.CommonGround"
+status = "proved"
+description = "Adjoining a permitted attribution proposition does not change contradiction entailment relative to the underlying referential commitments and framework commitments."
+
+[theorem.consistent_permittedAttribution_of_commonGround]
+id = "consistent_permittedAttribution_of_commonGround"
+name = "Common ground preserves permitted-attribution consistency"
+lean_symbol = "SE.NeutralSubstrate.Attribution.consistent_permittedAttribution_of_commonGround"
+source_module = "SE.NeutralSubstrate.Attribution.CommonGround"
+status = "proved"
+description = "Referential common ground ensures that adjoining a permitted attribution proposition remains consistent with any admissible framework."
+
+# ============================================================
+# INTERPRETIVE NON-COMMITMENT
+# ============================================================
+
+[theorem.interpretiveNonCommitment_iff]
+id = "interpretiveNonCommitment_iff"
+name = "Interpretive non-commitment characterization"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_iff"
+source_module = "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment"
+status = "proved"
+description = "Interpretive non-commitment is equivalent to committing to neither side of every framework-variant proposition."
+
+[theorem.not_substrateCommitment_of_interpretiveNonCommitment]
+id = "not_substrateCommitment_of_interpretiveNonCommitment"
+name = "Interpretive non-commitment excludes positive commitment"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.not_substrateCommitment_of_interpretiveNonCommitment"
+source_module = "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment"
+status = "proved"
+description = "An interpretively non-committed substrate does not commit to a framework-variant proposition."
+
+[theorem.not_negSubstrateCommitment_of_interpretiveNonCommitment]
+id = "not_negSubstrateCommitment_of_interpretiveNonCommitment"
+name = "Interpretive non-commitment excludes negative commitment"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.not_negSubstrateCommitment_of_interpretiveNonCommitment"
+source_module = "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment"
+status = "proved"
+description = "An interpretively non-committed substrate does not commit to the negation of a framework-variant proposition."
+
+[theorem.no_commitment_pair_of_interpretiveNonCommitment]
+id = "no_commitment_pair_of_interpretiveNonCommitment"
+name = "Interpretive non-commitment excludes both commitments"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.no_commitment_pair_of_interpretiveNonCommitment"
+source_module = "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment"
+status = "proved"
+description = "For every framework-variant proposition, interpretive non-commitment excludes commitment to both the proposition and its negation."
+
+# ============================================================
+# EXTENSION STABILITY
+# ============================================================
+
+[theorem.extensionStability_iff]
+id = "extensionStability_iff"
+name = "Extension stability characterization"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.extensionStability_iff"
+source_module = "SE.NeutralSubstrate.Neutrality.ExtensionStability"
+status = "proved"
+description = "Extension stability is equivalent to consistency of the substrate combined with every admissible framework."
+
+[theorem.consistent_substrateFrameworkCommitments_of_extensionStability]
+id = "consistent_substrateFrameworkCommitments_of_extensionStability"
+name = "Extension stability yields combined consistency"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.consistent_substrateFrameworkCommitments_of_extensionStability"
+source_module = "SE.NeutralSubstrate.Neutrality.ExtensionStability"
+status = "proved"
+description = "An extension-stable substrate remains consistent when combined with any admissible framework."
+
+# ============================================================
+# SUBSTRATE CONSISTENCY
+# ============================================================
+
+[theorem.substrateConsistency_iff]
+id = "substrateConsistency_iff"
+name = "Substrate consistency characterization"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.substrateConsistency_iff"
+source_module = "SE.NeutralSubstrate.Assumptions.SubstrateConsistency"
+status = "proved"
+description = "Substrate consistency is equivalent to consistency of the selected substrate's commitment theory."
+
+[theorem.consistent_of_substrateConsistency]
+id = "consistent_of_substrateConsistency"
+name = "Consistency from substrate consistency"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.consistent_of_substrateConsistency"
+source_module = "SE.NeutralSubstrate.Assumptions.SubstrateConsistency"
+status = "proved"
+description = "The substrate-consistency assumption yields consistency of the substrate's commitment theory."
+
+[theorem.substrateConsistency_of_consistent]
+id = "substrateConsistency_of_consistent"
+name = "Substrate consistency from consistency"
+lean_symbol = "SE.NeutralSubstrate.Assumptions.substrateConsistency_of_consistent"
+source_module = "SE.NeutralSubstrate.Assumptions.SubstrateConsistency"
+status = "proved"
+description = "Consistency of the substrate's commitment theory yields the substrate-consistency assumption."
+
+# ============================================================
+# RELATION BETWEEN NEUTRALITY PROPERTIES
+# ============================================================
+
+[theorem.interpretiveNonCommitment_of_extensionStability]
+id = "interpretiveNonCommitment_of_extensionStability"
+name = "Extension stability entails interpretive non-commitment"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_extensionStability"
+source_module = "SE.NeutralSubstrate.Neutrality.PropertyRelation"
+status = "proved"
+description = "Extension stability implies interpretive non-commitment. The converse is not asserted."
+
+# ============================================================
+# NEUTRALITY BY DESIGN
+# ============================================================
+
+[theorem.neutral_iff]
+id = "neutral_iff"
+name = "Neutrality characterization"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.neutral_iff"
+source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
+status = "proved"
+description = "Neutrality is equivalent to the conjunction of interpretive non-commitment and extension stability."
+
+[theorem.interpretiveNonCommitment_of_neutral]
+id = "interpretiveNonCommitment_of_neutral"
+name = "Neutrality yields interpretive non-commitment"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_neutral"
+source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
+status = "proved"
+description = "Every neutral substrate satisfies interpretive non-commitment."
+
+[theorem.extensionStability_of_neutral]
+id = "extensionStability_of_neutral"
+name = "Neutrality yields extension stability"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.extensionStability_of_neutral"
+source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
+status = "proved"
+description = "Every neutral substrate satisfies extension stability."
+
+[theorem.neutralByDesign_iff]
+id = "neutralByDesign_iff"
+name = "Neutrality-by-design characterization"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.neutralByDesign_iff"
+source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
+status = "proved"
+description = "Neutrality by design is equivalent to a design-time guarantee of neutrality."
+
+[theorem.neutral_of_neutralByDesign]
+id = "neutral_of_neutralByDesign"
+name = "Neutrality by design yields neutrality"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.neutral_of_neutralByDesign"
+source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
+status = "proved"
+description = "A substrate that is neutral by design is neutral."
+
+[theorem.interpretiveNonCommitment_of_neutralByDesign]
+id = "interpretiveNonCommitment_of_neutralByDesign"
+name = "Neutrality by design yields interpretive non-commitment"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_neutralByDesign"
+source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
+status = "proved"
+description = "A substrate that is neutral by design satisfies interpretive non-commitment."
+
+[theorem.extensionStability_of_neutralByDesign]
+id = "extensionStability_of_neutralByDesign"
+name = "Neutrality by design yields extension stability"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.extensionStability_of_neutralByDesign"
+source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
+status = "proved"
+description = "A substrate that is neutral by design satisfies extension stability."
+
+# ============================================================
+# NEUTRALITY CONSTRAINT
+# ============================================================
+
+[theorem.neutralByDesign_iff_foundationalLayerRestricted]
+id = "neutralByDesign_iff_foundationalLayerRestricted"
+name = "Neutrality by design iff the foundational layer is restricted"
+lean_symbol = "SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted"
+source_module = "SE.NeutralSubstrate.Constraint"
+status = "proved"
+description = "Under the neutrality constraint, contestability, and referential common ground, neutrality by design is equivalent to restricting substrate commitments to referential commitments and permitted attribution propositions."
+
+[theorem.noObjectLevelCommitment_of_foundationalLayerRestricted]
+id = "noObjectLevelCommitment_of_foundationalLayerRestricted"
+name = "Foundational restriction excludes object-level commitment"
+lean_symbol = "SE.NeutralSubstrate.noObjectLevelCommitment_of_foundationalLayerRestricted"
+source_module = "SE.NeutralSubstrate.Constraint"
+status = "proved"
+description = "Under the neutrality constraint, contestability, and referential common ground, restricting foundational commitments excludes object-level causal or normative commitments."
+
+[theorem.noObjectLevelCommitment_of_neutralByDesign]
+id = "noObjectLevelCommitment_of_neutralByDesign"
+name = "Neutrality by design excludes object-level commitment"
+lean_symbol = "SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign"
+source_module = "SE.NeutralSubstrate.Constraint"
+status = "proved"
+description = "Under the neutrality constraint, contestability, and referential common ground, neutrality by design excludes object-level causal or normative commitments."

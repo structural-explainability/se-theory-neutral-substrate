@@ -2,48 +2,72 @@
 # lakefile.toml
 # ============================================================
 # Declares the public Lean package identity, import surface,
-# build targets, dependencies, and verification executables.
+# build targets, dependencies, and internal test library.
+
+# Run with:
+# lake build
+# lake test
+# lake lint
 
 # ============================================================
 # PROJECT IDENTITY
 # ============================================================
 
-name = "SETheoryNeutralSubstrate"
-version = "0.7.0"
+name = "se-theory-neutral-substrate"
+version = "0.8.0"
 license = "MIT"
 
-keywords = [
-  "structural-explainability",
-  "formal-contract",
-  "neutrality",
-  "identity-regimes",
-  "invariants",
-  "formal-specification",
-  "formal-verification",
-  "proof-carrying",
-  "theorem-proving",
-  "lean4",
-]
+defaultTargets = ["SE"]
+testDriver = "SETest"
+lintDriver = "batteries/runLinter"
 
 # ============================================================
-# BUILD SURFACE
+# LEAN OPTIONS
 # ============================================================
-# defaultTargets must include the public Lean library root.
 
-defaultTargets = ["SE.NeutralSubstrate"]
+[leanOptions]
+weak.linter.mathlibStandardSet = true
+weak.linter.flexible = true
+weak.linter.style.header = false
+weak.linter.style.longline = false
+
+# These linters are included in Mathlib's standard set but do
+# not currently operate correctly in downstream projects.
+weak.linter.pythonStyle = false
+weak.linter.checkInitImports = false
+weak.linter.allScriptsDocumented = false
+
+# This linter is not extensible for Unicode outside Mathlib's set.
+weak.linter.unicodeLinter = false
+
+# ============================================================
+# DEPENDENCIES
+# ============================================================
+# Mathlib provides standard infrastructure used by this library.
+# Mathlib release must match the Lean version in lean-toolchain.
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.32.1"
+
 
 # ============================================================
 # PUBLIC LIBRARY
 # ============================================================
-# Downstream Lean projects import this library root.
-# Lake discovers modules under the matching source directory.
+# The public root namespace.
+# Public modules are organized beneath this namespace.
 
 [[lean_lib]]
-name = "SE.NeutralSubstrate"
+name = "SE"
+roots = ["SE"]
 
-# === TEST LIBRARIES (internal, not exported)
+# ============================================================
+# TEST LIBRARY
+# ============================================================
+# Internal verification; not part of downstream public import surface.
 
 [[lean_lib]]
-name = "Tests"
-srcDir = "test"
-roots = ["TestAll", "TestBasic", "TestRegime"]
+name = "SETest"
+roots = ["SETest"]
+leanOptions = {weak.linter.style.header = false}

@@ -4,38 +4,172 @@
 # ============================================================
 
 schema = "se-substrate-type-registry-1"
+kind = "type"
 repo = "se-theory-neutral-substrate"
-surface_module = "SE.NeutralSubstrate.Surface"
-namespace = "SE.NeutralSubstrate"
+surface_module = "SE"
+namespace = "SE"
 
-[type.PrimitiveKind]
-id = "PrimitiveKind"
-cite_id = "NS.TYPE.PRIMITIVE_KIND"
-name = "Primitive kind"
-lean_symbol = "PrimitiveKind"
-source_module = "SE.NeutralSubstrate.Core"
-description = "The three mutually exclusive kinds a primitive may have: causal (asserts a causal relation), normative (asserts a normative conclusion), or neutral (asserts only existence or identity). The trichotomy is exhaustive. Every primitive is classifiable as exactly one of these."
+# ============================================================
+# LOGIC LANGUAGE
+# ============================================================
 
-[type.Primitive]
-id = "Primitive"
-cite_id = "NS.TYPE.PRIMITIVE"
-name = "Primitive"
-lean_symbol = "Primitive"
-source_module = "SE.NeutralSubstrate.Core"
-description = "The basic unit of ontological commitment. Carries a kind (PrimitiveKind) and an id (String). DecidableEq enables computational equality checks; Repr enables printing for debugging."
+[type.PropositionCarrier]
+id = "PropositionCarrier"
+name = "Proposition carrier"
+lean_symbol = "SE.Logic.Language.PropositionCarrier"
+source_module = "SE.Logic.Language.Basic"
+description = "A carrier containing the type of propositions used by a formal language."
 
-[type.Ontology]
-id = "Ontology"
-cite_id = "NS.TYPE.ONTOLOGY"
-name = "Ontology"
-lean_symbol = "Ontology"
-source_module = "SE.NeutralSubstrate.Core"
-description = "A finite list of primitives, representing any ontology amenable to neutral-substrate analysis. Not restricted to neutral content; causal and normative primitives are valid members. The predicates (containsCausalOrNormative, Neutral, ExtensionStable, InterpretivelyNonCommitted) determine whether a given Ontology satisfies neutrality conditions. Implemented as a transparent type alias (abbrev) for List Primitive to preserve computability for native_decide and List.any."
+[type.Negation]
+id = "Negation"
+name = "Negation"
+lean_symbol = "SE.Logic.Language.Negation"
+source_module = "SE.Logic.Language.Basic"
+description = "A negation operation on the propositions of a proposition carrier."
 
-[type.Framework]
-id = "Framework"
-cite_id = "NS.TYPE.FRAMEWORK"
-name = "Framework"
-lean_symbol = "Framework"
-source_module = "SE.NeutralSubstrate.Core"
-description = "An interpretive stance over primitives. Carries affirms and denies functions (Primitive -> Bool) and a consistency proof that no primitive is both affirmed and denied. A framework may be silent on a primitive. Admissible frameworks may contradict each other; each is only required to be internally consistent."
+[type.Bottom]
+id = "Bottom"
+name = "Contradiction"
+lean_symbol = "SE.Logic.Language.Bottom"
+source_module = "SE.Logic.Language.Basic"
+description = "A distinguished contradiction proposition for a proposition carrier."
+
+[type.PropositionalLanguage]
+id = "PropositionalLanguage"
+name = "Propositional language"
+lean_symbol = "SE.Logic.Language.PropositionalLanguage"
+source_module = "SE.Logic.Language.Basic"
+description = "A propositional language consisting of a proposition carrier, a negation operation, and a distinguished contradiction proposition."
+
+# ============================================================
+# COMMITMENT THEORY AND CONSEQUENCE
+# ============================================================
+
+[type.CommitmentTheory]
+id = "CommitmentTheory"
+name = "Commitment theory"
+lean_symbol = "SE.Logic.Theory.CommitmentTheory"
+source_module = "SE.Logic.Theory.CommitmentTheory"
+description = "A set of propositions representing the commitments made by a theory, framework, or substrate."
+
+[type.ConsequenceSystem]
+id = "ConsequenceSystem"
+name = "Consequence system"
+lean_symbol = "SE.Logic.ConsequenceSystem"
+source_module = "SE.Logic.Consequence"
+description = "An entailment system over commitment theories, with entailment from membership, cut, and contradiction closure."
+
+# ============================================================
+# FRAMEWORKS
+# ============================================================
+
+[type.FrameworkSystem]
+id = "FrameworkSystem"
+name = "Framework system"
+lean_symbol = "SE.Framework.FrameworkSystem"
+source_module = "SE.Framework.Basic"
+description = "A family of interpretive frameworks with associated commitment theories and evidence used to determine whether a framework is admissible."
+
+# ============================================================
+# REFERENTS
+# ============================================================
+
+[type.ReferentCarriers]
+id = "ReferentCarriers"
+name = "Referent carriers"
+lean_symbol = "SE.Referent.ReferentCarriers"
+source_module = "SE.Referent.Carriers"
+description = "The entity, occurrence, and institutional-artifact carriers over which referential conditions are stated."
+
+[type.ReferentConditionFamily]
+id = "ReferentConditionFamily"
+name = "Referent condition family"
+lean_symbol = "SE.Substrate.ReferentConditionFamily"
+source_module = "SE.Substrate.ReferentialRegime"
+description = "A family of binary conditions over entity, occurrence, and institutional-artifact referents."
+
+[type.ReferentialRegime]
+id = "ReferentialRegime"
+cite_id = "se100.def.ReferentialRegime"
+name = "Referential regime"
+lean_symbol = "SE.Substrate.ReferentialRegime"
+source_module = "SE.Substrate.ReferentialRegime"
+description = "A referential regime supplying individuation, co-reference, and persistence conditions for each referent carrier."
+
+# ============================================================
+# SUBSTRATES
+# ============================================================
+
+[type.SubstrateSystem]
+id = "SubstrateSystem"
+cite_id = "se100.def.Substrate"
+name = "Substrate system"
+lean_symbol = "SE.Substrate.SubstrateSystem"
+source_module = "SE.Substrate.Basic"
+description = "A family of substrates, each with a commitment theory and an associated referential regime."
+
+[type.ReferentialFixing]
+id = "ReferentialFixing"
+name = "Referential fixing"
+lean_symbol = "SE.Substrate.ReferentialFixing"
+source_module = "SE.Substrate.ReferentialCommitments"
+description = "A relation recording whether a proposition is fixed by a specified referential regime."
+
+# ============================================================
+# CAUSAL AND NORMATIVE CLASSIFICATION
+# ============================================================
+
+[type.CausalNormativeClassification]
+id = "CausalNormativeClassification"
+cite_id = "se100.note.CausalNormative"
+name = "Causal and normative classification"
+lean_symbol = "SE.NeutralSubstrate.Classification.CausalNormativeClassification"
+source_module = "SE.NeutralSubstrate.Classification.CausalNormative"
+description = "A context-indexed classification system specifying when propositions are causal and when they are normative."
+
+[type.InterpretiveStatusFixing]
+id = "InterpretiveStatusFixing"
+name = "Interpretive status fixing"
+lean_symbol = "SE.NeutralSubstrate.Classification.InterpretiveStatusFixing"
+source_module = "SE.NeutralSubstrate.Classification.ContestedCausalOrNormative"
+description = "A context-indexed relation specifying whether the interpretive status of a proposition is fixed by a commitment theory."
+
+# ============================================================
+# ATTRIBUTION
+# ============================================================
+
+[type.AttributionSystem]
+id = "AttributionSystem"
+name = "Attribution system"
+lean_symbol = "SE.NeutralSubstrate.Attribution.AttributionSystem"
+source_module = "SE.NeutralSubstrate.Attribution.Basic"
+description = "A system of attribution sources together with an operation forming the proposition that a source asserts another proposition."
+
+[type.AttributionalBasisFixing]
+id = "AttributionalBasisFixing"
+name = "Attributional basis fixing"
+lean_symbol = "SE.NeutralSubstrate.Attribution.AttributionalBasisFixing"
+source_module = "SE.NeutralSubstrate.Attribution.Permitted"
+description = "A relation specifying when an attributional source and attributed proposition are fixed by a commitment theory, together with a soundness condition connecting that fixing to entailment."
+
+# ============================================================
+# OBJECT-LEVEL INTERPRETATION
+# ============================================================
+
+[type.ObjectLevelInterpretation]
+id = "ObjectLevelInterpretation"
+name = "Object-level interpretation"
+lean_symbol = "SE.NeutralSubstrate.Interpretation.ObjectLevelInterpretation"
+source_module = "SE.NeutralSubstrate.Interpretation.ObjectLevelProposition"
+description = "A relation specifying when a proposition is about referents under a particular referential regime."
+
+# ============================================================
+# DESIGN-TIME GUARANTEES
+# ============================================================
+
+[type.DesignTimeGuaranteeSystem]
+id = "DesignTimeGuaranteeSystem"
+name = "Design-time guarantee system"
+lean_symbol = "SE.NeutralSubstrate.DesignTimeGuaranteeSystem"
+source_module = "SE.NeutralSubstrate.DesignTimeGuarantee"
+description = "A system of candidate guarantee bases, a predicate identifying permitted bases, a relation specifying what each basis establishes, and a soundness condition ensuring that permitted established propositions hold."

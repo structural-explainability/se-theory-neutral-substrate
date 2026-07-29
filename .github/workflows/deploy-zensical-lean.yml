@@ -1,0 +1,161 @@
+# ============================================================
+# .github/workflows/deploy-zensical-lean.yml (Deploy Docs)
+# ============================================================
+# Updated: 2026-07-29
+#
+# WHY-FILE: Build and deploy documentation to GitHub Pages on pushes to main.
+#
+# REQ: Repo Settings -> Pages -> Build and deployment -> Source:
+#      GitHub Actions
+# WHY: Without this setting, the deploy-pages action will fail with a 403.
+
+name: Docs Deploy (Zensical and Lean)
+
+on:
+  push:
+    branches: [main] # WHY: Deploy on every confirmed push to main.
+  workflow_dispatch: # WHY: Allow manual redeploy from Actions tab if needed.
+
+permissions:
+  contents: read # WHY: Needed to checkout code.
+  id-token: write # WHY: Required by deploy-pages for OIDC authentication.
+  pages: write # WHY: Required to deploy to GitHub Pages.
+
+env:
+  PYTHONUNBUFFERED: "1" # WHY: Real-time log output in CI.
+  PYTHONIOENCODING: "utf-8" # WHY: Consistent encoding across platforms.
+  PYTHON_VERSION: "3.15"
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  docs:
+    name: Deploy Documentation site
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # WHY: Fail fast if a step hangs unexpectedly.
+
+    steps:
+      # ============================================================
+      # A) ASSEMBLE: Checkout code and set up environment
+      # ============================================================
+
+      - name: A1) Checkout repo code with full history
+        uses: actions/checkout@v7
+        # WHY: Required so all subsequent steps can access repo files.
+        with:
+          fetch-depth: 0
+
+      - name: A2) Configure GitHub Pages
+        uses: actions/configure-pages@v6
+        # WHY: Sets Pages metadata used by upload-pages-artifact and deploy-pages.
+        # OBS: Must run before the build step so base URL is available if needed.
+
+      - name: A3) Install uv (with caching)
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+          # WHY: Invalidate cache only when locked dependencies change.
+
+      - name: A4) Install Python ${{ env.PYTHON_VERSION }}
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: A5) Install all Python dependencies
+        run: uv sync --extra dev --extra docs --upgrade
+        # WHY: Docs extras required for Zensical build; dev extras for consistency.
+
+      - name: A6) Set up Lean
+        uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+          lint: false
+
+      - name: A7) Install native build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes build-essential
+
+      - name: A8) Show tool versions
+        run: |
+          uv --version
+          uv run python --version
+          lean --version
+          lake --version
+          uv run python -m zensical --version
+
+      # ============================================================
+      # B) BUILD ZENSICAL SITE
+      # ============================================================
+
+      - name: B1) Build Zensical documentation
+        run: |
+          if [ ! -f "zensical.toml" ]; then
+            echo "zensical.toml not found; refusing to deploy." \
+              >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          uv run python -m zensical build
+
+      - name: B2) Verify Zensical output
+        run: |
+          if [ ! -f "site/index.html" ]; then
+            echo "## Zensical output missing" >> "$GITHUB_STEP_SUMMARY"
+            echo "Expected site/index.html was not created." \
+              >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      # ============================================================
+      # C) BUILD LEAN API DOCUMENTATION
+      # ============================================================
+
+      - name: C1) Build Lean API documentation
+        working-directory: docbuild
+        run: lake build SE:docs
+
+      - name: C2) Verify Lean API output
+        run: |
+          if [ ! -f "docbuild/.lake/build/doc/index.html" ]; then
+            echo "## Lean API output missing" >> "$GITHUB_STEP_SUMMARY"
+            echo "Expected docbuild/.lake/build/doc/index.html was not created." \
+              >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - name: C3) Add Lean API documentation to site
+        run: |
+          rm -rf site/lean
+          mkdir -p site/lean
+          cp -R docbuild/.lake/build/doc/. site/lean/
+
+      - name: C4) Verify combined documentation site
+        run: |
+          test -f site/index.html
+          test -f site/lean/index.html
+
+          echo "## Documentation Site" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Zensical site: site/index.html" \
+            >> "$GITHUB_STEP_SUMMARY"
+          echo "- Lean API reference: site/lean/index.html" \
+            >> "$GITHUB_STEP_SUMMARY"
+
+      # ============================================================
+      # D) DEPLOY
+      # ============================================================
+
+      - name: D1) Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+        # WHY: Packages the built static site for the deploy-pages action.
+        # OBS: path must match the output directory
+
+      - name: D2) Deploy to GitHub Pages
+        uses: actions/deploy-pages@v5
+        # WHY: Publishes the uploaded artifact to GitHub Pages.
+        # OBS: Requires pages: write and id-token: write permissions (set above).
+        # OBS: The deployed URL is shown in the Actions log after this step completes.

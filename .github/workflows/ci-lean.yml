@@ -41,5 +41,5 @@ jobs:
         # WHY: Compiles the public Lean theory surface.
 
       - name: B2) Build Lean test surface
-        run: lake build TestAll
+        run: lake test
         # WHY: Confirms the declared Lean test imports and public surface compile.

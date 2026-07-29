@@ -1,153 +1,117 @@
--- ============================================================
--- NeutralSubstrate/Spec.lean
--- ============================================================
+/-
+Copyright (c) 2026 Denise M. Case.
+Released under MIT license as described in the file LICENSE.
+Authors: Denise M. Case
+-/
+module
 
--- REQ.FILE.SPEC
---   Canonical citation identifiers for the Neutral Substrate library.
---   These strings are stable across Core refactors.
---   Regime authors cite these IDs in documentation and trace matrices.
---   No Prop, no logic, no dependency on Core.
+-- SE/NeutralSubstrate/Spec.lean
+-- Canonical citation identifiers for the Neutral Substrate theory.
+-- Strings are stable across refactors; the identifier is the contract,
+-- and the corresponding Lean declaration is the implementation.
 
--- WHY: Decoupling IDs from math means a proof reorganization in Core
---   never invalidates a downstream citation. The ID is the contract;
---   the theorem is the implementation.
+@[expose] public section
 
 namespace SE.NeutralSubstrate.Spec
 
+/-- Paper item 01: substrate. -/
+def se100DefSubstrate : String :=
+  "se100.def.Substrate"
 
--- ============================================================
--- TYPES
--- ============================================================
+/-- Paper item 02: substrate commitment. -/
+def se100DefSubstrateCommitment : String :=
+  "se100.def.SubstrateCommitment"
 
--- REQ.SPEC.TYPES
---   Cite when depending on the shape of a Core type.
+/-- Paper item 03: causal or normative classification. -/
+def se100NoteCausalNormative : String :=
+  "se100.note.CausalNormative"
 
-/-- Cite when a regime depends on the PrimitiveKind enumeration. -/
-def NS_ID_TYPE_PRIMITIVE_KIND : String :=
-  "NS.TYPE.PRIMITIVE_KIND"
+/-- Paper item 04: attribution proposition. -/
+def se100DefAttributionProposition : String :=
+  "se100.def.AttributionProposition"
 
-/-- Cite when a regime depends on the Primitive structure. -/
-def NS_ID_TYPE_PRIMITIVE : String :=
-  "NS.TYPE.PRIMITIVE"
+/-- Paper item 05: object-level interpretive proposition. -/
+def se100DefObjectLevelInterpretiveProposition : String :=
+  "se100.def.ObjectLevelInterpretiveProposition"
 
-/-- Cite when a regime depends on Ontology as a list of primitives. -/
-def NS_ID_TYPE_ONTOLOGY : String :=
-  "NS.TYPE.ONTOLOGY"
+/-- Paper item 06: object-level causal or normative commitment. -/
+def se100DefObjectLevelCausalNormativeCommitment : String :=
+  "se100.def.ObjectLevelCausalNormativeCommitment"
 
-/-- Cite when a regime depends on the Framework structure. -/
-def NS_ID_TYPE_FRAMEWORK : String :=
-  "NS.TYPE.FRAMEWORK"
+/-- Paper item 07: referential regime. -/
+def se100DefReferentialRegime : String :=
+  "se100.def.ReferentialRegime"
 
+/-- Paper item 08: referential commitments. -/
+def se100DefReferentialCommitments : String :=
+  "se100.def.ReferentialCommitments"
 
--- ============================================================
--- PREDICATES
--- ============================================================
+/-- Paper item 09: admissible framework. -/
+def se100DefAdmissibleFramework : String :=
+  "se100.def.AdmissibleFramework"
 
--- REQ.SPEC.PREDICATES
---   Cite when depending on the definition of a Core predicate.
+/-- Paper item 10: framework class. -/
+def se100NoteFrameworkClass : String :=
+  "se100.note.FrameworkClass"
 
-/-- Cite when a regime depends on the definition of Admissible. -/
-def NS_ID_DEF_ADMISSIBLE : String :=
-  "NS.DEF.ADMISSIBLE"
+/-- Paper item 11: permitted attribution proposition. -/
+def se100DefPermittedAttributionProposition : String :=
+  "se100.def.PermittedAttributionProposition"
 
-/-- Cite when a regime depends on containsCausalOrNormative as a boolean test. -/
-def NS_ID_DEF_CONTAINS_CAUSAL_OR_NORMATIVE : String :=
-  "NS.DEF.CONTAINS_CAUSAL_OR_NORMATIVE"
+/-- Paper item 12: framework-variant proposition. -/
+def se100DefFrameworkVariant : String :=
+  "se100.def.FrameworkVariant"
 
-/-- Cite when a regime depends on the definition of extensionInconsistent. -/
-def NS_ID_DEF_EXTENSION_INCONSISTENT : String :=
-  "NS.DEF.EXTENSION_INCONSISTENT"
+/-- Paper item 13: framework-invariant proposition. -/
+def se100DefFrameworkInvariant : String :=
+  "se100.def.FrameworkInvariant"
 
-/-- Cite when a regime depends on the definition of ExtensionStable. -/
-def NS_ID_DEF_EXTENSION_STABLE : String :=
-  "NS.DEF.EXTENSION_STABLE"
+/-- Paper item 14: framework-compatible commitment set. -/
+def se100DefFrameworkCompatibleCommitmentSet : String :=
+  "se100.def.FrameworkCompatibleCommitmentSet"
 
-/-- Cite when a regime depends on the definition of Neutral. -/
-def NS_ID_DEF_NEUTRAL : String :=
-  "NS.DEF.NEUTRAL"
+/-- Paper item 15: contested causal or normative proposition. -/
+def se100DefContestedCausalNormative : String :=
+  "se100.def.ContestedCausalNormative"
 
-/-- Cite when a regime depends on the definition of FrameworkVariant. -/
-def NS_ID_DEF_FRAMEWORK_VARIANT : String :=
-  "NS.DEF.FRAMEWORK_VARIANT"
+/-- Paper item 16: contestability assumption. -/
+def se100AssumpContestability : String :=
+  "se100.assump.Contestability"
 
-/-- Cite when a regime depends on the definition of FrameworksContradict. -/
-def NS_ID_DEF_FRAMEWORKS_CONTRADICT : String :=
-  "NS.DEF.FRAMEWORKS_CONTRADICT"
+/-- Paper item 17: referential common-ground assumption. -/
+def se100AssumpReferentialCommonGround : String :=
+  "se100.assump.ReferentialCommonGround"
 
-/-- Cite when a regime depends on the definition of InterpretivelyNonCommitted. -/
-def NS_ID_DEF_INTERPRETIVELY_NON_COMMITTED : String :=
-  "NS.DEF.INTERPRETIVELY_NON_COMMITTED"
+/-- Paper item 18: attribution and common ground. -/
+def se100RemarkAttributionCommonGround : String :=
+  "se100.remark.AttributionCommonGround"
 
+/-- Paper item 19: interpretive non-commitment. -/
+def se100DefInterpretiveNonCommitment : String :=
+  "se100.def.InterpretiveNonCommitment"
 
--- ============================================================
--- AXIOMS
--- ============================================================
+/-- Paper item 20: extension stability. -/
+def se100DefExtensionStability : String :=
+  "se100.def.ExtensionStability"
 
--- REQ.SPEC.AXIOMS
---   Cite when a regime inherits or depends on a Core axiom.
---   Regime authors should document which axioms their proofs rest on.
+/-- Paper item 21: substrate-consistency assumption. -/
+def se100AssumpSubstrateConsistency : String :=
+  "se100.assump.SubstrateConsistency"
 
-/-- Cite when a regime proof depends on framework_relativity. -/
-def NS_ID_AXIOM_FRAMEWORK_RELATIVITY : String :=
-  "NS.AXIOM.FRAMEWORK_RELATIVITY"
+/-- Paper item 22: relation between the two neutrality properties. -/
+def se100RemarkPropertyRelation : String :=
+  "se100.remark.PropertyRelation"
 
-/-- Cite when a regime proof depends on neutral_primitives_undisputed. -/
-def NS_ID_AXIOM_NEUTRAL_PRIMITIVES_UNDISPUTED : String :=
-  "NS.AXIOM.NEUTRAL_PRIMITIVES_UNDISPUTED"
+/-- Paper item 23: neutrality by design. -/
+def se100DefNeutralityByDesign : String :=
+  "se100.def.NeutralityByDesign"
 
-/-- Cite when a regime proof depends on causal_normative_affirmed. -/
-def NS_ID_AXIOM_CAUSAL_NORMATIVE_AFFIRMED : String :=
-  "NS.AXIOM.CAUSAL_NORMATIVE_AFFIRMED"
+/-- Paper item 24: neutrality constraint. -/
+def se100ConstraintNeutrality : String :=
+  "se100.constraint.Neutrality"
 
-
--- ============================================================
--- THEOREMS
--- ============================================================
-
--- REQ.SPEC.THEOREMS
---   Cite when a regime proof applies or extends a Core theorem.
-
-/-- Cite when a regime applies the only-if direction of the main theorem.
-    This direction requires only framework_relativity (lower bound). -/
-def NS_ID_THEOREM_NOT_NEUTRAL_IF_CAUSAL_OR_NORMATIVE : String :=
-  "NS.THEOREM.NOT_NEUTRAL_IF_CAUSAL_OR_NORMATIVE"
-
-/-- Cite when a regime applies the if direction of the main theorem.
-    This direction additionally requires neutral_primitives_undisputed (upper bound). -/
-def NS_ID_THEOREM_NEUTRAL_IF_ONLY_NEUTRAL : String :=
-  "NS.THEOREM.NEUTRAL_IF_ONLY_NEUTRAL"
-
-/-- Cite when a regime applies or extends the ontological neutrality biconditional.
-    Valid only in domains where both axioms hold. -/
-def NS_ID_THEOREM_ONTOLOGICAL_NEUTRALITY : String :=
-  "NS.THEOREM.ONTOLOGICAL_NEUTRALITY"
-
-/-- Cite when a regime can establish only the lower bound.
-    Use when neutral_primitives_undisputed does not hold in the domain. -/
-def NS_ID_THEOREM_LOWER_BOUND_ONLY : String :=
-  "NS.THEOREM.LOWER_BOUND_ONLY"
-
-/-- Cite when a regime applies the framework-contestability lemma. -/
-def NS_ID_THEOREM_FRAMEWORK_CONTESTABILITY : String :=
-  "NS.THEOREM.FRAMEWORK_CONTESTABILITY"
-
-/-- Cite when a regime applies or instantiates separate stability. -/
-def NS_ID_THEOREM_SEPARATE_STABILITY : String :=
-  "NS.THEOREM.SEPARATE_STABILITY"
-
-/-- Cite when a regime depends on the result that only-neutral substrates satisfy INC.
-    This theorem confirms no new axiom is needed for the INC direction. -/
-def NS_ID_THEOREM_ONLY_NEUTRAL_IMPLIES_INC : String :=
-  "NS.THEOREM.ONLY_NEUTRAL_IMPLIES_INC"
-
-/-- Cite when a proof depends on the helper lemma connecting
-    List.any = false to absence of witnesses. -/
-def NS_ID_THEOREM_ANY_FALSE_IMPLIES_NONE : String :=
-  "NS.THEOREM.ANY_FALSE_IMPLIES_NONE"
-
-/-- Cite when a proof depends on the helper lemma connecting
-    List.any = true to existence of a witness. -/
-def NS_ID_THEOREM_ANY_TRUE_IMPLIES_EXISTS : String :=
-  "NS.THEOREM.ANY_TRUE_IMPLIES_EXISTS"
+/-- Paper item 25: reification fragment. -/
+def se100ExampleReificationFragment : String :=
+  "se100.example.ReificationFragment"
 
 end SE.NeutralSubstrate.Spec

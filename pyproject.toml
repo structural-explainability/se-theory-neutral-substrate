@@ -14,7 +14,7 @@
 name = "se-theory-neutral-substrate" # Package distribution name (lowercase and dashes).
 readme = "README.md"
 requires-python = ">=3.15"
-version = "0.7.0"
+version = "0.8.0"
 
 dependencies = ["se-theory-reference-kit"]
 

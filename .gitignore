@@ -13,6 +13,7 @@
 logs/
 PRIVATE_NOTES.md
 PRIVATE-NOTES.md
+docbuild/.lake/
 
 # WHY: Temporary and swap files are machine-local noise and create meaningless diffs.
 *.swo

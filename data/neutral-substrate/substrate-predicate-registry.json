@@ -1,74 +1,246 @@
 {
-  "schema": "se-neutral-substrate-predicate-registry-1",
+  "schema": "se-theory-neutral-substrate-predicate-registry",
   "source": "se-theory-neutral-substrate",
   "namespace": "se.neutral_substrate",
   "artifact": "substrate-predicate-registry",
   "reference_artifact": "substrate-predicates",
-  "reference_path": "C:/Users/edaci/Documents/structural-explainability/se-theory-neutral-substrate/reference/substrate-predicates.toml",
-  "predicates": [
+  "reference_path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-predicates.toml",
+  "predicate": [
     {
-      "id": "Admissible",
-      "cite_id": "NS.DEF.ADMISSIBLE",
-      "name": "Admissible",
-      "lean_symbol": "Admissible",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "All internally consistent frameworks are admissible. Intentionally minimal: defined as Prop := True, meaning every framework satisfying the internal consistency requirement in the Framework structure qualifies. Admissibility is not universality. Admissible frameworks may contradict one another. A richer model could add domain-specific conditions."
+      "id": "AdmissibleFramework",
+      "cite_id": "se100.def.AdmissibleFramework",
+      "name": "Admissible framework",
+      "lean_symbol": "SE.Framework.AdmissibleFramework",
+      "source_module": "SE.Framework.Admissible",
+      "description": "A framework is admissible when its commitment theory is consistent, it is evidentially grounded, and it satisfies the documented-interpretive-function conditions."
     },
     {
-      "id": "ExtensionStable",
-      "cite_id": "NS.DEF.EXTENSION_STABLE",
-      "name": "Extension stable",
-      "lean_symbol": "ExtensionStable",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "No admissible framework causes inconsistency when extending the substrate. For all admissible frameworks F, extending S with F produces no contradiction. Captures the requirement that the substrate survives interpretive disagreement. It is the EXT conjunct of Neutral."
+      "id": "AttributionProposition",
+      "cite_id": "se100.def.AttributionProposition",
+      "name": "Attribution proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Attribution.AttributionProposition",
+      "source_module": "SE.NeutralSubstrate.Attribution.Basic",
+      "description": "A proposition formed by attributing an asserted proposition to a source in an attribution system."
     },
     {
-      "id": "FrameworkVariant",
-      "cite_id": "NS.DEF.FRAMEWORK_VARIANT",
-      "name": "Framework variant",
-      "lean_symbol": "FrameworkVariant",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "Admissible frameworks disagree about this primitive: some affirm it, some deny it. A primitive is framework-variant when there exist admissible F1 and F2 such that F1 affirms p and F2 denies p. This is the structural property that makes a primitive unsafe to embed at the substrate layer. Any substrate asserting a framework-variant primitive will be inconsistent with some admissible framework."
+      "id": "CausalOrNormativeProposition",
+      "name": "Causal or normative proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Classification.CausalOrNormativeProposition",
+      "source_module": "SE.NeutralSubstrate.Classification.CausalNormative",
+      "description": "A proposition that is classified as causal or classified as normative in the specified context."
     },
     {
-      "id": "FrameworksContradict",
-      "cite_id": "NS.DEF.FRAMEWORKS_CONTRADICT",
-      "name": "Frameworks contradict",
-      "lean_symbol": "FrameworksContradict",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "Two frameworks mutually contradict when one affirms what the other denies. Mutual contradiction does not affect admissibility. Each framework may be internally consistent while contradicting the other. Instantiated in the incident example: the engineering and legal frameworks contradict each other over Responsible(a,e) while each remains separately consistent with the neutral substrate."
+      "id": "CausalProposition",
+      "name": "Causal proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Classification.CausalProposition",
+      "source_module": "SE.NeutralSubstrate.Classification.CausalNormative",
+      "description": "A proposition classified as causal in a specified classification context."
     },
     {
-      "id": "InterpretivelyNonCommitted",
-      "cite_id": "NS.DEF.INTERPRETIVELY_NON_COMMITTED",
-      "name": "Interpretively non-committed",
-      "lean_symbol": "InterpretivelyNonCommitted",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "No primitive in the substrate is framework-variant. A substrate satisfies INC when every primitive it contains has framework-invariant truth conditions. This is the INC conjunct of Neutral. For substrates where containsCausalOrNormative S = false, INC follows from neutral_primitives_undisputed alone via only_neutral_primitives_implies_INC."
+      "id": "Consistent",
+      "name": "Consistent",
+      "lean_symbol": "SE.Logic.Consistent",
+      "source_module": "SE.Logic.Consistency",
+      "description": "A commitment theory is consistent under a consequence system when it does not entail the distinguished contradiction proposition."
+    },
+    {
+      "id": "Contestability",
+      "cite_id": "se100.assump.Contestability",
+      "name": "Contestability",
+      "lean_symbol": "SE.NeutralSubstrate.Assumptions.Contestability",
+      "source_module": "SE.NeutralSubstrate.Assumptions.Contestability",
+      "description": "No contested causal or normative proposition is guaranteed at design time to be framework invariant."
+    },
+    {
+      "id": "ContestedCausalOrNormativeClass",
+      "name": "Contested causal or normative class",
+      "lean_symbol": "SE.NeutralSubstrate.Classification.ContestedCausalOrNormativeClass",
+      "source_module": "SE.NeutralSubstrate.Classification.ContestedCausalOrNormative",
+      "description": "The set of propositions satisfying the contested-causal-or-normative predicate for the selected context, substrate, and referential fixing."
+    },
+    {
+      "id": "ContestedCausalOrNormativeProposition",
+      "cite_id": "se100.def.ContestedCausalNormative",
+      "name": "Contested causal or normative proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Classification.ContestedCausalOrNormativeProposition",
+      "source_module": "SE.NeutralSubstrate.Classification.ContestedCausalOrNormative",
+      "description": "A causal or normative proposition whose interpretive status is not fixed by the substrate's referential commitments in the specified context."
+    },
+    {
+      "id": "DocumentedInterpretiveFunction",
+      "name": "Documented interpretive function",
+      "lean_symbol": "SE.Framework.DocumentedInterpretiveFunction",
+      "source_module": "SE.Framework.Admissible",
+      "description": "A framework is presented as an interpretive function and has a named source, documented scope, and citable basis."
+    },
+    {
+      "id": "ExtensionStability",
+      "cite_id": "se100.def.ExtensionStability",
+      "name": "Extension stability",
+      "lean_symbol": "SE.NeutralSubstrate.Neutrality.ExtensionStability",
+      "source_module": "SE.NeutralSubstrate.Neutrality.ExtensionStability",
+      "description": "The substrate combined with each admissible framework has a consistent commitment theory."
+    },
+    {
+      "id": "FoundationalLayerRestrictedToPermittedClasses",
+      "name": "Foundational layer restricted to permitted classes",
+      "lean_symbol": "SE.NeutralSubstrate.FoundationalLayerRestrictedToPermittedClasses",
+      "source_module": "SE.NeutralSubstrate.Constraint",
+      "description": "Every substrate commitment is either a referential commitment or a permitted attribution proposition."
+    },
+    {
+      "id": "FrameworkClass",
+      "cite_id": "se100.note.FrameworkClass",
+      "name": "Framework class",
+      "lean_symbol": "SE.Framework.FrameworkClass",
+      "source_module": "SE.Framework.Class",
+      "description": "The set of carriers in a framework system that satisfy the admissible-framework predicate."
+    },
+    {
+      "id": "FrameworkCompatibleCommitmentSet",
+      "cite_id": "se100.def.FrameworkCompatibleCommitmentSet",
+      "name": "Framework-compatible commitment set",
+      "lean_symbol": "SE.NeutralSubstrate.FrameworkRelative.FrameworkCompatibleCommitmentSet",
+      "source_module": "SE.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet",
+      "description": "A commitment theory that remains consistent when combined with the commitments of every admissible framework."
+    },
+    {
+      "id": "FrameworkInvariantProposition",
+      "cite_id": "se100.def.FrameworkInvariant",
+      "name": "Framework-invariant proposition",
+      "lean_symbol": "SE.NeutralSubstrate.FrameworkRelative.FrameworkInvariantProposition",
+      "source_module": "SE.NeutralSubstrate.FrameworkRelative.Invariant",
+      "description": "A proposition whose addition remains consistent with the substrate combined with every admissible framework."
+    },
+    {
+      "id": "FrameworkVariantProposition",
+      "cite_id": "se100.def.FrameworkVariant",
+      "name": "Framework-variant proposition",
+      "lean_symbol": "SE.NeutralSubstrate.FrameworkRelative.FrameworkVariantProposition",
+      "source_module": "SE.NeutralSubstrate.FrameworkRelative.Variant",
+      "description": "A proposition entailed by the substrate combined with one admissible framework while its negation is entailed by the substrate combined with another admissible framework."
+    },
+    {
+      "id": "GuaranteedAtDesignTime",
+      "name": "Guaranteed at design time",
+      "lean_symbol": "SE.NeutralSubstrate.GuaranteedAtDesignTime",
+      "source_module": "SE.NeutralSubstrate.DesignTimeGuarantee",
+      "description": "A proposition is guaranteed at design time when some permitted guarantee basis establishes it."
+    },
+    {
+      "id": "InterpretiveNonCommitment",
+      "cite_id": "se100.def.InterpretiveNonCommitment",
+      "name": "Interpretive non-commitment",
+      "lean_symbol": "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment",
+      "source_module": "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment",
+      "description": "For every framework-variant proposition, the substrate commits to neither the proposition nor its negation."
     },
     {
       "id": "Neutral",
-      "cite_id": "NS.DEF.NEUTRAL",
       "name": "Neutral",
-      "lean_symbol": "Neutral",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "An ontology is neutral iff it satisfies both extension stability (EXT) and interpretive non-commitment (INC). EXT: no admissible framework contradicts the substrate. INC: no primitive in the substrate is framework-variant. Both conjuncts are necessary; the full biconditional requires both framework_relativity and neutral_primitives_undisputed."
+      "lean_symbol": "SE.NeutralSubstrate.Neutrality.Neutral",
+      "source_module": "SE.NeutralSubstrate.Neutrality.ByDesign",
+      "description": "The conjunction of interpretive non-commitment and extension stability for the selected substrate and framework system."
     },
     {
-      "id": "containsCausalOrNormative",
-      "cite_id": "NS.DEF.CONTAINS_CAUSAL_OR_NORMATIVE",
-      "name": "Contains causal or normative commitment",
-      "lean_symbol": "containsCausalOrNormative",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "Boolean function returning true if any primitive in the ontology has kind other than neutral. This is the computational characterization the main theorem is stated over; the biconditional ontological_neutrality_theorem equates Neutral S with containsCausalOrNormative S = false."
+      "id": "NeutralByDesign",
+      "cite_id": "se100.def.NeutralityByDesign",
+      "name": "Neutrality by design",
+      "lean_symbol": "SE.NeutralSubstrate.Neutrality.NeutralByDesign",
+      "source_module": "SE.NeutralSubstrate.Neutrality.ByDesign",
+      "description": "Neutrality is guaranteed at design time by the selected design-time guarantee system."
     },
     {
-      "id": "extensionInconsistent",
-      "cite_id": "NS.DEF.EXTENSION_INCONSISTENT",
-      "name": "Extension inconsistent",
-      "lean_symbol": "extensionInconsistent",
-      "source_module": "SE.NeutralSubstrate.Core",
-      "description": "A framework denies a primitive that the substrate contains. Models the conflict arising when an interpretive framework contradicts a substrate-level commitment: there exists a primitive p in S such that F.denies p = true."
+      "id": "NeutralityConstraint",
+      "cite_id": "se100.constraint.Neutrality",
+      "name": "Neutrality constraint",
+      "lean_symbol": "SE.NeutralSubstrate.NeutralityConstraint",
+      "source_module": "SE.NeutralSubstrate.Constraint",
+      "description": "Under contestability and referential common ground, neutrality by design is equivalent to restricting foundational commitments to referential commitments and permitted attribution propositions; that restriction also excludes object-level causal or normative commitments."
+    },
+    {
+      "id": "NoObjectLevelCausalOrNormativeCommitment",
+      "name": "No object-level causal or normative commitment",
+      "lean_symbol": "SE.NeutralSubstrate.NoObjectLevelCausalOrNormativeCommitment",
+      "source_module": "SE.NeutralSubstrate.Constraint",
+      "description": "The substrate makes no object-level causal or normative commitment in the selected classification and interpretation context."
+    },
+    {
+      "id": "NormativeProposition",
+      "name": "Normative proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Classification.NormativeProposition",
+      "source_module": "SE.NeutralSubstrate.Classification.CausalNormative",
+      "description": "A proposition classified as normative in a specified classification context."
+    },
+    {
+      "id": "ObjectLevelCausalOrNormativeCommitment",
+      "cite_id": "se100.def.ObjectLevelCausalNormativeCommitment",
+      "name": "Object-level causal or normative commitment",
+      "lean_symbol": "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment",
+      "source_module": "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment",
+      "description": "An object-level causal or normative proposition that is also a commitment of the selected substrate."
+    },
+    {
+      "id": "ObjectLevelCausalOrNormativeProposition",
+      "name": "Object-level causal or normative proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeProposition",
+      "source_module": "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment",
+      "description": "A proposition that is both object-level interpretive and causal or normative in the selected classification context."
+    },
+    {
+      "id": "ObjectLevelInterpretiveProposition",
+      "cite_id": "se100.def.ObjectLevelInterpretiveProposition",
+      "name": "Object-level interpretive proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Interpretation.ObjectLevelInterpretiveProposition",
+      "source_module": "SE.NeutralSubstrate.Interpretation.ObjectLevelProposition",
+      "description": "A proposition that is about referents under the substrate's referential regime and is not an attribution proposition."
+    },
+    {
+      "id": "PermittedAttributionProposition",
+      "cite_id": "se100.def.PermittedAttributionProposition",
+      "name": "Permitted attribution proposition",
+      "lean_symbol": "SE.NeutralSubstrate.Attribution.PermittedAttributionProposition",
+      "source_module": "SE.NeutralSubstrate.Attribution.Permitted",
+      "description": "An attribution proposition whose source and attributed content are fixed by an attributional basis over the substrate's referential commitments."
+    },
+    {
+      "id": "ReferentialCommitments",
+      "cite_id": "se100.def.ReferentialCommitments",
+      "name": "Referential commitments",
+      "lean_symbol": "SE.Substrate.ReferentialCommitments",
+      "source_module": "SE.Substrate.ReferentialCommitments",
+      "description": "The commitment theory containing propositions that are both substrate commitments and fixed by the substrate's referential regime."
+    },
+    {
+      "id": "ReferentialCommonGround",
+      "cite_id": "se100.assump.ReferentialCommonGround",
+      "name": "Referential common ground",
+      "lean_symbol": "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround",
+      "source_module": "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround",
+      "description": "The substrate's referential commitments are compatible with every admissible framework, and adjoining any permitted attribution proposition preserves that compatibility."
+    },
+    {
+      "id": "SubstrateCommitment",
+      "cite_id": "se100.def.SubstrateCommitment",
+      "name": "Substrate commitment",
+      "lean_symbol": "SE.Substrate.SubstrateCommitment",
+      "source_module": "SE.Substrate.Commitment",
+      "description": "A proposition is a substrate commitment when it is entailed by the commitment theory associated with the selected substrate."
+    },
+    {
+      "id": "SubstrateConsistency",
+      "cite_id": "se100.assump.SubstrateConsistency",
+      "name": "Substrate consistency",
+      "lean_symbol": "SE.NeutralSubstrate.Assumptions.SubstrateConsistency",
+      "source_module": "SE.NeutralSubstrate.Assumptions.SubstrateConsistency",
+      "description": "The commitment theory associated with the selected substrate is consistent under the selected consequence system."
+    },
+    {
+      "id": "SubstrateFrameworkCommitments",
+      "name": "Substrate-framework commitments",
+      "lean_symbol": "SE.NeutralSubstrate.FrameworkRelative.SubstrateFrameworkCommitments",
+      "source_module": "SE.NeutralSubstrate.FrameworkRelative.Variant",
+      "description": "The commitment theory formed by combining the selected substrate's commitments with the commitments of a selected framework."
     }
   ]
 }

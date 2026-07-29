@@ -22,7 +22,7 @@ class = "theory"
 kind = "foundation"
 status = "active"
 since = "2026"
-summary = "Lean 4 formalization of the neutral structural substrate defining admissibility, separation, and substrate invariants without encoding identity regimes."
+summary = "Lean 4 formalization of the Neutral Substrate theory, including propositional languages, commitment theories, consequence and consistency, interpretive frameworks, referential regimes, attribution, framework-relative propositions, contestability, referential common ground, interpretive non-commitment, extension stability, neutrality by design, and the neutrality constraint."
 
 # === Layer Position ===
 
@@ -33,14 +33,15 @@ role = "theory"
 # === Dependency Declarations ===
 
 [depends]
-# foundational theory repo
+# Foundational theory repository. Downstream Structural Explainability theories
+# may depend on this repository; this repository does not depend on them.
 optional = []
 required = []
 
 # === Provided Artifacts ===
 
 [provides]
-# theory repos expose Lean modules, not operational artifacts
+# Theory repositories expose Lean modules and theorem sets.
 artifacts = [
   "lean-library",
   "theorem-set",
@@ -50,61 +51,93 @@ artifacts = [
 kind = "lean-surface"
 status = "active"
 symbols = [
-  "SE.NeutralSubstrate",
+  "SE",
 ]
-path = "SE/NeutralSubstrate.lean"
-reason = "Public Lean import surface for the neutral-substrate theory."
+path = "SE.lean"
+reason = "Public Lean root for the Neutral Substrate foundation and its reusable Structural Explainability definitions and theorems."
 
-[provides.formalization.theorems]
+[provides.formalization.property_relation]
 kind = "lean-theorem-set"
 status = "active"
 symbols = [
-  "not_neutral_if_causal_or_normative",
-  "neutral_if_only_neutral",
-  "ontological_neutrality_theorem",
-  "only_neutral_primitives_implies_INC",
-  "framework_contestability_lemma",
-  "separate_stability",
+  "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_extensionStability",
 ]
-path = "SE/NeutralSubstrate/Core.lean"
-reason = "Machine-checked theorem set for neutral-substrate admissibility and separation."
+path = "SE/NeutralSubstrate/Neutrality/PropertyRelation.lean"
+reason = "Machine-checked relation between extension stability and interpretive non-commitment."
+
+[provides.formalization.neutrality_constraint]
+kind = "lean-theorem-set"
+status = "active"
+symbols = [
+  "SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted",
+  "SE.NeutralSubstrate.noObjectLevelCommitment_of_foundationalLayerRestricted",
+  "SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign",
+]
+path = "SE/NeutralSubstrate/Constraint.lean"
+reason = "Machine-checked characterization and consequences of the Neutral Substrate constraint."
 
 # === Scope ===
 
 [scope]
 includes = [
-  "neutral structural primitives",
-  "substrate well-formedness",
-  "admissibility conditions for regime application",
-  "separation constraints (non-encoding of regimes)",
-  "substrate-level invariants",
-  "machine-checked Lean theorems",
+  "propositional languages, negation, and contradiction",
+  "commitment theories and theory extension",
+  "consequence systems and consistency",
+  "interpretive framework systems",
+  "documented and admissible frameworks",
+  "referent carriers and referential regimes",
+  "substrate systems and substrate commitments",
+  "referential fixing and referential commitments",
+  "causal and normative proposition classification",
+  "attribution propositions and permitted attribution",
+  "object-level interpretive propositions",
+  "framework-variant and framework-invariant propositions",
+  "framework-compatible commitment sets",
+  "contested causal or normative propositions",
+  "design-time guarantee systems",
+  "contestability",
+  "referential common ground",
+  "substrate consistency",
+  "interpretive non-commitment",
+  "extension stability",
+  "neutrality and neutrality by design",
+  "the Neutral Substrate constraint",
+  "machine-checked Lean definitions and theorems",
+  "theory-reference declarations and generated reference artifacts",
 ]
 
 excludes = [
-  "identity regime definitions",
-  "regime-profile derivation",
-  "persistence behavior",
-  "mapping semantics",
-  "operational validation logic",
-  "repository governance rules",
-  "schema definitions for other repositories",
+  "identity-regime classification",
+  "operational identity auditing",
+  "persistence theory",
+  "transformation theory",
+  "interpretive-kernel constructions",
+  "Structural Explainability integration theory",
+  "domain-specific interpretation policies",
   "domain-specific mappings or data",
   "runtime systems",
+  "schema definitions owned by other repositories",
 ]
 
 # === Validation ===
 
 [validation]
-# Validates repository declaration, manifest schema conformance,
-# reference artifacts, and Lean public surface coverage.
-entrypoint = "uv run se-validate"
-reference_entrypoint = "uv run se-ref-validate"
-export_check_entrypoint = "uv run se-ref-export --check"
-strict_entrypoint = "uv run se-validate --strict"
-tag_entrypoint = "uv run se-validate --require-tag"
+# Runs the complete repository release-validation sequence.
+entrypoint = "pwsh -File ./rel.ps1"
 
-# === Behavior / governance ===
+# Validates repository-owned theory-reference declarations.
+reference_entrypoint = "uv run --locked se-theory-reference validate"
+
+# Confirms that generated reference exports match their source declarations.
+export_check_entrypoint = "uv run --locked se-theory-reference export --check"
+
+# Runs strict theory-reference validation.
+strict_entrypoint = "uv run --locked se-theory-reference validate --strict"
+
+# Confirms that release metadata agrees with the pushed Git tag.
+tag_entrypoint = "uvx --from se-manifest-schema se-manifest check-version --require-tag"
+
+# === Behavior / Governance ===
 
 [naming]
 pattern = "se-theory-*"
@@ -112,11 +145,11 @@ pattern = "se-theory-*"
 [governance]
 authority = "structural-explainability"
 
-# === External references ===
+# === External References ===
 
 [citation]
 cff = "CITATION.cff"
 preferred = "CITATION.cff"
 
 [traceability]
-identifier_map = "reference/index.toml"
+identifier_map = "reference/traceability-registry.toml"

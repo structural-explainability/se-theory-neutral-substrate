@@ -3,8 +3,9 @@
 # ============================================================
 # Theory reference configuration for se-theory-reference-kit.
 #
-# WHY: The theory repository owns Lean source, reference TOML, and exported
-# JSON artifacts. The reusable kit owns validation, export, catalog, scaffold,
+# WHY: The theory repository owns Lean source, reference TOML,
+# and exported JSON artifacts.
+# The reusable kit owns validation, export, catalog, scaffold,
 # and inspection machinery.
 
 schema = "se-theory-reference"
@@ -21,19 +22,46 @@ description = "Neutral substrate theory repository for Structural Explainability
 # === Lean Public Surface ===
 
 [lean]
-root_module = "SE.NeutralSubstrate"
+root_module = "SE"
+
 public_modules = [
-  "SE.NeutralSubstrate",
-  "SE.NeutralSubstrate.Core",
-  "SE.NeutralSubstrate.Spec",
-  "SE.NeutralSubstrate.Surface",
+    "SE",
+    "SE.Logic.Language.Basic",
+    "SE.Logic.Theory.CommitmentTheory",
+    "SE.Logic.Theory.TheoryExtension",
+    "SE.Logic.Consequence",
+    "SE.Logic.Consistency",
+    "SE.Framework.Basic",
+    "SE.Framework.Admissible",
+    "SE.Framework.Class",
+    "SE.Referent.Carriers",
+    "SE.Substrate.ReferentialRegime",
+    "SE.Substrate.Basic",
+    "SE.Substrate.Commitment",
+    "SE.Substrate.ReferentialCommitments",
+    "SE.NeutralSubstrate.Classification.CausalNormative",
+    "SE.NeutralSubstrate.Classification.ContestedCausalOrNormative",
+    "SE.NeutralSubstrate.Attribution.Basic",
+    "SE.NeutralSubstrate.Attribution.Permitted",
+    "SE.NeutralSubstrate.Attribution.CommonGround",
+    "SE.NeutralSubstrate.Interpretation.ObjectLevelProposition",
+    "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment",
+    "SE.NeutralSubstrate.FrameworkRelative.Variant",
+    "SE.NeutralSubstrate.FrameworkRelative.Invariant",
+    "SE.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet",
+    "SE.NeutralSubstrate.DesignTimeGuarantee",
+    "SE.NeutralSubstrate.Assumptions.Contestability",
+    "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround",
+    "SE.NeutralSubstrate.Assumptions.SubstrateConsistency",
+    "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment",
+    "SE.NeutralSubstrate.Neutrality.ExtensionStability",
+    "SE.NeutralSubstrate.Neutrality.PropertyRelation",
+    "SE.NeutralSubstrate.Neutrality.ByDesign",
+    "SE.NeutralSubstrate.Constraint",
+    "SE.NeutralSubstrate.Spec",
 ]
 
-test_modules = [
-  "TestAll",
-  "TestBasic",
-  "TestRegime",
-]
+test_modules = ["SETest"]
 
 # === Reference Artifacts ===
 

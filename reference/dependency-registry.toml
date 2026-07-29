@@ -6,41 +6,91 @@
 schema = "se-dependency-registry-1"
 repo = "se-theory-neutral-substrate"
 
+# ============================================================
+# === REQUIRED DEPENDENCIES ===
+# ============================================================
+
+[dependency.mathlib]
+kind = "dependency"
+id = "mathlib"
+target_repo = "mathlib4"
+dependency_kind = "lean-library"
+required = true
+allowed = true
+description = "Mathlib provides the standard Lean definitions and theorem infrastructure used by the Neutral Substrate formalization."
+
 [dependency.se_manifest_schema]
+kind = "dependency"
 id = "se-manifest-schema"
 target_repo = "se-manifest-schema"
-dependency_kind = "schema"
+dependency_kind = "repository-schema"
 required = true
-description = "Neutral substrate repo declares conformance through the shared SE manifest schema."
+allowed = true
+description = "The repository declares its identity, scope, and conformance metadata through the shared Structural Explainability manifest schema."
 
-[dependency.no_transformation_dependency]
-id = "no-transformation-dependency"
-target_repo = "se-theory-transformation"
-dependency_kind = "forbidden-formal-theory-dependency"
-required = false
-allowed = false
-description = "Neutral substrate must not depend on transformation theory; persistence and integration layers consume both separately."
+[dependency.se_theory_reference_kit]
+kind = "dependency"
+id = "se-theory-reference-kit"
+target_repo = "se-theory-reference-kit"
+dependency_kind = "reference-tooling"
+required = true
+allowed = true
+description = "The repository consumes the shared theory-reference toolkit for validating, exporting, cataloging, and inspecting repository-owned reference declarations."
 
-[dependency.no_persistence_dependency]
-id = "no-persistence-dependency"
-target_repo = "se-theory-persistence"
-dependency_kind = "forbidden-formal-theory-dependency"
-required = false
-allowed = false
-description = "Neutral substrate must not depend on persistence theory; persistence depends on neutral substrate, not the reverse."
+# ============================================================
+# === FORBIDDEN DOWNSTREAM THEORY DEPENDENCIES ===
+# ============================================================
 
 [dependency.no_identity_regimes_dependency]
+kind = "dependency"
 id = "no-identity-regimes-dependency"
 target_repo = "se-theory-identity-regimes"
 dependency_kind = "forbidden-formal-theory-dependency"
 required = false
 allowed = false
-description = "Neutral substrate must not depend on identity regimes; regimes build on the neutral substrate, not the reverse."
+description = "Neutral Substrate must not depend on identity-regime theory; identity regimes are downstream applications of the neutral substrate."
+
+[dependency.no_operational_identity_dependency]
+kind = "dependency"
+id = "no-operational-identity-dependency"
+target_repo = "se-theory-operational-identity"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral Substrate must not depend on operational-identity theory; operational identity auditing depends on foundational substrate and identity-regime concepts."
+
+[dependency.no_persistence_dependency]
+kind = "dependency"
+id = "no-persistence-dependency"
+target_repo = "se-theory-persistence"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral Substrate must not depend on persistence theory; persistence theory is downstream of the foundational substrate layer."
+
+[dependency.no_transformation_dependency]
+kind = "dependency"
+id = "no-transformation-dependency"
+target_repo = "se-theory-transformation"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral Substrate must not depend on transformation theory; transformation theory consumes foundational Structural Explainability concepts rather than defining them."
+
+[dependency.no_interpretive_kernel_dependency]
+kind = "dependency"
+id = "no-interpretive-kernel-dependency"
+target_repo = "se-theory-interpretive-kernel"
+dependency_kind = "forbidden-formal-theory-dependency"
+required = false
+allowed = false
+description = "Neutral Substrate must not depend on interpretive-kernel theory; interpretive kernels are downstream constructions over substrates, regimes, and interpretive frames."
 
 [dependency.no_structural_explainability_dependency]
+kind = "dependency"
 id = "no-structural-explainability-dependency"
 target_repo = "se-theory-structural-explainability"
 dependency_kind = "forbidden-formal-theory-dependency"
 required = false
 allowed = false
-description = "Neutral substrate must not depend on structural explainability integration theory."
+description = "Neutral Substrate must not depend on the Structural Explainability integration theory; the integration layer depends on this foundational repository."
