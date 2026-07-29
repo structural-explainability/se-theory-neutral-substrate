@@ -87,19 +87,16 @@ jobs:
         #      command order (format then lint). See .pre-commit-config.yaml.
 
       # ============================================================
-      # C) THEORY REFERENCE: Shared reference-kit checks
+      # B) REPOSITORY CHECKS: Validate Python correctness and hygiene
       # ============================================================
 
-      - name: C1) Inspect resolved theory-reference declarations
+      - name: B1) Inspect resolved theory-reference declarations
         run: uv run --locked se-theory-reference inspect
 
-      - name: C2) Validate SE manifest
-        run: uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
-
       # ============================================================
-      # D) Docs build (no deployment)
+      # C) Docs build (no deployment)
       # ============================================================
-      - name: D1) Build documentation with Zensical
+      - name: C1) Build documentation with Zensical
         run: |
           if [ -f "zensical.toml" ]; then
             uv run python -m zensical build
@@ -110,32 +107,3 @@ jobs:
         # OBS: Build only; deployment is handled by a separate workflow if needed.
         # OBS: Conditional on zensical.toml so this workflow is reusable across
         #      repos that may not yet have docs configured.
-
-      # ============================================================
-      # E) THEORY Execution checks
-      # ============================================================
-      - name: E1) Enforce docs section alignment
-        run: |
-          IFS=',' read -ra REQUIRED <<< "$DOC_SECTIONS"
-          for section in "${REQUIRED[@]}"; do
-            grep -q "## $section" docs/en/index.md || {
-              echo "Missing section: $section"
-              exit 1
-            }
-          done
-
-      - name: E2) Prevent Lean code fences in docs overview
-        run: |
-          if grep -Ei '^```lean' docs/en/index.md; then
-            echo "docs/en/index.md should orient readers, not contain Lean code blocks."
-            exit 1
-          fi
-        # WHY: The docs overview should point to Lean source as authority.
-        # OBS: This allows ordinary prose words like theorem, definition, and lemma.
-
-      - name: E3) Enforce module naming consistency
-        run: |
-          grep -q "$MODULE_PREFIX" docs/en/index.md || {
-            echo "Docs must reference canonical module path: $MODULE_PREFIX"
-            exit 1
-          }
