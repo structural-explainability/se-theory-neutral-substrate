@@ -32,11 +32,22 @@ function Invoke-Step {
     Write-Host "============================================================"
     Write-Host $Command
 
+    $allowsNonzeroExit = @(
+        $AllowedExitCodes | Where-Object { $_ -ne 0 }
+    ).Count -gt 0
+
+    if (-not $allowsNonzeroExit) {
+        # WHY: Preserve normal fail-fast behavior for strict steps.
+        & $Script
+        return
+    }
+
     $oldNativeErrorPreference = $PSNativeCommandUseErrorActionPreference
+    $exitCode = 0
 
     try {
-        # WHY: Capture and evaluate native exit codes ourselves so selected
-        # advisory commands may report findings without stopping the release.
+        # WHY: Explicitly advisory steps may report findings without stopping
+        # the release-validation sequence.
         $PSNativeCommandUseErrorActionPreference = $false
 
         & $Script
@@ -108,6 +119,7 @@ Invoke-Step "A3) Upgrade Python lockfile" "uv lock --upgrade" {
     uv self update
     uv python pin 3.15
     uv lock --upgrade
+    uv lock --check
 }
 
 Invoke-Step `
@@ -172,7 +184,7 @@ Invoke-Step "B3) Run Lean linter" "lake lint" {
 }
 
 # ============================================================
-# === C) Theory-reference generation and validation ===
+# === C) Theory-reference inspection and initial generation ===
 # ============================================================
 
 Invoke-Step `
@@ -193,47 +205,11 @@ Invoke-Step `
     uv run --locked se-theory-reference catalog
 }
 
-Invoke-Step `
-    "C4) Confirm generated JSON artifacts are current" `
-    "uv run --locked se-theory-reference export --check" {
-    uv run --locked se-theory-reference export --check
-}
-
-Invoke-Step `
-    "C5) Confirm generated reference catalog is current" `
-    "uv run --locked se-theory-reference catalog --check" {
-    uv run --locked se-theory-reference catalog --check
-}
-
-Invoke-Step `
-    "C6) Validate reference artifacts" `
-    "uv run --locked se-theory-reference validate" {
-    uv run --locked se-theory-reference validate
-}
-
-Invoke-Step `
-    "C7) Run strict reference validation" `
-    "uv run --locked se-theory-reference validate --strict" {
-    uv run --locked se-theory-reference validate --strict
-}
-
-Invoke-Step `
-    "C8) Inspect final resolved declarations" `
-    "uv run --locked se-theory-reference inspect" {
-    uv run --locked se-theory-reference inspect
-}
-
-Invoke-Step `
-    "C9) Validate repository manifest" `
-    "uvx se-manifest-schema validate-manifest --strict" {
-    uvx se-manifest-schema validate-manifest --strict
-}
-
 # ============================================================
 # === D) Repository checks ===
 # ============================================================
 
-Invoke-Step "D1) Stage generated and validated artifacts" "git add -A" {
+Invoke-Step "D1) Stage generated and modified files" "git add -A" {
     git add -A
 }
 
@@ -251,11 +227,123 @@ Invoke-Step `
 }
 
 # ============================================================
-# === E) Documentation ===
+# === E) Final theory-reference generation and validation ===
 # ============================================================
 
 Invoke-Step `
-    "E1) Build Zensical documentation" `
+    "E1) Regenerate reference JSON artifacts after autofixes" `
+    "uv run --locked se-theory-reference export" {
+    uv run --locked se-theory-reference export
+}
+
+Invoke-Step `
+    "E2) Rebuild generated reference catalog after autofixes" `
+    "uv run --locked se-theory-reference catalog" {
+    uv run --locked se-theory-reference catalog
+}
+
+Invoke-Step `
+    "E3) Confirm generated JSON artifacts are current" `
+    "uv run --locked se-theory-reference export --check" {
+    uv run --locked se-theory-reference export --check
+}
+
+Invoke-Step `
+    "E4) Confirm generated reference catalog is current" `
+    "uv run --locked se-theory-reference catalog --check" {
+    uv run --locked se-theory-reference catalog --check
+}
+
+Invoke-Step `
+    "E5) Validate reference artifacts" `
+    "uv run --locked se-theory-reference validate" {
+    uv run --locked se-theory-reference validate
+}
+
+Invoke-Step `
+    "E6) Run strict reference validation" `
+    "uv run --locked se-theory-reference validate --strict" {
+    uv run --locked se-theory-reference validate --strict
+}
+
+Invoke-Step `
+    "E7) Inspect final resolved declarations" `
+    "uv run --locked se-theory-reference inspect" {
+    uv run --locked se-theory-reference inspect
+}
+
+Invoke-Step `
+    "E8) Validate repository manifest" `
+    "uvx se-manifest-schema validate-manifest --strict" {
+    uvx se-manifest-schema validate-manifest --strict
+}
+
+Invoke-Step "E9) Stage final generated artifacts" "git add -A" {
+    git add -A
+}
+
+# ============================================================
+# === E) Final theory-reference generation and validation ===
+# ============================================================
+
+Invoke-Step `
+    "E1) Regenerate reference JSON artifacts after autofixes" `
+    "uv run --locked se-theory-reference export" {
+    uv run --locked se-theory-reference export
+}
+
+Invoke-Step `
+    "E2) Rebuild generated reference catalog after autofixes" `
+    "uv run --locked se-theory-reference catalog" {
+    uv run --locked se-theory-reference catalog
+}
+
+Invoke-Step `
+    "E3) Confirm generated JSON artifacts are current" `
+    "uv run --locked se-theory-reference export --check" {
+    uv run --locked se-theory-reference export --check
+}
+
+Invoke-Step `
+    "E4) Confirm generated reference catalog is current" `
+    "uv run --locked se-theory-reference catalog --check" {
+    uv run --locked se-theory-reference catalog --check
+}
+
+Invoke-Step `
+    "E5) Validate reference artifacts" `
+    "uv run --locked se-theory-reference validate" {
+    uv run --locked se-theory-reference validate
+}
+
+Invoke-Step `
+    "E6) Run strict reference validation" `
+    "uv run --locked se-theory-reference validate --strict" {
+    uv run --locked se-theory-reference validate --strict
+}
+
+Invoke-Step `
+    "E7) Inspect final resolved declarations" `
+    "uv run --locked se-theory-reference inspect" {
+    uv run --locked se-theory-reference inspect
+}
+
+Invoke-Step `
+    "E8) Validate repository manifest" `
+    "uvx se-manifest-schema validate-manifest --strict" {
+    uvx se-manifest-schema validate-manifest --strict
+}
+
+Invoke-Step "E9) Stage final generated artifacts" "git add -A" {
+    git add -A
+}
+
+# ============================================================
+# === F) Documentation ===
+# ============================================================
+
+Invoke-Step `
+    "F1) Build Zensical documentation" `
     "uv run --locked python -m zensical build" {
     uv run --locked python -m zensical build
 }
@@ -263,10 +351,10 @@ Invoke-Step `
 # Lean API documentation is built on Ubuntu by the GitHub Pages workflow.
 
 # ============================================================
-# === F) Final repository status ===
+# === G) Final repository status ===
 # ============================================================
 
-Invoke-Step "F1) Show repository status" "git status --short" {
+Invoke-Step "G1) Show repository status" "git status --short" {
     git status --short
 }
 

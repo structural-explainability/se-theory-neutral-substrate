@@ -62,10 +62,12 @@ jobs:
         # WHY: Ensures the pinned Python version is available in CI.
         # OBS: Does not modify the repo; uv manages the interpreter locally.
 
-      - name: A4) Install all dependencies
-        run: uv sync --extra dev --extra docs --upgrade
-        # WHY: Install dev and docs extras so all check and build tools are available.
-        # OBS: --upgrade ensures CI catches dependency drift early.
+      - name: A4) Install locked dependencies
+        run: |
+          uv lock --check
+          uv sync --locked --extra dev --extra docs
+        # WHY: CI validates the committed dependency state.
+        # OBS: Dependency upgrades are performed locally and committed explicitly.
 
       - name: A5) Show tool versions
         run: |
@@ -89,19 +91,19 @@ jobs:
       # ============================================================
 
       - name: C1) Inspect resolved theory-reference declarations
-        run: uv run se-theory-reference inspect
+        run: uv run --locked se-theory-reference inspect
 
-      - name: C2) Validate reference artifacts
-        run: uv run se-theory-reference validate --strict
+      - name: C2) Check generated exports
+        run: uv run --locked se-theory-reference export --check
 
-      - name: C3) Check generated exports
-        run: uv run se-theory-reference export --check
+      - name: C3) Check generated catalog
+        run: uv run --locked se-theory-reference catalog --check
 
-      - name: C4) Check generated catalog
-        run: uv run se-theory-reference catalog --check
+      - name: C4) Validate reference artifacts
+        run: uv run --locked se-theory-reference validate --strict
 
       - name: C5) Validate SE manifest
-        run: uvx --from se-manifest-schema se-manifest validate-manifest --path SE_MANIFEST.toml --strict
+        run: uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
 
       # ============================================================
       # D) Docs build (no deployment)
