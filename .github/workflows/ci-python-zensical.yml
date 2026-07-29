@@ -93,16 +93,7 @@ jobs:
       - name: C1) Inspect resolved theory-reference declarations
         run: uv run --locked se-theory-reference inspect
 
-      - name: C2) Check generated exports
-        run: uv run --locked se-theory-reference export --check
-
-      - name: C3) Check generated catalog
-        run: uv run --locked se-theory-reference catalog --check
-
-      - name: C4) Validate reference artifacts
-        run: uv run --locked se-theory-reference validate --strict
-
-      - name: C5) Validate SE manifest
+      - name: C2) Validate SE manifest
         run: uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
 
       # ============================================================

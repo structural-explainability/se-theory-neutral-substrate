@@ -283,62 +283,6 @@ Invoke-Step "E9) Stage final generated artifacts" "git add -A" {
 }
 
 # ============================================================
-# === E) Final theory-reference generation and validation ===
-# ============================================================
-
-Invoke-Step `
-    "E1) Regenerate reference JSON artifacts after autofixes" `
-    "uv run --locked se-theory-reference export" {
-    uv run --locked se-theory-reference export
-}
-
-Invoke-Step `
-    "E2) Rebuild generated reference catalog after autofixes" `
-    "uv run --locked se-theory-reference catalog" {
-    uv run --locked se-theory-reference catalog
-}
-
-Invoke-Step `
-    "E3) Confirm generated JSON artifacts are current" `
-    "uv run --locked se-theory-reference export --check" {
-    uv run --locked se-theory-reference export --check
-}
-
-Invoke-Step `
-    "E4) Confirm generated reference catalog is current" `
-    "uv run --locked se-theory-reference catalog --check" {
-    uv run --locked se-theory-reference catalog --check
-}
-
-Invoke-Step `
-    "E5) Validate reference artifacts" `
-    "uv run --locked se-theory-reference validate" {
-    uv run --locked se-theory-reference validate
-}
-
-Invoke-Step `
-    "E6) Run strict reference validation" `
-    "uv run --locked se-theory-reference validate --strict" {
-    uv run --locked se-theory-reference validate --strict
-}
-
-Invoke-Step `
-    "E7) Inspect final resolved declarations" `
-    "uv run --locked se-theory-reference inspect" {
-    uv run --locked se-theory-reference inspect
-}
-
-Invoke-Step `
-    "E8) Validate repository manifest" `
-    "uvx se-manifest-schema validate-manifest --strict" {
-    uvx se-manifest-schema validate-manifest --strict
-}
-
-Invoke-Step "E9) Stage final generated artifacts" "git add -A" {
-    git add -A
-}
-
-# ============================================================
 # === F) Documentation ===
 # ============================================================
 
