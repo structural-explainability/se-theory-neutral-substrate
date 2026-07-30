@@ -50,6 +50,8 @@ public import SE.NeutralSubstrate.Neutrality.PropertyRelation
 public import SE.NeutralSubstrate.Neutrality.ByDesign
 
 public import SE.NeutralSubstrate.Constraint
+public import SE.NeutralSubstrate.Neutrality.Sufficiency
+
 public import SE.NeutralSubstrate.Examples.ReificationFragment
 public import SE.NeutralSubstrate.Spec
 

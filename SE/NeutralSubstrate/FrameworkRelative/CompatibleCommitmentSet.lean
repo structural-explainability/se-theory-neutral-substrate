@@ -95,22 +95,6 @@ theorem consistent_combine_of_frameworkCompatibleCommitmentSet
       (combine T (M.commitments framework)) :=
   hT framework hframework
 
-
-/-
-theorem consistent_combine_of_frameworkCompatibleCommitmentSet
-    {L : PropositionalLanguage.{u}}
-    {C : ConsequenceSystem L}
-    {M : FrameworkSystem.{u, v} L.carrier}
-    {T : CommitmentTheory L.carrier}
-    {framework : M.Carrier}
-    (hcompatible : FrameworkCompatibleCommitmentSet C M T)
-    (hframework : framework ∈ FrameworkClass C M) :
-    Consistent C
-      (combine T (M.commitments framework)) :=
-  hcompatible framework hframework
--/
-
-
 end
 
 end SE.NeutralSubstrate.FrameworkRelative

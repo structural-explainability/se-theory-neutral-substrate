@@ -18,7 +18,6 @@ set_option autoImplicit false
 
 namespace SETest.NeutralSubstrate.Constraint
 
-#check SE.NeutralSubstrate.FoundationalLayerRestrictedToPermittedClasses
 #check SE.NeutralSubstrate.NoObjectLevelCausalOrNormativeCommitment
 #check SE.NeutralSubstrate.NeutralityConstraint
 #check SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted

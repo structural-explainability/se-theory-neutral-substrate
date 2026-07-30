@@ -14,7 +14,7 @@
 # ============================================================
 
 name = "se-theory-neutral-substrate"
-version = "0.8.0"
+version = "0.8.1"
 license = "MIT"
 
 defaultTargets = ["SE"]
@@ -50,7 +50,6 @@ weak.linter.unicodeLinter = false
 name = "mathlib"
 scope = "leanprover-community"
 rev = "v4.32.1"
-
 
 # ============================================================
 # PUBLIC LIBRARY

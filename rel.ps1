@@ -1,3 +1,8 @@
+
+
+
+
+
 #Requires -Version 7.3
 
 <#
@@ -105,7 +110,6 @@ Invoke-Step "A0) Update elan" "elan self update" {
     elan --version
 }
 
-
 Invoke-Step "A1) Update Lean dependencies" "lake update" {
     lake update
 }
@@ -149,7 +153,6 @@ Invoke-Step `
     "uvx pre-commit run --all-files" {
     uvx pre-commit run --all-files
 }
-
 
 Invoke-Step "A9) Verify Python lockfile" "uv lock --check" {
     uv lock --check

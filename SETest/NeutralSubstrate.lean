@@ -36,6 +36,7 @@ import SETest.NeutralSubstrate.Neutrality.InterpretiveNonCommitment
 import SETest.NeutralSubstrate.Neutrality.ExtensionStability
 import SETest.NeutralSubstrate.Neutrality.PropertyRelation
 import SETest.NeutralSubstrate.Neutrality.ByDesign
+import SETest.NeutralSubstrate.Model.Model
 import SETest.NeutralSubstrate.Constraint
 import SETest.NeutralSubstrate.Spec
 

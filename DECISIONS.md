@@ -543,3 +543,70 @@ AUX-008  abstract candidate-framework carrier
 
 Smallest foundation sufficient for Paper 100
 and neutral toward Papers 200, 210, and 220.
+
+## Expose Definitions Used by Instantiable Interfaces
+
+Every opaque `def` that may need to unfold in an implementation, instance, or proof must provide an explicit access path.
+Use one of the following approaches.
+
+### 1. Expose definitions
+
+Use:
+
+```lean
+@[expose] public section
+```
+
+when several definitions in a module are intended to reduce across module boundaries.
+
+Alternatively, mark an individual definition:
+
+```lean
+@[expose] def
+```
+
+This is appropriate for computational definitions and
+transparent notation-like constructions
+whose implementation is intentionally available,
+such as a definition representing `S ∪ F`.
+
+See `SE/Logic/Language/Basic.lean`.
+
+### 2. Keep the definition opaque and provide an API
+
+For theory-level concepts, keep the underlying `def` opaque
+and provide controlled access through lemmas such as:
+
+- `_iff`
+- `_eq`
+- introduction lemmas
+- elimination lemmas
+
+This is appropriate for concepts such as `Consistent` and `Neutral`,
+where proofs should depend on the stated logical interface
+rather than on the implementation body.
+
+See `SE/Logic/Consistency.lean`.
+
+### Rule
+
+No opaque definition should be required during a proof unless it has one of these access paths.
+
+Without an exposed body or a controlled theorem API,
+Lean may fail during reduction with errors such as:
+
+```text
+not definitionally equal
+definition is not exposed
+```
+
+These failures often appear in the middle of otherwise straightforward proofs.
+
+### Related distinction
+
+`public import` and `@[expose]` serve different purposes:
+
+- `public import` makes imported declarations available to downstream modules.
+- `@[expose]` allows downstream elaboration and reduction to unfold an opaque definition.
+
+A module may require both.

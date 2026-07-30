@@ -93,7 +93,7 @@ repos:
   # === REPO: RUFF PRE-COMMIT (for Python code) ===
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.0
+    rev: v0.16.1
     hooks:
       - id: ruff-check
         name: D1) Ruff linter with autofix (runs first in pre-commit)
@@ -122,9 +122,6 @@ repos:
         entry: uvx se-manifest-schema validate-manifest --strict
         pass_filenames: false
         always_run: true
-
-      # === EXECUTE: ADDITIONAL REPO SPECIFIC LOGIC ===
-
 
 # === GLOBAL SETTINGS ===
 # ALT: Set fail_fast to true to stop at first failure.

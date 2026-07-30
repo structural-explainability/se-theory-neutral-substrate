@@ -13,6 +13,39 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
+## [0.8.1] - 2026-07-30
+
+### Added
+
+- Added `SE/NeutralSubstrate/FoundationalLayer.lean`,
+  defining the restriction of foundational-layer commitments
+  to referential commitments and permitted attribution propositions.
+- Added `SE/NeutralSubstrate/Neutrality/Sufficiency.lean`,
+  proving that the foundational-layer restriction and
+  referential common ground imply extension stability and neutrality.
+- Added concrete simple and discriminating models
+  under `SETest/NeutralSubstrate/Model/`.
+- Expanded the docstrings for `SE.Logic.Language`.
+
+### Changed
+
+- Moved `FoundationalLayerRestrictedToPermittedClasses`
+  and its characterization theorem from
+  `SE/NeutralSubstrate/Constraint.lean` to
+  `SE/NeutralSubstrate/FoundationalLayer.lean`.
+- Updated the public import surface for the new
+  foundational-layer, sufficiency, and test-model modules.
+- Removed unused content from
+  `SE/NeutralSubstrate/FrameworkRelative/Variant.lean`.
+- Removed unused content from
+  `SE/NeutralSubstrate/FrameworkRelative/CompatibleCommitmentSet.lean`.
+
+### Removed
+
+- Removed the unused `SE/Substrate/Consistency.lean` module.
+
+---
+
 ## [0.8.0] - 2026-07-29
 
 ### Added
@@ -397,6 +430,7 @@ Run:
 
 ```powershell
 .\rel.ps1
+uvx --from cffconvert cffconvert --validate -i CITATION.cff
 ```
 
 Review all generated and modified files before committing.
@@ -446,7 +480,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.8.1
 [0.8.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.8.0
 [0.7.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.7.0
 [0.5.2]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.2

@@ -4,14 +4,16 @@
 
 # REQ.UNIVERSAL: Professional open projects SHOULD include this file.
 # USAGE: See https://citation-file-format.github.io/ for details.
+# check with:
+# uvx --from cffconvert cffconvert --validate -i CITATION.cff
 
 cff-version: "1.2.0"
 type: software
 message: "If you use this work, please cite it using the metadata in this file."
 
 title: "se-theory-neutral-substrate"
-version: "0.8.0"
-date-released: "2026-07-29"
+version: "0.8.1"
+date-released: "2026-07-30"
 
 identifiers:
   - type: doi
@@ -23,7 +25,6 @@ authors:
     orcid: "https://orcid.org/0000-0001-6165-7389"
     affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
 
-year: 2026
 repository-code: "https://github.com/structural-explainability/se-theory-neutral-substrate"
 url: "https://github.com/structural-explainability/se-theory-neutral-substrate"
 

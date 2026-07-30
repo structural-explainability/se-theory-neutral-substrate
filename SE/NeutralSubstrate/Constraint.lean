@@ -9,6 +9,7 @@ public import SE.NeutralSubstrate.Assumptions.Contestability
 public import SE.NeutralSubstrate.Assumptions.ReferentialCommonGround
 public import SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment
 public import SE.NeutralSubstrate.Neutrality.ByDesign
+public import SE.NeutralSubstrate.FoundationalLayer
 
 /-!
 # Neutrality Constraint
@@ -51,32 +52,6 @@ open SE.Substrate
 universe u v w x y z t
 
 public section
-
-/--
-The foundational layer is restricted to the permitted classes when every
-substrate-layer commitment is either:
-
-- a referential commitment; or
-- a permitted attribution proposition.
-
-The restriction applies to semantic substrate-layer commitments, not merely
-to propositions explicitly listed in the substrate's underlying commitment
-set.
--/
-def FoundationalLayerRestrictedToPermittedClasses
-    {L : PropositionalLanguage.{u}}
-    {R : ReferentCarriers.{v}}
-    (C : ConsequenceSystem L)
-    (S : SubstrateSystem.{u, v, w} L R)
-    (F : ReferentialFixing L R)
-    (A : AttributionSystem.{u, y} L)
-    (B : AttributionalBasisFixing C A)
-    (s : S.Carrier) :
-    Prop :=
-  ∀ p,
-    SubstrateCommitment C S s p →
-      p ∈ ReferentialCommitments C S F s ∨
-        PermittedAttributionProposition C S F A B s p
 
 /--
 A substrate makes no object-level causal or normative commitment when no

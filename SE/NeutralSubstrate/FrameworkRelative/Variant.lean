@@ -48,6 +48,7 @@ an interpretive framework's commitments.
 
 This formalizes the paper's notation `S ∪ F`.
 -/
+@[expose]
 def SubstrateFrameworkCommitments
     {L : PropositionalLanguage.{u}}
     {R : ReferentCarriers.{v}}
@@ -57,6 +58,23 @@ def SubstrateFrameworkCommitments
     (framework : M.Carrier) :
     CommitmentTheory L.carrier :=
   combine (S.commitments s) (M.commitments framework)
+
+/--
+The substrate-framework commitment theory is
+the union of the substrate's commitments
+with the framework's commitments.
+-/
+@[simp]
+theorem substrateFrameworkCommitments_eq
+    {L : PropositionalLanguage.{u}}
+    {R : ReferentCarriers.{v}}
+    {S : SubstrateSystem.{u, v, w} L R}
+    {s : S.Carrier}
+    {M : FrameworkSystem.{u, x} L.carrier}
+    {framework : M.Carrier} :
+    SubstrateFrameworkCommitments S s M framework
+      = combine (S.commitments s) (M.commitments framework) :=
+  rfl
 
 /--
 A substrate-layer commitment remains entailed after combining the substrate
@@ -175,46 +193,6 @@ theorem exists_entailsNeg_of_frameworkVariantProposition
   rcases hp with
     ⟨frameworkOne, frameworkTwo, hOne, hTwo, hp, hneg⟩
   exact ⟨frameworkTwo, hTwo, hneg⟩
-
-
-/-
-theorem exists_entails_of_frameworkVariantProposition
-    {L : PropositionalLanguage.{u}}
-    {R : ReferentCarriers.{v}}
-    {C : ConsequenceSystem L}
-    {S : SubstrateSystem.{u, v, w} L R}
-    {s : S.Carrier}
-    {M : FrameworkSystem.{u, x} L.carrier}
-    {p : L.Proposition}
-    (hvariant : FrameworkVariantProposition C S s M p) :
-    ∃ framework,
-      framework ∈ FrameworkClass C M ∧
-        C.entails
-          (SubstrateFrameworkCommitments S s M framework)
-          p := by
-  rcases hvariant with
-    ⟨frameworkOne, frameworkTwo, hOne, hTwo, hp, hneg⟩
-  exact ⟨frameworkOne, hOne, hp⟩
-
-theorem exists_entailsNeg_of_frameworkVariantProposition
-    {L : PropositionalLanguage.{u}}
-    {R : ReferentCarriers.{v}}
-    {C : ConsequenceSystem L}
-    {S : SubstrateSystem.{u, v, w} L R}
-    {s : S.Carrier}
-    {M : FrameworkSystem.{u, x} L.carrier}
-    {p : L.Proposition}
-    (hvariant : FrameworkVariantProposition C S s M p) :
-    ∃ framework,
-      framework ∈ FrameworkClass C M ∧
-        C.entails
-          (SubstrateFrameworkCommitments S s M framework)
-          (L.neg p) := by
-  rcases hvariant with
-    ⟨frameworkOne, frameworkTwo, hOne, hTwo, hp, hneg⟩
-  exact ⟨frameworkTwo, hTwo, hneg⟩
--/
-
 
 end
 
