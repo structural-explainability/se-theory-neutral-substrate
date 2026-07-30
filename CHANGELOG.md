@@ -373,6 +373,17 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 Follow these steps exactly when creating a new release.
 
+### One-Time Zenodo Authorization
+
+1. Sign in to Zenodo.
+2. Open your profile menu in the upper-right.
+3. Select GitHub.
+4. Click Sync now.
+5. Find structural-explainability/ this repo.
+6. Turn on the repository toggle/slider.
+7. Refresh the page and confirm it appears as enabled.
+8. Zenodo will ingest future GitHub Releases from this repo.
+
 ### Task 1. Update release metadata (manual edits)
 
 1.1. CITATION.cff: update version and date-released
@@ -408,6 +419,13 @@ After the required GitHub Actions succeed:
 ```shell
 git tag vX.Y.Z -m "X.Y.Z"
 git push origin vX.Y.Z
+```
+
+Create GitHub Release after pushing tag, for example
+with a command like this:
+
+```shell
+gh release create v0.8.0 --verify-tag --title "0.8.0"  --generate-notes
 ```
 
 ### Task 5. After tagging, verify tag consistency
