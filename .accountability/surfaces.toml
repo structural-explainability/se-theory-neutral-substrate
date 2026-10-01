@@ -231,8 +231,6 @@ ai_max_authority = "drafting"
 commands = [
 "elan self update",
 "lake update",
-"uv sync --extra dev --extra docs --upgrade",
-"uvx pre-commit run --all-files",
 "lake build",
 "lake build TestAll",
 "uv run se-theory-reference validate",

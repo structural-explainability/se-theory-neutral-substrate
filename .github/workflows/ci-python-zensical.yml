@@ -93,7 +93,7 @@ jobs:
         #      issues by hand, then git add, commit, and push again.
 
       # ============================================================
-      # B) BASELINE CHECKS: Tools not covered by pre-commit
+      # B) BASELINE CHECKS: Tools not covered by hooks
       # ============================================================
 
       - name: B1) Validate pyproject.toml schema

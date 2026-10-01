@@ -1,25 +1,30 @@
 # ============================================================
-# .github/workflows/ci-lean.yml (Continuous Integration)
+# .github/workflows/ci-lean.yml (ALL-LEAN)
 # ============================================================
-# Updated: 2026-05-31 THEORY VARIANT, ONLY BUILD
+# UPDATED: 2026-10-01
 
 name: CI Lean
 
 on:
   push:
-    branches: [main]
+    branches: [main] # WHY: Run when pushing to main branch.
   pull_request:
-    branches: [main]
-  workflow_dispatch:
+    branches: [main] # WHY: Run on pull requests targeting main branch.
+  workflow_dispatch: # WHY: Allow manual triggering from Actions tab.
 
-permissions:
+permissions: # WHY: Use least privileges required.
   contents: read
 
+env:
+  PYTHONUNBUFFERED: "1"     # WHY: Real-time logging.
+  PYTHONIOENCODING: "utf-8" # WHY: Ensure UTF-8 encoding for international characters.
+
+
 jobs:
-  lean:
+  lean-ci:
     name: Build Lean and export contract
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    runs-on: ubuntu-latest # WHY: Linux environment matches most production deployments.
+    timeout-minutes: 10    # WHY: Prevent hanging jobs. If over time, likely stuck.
 
     steps:
       # ============================================================
