@@ -1,9 +1,9 @@
 # ============================================================
 # .pre-commit-config.yaml (ALL-PY-REPOS)
 # ============================================================
-# Updated: 2026-06-27
+# Updated: 2026-10-01
 #
-# REQ: Professional projects using Python tools (like Zensical) SHOULD include pre-commit checks.
+# REQ: Professional projects using Python src/ SHOULD include git hooks.
 # WHY: Minimize git diffs, catch common issues early, and support collaboration.
 #
 # OBS: These hooks use and do NOT override:
@@ -12,16 +12,16 @@
 #   - pyproject.toml (Python tool settings)
 #
 # OPTIONAL LOCAL USAGE (keep tools updated):
-#   uv self update
-#   uv run pre-commit install
-#   uv run pre-commit autoupdate
+#   uv run prek install --force
+#   uv run prek update
 #
 # OPTIONAL LOCAL USAGE (run all hooks on all git-tracked files):
-#   uv run pre-commit run --all-files
+#   git add -A
+#   uv run prek run --all-files
 #   The first time, it may indicate errors / fixes,
 #   So just re-run the command (up arrow) and it often goes all green.
 #
-# NOTE: Enabling pre-commit is optional. It is not needed to clone or commit.
+# NOTE: Enabling hooks is optional. It is not needed to clone or commit.
 # You can skip it with the --no-verify option, e.g.:
 #   git commit -m "your message" --no-verify
 
@@ -32,6 +32,7 @@ exclude: |
     \.coverage|
     \.DS_Store|
     \.ipynb_checkpoints/|
+    \.lake/|
     \.mypy_cache/|
     \.nox/|
     \.pytest_cache/|

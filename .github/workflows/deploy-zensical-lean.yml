@@ -1,14 +1,17 @@
 # ============================================================
-# .github/workflows/deploy-zensical-lean.yml (Deploy Docs)
+# .github/workflows/deploy-zensical-lean.yml (LEAN+ALL-PY-REPOS)
 # ============================================================
-# Updated: 2026-07-29
+# Updated: 2026-10-01
 #
-# WHY-FILE: Build and deploy documentation to GitHub Pages on pushes to main.
-#
+# WHY: Build and deploy documentation to GitHub Pages on pushes to main.
 # REQ: Repo Settings -> Pages -> Build and deployment -> Source:
 #      GitHub Actions
 # WHY: Without this setting, the deploy-pages action will fail with a 403.
+# REQ: Repository MUST contain .python-version.
+# WHY: The repository declares the Python version used locally and by CI.
+# REQ: Deployment MUST use the committed uv.lock without updating it.
 
+# Name shown in the repo Actions tab.
 name: Docs Deploy (Zensical and Lean)
 
 on:
@@ -21,14 +24,16 @@ permissions:
   id-token: write # WHY: Required by deploy-pages for OIDC authentication.
   pages: write # WHY: Required to deploy to GitHub Pages.
 
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+  # WHY: GitHub Pages is a shared deployment target.
+  # OBS: Do not cancel an in-progress Pages deployment with another deployment.
+
 env:
   PYTHONUNBUFFERED: "1" # WHY: Real-time log output in CI.
   PYTHONIOENCODING: "utf-8" # WHY: Consistent encoding across platforms.
-  PYTHON_VERSION: "3.15"
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
+  UV_FROZEN: "1"            # WHY: Deployment MUST use uv.lock without updating it.
 
 jobs:
   docs:
@@ -41,83 +46,90 @@ jobs:
       # A) ASSEMBLE: Checkout code and set up environment
       # ============================================================
 
-      - name: A1) Checkout repo code with full history
-        uses: actions/checkout@v7
-        # WHY: Required so all subsequent steps can access repo files.
+      - name: A1) Checkout repository code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          fetch-depth: 0
+          persist-credentials: false
+        # WHY: Required so all subsequent steps can access repo files.
 
       - name: A2) Configure GitHub Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
         # WHY: Sets Pages metadata used by upload-pages-artifact and deploy-pages.
         # OBS: Must run before the build step so base URL is available if needed.
 
       - name: A3) Install uv (with caching)
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
           enable-cache: true
           cache-dependency-glob: "uv.lock"
-          # WHY: Invalidate cache only when locked dependencies change.
+          # WHY: Invalidate dependency cache when the committed lockfile changes.
 
-      - name: A4) Install Python ${{ env.PYTHON_VERSION }}
-        run: uv python install ${{ env.PYTHON_VERSION }}
+      - name: A5) Install dependencies from committed lockfile
+        run: uv sync --frozen
+        # WHY: Install all configured dependency groups exactly from uv.lock.
+        # REQ: Deployment MUST fail rather than update a stale lockfile.
 
-      - name: A5) Install all Python dependencies
-        run: uv sync --extra dev --extra docs --upgrade
-        # WHY: Docs extras required for Zensical build; dev extras for consistency.
+      - name: A6) Show tool versions
+        run: |
+          uv --version
+          uv run python --version
+          if [ -f "zensical.toml" ]; then
+            uv run python -m zensical --version
+          fi
+        # WHY: Version output makes deployment logs easier to debug when tools change.
 
-      - name: A6) Set up Lean
-        uses: leanprover/lean-action@v1
+      # ============================================================
+      # AA) ASSEMBLE: Checkout code and set up environment
+      # ============================================================
+
+      - name: AA1) Set up Lean
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
         with:
           build: false
           test: false
           lint: false
 
-      - name: A7) Install native build tools
+      - name: AA2) Install native build tools
         run: |
           sudo apt-get update
           sudo apt-get install --yes build-essential
-
-      - name: A8) Show tool versions
-        run: |
-          uv --version
-          uv run python --version
-          lean --version
-          lake --version
-          uv run python -m zensical --version
 
       # ============================================================
       # B) BUILD ZENSICAL SITE
       # ============================================================
 
-      - name: B1) Build Zensical documentation
+      - name: B1) Build docs with Zensical
         run: |
           if [ ! -f "zensical.toml" ]; then
-            echo "zensical.toml not found; refusing to deploy." \
-              >> "$GITHUB_STEP_SUMMARY"
+            echo "zensical.toml not found; refusing to deploy." >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi
-
           uv run python -m zensical build
+        # WHY: Hard-fail if zensical.toml is missing rather than deploying nothing.
+        # OBS: In CI (ci-python-zensical.yml) the missing config is a soft skip.
+        #      Here it is a hard failure because a deploy without docs is wrong.
 
-      - name: B2) Verify Zensical output
+      - name: B2) Verify site output exists
         run: |
-          if [ ! -f "site/index.html" ]; then
-            echo "## Zensical output missing" >> "$GITHUB_STEP_SUMMARY"
-            echo "Expected site/index.html was not created." \
-              >> "$GITHUB_STEP_SUMMARY"
+          if [ ! -d "site" ]; then
+            echo "## Documentation build output missing" >> "$GITHUB_STEP_SUMMARY"
+            echo "Expected directory 'site/' was not created." >> "$GITHUB_STEP_SUMMARY"
+            echo "Check the Zensical build step and zensical.toml configuration." >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi
+        # WHY: Catch a silent build failure before attempting to upload an empty artifact.
+        # OBS: Zensical outputs to site/ by default; update this path if zensical.toml
+        #      configures a different output directory.
 
       # ============================================================
-      # C) BUILD LEAN API DOCUMENTATION
+      # BB) BUILD LEAN API DOCUMENTATION
       # ============================================================
 
-      - name: C1) Build Lean API documentation
+      - name: BB1) Build Lean API documentation
         working-directory: docbuild
         run: lake build SE:docs
 
-      - name: C2) Verify Lean API output
+      - name: BB2) Verify Lean API output
         run: |
           if [ ! -f "docbuild/.lake/build/doc/index.html" ]; then
             echo "## Lean API output missing" >> "$GITHUB_STEP_SUMMARY"
@@ -126,13 +138,13 @@ jobs:
             exit 1
           fi
 
-      - name: C3) Add Lean API documentation to site
+      - name: BB3) Add Lean API documentation to site
         run: |
           rm -rf site/lean
           mkdir -p site/lean
           cp -R docbuild/.lake/build/doc/. site/lean/
 
-      - name: C4) Verify combined documentation site
+      - name: BB4) Verify combined documentation site
         run: |
           test -f site/index.html
           test -f site/lean/index.html
@@ -148,14 +160,14 @@ jobs:
       # ============================================================
 
       - name: D1) Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: site
         # WHY: Packages the built static site for the deploy-pages action.
         # OBS: path must match the output directory
 
       - name: D2) Deploy to GitHub Pages
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
         # WHY: Publishes the uploaded artifact to GitHub Pages.
         # OBS: Requires pages: write and id-token: write permissions (set above).
         # OBS: The deployed URL is shown in the Actions log after this step completes.
