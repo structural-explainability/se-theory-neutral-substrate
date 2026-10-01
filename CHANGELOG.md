@@ -13,7 +13,7 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
-## [0.8.1] - 2026-07-30
+## [0.9.0] - 2026-10-01
 
 ### Added
 
@@ -25,24 +25,46 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
   referential common ground imply extension stability and neutrality.
 - Added concrete simple and discriminating models
   under `SETest/NeutralSubstrate/Model/`.
-- Expanded the docstrings for `SE.Logic.Language`.
+- Added `SE/NeutralSubstrate.lean` as the project-specific public import surface.
+- Added the shared Lean module convention for `SE.*` production modules
+  and `SETest.*` test modules.
 
 ### Changed
 
+- Changed the Lean package configuration so this repository owns only its
+  declared `SE.*` module families rather than the entire `SE` namespace.
+- Changed `SE.lean` to serve as the repository production entry point while
+  `SE.NeutralSubstrate` provides the project public import surface.
+- Updated Lake roots and module globs to support coexistence of independently
+  packaged `SE.*` theories.
 - Moved `FoundationalLayerRestrictedToPermittedClasses`
   and its characterization theorem from
   `SE/NeutralSubstrate/Constraint.lean` to
   `SE/NeutralSubstrate/FoundationalLayer.lean`.
-- Updated the public import surface for the new
-  foundational-layer, sufficiency, and test-model modules.
+- Updated the public import surface for the foundational-layer,
+  sufficiency, and test-model modules.
 - Removed unused content from
   `SE/NeutralSubstrate/FrameworkRelative/Variant.lean`.
 - Removed unused content from
   `SE/NeutralSubstrate/FrameworkRelative/CompatibleCommitmentSet.lean`.
+- Updated repository tooling, workflows, documentation configuration,
+  editor configuration, and release-validation commands.
+- Regenerated theory-reference JSON artifacts and the reference catalog
+  from the repository-owned reference declarations.
 
 ### Removed
 
 - Removed the unused `SE/Substrate/Consistency.lean` module.
+- Removed reliance on bare `SE` as the package-wide Lean module root.
+
+### Fixed
+
+- Fixed Lake module ownership so `se-theory-neutral-substrate` no longer
+  claims unrelated `SE.*` namespaces.
+- Fixed generated Lake build state being eligible for accidental staging.
+- Fixed documentation redirect-page metadata and Markdown lint compatibility.
+- Fixed release validation and generated-reference checks to use the current
+  theory-reference command surface.
 
 ---
 
@@ -424,13 +446,55 @@ Follow these steps exactly when creating a new release.
 1.3. CHANGELOG.md: add section, move unreleased entries, update links
 1.4. pyproject.toml: update version (near top of the file)
 
-### Task 2. Validate
+### Task 2. Set up and Validate
 
-Run:
+```shell
+# set up or update Python environment
+# Run repository checks.
+.\sit.ps1
 
-```powershell
+# Update GitHub Actions and pin all action references to immutable SHAs.
+uvx gha-tools autoupdate --pin=all --write .github/workflows
+
+# Update hooks.
+uvx prek update
+git add -A
+uvx prek run --all-files
+
+# Audit the resulting GitHub configuration for security findings.
+uvx zizmor@latest .github/
+
+# Validate.
+uvx cffconvert --validate
+uvx se-manifest-schema validate-manifest --strict
+
+# Format Markdown.
+npx markdownlint-cli2 --fix
+
+# update lean
+elan self update
+lake update
+
+# build Lean (source of truth)
+# lake clean
+lake build
+lake test
+lake lint
+
+# Generate JSON artifacts and catalog from reference TOML.
+uv run se-theory-reference inspect
+uv run se-theory-reference export
+uv run se-theory-reference catalog
+
+# Validate the reference artifacts against the Lean public surface.
+uv run se-theory-reference validate --strict
+
+# Verify generated artifacts are current without rewriting them.
+uv run se-theory-reference export --check
+uv run se-theory-reference catalog --check
+
 .\rel.ps1
-uvx --from cffconvert cffconvert --validate -i CITATION.cff
+.\sit.ps1
 ```
 
 Review all generated and modified files before committing.
@@ -480,8 +544,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.8.1...HEAD
-[0.8.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.8.1
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.9.0
 [0.8.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.8.0
 [0.7.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.7.0
 [0.5.2]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.5.2

@@ -14,94 +14,42 @@
 name = "se-theory-neutral-substrate" # Package distribution name (lowercase and dashes).
 readme = "README.md"
 requires-python = ">=3.15"
-version = "0.8.1"
+version = "0.9.0"
 
 dependencies = ["se-theory-reference-kit"]
 
-[project.optional-dependencies]
+[dependency-groups]
+# WHY: Dependency groups separate development and documentation tools from project runtime dependencies.
+
 dev = [
-    "build",
-    "pre-commit",
-    "pyright",
-    "pytest",
-    "pytest-cov",
-    "ruff",
+  # REQ: External packages used for linting, testing, type checking, etc.
+  "prek", # WHY: Run repository hooks for consistent formatting, linting, and checks.
 ]
 
 docs = [
-    "mkdocstrings-python",
-    "zensical",
+  # REQ: External packages used to generate project documentation.
+  "mkdocstrings[python]", # WHY: Auto-generate API docs from docstrings.
+  "zensical", # WHY: Generate and maintain project documentation.
 ]
 
 # ============================================================
-# SECTION 2: TOOL CONFIGURATION (Professional basics)
+# === SECTION 2: TOOL CONFIGURATION ===
 # ============================================================
 
-# === RUFF (PYTHON FORMATTING AND LINTING) ===
+# === MARKDOWNLINT (MARKDOWN LINTING) ===
 
-[tool.ruff]
-# WHY: Fast linting and formatting in one tool.
-exclude = [
-    ".eggs",
-    "*.egg-info",
-    ".ruff_cache",
-    ".venv",
-    "__pycache__",
-    "build",
-    "dist",
-    "site",
-]
-line-length = 88 # WHY: PEP 8 standard, wrap when possible.
-preview = false # WHY: Stable features only; avoid preview features.
-target-version = "py313" # WHY: 3.15 not available yet; match latest supported Python version.
-unsafe-fixes = false # WHY: Avoid potentially unsafe automatic fixes.
+[tool.markdownlint]
+MD033 = false # WHY: Allow inline HTML such as details, summary, iframe, and video.
 
-[tool.ruff.format]
-# WHY: Formatter choices should be stable to keep diffs small and predictable.
-indent-style = "space" # See also .gitattributes for indent style.
-line-ending = "auto" # Match existing files and let .gitattributes handle it.
-quote-style = "preserve" # Preserve existing quote styles to minimize churn.
+# === UV (PYTHON ENVIRONMENT AND DEPENDENCY MANAGEMENT) ===
 
-[tool.ruff.lint]
-# WHY: Baseline + stricter categories:
-select = [
-    "E",  # Basic syntax and structural correctness
-    "F",  # Undefined names and unused imports
-    "W",  # Warnings that catch easy issues early
-    "I",  # Deterministic import ordering
-    "UP", # Modern Python constructs
-    "B",  # Common bug patterns
+[tool.uv]
+# WHY: Install all repository tooling with the canonical `uv sync`.
+default-groups = "all"
 
-    "PTH", # Prefer pathlib patterns
-    "C4",  # Comprehension correctness and clarity
-    "SIM", # Simplify obvious complexity
-    "RET", # Return practices
+# WHY: Give a bit of time to find hijacked releases before installing.
+# CUSTOM: Should match `uv run prek update --freeze --cooldown-days 7`.
+exclude-newer = "7 days"
 
-    "D", # Docstring standards (see convention below)
-    "S", # Security checks (with deliberate exceptions)
-]
-ignore = [
-    "E501", # line length handled by formatter
-    "D203", # conflicts with D211
-    "D213", # conflicts with D212 (Google standard summary placement)
-    "S101", # allow assert (tests + internal invariants)
-]
-
-[tool.ruff.lint.isort]
-# WHY: Ordering imports helps keep code diffs (differences) readable.
-force-sort-within-sections = true
-
-# === PER-FILE IGNORES (DEPENDS ON DOCSTRING POLICY) ===
-
-[tool.ruff.lint.per-file-ignores]
-# WHY: Some files must not be auto-modified.
-"src/**/__init__.py" = ["F401"]     # Allow re-export patterns
-"src/**/_version.py" = ["ALL"]      # Auto-generated file (do not lint)
-"tests/**/*.py" = ["D", "B018", "B011", "S101"]
-"src/**/py.typed" = ["ALL"]
-
-# === CHOOSE PROJECT DOC STYLE ===
-
-[tool.ruff.lint.pydocstyle]
-# REQ: Google style is the project-wide docstring convention.
-convention = "google"   # ALT: "numpy" choose one, never mix.
+# WHY: Repository tooling updates must be usable immediately.
+exclude-newer-package = {se-theory-reference-kit = false}

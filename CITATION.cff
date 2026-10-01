@@ -1,19 +1,18 @@
 # ============================================================
 # CITATION.cff (How to cite this project)
 # ============================================================
-
 # REQ.UNIVERSAL: Professional open projects SHOULD include this file.
 # USAGE: See https://citation-file-format.github.io/ for details.
 # check with:
-# uvx --from cffconvert cffconvert --validate -i CITATION.cff
+# uvx cffconvert --validate
 
 cff-version: "1.2.0"
+message: "If you use this work, please cite it using the metadata in CITATION.cff."
 type: software
-message: "If you use this work, please cite it using the metadata in this file."
 
-title: "se-theory-neutral-substrate"
-version: "0.8.1"
-date-released: "2026-07-30"
+title: "Formal Theory: Neutral Substrate"
+version: "0.9.0"
+date-released: "2026-10-01"
 
 identifiers:
   - type: doi
@@ -32,19 +31,20 @@ license: MIT
 
 abstract: >
   Lean 4 formalization of the neutral structural substrate of Structural
-  Explainability. This repository defines substrate primitives,
-  well-formedness, admissibility conditions, separation constraints, and
-  substrate-level invariants without encoding identity regimes, persistence
-  behavior, domain semantics, or operational validation.
+  Explainability. The theory provides an abstract propositional language,
+  commitment theories and consequence, framework and referent structures,
+  substrate commitments, attribution and interpretation predicates,
+  framework-relative properties, and formal conditions for interpretive
+  non-commitment, extension stability, and neutrality by design.
 
 keywords:
   - structural-explainability
   - neutral-substrate
+  - formal-theory
   - lean4
   - theorem-proving
   - formal-verification
   - admissibility
-  - separation
-  - invariants
+  - interpretive-neutrality
+  - extension-stability
   - structural-constraints
-  - proof-carrying

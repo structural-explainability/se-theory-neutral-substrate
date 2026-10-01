@@ -119,57 +119,6 @@ Invoke-Step "A2) Lean and lake versions" "lean --version; lake --version" {
     lake --version
 }
 
-Invoke-Step "A3) Upgrade Python lockfile" "uv lock --upgrade" {
-    uv self update
-    uv python pin 3.15
-    uv lock --upgrade
-    uv lock --check
-}
-
-Invoke-Step `
-    "A4) Sync upgraded Python environment" `
-    "uv sync --locked --extra dev --extra docs" {
-    uv sync --locked --extra dev --extra docs
-}
-
-Invoke-Step "A5) Update pre-commit hooks" "uvx pre-commit autoupdate" {
-    uvx pre-commit install
-    uvx pre-commit autoupdate
-}
-
-Invoke-Step "A6) Stage dependency and hook updates" "git add -A" {
-    git add -A
-}
-
-Invoke-Step `
-    "A7) Run pre-commit checks after updates" `
-    "uvx pre-commit run --all-files" `
-    -AllowedExitCodes @(0, 1) {
-    uvx pre-commit run --all-files
-}
-
-Invoke-Step `
-    "A8) Re-run pre-commit checks after autofixes" `
-    "uvx pre-commit run --all-files" {
-    uvx pre-commit run --all-files
-}
-
-Invoke-Step "A9) Verify Python lockfile" "uv lock --check" {
-    uv lock --check
-}
-
-Invoke-Step `
-    "A10) Verify locked Python environment" `
-    "uv sync --locked --extra dev --extra docs" {
-    uv sync --locked --extra dev --extra docs
-}
-
-Invoke-Step `
-    "A11) Show locked Python version" `
-    "uv run --locked python --version" {
-    uv run --locked python --version
-}
-
 # ============================================================
 # === B) Lean build and tests ===
 # ============================================================
