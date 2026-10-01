@@ -158,27 +158,6 @@ Invoke-Step `
 }
 
 # ============================================================
-# === D) Repository checks ===
-# ============================================================
-
-Invoke-Step "D1) Stage generated and modified files" "git add -A" {
-    git add -A
-}
-
-Invoke-Step `
-    "D2) Run pre-commit checks" `
-    "uvx pre-commit run --all-files" `
-    -AllowedExitCodes @(0, 1) {
-    uvx pre-commit run --all-files
-}
-
-Invoke-Step `
-    "D3) Re-run pre-commit checks after autofixes" `
-    "uvx pre-commit run --all-files" {
-    uvx pre-commit run --all-files
-}
-
-# ============================================================
 # === E) Final theory-reference generation and validation ===
 # ============================================================
 

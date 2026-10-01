@@ -39,26 +39,17 @@ operational identity, and interpretive kernels.
 
 ## Theory Structure
 
-```text
-Propositional Language
-        ↓
-Commitment Theory, Consequence, and Consistency
-        ↓
-Frameworks, Referents, and Substrates
-        ↓
-Referential Commitments
-        ↓
-Classification, Attribution, and Interpretation
-        ↓
-Framework-Relative Variation and Invariance
-        ↓
-Contestability and Referential Common Ground
-        ↓
-Interpretive Non-Commitment and Extension Stability
-        ↓
-Neutrality by Design
-        ↓
-Neutrality Constraint
+```mermaid
+flowchart TD
+    A["Propositional Language"] --> B["Commitment Theory and Consequence"]
+    B --> C["Frameworks, Referents, and Substrates"]
+    C --> D["Referential Commitments"]
+    D --> E["Classification, Attribution, and Interpretation"]
+    E --> F["Framework-Relative Properties"]
+    F --> G["Contestability and Referential Common Ground"]
+    G --> H["Interpretive Non-Commitment and Extension Stability"]
+    H --> I["Neutrality by Design"]
+    I --> J["Neutrality Constraint"]
 ```
 
 ## Covers

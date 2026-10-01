@@ -58,28 +58,19 @@ Test Lean code uses the `SETest.*` namespace.
 
 `Spec.lean` is used when the project defines a specification module.
 
-## Dependencies
+## Theory Structure
 
-```text
-Propositional Language
-        ↓
-Commitment Theory and Consequence
-        ↓
-Frameworks, Referents, and Substrates
-        ↓
-Referential Commitments
-        ↓
-Classification, Attribution, and Interpretation
-        ↓
-Framework-Relative Properties
-        ↓
-Contestability and Referential Common Ground
-        ↓
-Interpretive Non-Commitment and Extension Stability
-        ↓
-Neutrality by Design
-        ↓
-Neutrality Constraint
+```mermaid
+flowchart TD
+    A["Propositional Language"] --> B["Commitment Theory and Consequence"]
+    B --> C["Frameworks, Referents, and Substrates"]
+    C --> D["Referential Commitments"]
+    D --> E["Classification, Attribution, and Interpretation"]
+    E --> F["Framework-Relative Properties"]
+    F --> G["Contestability and Referential Common Ground"]
+    G --> H["Interpretive Non-Commitment and Extension Stability"]
+    H --> I["Neutrality by Design"]
+    I --> J["Neutrality Constraint"]
 ```
 
 ## Reference Configuration
