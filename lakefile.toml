@@ -1,8 +1,8 @@
 # ============================================================
 # lakefile.toml
 # ============================================================
-# Declares the public Lean package identity, import surface,
-# build targets, dependencies, and internal test library.
+# Lake configuration for this Lean package: its identity,
+# dependencies, and the build, test, and lint targets.
 
 # Run with:
 # lake build
@@ -59,14 +59,37 @@ rev = "v4.32.1"
 # ============================================================
 # PUBLIC LIBRARY
 # ============================================================
-# The public root namespace.
-# Public modules are organized beneath this namespace.
+# The library downstream packages import. It must list every module
+# family this package owns under SE/. A module matched by no glob is not
+# built: a clean build fails, or the lint executable fails at link time with
+# undefined symbols. Tests (SETest) and the lint driver (SELint) are separate
+# targets.
+#
+# Do not use "SE.*". Other packages own other SE.* families
+# (for example SE.Transformation); claiming them breaks any package
+# that requires both.
+#
+# Glob forms:
+#   "A.B"    only the module A.B itself (here: "SE", the entry point SE.lean)
+#   "A.B.*"  A.B and all its submodules (use when A/B.lean exists)
+#   "A.B.+"  submodules of A.B only, not A.B itself (use for a directory
+#            with no A/B.lean)
+#
+# To add a family under SE/, add "SE.<Family>.+" (or ".*" if SE/<Family>.lean
+# exists).
 
 [[lean_lib]]
 name = "SE.NeutralSubstrate"
 roots = ["SE.NeutralSubstrate"]
-globs = ["SE.*"]
-# Lake supports .* for the named module plus all its submodules.
+globs = [
+  "SE",
+  "SE.Framework.+",
+  "SE.Logic.+",
+  "SE.NeutralSubstrate.*",
+  "SE.Referent.+",
+  "SE.Substrate.+",
+]
+
 
 # ============================================================
 # TEST LIBRARY
