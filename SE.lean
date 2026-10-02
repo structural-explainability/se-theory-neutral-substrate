@@ -10,5 +10,6 @@ public import SE.NeutralSubstrate
 /-!
 # Structural Explainability
 
-Repository-level production import driver for the Neutral Substrate theory.
+Public root module for the Structural Explainability
+Neutral Substrate theory.
 -/

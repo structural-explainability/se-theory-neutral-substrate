@@ -17,21 +17,21 @@ namespace = "SE"
 id = "PropositionCarrier"
 name = "Proposition carrier"
 lean_symbol = "SE.Logic.Language.PropositionCarrier"
-source_module = "SE.Logic.Language.Basic"
+source_module = "SE.Logic.Language.PropositionCarrier"
 description = "A carrier containing the type of propositions used by a formal language."
 
 [type.Negation]
 id = "Negation"
 name = "Negation"
 lean_symbol = "SE.Logic.Language.Negation"
-source_module = "SE.Logic.Language.Basic"
+source_module = "SE.Logic.Language.Negation"
 description = "A negation operation on the propositions of a proposition carrier."
 
 [type.Bottom]
 id = "Bottom"
 name = "Contradiction"
 lean_symbol = "SE.Logic.Language.Bottom"
-source_module = "SE.Logic.Language.Basic"
+source_module = "SE.Logic.Language.Bottom"
 description = "A distinguished contradiction proposition for a proposition carrier."
 
 [type.PropositionalLanguage]

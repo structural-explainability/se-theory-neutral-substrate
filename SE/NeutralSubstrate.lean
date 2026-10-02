@@ -36,6 +36,7 @@ public import SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCom
 
 public import SE.NeutralSubstrate.FrameworkRelative.Variant
 public import SE.NeutralSubstrate.FrameworkRelative.Invariant
+public import SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation
 public import SE.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet
 
 public import SE.NeutralSubstrate.DesignTimeGuarantee

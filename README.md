@@ -87,7 +87,13 @@ Public symbols are declared in the reference artifacts.
 
 ## Developer
 
-- Maintain `lakefile.toml` and `lean-toolchain`.
+Maintain:
+
+- `lakefile.toml` and
+- `lean-toolchain`
+- `reference/theory-reference.toml` - hand-maintained configuration
+- `reference/*.toml` - hand-maintained/scaffolded reference source artifacts
+- Lean source + RR comments - hand-maintained theory source
 
 ### Clone and Open in VS Code
 

@@ -48,6 +48,7 @@ public_modules = [
     "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment",
     "SE.NeutralSubstrate.FrameworkRelative.Variant",
     "SE.NeutralSubstrate.FrameworkRelative.Invariant",
+    "SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation",
     "SE.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet",
     "SE.NeutralSubstrate.DesignTimeGuarantee",
     "SE.NeutralSubstrate.Assumptions.Contestability",

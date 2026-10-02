@@ -181,6 +181,22 @@ source_module = "SE.NeutralSubstrate.FrameworkRelative.Variant"
 status = "proved"
 description = "A framework-variant proposition has an admissible framework under which the combined theory entails its negation."
 
+[theorem.not_entails_neg_of_frameworkInvariantProposition]
+id = "not_entails_neg_of_frameworkInvariantProposition"
+name = "Framework invariance implies non-refutation"
+lean_symbol = "SE.NeutralSubstrate.FrameworkRelative.not_entails_neg_of_frameworkInvariantProposition"
+source_module = "SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation"
+status = "proved"
+description = "A framework-invariant proposition is not refuted by any admissible substrate-framework commitment theory: none of them entails its object-language negation."
+
+[theorem.frameworkInvariantProposition_iff_not_entails_neg]
+id = "frameworkInvariantProposition_iff_not_entails_neg"
+name = "Framework invariance and non-refutation under negation introduction"
+lean_symbol = "SE.NeutralSubstrate.FrameworkRelative.frameworkInvariantProposition_iff_not_entails_neg"
+source_module = "SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation"
+status = "proved"
+description = "Given negation introduction as a hypothesis, framework invariance is equivalent to non-refutation by every admissible substrate-framework commitment theory."
+
 [theorem.consistent_combine_of_frameworkCompatibleCommitmentSet]
 id = "consistent_combine_of_frameworkCompatibleCommitmentSet"
 name = "Framework-compatible commitment set remains consistent"

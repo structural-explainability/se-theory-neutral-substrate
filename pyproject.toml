@@ -1,8 +1,8 @@
 # ============================================================
 # pyproject.toml (Python project configuration)
 # ============================================================
-# Updated: 2026-06-03 (SE Theory)
-# REQ.PYTHON: Python projects MUST include pyproject.toml as the single source of truth.
+# Updated: 2026-10-01
+# REQ: Python projects MUST include pyproject.toml as the single source of truth.
 # WHY: Centralizes project configuration.
 # CUSTOM: Update identity and build tool src folders.
 

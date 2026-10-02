@@ -71,8 +71,9 @@ id = "lean-public-surface"
 object_kind = "directory"
 paths = [
 "*.lean",
-"SETheory*/**/*.lean",
-"TestAll.lean",
+"SE/NeutralSubstrate/**/*.lean",
+"SELint.lean",
+"SETest.lean",
 ]
 description = "Lean public theory surface, theorem development, module structure, and test entry points."
 
@@ -232,7 +233,7 @@ commands = [
 "elan self update",
 "lake update",
 "lake build",
-"lake build TestAll",
+"lake test",
 "uv run se-theory-reference validate",
 "uv run se-theory-reference validate --strict",
 "uv run se-theory-reference export --check",

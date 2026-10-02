@@ -183,6 +183,14 @@
       "description": "Every member of the referential commitment theory is fixed by the substrate's referential regime."
     },
     {
+      "id": "frameworkInvariantProposition_iff_not_entails_neg",
+      "name": "Framework invariance and non-refutation under negation introduction",
+      "lean_symbol": "SE.NeutralSubstrate.FrameworkRelative.frameworkInvariantProposition_iff_not_entails_neg",
+      "source_module": "SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation",
+      "status": "proved",
+      "description": "Given negation introduction as a hypothesis, framework invariance is equivalent to non-refutation by every admissible substrate-framework commitment theory."
+    },
+    {
       "id": "guaranteedAtDesignTime_iff",
       "name": "Design-time guarantee characterization",
       "lean_symbol": "SE.NeutralSubstrate.guaranteedAtDesignTime_iff",
@@ -317,6 +325,14 @@
       "source_module": "SE.Logic.Consistency",
       "status": "proved",
       "description": "A consistent commitment theory does not entail the distinguished contradiction proposition."
+    },
+    {
+      "id": "not_entails_neg_of_frameworkInvariantProposition",
+      "name": "Framework invariance implies non-refutation",
+      "lean_symbol": "SE.NeutralSubstrate.FrameworkRelative.not_entails_neg_of_frameworkInvariantProposition",
+      "source_module": "SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation",
+      "status": "proved",
+      "description": "A framework-invariant proposition is not refuted by any admissible substrate-framework commitment theory: none of them entails its object-language negation."
     },
     {
       "id": "not_guaranteedFrameworkInvariant_of_contestability",

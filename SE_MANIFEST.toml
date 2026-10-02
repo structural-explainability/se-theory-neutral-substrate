@@ -122,22 +122,13 @@ excludes = [
 # === Validation ===
 
 [validation]
-# Runs the complete repository release-validation sequence.
-entrypoint = "pwsh -File ./rel.ps1"
-
-# Validates repository-owned theory-reference declarations.
-reference_entrypoint = "uv run --locked se-theory-reference validate"
-
-# Confirms that generated reference exports match their source declarations.
+# Validates repository declaration, manifest schema conformance,
+# reference artifacts, generated artifacts, and Lean public surface coverage.
 export_check_entrypoint = "uv run --locked se-theory-reference export --check"
-
-# Runs strict theory-reference validation.
+reference_entrypoint = "uv run --locked se-theory-reference validate"
 strict_entrypoint = "uv run --locked se-theory-reference validate --strict"
 
-# Confirms that release metadata agrees with the pushed Git tag.
-tag_entrypoint = "uvx --from se-manifest-schema se-manifest check-version --require-tag"
-
-# === Behavior / Governance ===
+# === Behavior / governance ===
 
 [naming]
 pattern = "se-theory-*"
@@ -145,11 +136,11 @@ pattern = "se-theory-*"
 [governance]
 authority = "structural-explainability"
 
-# === External References ===
+# === External references ===
 
 [citation]
 cff = "CITATION.cff"
 preferred = "CITATION.cff"
 
 [traceability]
-identifier_map = "reference/traceability-registry.toml"
+identifier_map = "reference/theory-reference.toml"

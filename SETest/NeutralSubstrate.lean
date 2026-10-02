@@ -27,6 +27,7 @@ import SETest.NeutralSubstrate.Interpretation.ObjectLevelProposition
 import SETest.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment
 import SETest.NeutralSubstrate.FrameworkRelative.Variant
 import SETest.NeutralSubstrate.FrameworkRelative.Invariant
+import SETest.NeutralSubstrate.FrameworkRelative.InvariantRefutation
 import SETest.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet
 import SETest.NeutralSubstrate.DesignTimeGuarantee
 import SETest.NeutralSubstrate.Assumptions.Contestability

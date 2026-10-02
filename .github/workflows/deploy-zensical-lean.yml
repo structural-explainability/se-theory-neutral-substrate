@@ -1,7 +1,7 @@
 # ============================================================
 # .github/workflows/deploy-zensical-lean.yml (LEAN+ALL-PY-REPOS)
 # ============================================================
-# Updated: 2026-10-01
+# Updated: 2026-10-02
 #
 # WHY: Build and deploy documentation to GitHub Pages on pushes to main.
 # REQ: Repo Settings -> Pages -> Build and deployment -> Source:
@@ -83,7 +83,7 @@ jobs:
       # ============================================================
 
       - name: AA1) Set up Lean
-        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
+        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1
         with:
           build: false
           test: false
@@ -125,11 +125,40 @@ jobs:
       # BB) BUILD LEAN API DOCUMENTATION
       # ============================================================
 
-      - name: BB1) Build Lean API documentation
-        working-directory: docbuild
-        run: lake build SE:docs
+      - name: BB1) Prepare Lean API documentation build
+        run: |
+          LEAN_TOOLCHAIN="$(tr -d '\r\n' < lean-toolchain)"
+          LEAN_TAG="${LEAN_TOOLCHAIN##*:}"
 
-      - name: BB2) Verify Lean API output
+          mkdir -p docbuild
+          cp lean-toolchain docbuild/lean-toolchain
+
+          cat > docbuild/lakefile.toml <<EOF
+          name = "docbuild"
+          reservoir = false
+          version = "0.1.0"
+          packagesDir = "../.lake/packages"
+
+          [[require]]
+          name = "se-theory-transformation"
+          path = "../"
+
+          [[require]]
+          scope = "leanprover"
+          name = "doc-gen4"
+          rev = "${LEAN_TAG}"
+          EOF
+
+          echo "Lean toolchain: ${LEAN_TOOLCHAIN}"
+          echo "doc-gen4 revision: ${LEAN_TAG}"
+
+      - name: BB2) Build Lean API documentation
+        working-directory: docbuild
+        run: |
+          lake update
+          lake build SE:docs
+
+      - name: BB3) Verify Lean API output
         run: |
           if [ ! -f "docbuild/.lake/build/doc/index.html" ]; then
             echo "## Lean API output missing" >> "$GITHUB_STEP_SUMMARY"
@@ -138,13 +167,13 @@ jobs:
             exit 1
           fi
 
-      - name: BB3) Add Lean API documentation to site
+      - name: BB4) Add Lean API documentation to site
         run: |
           rm -rf site/lean
           mkdir -p site/lean
           cp -R docbuild/.lake/build/doc/. site/lean/
 
-      - name: BB4) Verify combined documentation site
+      - name: BB5) Verify combined documentation site
         run: |
           test -f site/index.html
           test -f site/lean/index.html

@@ -7,7 +7,14 @@ schema = "se-substrate-predicate-registry-1"
 kind = "predicate"
 repo = "se-theory-neutral-substrate"
 surface_module = "SE"
-namespace = "SE"
+namespace = "SE.NeutralSubstrate"
+
+[meta]
+source = "se-theory-neutral-substrate"
+namespace = "se.neutral_substrate"
+artifact = "substrate-predicates"
+version = "0.8.0"
+status = "canonical"
 
 # ============================================================
 # LOGIC
@@ -271,7 +278,7 @@ description = "Neutrality is guaranteed at design time by the selected design-ti
 id = "FoundationalLayerRestrictedToPermittedClasses"
 name = "Foundational layer restricted to permitted classes"
 lean_symbol = "SE.NeutralSubstrate.FoundationalLayerRestrictedToPermittedClasses"
-source_module = "SE.NeutralSubstrate.Constraint"
+source_module = "SE.NeutralSubstrate.FoundationalLayer"
 description = "Every substrate commitment is either a referential commitment or a permitted attribution proposition."
 
 [predicate.NoObjectLevelCausalOrNormativeCommitment]

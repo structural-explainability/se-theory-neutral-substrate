@@ -57,6 +57,11 @@ def FoundationalLayerRestrictedToPermittedClasses
       p ∈ ReferentialCommitments C S F s ∨
         PermittedAttributionProposition C S F A B s p
 
+/--
+A foundational layer is restricted to the permitted classes exactly when every
+substrate commitment is a referential commitment or a permitted attribution
+proposition.
+-/
 @[simp]
 theorem foundationalLayerRestrictedToPermittedClasses_iff
     {L : PropositionalLanguage.{u}} {R : ReferentCarriers.{v}}

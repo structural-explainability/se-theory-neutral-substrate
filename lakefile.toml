@@ -20,10 +20,11 @@ license = "MIT"
 # ============================================================
 # BUILD SURFACE
 # ============================================================
+# defaultTargets must include the public Lean library root.
 
-defaultTargets = ["SE"]
+defaultTargets = ["SE.NeutralSubstrate"]
 testDriver = "SETest"
-lintDriver = "batteries/runLinter"
+lintDriver = "SELint"
 
 # ============================================================
 # LEAN OPTIONS
@@ -33,7 +34,7 @@ lintDriver = "batteries/runLinter"
 weak.linter.mathlibStandardSet = true
 weak.linter.flexible = true
 weak.linter.style.header = false
-weak.linter.style.longline = false
+weak.linter.style.longLine = false
 
 # These linters are included in Mathlib's standard set but do
 # not currently operate correctly in downstream projects.
@@ -64,16 +65,8 @@ rev = "v4.32.1"
 [[lean_lib]]
 name = "SE.NeutralSubstrate"
 roots = ["SE.NeutralSubstrate"]
-globs = [
-    "SE",
-    "SE.Framework.+",
-    "SE.Logic.+",
-    "SE.NeutralSubstrate.*",
-    "SE.Referent.+",
-    "SE.Substrate.+",
-]
-# Using globs and .+ means it will include all submodules matching the pattern.
-# Lake supports .+ for submodules only and .* for the named module plus all its submodules.
+globs = ["SE", "SE.NeutralSubstrate.*"]
+# Lake supports .* for the named module plus all its submodules.
 
 # ============================================================
 # TEST LIBRARY
@@ -83,8 +76,15 @@ globs = [
 [[lean_lib]]
 name = "SETest"
 roots = ["SETest.NeutralSubstrate"]
-globs = [
-  "SETest",
-  "SETest.NeutralSubstrate.*",
-]
-leanOptions = {weak.linter.style.header = false}
+globs = ["SETest", "SETest.NeutralSubstrate.*"]
+leanOptions = { weak.linter.style.header = false }
+
+
+# ============================================================
+# LINT DRIVER
+# ============================================================
+
+[[lean_exe]]
+name = "SELint"
+root = "SELint"
+leanOptions = { Elab.inServer = true }

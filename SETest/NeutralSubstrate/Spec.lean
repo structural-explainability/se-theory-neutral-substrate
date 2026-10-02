@@ -30,6 +30,7 @@ namespace SETest.NeutralSubstrate.Spec
 #check SE.NeutralSubstrate.Spec.se100DefPermittedAttributionProposition
 #check SE.NeutralSubstrate.Spec.se100DefFrameworkVariant
 #check SE.NeutralSubstrate.Spec.se100DefFrameworkInvariant
+#check SE.NeutralSubstrate.Spec.se100DefFrameworkInvariantRefutation
 #check SE.NeutralSubstrate.Spec.se100DefFrameworkCompatibleCommitmentSet
 #check SE.NeutralSubstrate.Spec.se100DefContestedCausalNormative
 #check SE.NeutralSubstrate.Spec.se100AssumpContestability
