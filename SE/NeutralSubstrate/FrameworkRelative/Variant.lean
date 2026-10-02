@@ -42,6 +42,7 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.SubstrateFrameworkCommitments
 /--
 The commitment theory obtained by combining a substrate's commitments with
 an interpretive framework's commitments.
@@ -59,6 +60,7 @@ def SubstrateFrameworkCommitments
     CommitmentTheory L.carrier :=
   combine (S.commitments s) (M.commitments framework)
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.substrateFrameworkCommitments_eq
 /--
 The substrate-framework commitment theory is
 the union of the substrate's commitments
@@ -76,6 +78,7 @@ theorem substrateFrameworkCommitments_eq
       = combine (S.commitments s) (M.commitments framework) :=
   rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.entails_substrateFrameworkCommitments_of_substrateCommitment
 /--
 A substrate-layer commitment remains entailed after combining the substrate
 with any framework.
@@ -99,6 +102,8 @@ theorem entails_substrateFrameworkCommitments_of_substrateCommitment
       (M.commitments framework))
     (entails_of_substrateCommitment hp)
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.FrameworkVariantProposition
+-- RR.IMPLEMENTS: se100.def.FrameworkVariant
 /--
 A proposition is framework-variant with respect to a substrate and framework
 class when there exist admissible frameworks such that one corresponding
@@ -124,6 +129,7 @@ def FrameworkVariantProposition
           (SubstrateFrameworkCommitments S s M frameworkTwo)
           (L.neg p)
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.frameworkVariantProposition_iff
 /--
 A proposition is framework-variant exactly when it has two admissible
 framework witnesses giving the opposed entailments required by the
@@ -150,6 +156,7 @@ theorem frameworkVariantProposition_iff
               (L.neg p) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.exists_entails_of_frameworkVariantProposition
 /--
 A framework-variant proposition is entailed by the substrate combined with
 some admissible framework.
@@ -172,6 +179,7 @@ theorem exists_entails_of_frameworkVariantProposition
     ⟨frameworkOne, frameworkTwo, hOne, hTwo, hp, hneg⟩
   exact ⟨frameworkOne, hOne, hp⟩
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.exists_entailsNeg_of_frameworkVariantProposition
 /--
 The object-language negation of a framework-variant proposition is entailed
 by the substrate combined with some admissible framework.

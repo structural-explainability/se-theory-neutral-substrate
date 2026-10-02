@@ -43,6 +43,8 @@ universe u v
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.CausalNormativeClassification
+-- RR.IMPLEMENTS: se100.note.CausalNormative
 /--
 An abstract, context-relative classification of object-language propositions
 as causal or normative.
@@ -78,6 +80,7 @@ structure CausalNormativeClassification
     L.Proposition →
     Prop
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.CausalProposition
 /--
 A proposition is causal in an accountability context when the selected
 classification system classifies it as causal.
@@ -90,6 +93,7 @@ def CausalProposition
     Prop :=
   K.causal c p
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.NormativeProposition
 /--
 A proposition is normative in an accountability context when the selected
 classification system classifies it as normative.
@@ -102,6 +106,7 @@ def NormativeProposition
     Prop :=
   K.normative c p
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.CausalOrNormativeProposition
 /--
 A proposition is causal or normative in an accountability context when it
 has at least one of the two primitive classifications.

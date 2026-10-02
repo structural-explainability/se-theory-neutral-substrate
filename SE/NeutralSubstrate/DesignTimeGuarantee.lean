@@ -35,6 +35,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.DesignTimeGuaranteeSystem
 /--
 An abstract system of design-time guarantees.
 
@@ -76,6 +77,7 @@ structure DesignTimeGuaranteeSystem where
       establishes basis P →
       P
 
+-- RR.DEFINES: SE.NeutralSubstrate.GuaranteedAtDesignTime
 /--
 A proposition is guaranteed at design time when some permitted design-time
 basis establishes it.
@@ -91,6 +93,7 @@ def GuaranteedAtDesignTime
     G.permitted basis ∧
       G.establishes basis P
 
+-- RR.DEFINES: SE.NeutralSubstrate.guaranteedAtDesignTime_iff
 /--
 A proposition is guaranteed at design time exactly when it is established by
 some permitted design-time basis.
@@ -105,6 +108,7 @@ theorem guaranteedAtDesignTime_iff
           G.establishes basis P :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.holds_of_guaranteedAtDesignTime
 /--
 Every proposition guaranteed at design time holds.
 -/
@@ -116,6 +120,7 @@ theorem holds_of_guaranteedAtDesignTime
   rcases hP with ⟨basis, hpermitted, hestablishes⟩
   exact G.sound hpermitted hestablishes
 
+-- RR.DEFINES: SE.NeutralSubstrate.guaranteedAtDesignTime_of_establishes
 /--
 A permitted basis that establishes a proposition supplies a design-time
 guarantee for that proposition.
@@ -129,6 +134,7 @@ theorem guaranteedAtDesignTime_of_establishes
     GuaranteedAtDesignTime G P :=
   ⟨basis, hpermitted, hestablishes⟩
 
+-- RR.DEFINES: SE.NeutralSubstrate.exists_permittedBasis_of_guaranteedAtDesignTime
 /--
 Every design-time guarantee has a permitted basis that establishes its
 claim.

@@ -32,6 +32,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Referent.ReferentCarriers
 /--
 The abstract carriers of referents distinguished by the Structural
 Explainability theory.

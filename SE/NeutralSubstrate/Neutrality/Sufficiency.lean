@@ -49,6 +49,7 @@ universe u v w x y
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.extensionStability_of_restricted_of_commonGround
 /--
 Under Referential Common Ground, a foundational layer restricted to the
 permitted classes yields extension stability.
@@ -98,6 +99,7 @@ theorem extensionStability_of_restricted_of_commonGround
     exact C.entailsMono (subset_combine_left _ _) hqref
   · exact C.entailsOfMem (mem_combine_iff.mpr (Or.inr hqF))
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.neutral_of_restricted_of_commonGround
 /--
 Under Referential Common Ground, a foundational layer restricted to the
 permitted classes is neutral.

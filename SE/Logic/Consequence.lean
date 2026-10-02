@@ -44,6 +44,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Logic.ConsequenceSystem
 /--
 An abstract consequence system over a propositional language.
 
@@ -99,6 +100,7 @@ variable
   {L : PropositionalLanguage.{u}}
   (C : ConsequenceSystem L)
 
+-- RR.DEFINES: SE.Logic.ConsequenceSystem.entailsMono
 /--
 Entailment is monotone under extension of the commitment theory.
 -/

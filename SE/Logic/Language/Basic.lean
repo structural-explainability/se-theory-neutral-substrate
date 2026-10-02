@@ -75,6 +75,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Logic.Language.PropositionalLanguage
 /--
 The object language, bundled.
 A proposition carrier together with a negation
@@ -99,6 +100,7 @@ namespace PropositionalLanguage
 
 @[expose] section
 
+-- RR.DEFINES: SE.Logic.Language.PropositionalLanguage.Proposition
 /--
 The type of propositions of a language `L`.
 
@@ -109,6 +111,7 @@ Shorthand for `L.carrier.Proposition`.
 abbrev Proposition (L : PropositionalLanguage.{u}) : Type u :=
   L.carrier.Proposition
 
+-- RR.DEFINES: SE.Logic.Language.PropositionalLanguage.neg
 /--
 The negation `¬p` of a proposition, in a language `L`.
 
@@ -121,6 +124,7 @@ def neg
     L.Proposition :=
   L.negation.neg p
 
+-- RR.DEFINES: SE.Logic.Language.PropositionalLanguage.bottom
 /--
 The distinguished contradiction `⊥` of a language `L`.
 

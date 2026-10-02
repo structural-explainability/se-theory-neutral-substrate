@@ -64,6 +64,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Logic.Language.Bottom
 /--
 A choice of one distinguished proposition, `⊥` ("bottom"),
 in a proposition carrier.

@@ -36,6 +36,8 @@ universe u v
 
 public section
 
+-- RR.DEFINES: SE.Framework.FrameworkClass
+-- RR.IMPLEMENTS: se100.note.FrameworkClass
 /--
 The class of all admissible interpretive frameworks.
 
@@ -50,6 +52,7 @@ def FrameworkClass
     Set M.Carrier :=
   {F | AdmissibleFramework C M F}
 
+-- RR.DEFINES: SE.Framework.mem_frameworkClass_iff
 /--
 A candidate framework belongs to the framework class
 exactly when it is admissible.

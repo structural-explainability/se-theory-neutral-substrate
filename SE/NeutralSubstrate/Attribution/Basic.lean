@@ -40,6 +40,7 @@ universe u v
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.AttributionSystem
 /--
 An object-language attribution interface.
 
@@ -65,6 +66,8 @@ structure AttributionSystem
     L.Proposition →
     L.Proposition
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.AttributionProposition
+-- RR.IMPLEMENTS: se100.def.AttributionProposition
 /--
 An attribution proposition is a proposition of the form `asserts x φ` for
 some attribution source `x` and asserted proposition `φ`.
@@ -76,6 +79,7 @@ def AttributionProposition
     Prop :=
   ∃ x φ, p = A.asserts x φ
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.attributionProposition_asserts
 /--
 Every proposition constructed by `asserts` is an attribution proposition.
 -/
@@ -87,6 +91,7 @@ theorem attributionProposition_asserts
     AttributionProposition A (A.asserts x φ) := by
   exact ⟨x, φ, rfl⟩
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.exists_asserts_eq_of_attributionProposition
 /--
 An attribution proposition has a source and an asserted proposition whose
 attribution form equals it.

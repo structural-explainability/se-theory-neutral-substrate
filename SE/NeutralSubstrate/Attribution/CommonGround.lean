@@ -50,6 +50,7 @@ universe u v w x y
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.entailsBottom_combine_adjoin_iff_of_entails
 /--
 Adjoining a proposition already entailed by a commitment theory does not
 change whether its combination with another theory entails contradiction.
@@ -105,6 +106,7 @@ theorem entailsBottom_combine_adjoin_iff_of_entails
             (Or.inr hq)
     · exact hcontradiction
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.entailsBottom_permittedAttribution_iff
 /--
 Adjoining a permitted attribution proposition to the referential commitments
 does not change whether the resulting theory combined with a framework
@@ -145,6 +147,8 @@ theorem entailsBottom_permittedAttribution_iff
       B
       hp
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.consistent_permittedAttribution_of_commonGround
+-- RR.IMPLEMENTS: se100.remark.AttributionCommonGround
 /--
 Under Referential Common Ground, adjoining a permitted attribution
 proposition to the referential commitments remains consistent with every

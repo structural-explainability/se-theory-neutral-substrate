@@ -45,6 +45,7 @@ universe u v w x y
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.Neutral
 /--
 A substrate is neutral when it satisfies interpretive non-commitment and
 extension stability.
@@ -60,6 +61,7 @@ def Neutral
   InterpretiveNonCommitment C S s M ∧
     ExtensionStability C S s M
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.neutral_iff
 /--
 A substrate is neutral exactly when it satisfies interpretive
 non-commitment and extension stability.
@@ -77,6 +79,7 @@ theorem neutral_iff
         ExtensionStability C S s M :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_neutral
 /--
 A neutral substrate satisfies interpretive non-commitment.
 -/
@@ -91,6 +94,7 @@ theorem interpretiveNonCommitment_of_neutral
     InterpretiveNonCommitment C S s M :=
   hneutral.1
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.extensionStability_of_neutral
 /--
 A neutral substrate satisfies extension stability.
 -/
@@ -105,6 +109,8 @@ theorem extensionStability_of_neutral
     ExtensionStability C S s M :=
   hneutral.2
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.NeutralByDesign
+-- RR.IMPLEMENTS: se100.def.NeutralityByDesign
 /--
 A substrate is neutral by design when its neutrality is guaranteed by a
 permitted design-time basis.
@@ -121,6 +127,7 @@ def NeutralByDesign
   GuaranteedAtDesignTime D
     (Neutral C S s M)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.neutralByDesign_iff
 /--
 A substrate is neutral by design exactly when a permitted design-time basis
 establishes its neutrality.
@@ -139,6 +146,7 @@ theorem neutralByDesign_iff
         (Neutral C S s M) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.neutral_of_neutralByDesign
 /--
 Every substrate that is neutral by design is neutral.
 -/
@@ -154,6 +162,7 @@ theorem neutral_of_neutralByDesign
     Neutral C S s M :=
   holds_of_guaranteedAtDesignTime hdesign
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_neutralByDesign
 /--
 Neutrality by design entails interpretive non-commitment.
 -/
@@ -170,6 +179,7 @@ theorem interpretiveNonCommitment_of_neutralByDesign
   interpretiveNonCommitment_of_neutral
     (neutral_of_neutralByDesign hdesign)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.extensionStability_of_neutralByDesign
 /--
 Neutrality by design entails extension stability.
 -/

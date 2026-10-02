@@ -85,7 +85,7 @@
       "id": "FoundationalLayerRestrictedToPermittedClasses",
       "name": "Foundational layer restricted to permitted classes",
       "lean_symbol": "SE.NeutralSubstrate.FoundationalLayerRestrictedToPermittedClasses",
-      "source_module": "SE.NeutralSubstrate.Constraint",
+      "source_module": "SE.NeutralSubstrate.FoundationalLayer",
       "description": "Every substrate commitment is either a referential commitment or a permitted attribution proposition."
     },
     {

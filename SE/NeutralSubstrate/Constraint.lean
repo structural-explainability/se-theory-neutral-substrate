@@ -53,6 +53,7 @@ universe u v w x y z t
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.NoObjectLevelCausalOrNormativeCommitment
 /--
 A substrate makes no object-level causal or normative commitment when no
 proposition satisfies the corresponding commitment predicate in the
@@ -73,6 +74,8 @@ def NoObjectLevelCausalOrNormativeCommitment
     ¬ ObjectLevelCausalOrNormativeCommitment
       C K c A I S s p
 
+-- RR.DEFINES: SE.NeutralSubstrate.NeutralityConstraint
+-- RR.IMPLEMENTS: se100.constraint.Neutrality
 /--
 The neutrality constraint states that, under Contestability and Referential
 Common Ground:
@@ -112,6 +115,7 @@ def NeutralityConstraint
         NoObjectLevelCausalOrNormativeCommitment
           C K c A I S s)
 
+-- RR.DEFINES: SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted
 /--
 Under the neutrality constraint, Contestability, and Referential Common
 Ground, neutrality by design is equivalent to restriction of the
@@ -143,6 +147,7 @@ theorem neutralByDesign_iff_foundationalLayerRestricted
         C S F A B s :=
   (hconstraint hcontestability hcommonGround).1
 
+-- RR.DEFINES: SE.NeutralSubstrate.noObjectLevelCommitment_of_foundationalLayerRestricted
 /--
 Under the neutrality constraint, restriction to the permitted foundational
 classes excludes object-level causal or normative commitments.
@@ -176,6 +181,7 @@ theorem noObjectLevelCommitment_of_foundationalLayerRestricted
   (hconstraint hcontestability hcommonGround).2
     hrestricted
 
+-- RR.DEFINES: SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign
 /--
 Under the neutrality constraint, a substrate that is neutral by design makes
 no object-level causal or normative commitment.

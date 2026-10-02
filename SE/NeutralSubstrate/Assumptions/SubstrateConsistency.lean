@@ -40,6 +40,8 @@ universe u v w
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.SubstrateConsistency
+-- RR.IMPLEMENTS: se100.assump.SubstrateConsistency
 /--
 A substrate is internally consistent when its commitment theory does not
 entail the object-language contradiction.
@@ -57,6 +59,7 @@ def SubstrateConsistency
     Prop :=
   Consistent C (S.commitments s)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.substrateConsistency_iff
 /--
 A substrate is consistent exactly when its commitment theory is consistent.
 -/
@@ -71,6 +74,7 @@ theorem substrateConsistency_iff
       Consistent C (S.commitments s) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.consistent_of_substrateConsistency
 /--
 Substrate consistency supplies consistency of the substrate's commitment
 theory.
@@ -85,6 +89,7 @@ theorem consistent_of_substrateConsistency
     Consistent C (S.commitments s) :=
   hconsistency
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.substrateConsistency_of_consistent
 /--
 Consistency of the substrate's commitment theory establishes substrate
 consistency.

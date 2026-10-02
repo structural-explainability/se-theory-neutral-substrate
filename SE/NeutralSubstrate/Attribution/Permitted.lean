@@ -46,6 +46,7 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.AttributionalBasisFixing
 /--
 An abstract account of when an attributional basis is fixed by a commitment
 theory.
@@ -82,6 +83,8 @@ structure AttributionalBasisFixing
       fixedBy T source φ →
       C.entails T (A.asserts source φ)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.PermittedAttributionProposition
+-- RR.IMPLEMENTS: se100.def.PermittedAttributionProposition
 /--
 An attribution proposition is permitted at the foundational layer when its
 attributional basis is fixed by the substrate's referential commitments.
@@ -101,6 +104,7 @@ def PermittedAttributionProposition
     p = A.asserts source φ ∧
       B.fixedBy (ReferentialCommitments C S F s) source φ
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.permittedAttributionProposition_iff
 /--
 A proposition is permitted exactly when it is an attribution proposition
 whose attributional basis is fixed by the substrate's referential
@@ -126,6 +130,7 @@ theorem permittedAttributionProposition_iff
             φ :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.attributionProposition_of_permittedAttributionProposition
 /--
 Every permitted attribution proposition is an attribution proposition.
 -/
@@ -145,6 +150,7 @@ theorem attributionProposition_of_permittedAttributionProposition
   subst p
   exact attributionProposition_asserts A source φ
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.referentialCommitments_entails_of_permittedAttributionProposition
 /--
 The substrate's referential commitments entail every permitted attribution
 proposition.
@@ -164,6 +170,7 @@ theorem referentialCommitments_entails_of_permittedAttributionProposition
   rcases hp with ⟨source, φ, rfl, hfixed⟩
   exact B.entailsAssertsOfFixedBy hfixed
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.substrateCommitment_of_permittedAttributionProposition
 /--
 Every permitted attribution proposition is a substrate-layer commitment.
 

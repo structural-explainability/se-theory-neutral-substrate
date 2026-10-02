@@ -53,6 +53,8 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_extensionStability
+-- RR.IMPLEMENTS: se100.remark.PropertyRelation
 /--
 Extension stability entails interpretive non-commitment.
 

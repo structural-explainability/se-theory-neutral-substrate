@@ -40,6 +40,7 @@ public section
 variable
   {L : PropositionalLanguage.{u}}
 
+-- RR.DEFINES: SE.Framework.DocumentedInterpretiveFunction
 /--
 A framework has a documented interpretive function when it is presented as
 an interpretive function with a named source, documented scope, and citable
@@ -57,6 +58,8 @@ def DocumentedInterpretiveFunction
     M.hasDocumentedScope F ∧
     M.hasCitableBasis F
 
+-- RR.DEFINES: SE.Framework.AdmissibleFramework
+-- RR.IMPLEMENTS: se100.def.AdmissibleFramework
 /--
 A candidate framework is admissible when it is internally consistent,
 evidentially grounded, and has a documented interpretive function.

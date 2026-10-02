@@ -8,13 +8,20 @@ Repository:
 Default mode is dry-run. Use -Write to apply changes.
 
 Design:
-- RR.DEFINES is the exact fully-qualified Lean declaration name.
+- RR.DEFINES is the exact fully-qualified name of each named, non-private
+  production Lean declaration under SE/.
+- SE/NeutralSubstrate/Spec.lean is excluded from automatic RR.DEFINES because
+  its String constants expose paper citation identifiers rather than new
+  formal theory objects.
 - RR.IMPLEMENTS mappings are derived from
   reference/substrate-requirements.toml rather than duplicated here.
 - Paper item 25 (reification fragment) is intentionally skipped because the
   current Lean example contains no named declaration to anchor.
 - Existing docstrings and RR comments are preserved.
-- Two audit OBS comments are added at their relevant declarations.
+- Namespace and section blocks are tracked separately; named `end` commands
+  may close either one, while only namespaces contribute to declaration FQNs.
+- Audit disagreements are not inserted as OBS comments. They belong in the
+  audit/DECISIONS record and should be resolved in the losing artifact.
 #>
 
 [CmdletBinding()]
@@ -48,6 +55,16 @@ function Get-Newline {
     return "`n"
 }
 
+function Test-CommentLine {
+    param(
+        [string]$Text,
+        [string]$Line
+    )
+
+    $pattern = '(?m)^[ \t]*--[ \t]+' + [regex]::Escape($Line) + '[ \t]*\r?$'
+    return [regex]::IsMatch($Text, $pattern)
+}
+
 function Get-LineStarts {
     param([string]$Text)
 
@@ -74,7 +91,7 @@ function Get-DocStartBefore {
     }
 
     $prefix = $Text.Substring(0, $Index)
-    $m = [regex]::Match($prefix, '(?s)(/--.*?-/)\s*$')
+    $m = [regex]::Match($prefix, '(?s)/--(?:(?!-/).)*-/\s*$')
 
     if ($m.Success) {
         return $m.Index
@@ -124,28 +141,39 @@ function Pop-BareBlock {
     }
 }
 
-function Pop-NamedNamespace {
+function Pop-NamedBlock {
     param(
         [System.Collections.Generic.List[object]]$Stack,
         [string]$Name
     )
 
+    # Lean permits `end Name` for both named namespaces and named sections.
+    # Match the nearest open block with that name. Only namespace blocks
+    # contribute to declaration FQNs; sections are lexical grouping only.
     for ($i = $Stack.Count - 1; $i -ge 0; $i--) {
         $item = $Stack[$i]
+        $itemName = [string]$item.Name
 
-        if ($item.Kind -eq 'namespace') {
-            $short = ([string]$item.Name).Split('.')[-1]
+        if ([string]::IsNullOrWhiteSpace($itemName)) {
+            continue
+        }
 
-            if ($item.Name -eq $Name -or $short -eq $Name) {
-                while ($Stack.Count -gt $i) {
-                    $Stack.RemoveAt($Stack.Count - 1)
-                }
-                return
+        $matches = $itemName -eq $Name
+
+        if (-not $matches -and $item.Kind -eq 'namespace') {
+            $short = $itemName.Split('.')[-1]
+            $matches = $short -eq $Name
+        }
+
+        if ($matches) {
+            while ($Stack.Count -gt $i) {
+                $Stack.RemoveAt($Stack.Count - 1)
             }
+            return
         }
     }
 
-    throw "Could not match namespace end '$Name'."
+    throw "Could not match named end '$Name'."
 }
 
 function Read-RequirementMappings {
@@ -210,24 +238,42 @@ function Get-DeclarationInventory {
     )
 
     $newline = Get-Newline $Text
-    $lines = $Text -split '\r?\n', -1
+    $lines = [regex]::Split($Text, '\r?\n')
     $lineStarts = Get-LineStarts $Text
     $stack = [System.Collections.Generic.List[object]]::new()
     $decls = [System.Collections.Generic.List[object]]::new()
 
     $declPattern =
         '^(?<indent>[ \t]*)(?:@\[[^\r\n]*\][ \t]+)?' +
-        '(?<mods>(?:(?:public|private|protected|meta|noncomputable)\s+)*)' +
+        '(?<mods>(?:(?:public|private|protected|meta|noncomputable|unsafe|partial)\s+)*)' +
         '(?<kind>inductive|structure|class|def|theorem|lemma|abbrev|opaque|axiom)\s+' +
         '(?<name>[A-Za-z_][A-Za-z0-9_''\.]*)'
+
+    $inBlockComment = $false
 
     for ($lineNo = 0; $lineNo -lt $lines.Count; $lineNo++) {
         $line = $lines[$lineNo]
         $trimmed = $line.Trim()
 
+        # Skip block comments and docstrings. Prose inside them can begin with
+        # words such as `class`, `def`, `end`, or `section`.
+        if ($inBlockComment) {
+            if ($line.Contains('-/')) {
+                $inBlockComment = $false
+            }
+            continue
+        }
+
+        if ($trimmed.StartsWith('/-')) {
+            if (-not $trimmed.Substring(2).Contains('-/')) {
+                $inBlockComment = $true
+            }
+            continue
+        }
+
         $namespaceMatch = [regex]::Match(
             $line,
-            '^[ \t]*namespace[ \t]+(?<name>[A-Za-z_][A-Za-z0-9_''\.]*)[ \t]*$'
+            '^[ \t]*namespace[ \t]+(?<name>[A-Za-z_][A-Za-z0-9_''\.]*)[ \t]*(?:--.*)?$'
         )
 
         if ($namespaceMatch.Success) {
@@ -240,20 +286,20 @@ function Get-DeclarationInventory {
 
         $sectionMatch = [regex]::Match(
             $line,
-            '^[ \t]*(?:@\[[^\r\n]*\][ \t]+)?(?:public[ \t]+)?section(?:[ \t]+[A-Za-z_][A-Za-z0-9_'']*)?[ \t]*$'
+            '^[ \t]*(?:@\[[^\r\n]*\][ \t]+)?(?:public[ \t]+)?section(?:[ \t]+(?<name>[A-Za-z_][A-Za-z0-9_'']*))?[ \t]*(?:--.*)?$'
         )
 
         if ($sectionMatch.Success) {
             $stack.Add([pscustomobject]@{
                 Kind = 'section'
-                Name = ''
+                Name = $sectionMatch.Groups['name'].Value
             })
             continue
         }
 
         $endMatch = [regex]::Match(
             $line,
-            '^[ \t]*end(?:[ \t]+(?<name>[A-Za-z_][A-Za-z0-9_''\.]*))?[ \t]*$'
+            '^[ \t]*end(?:[ \t]+(?<name>[A-Za-z_][A-Za-z0-9_''\.]*))?[ \t]*(?:--.*)?$'
         )
 
         if ($endMatch.Success) {
@@ -263,7 +309,7 @@ function Get-DeclarationInventory {
                 Pop-BareBlock $stack
             }
             else {
-                Pop-NamedNamespace $stack $name
+                Pop-NamedBlock $stack $name
             }
 
             continue
@@ -321,11 +367,15 @@ function Get-DeclarationInventory {
 
 $RequirementMappings = Read-RequirementMappings $RequirementsPath
 
-if ($RequirementMappings.Count -ne 24) {
-    throw "Expected 24 named paper-to-Lean target mappings; found $($RequirementMappings.Count)."
+if ($RequirementMappings.Count -eq 0) {
+    throw "No named paper-to-Lean target mappings were found."
 }
 
 $sourceFiles = Get-ChildItem -Path (Join-Path $Root 'SE') -Recurse -File -Filter '*.lean' |
+    Where-Object {
+        $relative = [IO.Path]::GetRelativePath($Root, $_.FullName) -replace '\\', '/'
+        $relative -ne 'SE/NeutralSubstrate/Spec.lean'
+    } |
     Sort-Object FullName
 
 $Inventory = [System.Collections.Generic.List[object]]::new()
@@ -382,17 +432,10 @@ $SpecialDocs = @{
         'The foundational-layer restriction holds exactly when every substrate commitment is either referential or a permitted attribution proposition.'
 }
 
-$SpecialObs = @{
-    'SE.NeutralSubstrate.FrameworkRelative.FrameworkInvariantProposition' =
-        'OBS: the paper''s "no admissible framework refutes p" gloss is one-way under the abstract consequence interface; no negation-introduction principle is assumed.'
-
-    'SE.NeutralSubstrate.NeutralityConstraint' =
-        'OBS: the necessity direction of the neutrality biconditional is part of the stated constraint for a realization; it is not derived from the minimal consequence-system interfaces.'
-}
-
 $ChangesByFile = @{}
 $AnnotatedDeclarations = 0
 $ImplementEdges = 0
+$PendingDetails = [System.Collections.Generic.List[object]]::new()
 
 foreach ($decl in $Inventory) {
     $text = $FileText[$decl.Path]
@@ -400,7 +443,7 @@ foreach ($decl in $Inventory) {
     $rr = [System.Collections.Generic.List[string]]::new()
     $defines = "RR.DEFINES: $($decl.FQN)"
 
-    if (-not $text.Contains("-- $defines")) {
+    if (-not (Test-CommentLine $text $defines)) {
         $rr.Add($defines)
     }
 
@@ -409,17 +452,8 @@ foreach ($decl in $Inventory) {
         $implements = "RR.IMPLEMENTS: $($RequirementMappings[$targetKey])"
         $ImplementEdges++
 
-        if (-not $text.Contains("-- $implements")) {
+        if (-not (Test-CommentLine $text $implements)) {
             $rr.Add($implements)
-        }
-    }
-
-    $obs = $null
-    if ($SpecialObs.ContainsKey($decl.FQN)) {
-        $candidate = [string]$SpecialObs[$decl.FQN]
-
-        if (-not $text.Contains("-- $candidate")) {
-            $obs = $candidate
         }
     }
 
@@ -432,7 +466,7 @@ foreach ($decl in $Inventory) {
         $doc = [string]$SpecialDocs[$decl.FQN]
     }
 
-    if ($rr.Count -eq 0 -and $null -eq $obs -and $null -eq $doc) {
+    if ($rr.Count -eq 0 -and $null -eq $doc) {
         continue
     }
 
@@ -449,10 +483,6 @@ foreach ($decl in $Inventory) {
         $parts.Add("$($decl.Indent)-- $line")
     }
 
-    if ($null -ne $obs) {
-        $parts.Add("$($decl.Indent)-- $obs")
-    }
-
     if ($null -ne $doc) {
         $parts.Add("$($decl.Indent)/-- $doc -/")
     }
@@ -467,6 +497,12 @@ foreach ($decl in $Inventory) {
         Index = $insertAt
         Text = $insert
         FQN = $decl.FQN
+    })
+
+    $PendingDetails.Add([pscustomobject]@{
+        Path = $decl.Path
+        FQN = $decl.FQN
+        Lines = @($parts)
     })
 
     $AnnotatedDeclarations++
@@ -487,6 +523,15 @@ foreach ($path in ($ChangesByFile.Keys | Sort-Object)) {
 }
 
 Write-Host ("Declarations with pending metadata changes: {0}" -f $AnnotatedDeclarations)
+
+Write-Host ''
+Write-Host 'PENDING CHANGES:'
+foreach ($item in ($PendingDetails | Sort-Object Path, FQN)) {
+    Write-Host "  $($item.Path) :: $($item.FQN)"
+    foreach ($line in $item.Lines) {
+        Write-Host "    + $line"
+    }
+}
 
 if (-not $Write) {
     Write-Host ''

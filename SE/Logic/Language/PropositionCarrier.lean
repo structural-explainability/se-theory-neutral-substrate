@@ -82,6 +82,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Logic.Language.PropositionCarrier
 /--
 The object language's propositions, as a bare type.
 The foundation of the logical layer.

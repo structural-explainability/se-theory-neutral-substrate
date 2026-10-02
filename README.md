@@ -89,7 +89,8 @@ Public symbols are declared in the reference artifacts.
 
 Maintain:
 
-- `lakefile.toml` and
+- `formalization\source\se100-lean-basis.md` - from the paper
+- `lakefile.toml`
 - `lean-toolchain`
 - `reference/theory-reference.toml` - hand-maintained configuration
 - `reference/*.toml` - hand-maintained/scaffolded reference source artifacts

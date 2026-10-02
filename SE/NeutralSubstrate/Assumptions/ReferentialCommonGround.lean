@@ -44,6 +44,8 @@ universe u v w x y
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.ReferentialCommonGround
+-- RR.IMPLEMENTS: se100.assump.ReferentialCommonGround
 /--
 Referential common ground holds when:
 
@@ -80,6 +82,7 @@ def ReferentialCommonGround
             (ReferentialCommitments C S F s)
             p)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.referentialCommonGround_iff
 /--
 Referential common ground holds exactly when the referential commitments and
 each permitted-attribution extension are framework-compatible.
@@ -110,6 +113,7 @@ theorem referentialCommonGround_iff
                 p) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.referentialCommitments_compatible_of_referentialCommonGround
 /--
 The substrate's referential commitments are compatible with every admissible
 framework.
@@ -131,6 +135,7 @@ theorem referentialCommitments_compatible_of_referentialCommonGround
       (ReferentialCommitments C S F s) :=
   hcommonGround.1
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.permittedAttribution_compatible_of_referentialCommonGround
 /--
 Adjoining a permitted attribution proposition to the referential
 commitments produces a framework-compatible commitment set.
@@ -156,6 +161,7 @@ theorem permittedAttribution_compatible_of_referentialCommonGround
         p) :=
   hcommonGround.2 p hp
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.consistent_referentialCommitments_of_referentialCommonGround
 /--
 The referential commitments remain consistent with the commitments of any
 admissible framework.
@@ -182,6 +188,7 @@ theorem consistent_referentialCommitments_of_referentialCommonGround
       hcommonGround)
     hframework
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.consistent_permittedAttribution_of_referentialCommonGround
 /--
 The referential commitments together with any permitted attribution
 proposition remain consistent with the commitments of any admissible

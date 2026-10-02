@@ -44,6 +44,7 @@ universe u v w x y
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeProposition
 /--
 An object-level causal or normative proposition is an object-level
 interpretive proposition whose content is classified as causal or normative
@@ -63,6 +64,8 @@ def ObjectLevelCausalOrNormativeProposition
   ObjectLevelInterpretiveProposition A I S s p ∧
     CausalOrNormativeProposition K c p
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment
+-- RR.IMPLEMENTS: se100.def.ObjectLevelCausalNormativeCommitment
 /--
 An object-level causal or normative commitment is a substrate-layer
 commitment to an object-level causal or normative proposition.
@@ -82,6 +85,7 @@ def ObjectLevelCausalOrNormativeCommitment
   SubstrateCommitment C S s p ∧
     ObjectLevelCausalOrNormativeProposition K c A I S s p
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.objectLevelCausalOrNormativeCommitment_iff
 /--
 A proposition is an object-level causal or normative commitment exactly when
 the substrate commits to it and it is an object-level causal or normative
@@ -104,6 +108,7 @@ theorem objectLevelCausalOrNormativeCommitment_iff
         ObjectLevelCausalOrNormativeProposition K c A I S s p :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.substrateCommitment_of_objectLevelCausalOrNormativeCommitment
 /--
 Every object-level causal or normative commitment is a substrate-layer
 commitment.
@@ -123,6 +128,7 @@ theorem substrateCommitment_of_objectLevelCausalOrNormativeCommitment
     SubstrateCommitment C S s p :=
   hp.1
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.objectLevelInterpretiveProposition_of_objectLevelCausalOrNormativeCommitment
 /--
 Every object-level causal or normative commitment concerns the referents
 fixed by the substrate.
@@ -142,6 +148,7 @@ theorem objectLevelInterpretiveProposition_of_objectLevelCausalOrNormativeCommit
     ObjectLevelInterpretiveProposition A I S s p :=
   hp.2.1
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.causalOrNormativeProposition_of_objectLevelCausalOrNormativeCommitment
 /--
 Every object-level causal or normative commitment has causal or normative
 content in the selected accountability context.

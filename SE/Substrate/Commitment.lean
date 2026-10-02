@@ -36,6 +36,8 @@ universe u v w
 
 public section
 
+-- RR.DEFINES: SE.Substrate.SubstrateCommitment
+-- RR.IMPLEMENTS: se100.def.SubstrateCommitment
 /--
 A substrate-layer commitment to `p` holds exactly when the substrate's
 commitment theory entails `p`.
@@ -50,6 +52,7 @@ def SubstrateCommitment
     Prop :=
   C.entails (S.commitments s) p
 
+-- RR.DEFINES: SE.Substrate.entails_of_substrateCommitment
 /--
 A substrate-layer commitment entails the committed proposition from the
 substrate's commitment theory.
@@ -65,6 +68,7 @@ theorem entails_of_substrateCommitment
     C.entails (S.commitments s) p :=
   hp
 
+-- RR.DEFINES: SE.Substrate.substrateCommitment_of_entails
 /--
 Entailment from a substrate's commitment theory establishes a substrate-layer
 commitment.

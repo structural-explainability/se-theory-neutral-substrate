@@ -12,8 +12,8 @@ public import SE.NeutralSubstrate.FrameworkRelative.Invariant
 
 This module formalizes:
 
-- `se100.def.FrameworkInvariant` — Framework-Invariant Proposition
-- `se100.remark.FrameworkInvariantRefutation` — Framework Invariance and Refutation
+- `se100.def.FrameworkInvariant` - Framework-Invariant Proposition
+- `se100.remark.FrameworkInvariantRefutation` - Framework Invariance and Refutation
 
 The remark relates framework invariance to the refutation gloss
 "no admissible framework refutes `p` on the shared base".

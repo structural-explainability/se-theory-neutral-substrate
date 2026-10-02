@@ -48,6 +48,8 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment
+-- RR.IMPLEMENTS: se100.def.InterpretiveNonCommitment
 /--
 A substrate satisfies interpretive non-commitment when every
 framework-variant proposition is absent from the substrate's commitments in
@@ -73,6 +75,7 @@ def InterpretiveNonCommitment
       ¬ SubstrateCommitment C S s p ∧
         ¬ SubstrateCommitment C S s (L.neg p)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_iff
 /--
 A substrate satisfies interpretive non-commitment exactly when it commits to
 neither a framework-variant proposition nor its object-language negation.
@@ -92,6 +95,7 @@ theorem interpretiveNonCommitment_iff
             ¬ SubstrateCommitment C S s (L.neg p) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.not_substrateCommitment_of_interpretiveNonCommitment
 /--
 A substrate satisfying interpretive non-commitment does not commit to a
 framework-variant proposition.
@@ -109,6 +113,7 @@ theorem not_substrateCommitment_of_interpretiveNonCommitment
     ¬ SubstrateCommitment C S s p :=
   (hnonCommitment p hvariant).1
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.not_negSubstrateCommitment_of_interpretiveNonCommitment
 /--
 A substrate satisfying interpretive non-commitment does not commit to the
 object-language negation of a framework-variant proposition.
@@ -126,6 +131,7 @@ theorem not_negSubstrateCommitment_of_interpretiveNonCommitment
     ¬ SubstrateCommitment C S s (L.neg p) :=
   (hnonCommitment p hvariant).2
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.no_commitment_pair_of_interpretiveNonCommitment
 /--
 Interpretive non-commitment supplies both non-commitment conclusions for a
 framework-variant proposition.

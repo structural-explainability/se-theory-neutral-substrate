@@ -67,6 +67,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Logic.Language.Negation
 /--
 A choice of negation operation on a proposition carrier:
 for each object-language proposition `p`,

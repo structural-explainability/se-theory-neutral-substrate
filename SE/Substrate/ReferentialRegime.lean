@@ -36,6 +36,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Substrate.ReferentConditionFamily
 /--
 A family of conditions over the three referent carriers.
 
@@ -69,6 +70,8 @@ structure ReferentConditionFamily
     R.InstitutionalArtifact →
     Prop
 
+-- RR.DEFINES: SE.Substrate.ReferentialRegime
+-- RR.IMPLEMENTS: se100.def.ReferentialRegime
 /--
 The triple of individuation, co-reference, and persistence conditions by
 which a substrate fixes and tracks entities, occurrences, and institutional

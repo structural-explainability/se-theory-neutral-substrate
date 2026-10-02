@@ -30,6 +30,7 @@ public section
 
 variable {P : SE.Logic.Language.PropositionCarrier.{u}}
 
+-- RR.DEFINES: SE.Logic.Theory.combine
 /--
 Combines two commitment theories by set union.
 -/
@@ -38,6 +39,7 @@ def combine
     CommitmentTheory P :=
   T ∪ U
 
+-- RR.DEFINES: SE.Logic.Theory.adjoin
 /--
 Adjoins one object-language proposition to a commitment theory.
 -/
@@ -48,6 +50,7 @@ def adjoin
   T ∪ {p}
 
 
+-- RR.DEFINES: SE.Logic.Theory.mem_combine_iff
 /--
 Membership in a combined commitment theory is membership in either component.
 -/
@@ -60,6 +63,7 @@ theorem mem_combine_iff
       p ∈ T ∨ p ∈ U :=
   Iff.rfl
 
+-- RR.DEFINES: SE.Logic.Theory.mem_adjoin_iff
 /--
 Membership after adjoining a proposition is membership in the original
 theory or equality with the adjoined proposition.
@@ -73,6 +77,7 @@ theorem mem_adjoin_iff
       p ∈ T ∨ p = q :=
   Iff.rfl
 
+-- RR.DEFINES: SE.Logic.Theory.subset_combine_left
 /--
 The left component is contained in the combined commitment theory.
 -/
@@ -83,6 +88,7 @@ theorem subset_combine_left
   intro p hp
   exact mem_combine_iff.mpr (Or.inl hp)
 
+-- RR.DEFINES: SE.Logic.Theory.subset_combine_right
 /--
 The right component is contained in the combined commitment theory.
 -/
@@ -93,6 +99,7 @@ theorem subset_combine_right
   intro p hp
   exact mem_combine_iff.mpr (Or.inr hp)
 
+-- RR.DEFINES: SE.Logic.Theory.subset_adjoin
 /--
 A commitment theory is contained in the theory obtained by adjoining a
 proposition.

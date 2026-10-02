@@ -41,6 +41,8 @@ universe u v w
 
 public section
 
+-- RR.DEFINES: SE.Substrate.SubstrateSystem
+-- RR.IMPLEMENTS: se100.def.Substrate
 /--
 An abstract interface for substrates over a propositional language and fixed
 referent carriers.

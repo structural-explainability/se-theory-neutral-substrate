@@ -42,6 +42,7 @@ universe u v w
 
 public section
 
+-- RR.DEFINES: SE.Substrate.ReferentialFixing
 /--
 An abstract account of which object-language propositions are fixed by a
 referential regime.
@@ -61,6 +62,8 @@ structure ReferentialFixing
     L.Proposition →
     Prop
 
+-- RR.DEFINES: SE.Substrate.ReferentialCommitments
+-- RR.IMPLEMENTS: se100.def.ReferentialCommitments
 /--
 The referential commitments of a substrate.
 
@@ -81,6 +84,7 @@ def ReferentialCommitments
     SubstrateCommitment C S s p ∧
       F.fixedBy (S.referentialRegime s) p}
 
+-- RR.DEFINES: SE.Substrate.mem_referentialCommitments_iff
 /--
 A proposition belongs to a substrate's referential commitments exactly when
 it is both a substrate-layer commitment and fixed by the substrate's
@@ -100,6 +104,7 @@ theorem mem_referentialCommitments_iff
         F.fixedBy (S.referentialRegime s) p :=
   Iff.rfl
 
+-- RR.DEFINES: SE.Substrate.substrateCommitment_of_mem_referentialCommitments
 /--
 Every referential commitment is a substrate-layer commitment.
 -/
@@ -115,6 +120,7 @@ theorem substrateCommitment_of_mem_referentialCommitments
     SubstrateCommitment C S s p :=
   hp.1
 
+-- RR.DEFINES: SE.Substrate.fixedByReferentialRegime_of_mem_referentialCommitments
 /--
 Every referential commitment is fixed by the substrate's referential regime.
 -/

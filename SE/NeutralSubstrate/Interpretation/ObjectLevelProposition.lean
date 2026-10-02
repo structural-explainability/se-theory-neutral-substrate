@@ -46,6 +46,7 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.ObjectLevelInterpretation
 /--
 An abstract account of whether an object-language proposition concerns the
 referents fixed by a referential regime.
@@ -66,6 +67,8 @@ structure ObjectLevelInterpretation
     L.Proposition →
     Prop
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.ObjectLevelInterpretiveProposition
+-- RR.IMPLEMENTS: se100.def.ObjectLevelInterpretiveProposition
 /--
 A proposition is object-level interpretive relative to a substrate when:
 
@@ -88,6 +91,7 @@ def ObjectLevelInterpretiveProposition
   I.aboutReferents (S.referentialRegime s) p ∧
     ¬ AttributionProposition A p
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.objectLevelInterpretiveProposition_iff
 /--
 A proposition is object-level interpretive exactly when it concerns the
 substrate-fixed referents and is not an attribution proposition.
@@ -106,6 +110,7 @@ theorem objectLevelInterpretiveProposition_iff
         ¬ AttributionProposition A p :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.aboutReferents_of_objectLevelInterpretiveProposition
 /--
 Every object-level interpretive proposition concerns the referents fixed by
 the substrate's referential regime.
@@ -122,6 +127,7 @@ theorem aboutReferents_of_objectLevelInterpretiveProposition
     I.aboutReferents (S.referentialRegime s) p :=
   hp.1
 
+-- RR.DEFINES: SE.NeutralSubstrate.Interpretation.not_attributionProposition_of_objectLevelInterpretiveProposition
 /--
 No object-level interpretive proposition is an attribution proposition under
 the selected attribution system.

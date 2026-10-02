@@ -34,6 +34,7 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.FoundationalLayerRestrictedToPermittedClasses
 /--
 The foundational layer is restricted to the permitted classes when every
 substrate-layer commitment is either a referential commitment or a permitted
@@ -57,6 +58,7 @@ def FoundationalLayerRestrictedToPermittedClasses
       p ∈ ReferentialCommitments C S F s ∨
         PermittedAttributionProposition C S F A B s p
 
+-- RR.DEFINES: SE.NeutralSubstrate.foundationalLayerRestrictedToPermittedClasses_iff
 /--
 A foundational layer is restricted to the permitted classes exactly when every
 substrate commitment is a referential commitment or a permitted attribution

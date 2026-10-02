@@ -51,6 +51,8 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.FrameworkInvariantProposition
+-- RR.IMPLEMENTS: se100.def.FrameworkInvariant
 /--
 A proposition is framework-invariant with respect to a substrate and
 framework class when adjoining it to every admissible substrate-framework
@@ -72,6 +74,7 @@ def FrameworkInvariantProposition
           (SubstrateFrameworkCommitments S s M framework)
           p)
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.frameworkInvariantProposition_iff
 /--
 A proposition is framework-invariant exactly when adjoining it to every
 admissible substrate-framework commitment theory remains consistent.
@@ -94,6 +97,7 @@ theorem frameworkInvariantProposition_iff
               p) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.consistent_adjoin_of_frameworkInvariantProposition
 /--
 Adjoining a framework-invariant proposition to the substrate together with
 any admissible framework produces a consistent commitment theory.

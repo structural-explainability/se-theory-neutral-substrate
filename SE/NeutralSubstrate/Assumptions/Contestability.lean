@@ -43,6 +43,8 @@ universe u v w x y z
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.Contestability
+-- RR.IMPLEMENTS: se100.assump.Contestability
 /--
 No contested causal or normative proposition is guaranteed
 framework-invariant at design time.
@@ -68,6 +70,7 @@ def Contestability
       ¬ GuaranteedAtDesignTime D
         (FrameworkInvariantProposition C S s M p)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.contestability_iff
 /--
 Contestability holds exactly when no member of the contested causal or
 normative class is guaranteed framework-invariant at design time.
@@ -92,6 +95,7 @@ theorem contestability_iff
             (FrameworkInvariantProposition C S s M p) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Assumptions.not_guaranteedFrameworkInvariant_of_contestability
 /--
 A contested causal or normative proposition is not guaranteed
 framework-invariant at design time.

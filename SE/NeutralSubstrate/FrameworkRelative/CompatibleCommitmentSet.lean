@@ -41,6 +41,8 @@ universe u v
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.FrameworkCompatibleCommitmentSet
+-- RR.IMPLEMENTS: se100.def.FrameworkCompatibleCommitmentSet
 /--
 A commitment set is framework-compatible when combining it with every
 admissible framework's commitment theory produces a consistent theory.
@@ -62,6 +64,7 @@ def FrameworkCompatibleCommitmentSet
       Consistent C
         (combine T (M.commitments framework))
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.frameworkCompatibleCommitmentSet_iff
 /--
 A commitment set is framework-compatible exactly when its union with every
 admissible framework's commitment theory remains consistent.
@@ -79,6 +82,7 @@ theorem frameworkCompatibleCommitmentSet_iff
             (combine T (M.commitments framework)) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.FrameworkRelative.consistent_combine_of_frameworkCompatibleCommitmentSet
 /--
 A framework-compatible commitment set remains consistent when combined with
 the commitments of any selected admissible framework.

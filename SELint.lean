@@ -48,7 +48,7 @@ set_option linter.hashCommand false
   nonClassInstance
   simpNF
   simpComm
-  in SE.IdentityRegimes
+  in SE.NeutralSubstrate
 
 public def main : IO Unit :=
   pure ()

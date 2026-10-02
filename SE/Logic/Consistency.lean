@@ -31,6 +31,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Logic.Consistent
 /--
 A commitment theory is consistent when it does not entail the distinguished
 object-language contradiction proposition.
@@ -42,6 +43,7 @@ def Consistent
     Prop :=
   ¬ C.entails T L.bottom
 
+-- RR.DEFINES: SE.Logic.not_entailsBottom_of_consistent
 /--
 Consistency means that the commitment theory does not entail contradiction.
 -/
@@ -53,6 +55,7 @@ theorem not_entailsBottom_of_consistent
     ¬ C.entails T L.bottom :=
   hconsistent
 
+-- RR.DEFINES: SE.Logic.consistent_of_not_entailsBottom
 /--
 Failure to entail contradiction establishes consistency.
 -/

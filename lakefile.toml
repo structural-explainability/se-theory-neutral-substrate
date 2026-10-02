@@ -14,7 +14,7 @@
 # ============================================================
 
 name = "se-theory-neutral-substrate"
-version = "0.9.0"
+version = "0.10.0"
 license = "MIT"
 
 # ============================================================
@@ -65,7 +65,7 @@ rev = "v4.32.1"
 [[lean_lib]]
 name = "SE.NeutralSubstrate"
 roots = ["SE.NeutralSubstrate"]
-globs = ["SE", "SE.NeutralSubstrate.*"]
+globs = ["SE.*"]
 # Lake supports .* for the named module plus all its submodules.
 
 # ============================================================

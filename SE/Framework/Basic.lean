@@ -34,6 +34,7 @@ universe u v
 
 public section
 
+-- RR.DEFINES: SE.Framework.FrameworkSystem
 /--
 An abstract interface for candidate interpretive frameworks over an
 object-language proposition carrier.

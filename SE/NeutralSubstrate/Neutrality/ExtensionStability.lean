@@ -44,6 +44,8 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.ExtensionStability
+-- RR.IMPLEMENTS: se100.def.ExtensionStability
 /--
 A substrate satisfies extension stability when its combined commitment
 theory with every admissible framework remains consistent.
@@ -67,6 +69,7 @@ def ExtensionStability
       Consistent C
         (SubstrateFrameworkCommitments S s M framework)
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.extensionStability_iff
 /--
 A substrate satisfies extension stability exactly when every admissible
 substrate-framework commitment theory remains consistent.
@@ -86,6 +89,7 @@ theorem extensionStability_iff
             (SubstrateFrameworkCommitments S s M framework) :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Neutrality.consistent_substrateFrameworkCommitments_of_extensionStability
 /--
 Extension stability supplies consistency for the substrate combined with any
 selected admissible framework.

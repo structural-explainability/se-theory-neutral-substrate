@@ -26,6 +26,7 @@ universe u
 
 public section
 
+-- RR.DEFINES: SE.Logic.Theory.CommitmentTheory
 /--
 A collection of object-language propositions treated as commitments.
 

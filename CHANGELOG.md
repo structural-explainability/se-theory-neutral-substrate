@@ -13,6 +13,36 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
+## [0.10.0] - 2026-10-02
+
+### Added
+
+- Added Reactive Research annotations to the Lean source: each named
+  production declaration declares its exact name, and the declarations that
+  realize a paper item link back to its `se100.*` identifier. The links are
+  derived from `reference/substrate-requirements.toml`.
+- Added `SE/NeutralSubstrate/FrameworkRelative/InvariantRefutation.lean`,
+  formalizing `se100.remark.FrameworkInvariantRefutation`: framework invariance
+  implies non-refutation, and the converse holds under negation introduction,
+  which is supplied as a hypothesis.
+- Added the `se100.remark.FrameworkInvariantRefutation` paper identifier.
+
+### Changed
+
+- Documented the remaining undocumented declaration, so every production
+  declaration has a docstring.
+- Refreshed the SE-100 Lean basis from the current paper source.
+- Updated the lint driver to check this package's declarations.
+- Regenerated theory-reference JSON artifacts and the reference catalog.
+
+### Fixed
+
+- Fixed Lake library globs so every module this package owns is built and
+  linked, which also fixes `lake lint` failing at link time, i.e.,
+  `lakefile.toml` `[[lean_lib]]` to `globs = ["SE.*"]`
+
+---
+
 ## [0.9.0] - 2026-10-01
 
 ### Added
@@ -528,7 +558,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.10.0
 [0.9.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.9.0
 [0.8.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.8.0
 [0.7.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.7.0

@@ -47,6 +47,7 @@ universe u v w x
 
 public section
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.InterpretiveStatusFixing
 /--
 An abstract account of whether the interpretive status of a proposition is
 fixed by a commitment theory in an accountability context.
@@ -69,6 +70,8 @@ structure InterpretiveStatusFixing
     L.Proposition →
     Prop
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.ContestedCausalOrNormativeProposition
+-- RR.IMPLEMENTS: se100.def.ContestedCausalNormative
 /--
 A proposition is contested causal or normative when:
 
@@ -98,6 +101,7 @@ def ContestedCausalOrNormativeProposition
       (ReferentialCommitments C S F s)
       p
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.ContestedCausalOrNormativeClass
 /--
 The class `C_cn` of contested causal or normative propositions for the
 selected substrate and accountability context.
@@ -117,6 +121,7 @@ def ContestedCausalOrNormativeClass
     ContestedCausalOrNormativeProposition
       C K c G S F s p}
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.contestedCausalOrNormativeProposition_iff
 /--
 A proposition is contested causal or normative exactly when it is causal or
 normative and its interpretive status is not fixed by the referential
@@ -142,6 +147,7 @@ theorem contestedCausalOrNormativeProposition_iff
           p :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.mem_contestedCausalOrNormativeClass_iff
 /--
 Membership in `C_cn` is equivalent to being a contested causal or normative
 proposition.
@@ -162,6 +168,7 @@ theorem mem_contestedCausalOrNormativeClass_iff
       ContestedCausalOrNormativeProposition C K c G S F s p :=
   Iff.rfl
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.causalOrNormativeProposition_of_contestedCausalOrNormativeProposition
 /--
 Every contested causal or normative proposition is classified as causal or
 normative in the selected accountability context.
@@ -181,6 +188,7 @@ theorem causalOrNormativeProposition_of_contestedCausalOrNormativeProposition
     CausalOrNormativeProposition K c p :=
   hp.1
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.not_fixedBy_of_contestedCausalOrNormativeProposition
 /--
 The interpretive status of a contested causal or normative proposition is
 not fixed by the substrate's referential commitments.

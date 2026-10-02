@@ -66,8 +66,8 @@ def se100DefFrameworkVariant : String :=
 def se100DefFrameworkInvariant : String :=
   "se100.def.FrameworkInvariant"
 
-/-- Paper item: framework-invariant proposition. -/
-def se100DefFrameworkInvariantRefutation : String :=
+/-- Paper item: framework-invariant refutation remark. -/
+def se100RemarkFrameworkInvariantRefutation : String :=
   "se100.remark.FrameworkInvariantRefutation"
 
 /-- Paper item: framework-compatible commitment set. -/
