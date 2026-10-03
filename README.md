@@ -96,7 +96,7 @@ Maintain:
 - `reference/*.toml` - hand-maintained/scaffolded reference source artifacts
 - Lean source + RR comments - hand-maintained theory source
 
-### Clone and Open in VS Code
+### Clone and Open Project in VS Code
 
 Open a machine terminal where you want the project
 and open in VS Code:
@@ -108,31 +108,50 @@ cd se-theory-neutral-substrate
 code .
 ```
 
-### Manage Python and Lean
+### Setup and Run
 
 Use VS Code Menu:
 View / Command Palette / `Developer: Reload Window` to refresh.
 
-```pwsh
+```shell
 .\sit.ps1
 .\rel.ps1
-```
 
-```shell
+# inspect shared theory-reference command surface
+uvx se-theory-reference-kit@latest --help
+uvx se-theory-reference-kit@latest validate --help
+uvx se-theory-reference-kit@latest scaffold --help
+uvx se-theory-reference-kit@latest export --help
+uvx se-theory-reference-kit@latest catalog --help
+uvx se-theory-reference-kit@latest inspect --help
+
+# validate reference artifacts against the declared Lean public surface
+uvx se-theory-reference-kit@latest validate
+uvx se-theory-reference-kit@latest validate --strict
+
+# scaffold reference artifacts from Lean public declarations
+uvx se-theory-reference-kit@latest scaffold
+uvx se-theory-reference-kit@latest scaffold --dry-run
+uvx se-theory-reference-kit@latest scaffold --overwrite
+
+# regenerate or check generated JSON artifacts from reference TOML
+uvx se-theory-reference-kit@latest export
+uvx se-theory-reference-kit@latest export --check
+
+# build or verify the generated reference catalog
+uvx se-theory-reference-kit@latest catalog
+uvx se-theory-reference-kit@latest catalog --check
+
+# inspect resolved repository configuration and reference declarations
+uvx se-theory-reference-kit@latest inspect
+
+# validate SE manifest file
+uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
+
 # save progress
 git add -A
 git commit -m "update"
 git push -u origin main
-```
-
-### Inspect Theory-Reference Commands
-
-```shell
-uv run se-theory-reference --help
-uv run se-theory-reference inspect --help
-uv run se-theory-reference export --help
-uv run se-theory-reference catalog --help
-uv run se-theory-reference validate --help
 ```
 
 ## Authority Manifest

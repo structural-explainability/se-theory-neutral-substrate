@@ -4,49 +4,49 @@
   "namespace": "se.neutral_substrate",
   "artifact": "neutral-substrate-catalog",
   "reference_paths": [
-    "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-axioms.toml",
-    "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/dependency-registry.toml",
-    "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-predicates.toml",
-    "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-requirements.toml",
-    "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-theorems.toml",
-    "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/traceability-registry.toml",
-    "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-types.toml"
+    "reference/substrate-axioms.toml",
+    "reference/dependency-registry.toml",
+    "reference/substrate-predicates.toml",
+    "reference/substrate-requirements.toml",
+    "reference/substrate-theorems.toml",
+    "reference/traceability-registry.toml",
+    "reference/substrate-types.toml"
   ],
   "reference_artifacts": [
     {
       "id": "axiom",
       "kind": "axiom",
-      "path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-axioms.toml"
+      "path": "reference/substrate-axioms.toml"
     },
     {
       "id": "dependency",
       "kind": "dependency",
-      "path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/dependency-registry.toml"
+      "path": "reference/dependency-registry.toml"
     },
     {
       "id": "predicate",
       "kind": "predicate",
-      "path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-predicates.toml"
+      "path": "reference/substrate-predicates.toml"
     },
     {
       "id": "requirement",
       "kind": "requirement",
-      "path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-requirements.toml"
+      "path": "reference/substrate-requirements.toml"
     },
     {
       "id": "theorem",
       "kind": "theorem",
-      "path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-theorems.toml"
+      "path": "reference/substrate-theorems.toml"
     },
     {
       "id": "traceability",
       "kind": "traceability",
-      "path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/traceability-registry.toml"
+      "path": "reference/traceability-registry.toml"
     },
     {
       "id": "type",
       "kind": "type",
-      "path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-types.toml"
+      "path": "reference/substrate-types.toml"
     }
   ]
 }

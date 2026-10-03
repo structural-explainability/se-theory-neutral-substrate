@@ -448,11 +448,12 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 ## Notes on versioning and releases
 
 - We use **SemVer**:
-  - \*_MAJOR_- – breaking changes
-  - \*_MINOR_- – backward-compatible additions
-  - \*_PATCH_- – fixes, documentation, tooling
+  - **MAJOR** - breaking changes to formal surface or validation semantics
+  - **MINOR** - backward-compatible additions to theory vocabulary or artifacts
+  - **PATCH** - fixes, documentation, tooling
 - Versions are driven by git tags. Tag `vX.Y.Z` to release.
-- Docs are deployed per version tag and aliased to **latest**.
+- During `0.x` development, breaking formal-surface changes
+  may occur in a **MINOR** release.
 
 ## Release Procedure (Required)
 
@@ -511,17 +512,22 @@ lake build
 lake test
 lake lint
 
+# check docs (may not work on windows/runs via gh action)
+# cd docbuild
+# lake build SE.NeutralSubstrate:docs
+# cd ..
+
 # Generate JSON artifacts and catalog from reference TOML.
-uv run se-theory-reference inspect
-uv run se-theory-reference export
-uv run se-theory-reference catalog
+uvx se-theory-reference-kit@latest inspect
+uvx se-theory-reference-kit@latest export
+uvx se-theory-reference-kit@latest catalog
 
 # Validate the reference artifacts against the Lean public surface.
-uv run se-theory-reference validate --strict
+uvx se-theory-reference-kit@latest validate --strict
 
 # Verify generated artifacts are current without rewriting them.
-uv run se-theory-reference export --check
-uv run se-theory-reference catalog --check
+uvx se-theory-reference-kit@latest export --check
+uvx se-theory-reference-kit@latest catalog --check
 
 .\rel.ps1
 .\sit.ps1
@@ -537,8 +543,7 @@ git commit -m "Prep X.Y.Z"
 git push -u origin main
 ```
 
-Verify that all required GitHub Actions complete successfully,
-including the combined Zensical and Lean API documentation deployment.
+Verify that all required GitHub Actions complete successfully.
 
 ### Task 4. Tag and Push the Release
 

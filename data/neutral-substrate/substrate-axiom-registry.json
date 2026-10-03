@@ -4,6 +4,6 @@
   "namespace": "se.neutral_substrate",
   "artifact": "substrate-axiom-registry",
   "reference_artifact": "substrate-axioms",
-  "reference_path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-axioms.toml",
+  "reference_path": "reference/substrate-axioms.toml",
   "axiom": []
 }

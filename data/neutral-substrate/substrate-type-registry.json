@@ -4,7 +4,7 @@
   "namespace": "se.neutral_substrate",
   "artifact": "substrate-type-registry",
   "reference_artifact": "substrate-types",
-  "reference_path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-types.toml",
+  "reference_path": "reference/substrate-types.toml",
   "type": [
     {
       "id": "AttributionSystem",

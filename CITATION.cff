@@ -12,7 +12,7 @@ type: software
 
 title: "Formal Theory: Neutral Substrate"
 version: "0.10.0"
-date-released: "2026-10-02"
+date-released: "2026-10-03"
 
 identifiers:
   - type: doi

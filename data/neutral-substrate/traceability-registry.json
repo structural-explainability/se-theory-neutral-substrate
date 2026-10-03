@@ -4,6 +4,6 @@
   "namespace": "se.neutral_substrate",
   "artifact": "traceability-registry",
   "reference_artifact": "traceability-registry",
-  "reference_path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/traceability-registry.toml",
+  "reference_path": "reference/traceability-registry.toml",
   "traceability": []
 }

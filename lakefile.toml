@@ -59,24 +59,21 @@ rev = "v4.32.1"
 # ============================================================
 # PUBLIC LIBRARY
 # ============================================================
-# The library downstream packages import. It must list every module
-# family this package owns under SE/. A module matched by no glob is not
-# built: a clean build fails, or the lint executable fails at link time with
-# undefined symbols. Tests (SETest) and the lint driver (SELint) are separate
-# targets.
+# The library downstream packages import. It must claim only the module
+# family owned by this package. Other packages own other SE.* families.
 #
-# Do not use "SE.*". Other packages own other SE.* families
-# (for example SE.Transformation); claiming them breaks any package
-# that requires both.
+# Do not claim the shared top-level module "SE". Multiple theory packages
+# coexist in the same dependency graph, so each library must own only its
+# namespaced family (for example SE.Persistence or SE.Transformation).
 #
 # Glob forms:
-#   "A.B"    only the module A.B itself (here: "SE", the entry point SE.lean)
-#   "A.B.*"  A.B and all its submodules (use when A/B.lean exists)
-#   "A.B.+"  submodules of A.B only, not A.B itself (use for a directory
-#            with no A/B.lean)
+#   "A.B"    only module A.B
+#   "A.B.*"  A.B and all its submodules
+#   "A.B.+"  all submodules of A.B, but not A.B itself
 #
-# To add a family under SE/, add "SE.<Family>.+" (or ".*" if SE/<Family>.lean
-# exists).
+# Use ".*" when the family has a root module such as SE/Persistence.lean.
+# Use ".+" for a submodule directory that has no corresponding root .lean
+# file when that family is listed separately.
 
 [[lean_lib]]
 name = "SE.NeutralSubstrate"

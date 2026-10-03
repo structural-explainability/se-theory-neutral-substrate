@@ -12,7 +12,6 @@ predicates, assumptions, theorems, and proof obligations.
 
 - [Lean API Reference](https://structural-explainability.github.io/se-theory-neutral-substrate/lean/)
 - [GitHub Repository](https://github.com/structural-explainability/se-theory-neutral-substrate)
-- [Citation Metadata](https://github.com/structural-explainability/se-theory-neutral-substrate/blob/main/CITATION.cff)
 
 ## Neutral Substrate
 
@@ -34,8 +33,10 @@ The formalization distinguishes:
 - neutrality by design
 - the neutrality constraint
 
-Neutral Substrate theory is upstream of identity regimes, persistence theories,
-operational identity, and interpretive kernels.
+Neutral Substrate theory defines foundational neutrality and admissibility
+conditions. Relationships to Transformation Theory, Persistence Theory,
+Identity Regimes, Operational Identity, and the Interpretive Kernel are
+introduced only where later theory layers explicitly compose them.
 
 ## Theory Structure
 
@@ -90,7 +91,8 @@ This repository covers:
 
 This repository owns:
 
-- the curated public root `SE.lean`
+- the public import surface `SE/NeutralSubstrate.lean`
+- the repository-level aggregator `SE.lean`
 - foundational Lean modules under `SE/Logic/`
 - framework modules under `SE/Framework/`
 - referent modules under `SE/Referent/`
@@ -108,14 +110,7 @@ Those concerns belong to downstream Structural Explainability repositories:
 
 - transformation theory
 - persistence theory
-- identity-regime theory
-- operational identity auditing
-- interpretive-kernel theory
-- regime profiles
-- regime classification matrices
 - mapping semantics
-- accountable-record models
-- evolution protocols
 - domain-specific scheduling semantics
 - runtime validation
 - runtime systems
@@ -162,89 +157,27 @@ It must not:
 Exact declaration signatures and source documentation are available in the
 [Lean API Reference](https://structural-explainability.github.io/se-theory-neutral-substrate/lean/).
 
-## Repository Contents
-
-```text
-SE.lean
-SE/
-├── Logic/
-├── Framework/
-├── Referent/
-├── Substrate/
-└── NeutralSubstrate/
-
-SETest.lean
-SETest/
-└── NeutralSubstrate/
-
-reference/
-data/neutral-substrate/
-docbuild/
-docs/
-```
-
 ## Import
 
 Downstream Lean projects should import the public surface:
 
 ```lean
-import SE
+import SE.NeutralSubstrate
 ```
 
-The curated public import surface is declared in:
-
-```text
-SE.lean
-```
-
-## Validation
-
-Build and validate the Lean theory:
-
-```shell
-lake build
-lake test
-lake lint
-```
-
-Validate reference artifacts:
-
-```shell
-uv run se-theory-reference validate
-uv run se-theory-reference validate --strict
-uv run se-theory-reference export --check
-uv run se-theory-reference catalog --check
-uv run se-theory-reference inspect
-```
-
-Validate the repository manifest:
-
-```shell
-uvx se-manifest-schema validate-manifest --strict
-```
-
-Build the narrative documentation:
-
-```shell
-uv run python -m zensical build
-```
-
-The deployment workflow builds the generated Lean API documentation from
-`docbuild/` and publishes it with the Zensical site.
-
-## Tooling Boundary
+## Tooling
 
 Python and other tooling may be used for:
 
 - documentation generation
 - formatting and linting
 - repository automation
-- reference-artifact validation
-- generated-artifact export checks
+- reference artifact validation
+- generated contract export checks
 
-Tooling must not:
+They must not:
 
-- define formal correctness
-- replace Lean definitions or proofs
+- define correctness
 - validate theory semantics independently of Lean
+- replace Lean definitions or proofs
 - introduce downstream theory dependencies

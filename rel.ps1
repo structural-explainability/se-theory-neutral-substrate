@@ -7,9 +7,6 @@
 
 <#
 Run the repository release-validation sequence.
-
-This repository is a Lean/reference repository that consumes
-se-theory-reference-kit.
 It does not build or publish a local Python package.
 #>
 
@@ -141,20 +138,20 @@ Invoke-Step "B3) Run Lean linter" "lake lint" {
 
 Invoke-Step `
     "C1) Inspect resolved theory-reference declarations" `
-    "uv run --locked se-theory-reference inspect" {
-    uv run --locked se-theory-reference inspect
+    "uvx se-theory-reference-kit@latest inspect" {
+    uvx se-theory-reference-kit@latest inspect
 }
 
 Invoke-Step `
     "C2) Regenerate reference JSON artifacts" `
-    "uv run --locked se-theory-reference export" {
-    uv run --locked se-theory-reference export
+    "uvx se-theory-reference-kit@latest export" {
+    uvx se-theory-reference-kit@latest export
 }
 
 Invoke-Step `
     "C3) Build generated reference catalog" `
-    "uv run --locked se-theory-reference catalog" {
-    uv run --locked se-theory-reference catalog
+    "uvx se-theory-reference-kit@latest catalog" {
+    uvx se-theory-reference-kit@latest catalog
 }
 
 # ============================================================
@@ -163,44 +160,44 @@ Invoke-Step `
 
 Invoke-Step `
     "E1) Regenerate reference JSON artifacts after autofixes" `
-    "uv run --locked se-theory-reference export" {
-    uv run --locked se-theory-reference export
+    "uvx se-theory-reference-kit@latest export" {
+    uvx se-theory-reference-kit@latest export
 }
 
 Invoke-Step `
     "E2) Rebuild generated reference catalog after autofixes" `
-    "uv run --locked se-theory-reference catalog" {
-    uv run --locked se-theory-reference catalog
+    "uvx se-theory-reference-kit@latest catalog" {
+    uvx se-theory-reference-kit@latest catalog
 }
 
 Invoke-Step `
     "E3) Confirm generated JSON artifacts are current" `
-    "uv run --locked se-theory-reference export --check" {
-    uv run --locked se-theory-reference export --check
+    "uvx se-theory-reference-kit@latest export --check" {
+    uvx se-theory-reference-kit@latest export --check
 }
 
 Invoke-Step `
     "E4) Confirm generated reference catalog is current" `
-    "uv run --locked se-theory-reference catalog --check" {
-    uv run --locked se-theory-reference catalog --check
+    "uvx se-theory-reference-kit@latest catalog --check" {
+    uvx se-theory-reference-kit@latest catalog --check
 }
 
 Invoke-Step `
     "E5) Validate reference artifacts" `
-    "uv run --locked se-theory-reference validate" {
-    uv run --locked se-theory-reference validate
+    "uvx se-theory-reference-kit@latest validate" {
+    uvx se-theory-reference-kit@latest validate
 }
 
 Invoke-Step `
     "E6) Run strict reference validation" `
-    "uv run --locked se-theory-reference validate --strict" {
-    uv run --locked se-theory-reference validate --strict
+    "uvx se-theory-reference-kit@latest validate --strict" {
+    uvx se-theory-reference-kit@latest validate --strict
 }
 
 Invoke-Step `
     "E7) Inspect final resolved declarations" `
-    "uv run --locked se-theory-reference inspect" {
-    uv run --locked se-theory-reference inspect
+    "uvx se-theory-reference-kit@latest inspect" {
+    uvx se-theory-reference-kit@latest inspect
 }
 
 Invoke-Step `
@@ -212,18 +209,6 @@ Invoke-Step `
 Invoke-Step "E9) Stage final generated artifacts" "git add -A" {
     git add -A
 }
-
-# ============================================================
-# === F) Documentation ===
-# ============================================================
-
-Invoke-Step `
-    "F1) Build Zensical documentation" `
-    "uv run --locked python -m zensical build" {
-    uv run --locked python -m zensical build
-}
-
-# Lean API documentation is built on Ubuntu by the GitHub Pages workflow.
 
 # ============================================================
 # === G) Final repository status ===

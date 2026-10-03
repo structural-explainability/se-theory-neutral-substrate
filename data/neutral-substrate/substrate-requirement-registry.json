@@ -4,7 +4,7 @@
   "namespace": "se.neutral_substrate",
   "artifact": "substrate-requirement-registry",
   "reference_artifact": "substrate-requirements",
-  "reference_path": "C:/Users/edaci/Documents/structural-explainability/theory/se-theory-neutral-substrate/reference/substrate-requirements.toml",
+  "reference_path": "reference/substrate-requirements.toml",
   "requirement": [
     {
       "order": 1,
