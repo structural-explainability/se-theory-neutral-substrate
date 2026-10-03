@@ -9,7 +9,7 @@ repo = "se-theory-neutral-substrate"
 surface_module = "SE"
 namespace = "SE.NeutralSubstrate"
 
-# The 0.8.0 formalization declares no Lean axioms.
+# The formalization declares no Lean axioms.
 #
 # Paper assumptions are represented as explicit parameterized predicates:
 #

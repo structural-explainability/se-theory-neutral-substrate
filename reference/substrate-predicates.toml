@@ -13,7 +13,6 @@ namespace = "SE.NeutralSubstrate"
 source = "se-theory-neutral-substrate"
 namespace = "se.neutral_substrate"
 artifact = "substrate-predicates"
-version = "0.8.0"
 status = "canonical"
 
 # ============================================================
