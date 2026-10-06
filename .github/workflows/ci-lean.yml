@@ -38,7 +38,7 @@ jobs:
         # WHY: Required so all subsequent steps can access repo files.
 
       - name: A2) Set up Lean toolchain
-        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
+        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1
         with:
           build: false
           test: false
