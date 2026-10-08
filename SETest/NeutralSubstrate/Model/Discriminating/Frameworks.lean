@@ -1,8 +1,3 @@
-/-
-Copyright (c) 2026 Denise M. Case.
-Released under MIT license as described in the file LICENSE.
-Authors: Denise M. Case
--/
 module
 
 public import SETest.NeutralSubstrate.Model.Consequence
@@ -132,7 +127,9 @@ theorem denyingFramework_commitments :
 @[simp]
 theorem affirmingFramework_ne_denyingFramework :
     affirmingFramework ≠ denyingFramework := by
-  simp [affirmingFramework, denyingFramework]
+  change FrameworkView.affirming ≠ FrameworkView.denying
+  intro h
+  cases h
 
 @[simp]
 theorem referenceProposition_ne_contestedProposition :

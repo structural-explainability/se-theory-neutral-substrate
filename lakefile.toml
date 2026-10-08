@@ -54,7 +54,7 @@ weak.linter.unicodeLinter = false
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "v4.32.1"
+rev = "v4.34.0"
 
 # ============================================================
 # PUBLIC LIBRARY

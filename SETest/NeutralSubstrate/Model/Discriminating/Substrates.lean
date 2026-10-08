@@ -1,8 +1,3 @@
-/-
-Copyright (c) 2026 Denise M. Case.
-Released under MIT license as described in the file LICENSE.
-Authors: Denise M. Case
--/
 module
 
 public import SETest.NeutralSubstrate.Model.Discriminating.Frameworks
@@ -127,7 +122,9 @@ theorem nonNeutralSubstrate_commitments :
 @[simp]
 theorem neutralSubstrate_ne_nonNeutralSubstrate :
     neutralSubstrate ≠ nonNeutralSubstrate := by
-  simp [neutralSubstrate, nonNeutralSubstrate]
+  change SubstrateView.neutral ≠ SubstrateView.nonNeutral
+  intro h
+  cases h
 
 @[simp]
 theorem referentialFixing_fixedBy_iff
