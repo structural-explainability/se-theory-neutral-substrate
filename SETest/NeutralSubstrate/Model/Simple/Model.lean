@@ -72,24 +72,67 @@ def referents : ReferentCarriers where
   InstitutionalArtifact := Unit
 
 /--
-A trivial family of referent conditions for the simple model.
+The trivial individuation account used by the simple model.
 
-All relevant carriers are singleton types, so every required condition can
-be witnessed trivially.
+The model has singleton candidate presentations and referent carriers, so
+all individuation judgments hold trivially.
 -/
-def conditionFamily : ReferentConditionFamily referents where
-  entity := fun _ _ => True
-  occurrence := fun _ _ => True
-  institutionalArtifact := fun _ _ => True
+def individuationAccount : IndividuationAccount Unit where
+  Context := Unit
+  Presentation := Unit
+  presents := fun _ _ _ => True
+  admissiblePresentation := fun _ _ => True
+  one := fun _ _ => True
+  sameUnit := fun _ _ _ => True
+
+/--
+The trivial individuation regime used by the simple model.
+-/
+def individuation : IndividuationRegime referents where
+  entity := individuationAccount
+  occurrence := individuationAccount
+  institutionalArtifact := individuationAccount
+
+/--
+The trivial co-reference account used by the simple model.
+-/
+def coReferenceAccount : CoReferenceAccount Unit where
+  Context := Unit
+  Reference := Unit
+  coReference := fun _ _ _ => True
+
+/--
+The trivial co-reference regime used by the simple model.
+-/
+def coReference : CoReferenceRegime referents where
+  entity := coReferenceAccount
+  occurrence := coReferenceAccount
+  institutionalArtifact := coReferenceAccount
+
+/--
+The trivial persistence account used by the simple model.
+-/
+def persistenceAccount : PersistenceAccount Unit where
+  Setting := Unit
+  Stage := Unit
+  eligibleStage := fun _ _ => True
+  persists := fun _ _ _ _ => True
+
+/--
+The trivial persistence regime used by the simple model.
+-/
+def persistence : PersistenceRegime referents where
+  entity := persistenceAccount
+  occurrence := persistenceAccount
+  institutionalArtifact := persistenceAccount
 
 /--
 The trivial referential regime used by the simple substrate.
 -/
 def referentialRegime : ReferentialRegime referents where
-  individuationConditions := conditionFamily
-  coReferenceConditions := conditionFamily
-  persistenceConditions := conditionFamily
-
+  individuation := individuation
+  coReference := coReference
+  persistence := persistence
 /--
 The simple substrate system.
 

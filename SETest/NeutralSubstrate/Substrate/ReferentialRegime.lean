@@ -13,10 +13,9 @@ set_option autoImplicit false
 
 namespace SETest.NeutralSubstrate.Substrate.ReferentialRegime
 
-#check SE.Substrate.ReferentConditionFamily
 #check SE.Substrate.ReferentialRegime
-#check SE.Substrate.ReferentialRegime.individuationConditions
-#check SE.Substrate.ReferentialRegime.coReferenceConditions
-#check SE.Substrate.ReferentialRegime.persistenceConditions
+#check SE.Substrate.ReferentialRegime.individuation
+#check SE.Substrate.ReferentialRegime.coReference
+#check SE.Substrate.ReferentialRegime.persistence
 
 end SETest.NeutralSubstrate.Substrate.ReferentialRegime

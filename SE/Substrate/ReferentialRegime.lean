@@ -2,23 +2,31 @@ module
 
 public import SE.Referent.Carriers
 
+public import SE.Substrate.ReferentialRegime.CoReference
+public import SE.Substrate.ReferentialRegime.Individuation
+public import SE.Substrate.ReferentialRegime.Persistence
+
+
 /-!
 # Referential Regime
 
 This module formalizes:
 
-- `se100.def.ReferentialRegime` — Referential Regime
+- `se100.def.ReferentialRegime` - Referential Regime
 
-A referential regime is the triple of individuation, co-reference, and
-persistence conditions by which a substrate fixes and tracks entities,
-occurrences, and institutional artifacts.
+A referential regime composes the distinct semantic accounts by which a
+substrate individuates referents, relates references by co-reference, and
+tracks persistence.
 
-The conditions are represented abstractly as binary relations over each
-referent carrier. No equivalence-relation laws, decidability, finiteness,
-enumeration, or computational representation are assumed here.
+Individuation, co-reference, and persistence are intentionally represented
+by different interfaces.
+They are not assumed to have the same semantic structure.
 
-Later theories may impose additional structure on particular referential
-regimes without changing this Paper 100 interface.
+The component interfaces remain abstract.
+In particular, this module does not identify carrier equality
+with individuation, co-reference, or persistence,
+and it does not supply the substantive theories deferred to
+later layers.
 -/
 
 set_option autoImplicit false
@@ -31,70 +39,34 @@ universe u
 
 public section
 
--- RR.DEFINES: SE.Substrate.ReferentConditionFamily
-/--
-A family of conditions over the three referent carriers.
-
-Each field gives the condition applicable to one referent kind. No
-relationship among the three conditions is assumed.
--/
-structure ReferentConditionFamily
-    (R : ReferentCarriers.{u}) where
-
-  /--
-  The condition over entities.
-  -/
-  entity :
-    R.Entity →
-    R.Entity →
-    Prop
-
-  /--
-  The condition over occurrences.
-  -/
-  occurrence :
-    R.Occurrence →
-    R.Occurrence →
-    Prop
-
-  /--
-  The condition over institutional artifacts.
-  -/
-  institutionalArtifact :
-    R.InstitutionalArtifact →
-    R.InstitutionalArtifact →
-    Prop
-
 -- RR.DEFINES: SE.Substrate.ReferentialRegime
 -- RR.IMPLEMENTS: se100.def.ReferentialRegime
 /--
-The triple of individuation, co-reference, and persistence conditions by
-which a substrate fixes and tracks entities, occurrences, and institutional
-artifacts.
+The referential regime by which a substrate individuates referents, relates
+references by co-reference, and tracks persistence.
+
+The three components have distinct semantic roles and interfaces.
 -/
 structure ReferentialRegime
     (R : ReferentCarriers.{u}) where
 
   /--
-  Conditions determining when something counts as one thing rather than
-  another.
+  The individuation semantics for the referent carriers.
   -/
-  individuationConditions :
-    ReferentConditionFamily R
+  individuation :
+    IndividuationRegime R
 
   /--
-  Conditions determining when two references are treated as referring to
-  the same thing.
+  The co-reference semantics associated with the referent carriers.
   -/
-  coReferenceConditions :
-    ReferentConditionFamily R
+  coReference :
+    CoReferenceRegime R
 
   /--
-  Conditions determining when something remains the same across time,
-  transformation, revision, or institutional change.
+  The persistence semantics associated with the referent carriers.
   -/
-  persistenceConditions :
-    ReferentConditionFamily R
+  persistence :
+    PersistenceRegime R
 
 end
 

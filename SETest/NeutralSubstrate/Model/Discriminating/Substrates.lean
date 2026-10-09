@@ -2,6 +2,7 @@ module
 
 public import SETest.NeutralSubstrate.Model.Discriminating.Frameworks
 public import SE.Substrate.ReferentialCommitments
+public import SE.Substrate.ReferentialRegime
 
 /-!
 # Discriminating Substrates
@@ -45,20 +46,71 @@ def referents : ReferentCarriers where
   InstitutionalArtifact := Unit
 
 /--
-The universal condition family over the model's referent carriers.
+The trivial individuation account used by the discriminating model.
+
+The model uses singleton presentations and referent carriers because its
+semantic discrimination concerns substrate commitments rather than
+individuation.
 -/
-def conditionFamily : ReferentConditionFamily referents where
-  entity := fun _ _ => True
-  occurrence := fun _ _ => True
-  institutionalArtifact := fun _ _ => True
+def individuationAccount : IndividuationAccount Unit where
+  Context := Unit
+  Presentation := Unit
+  presents := fun _ _ _ => True
+  admissiblePresentation := fun _ _ => True
+  one := fun _ _ => True
+  sameUnit := fun _ _ _ => True
+
+/--
+The individuation regime shared by both discriminating substrates.
+-/
+def individuationRegime : IndividuationRegime referents where
+  entity := individuationAccount
+  occurrence := individuationAccount
+  institutionalArtifact := individuationAccount
+
+/--
+The trivial co-reference account used by the discriminating model.
+-/
+def coReferenceAccount : CoReferenceAccount Unit where
+  Context := Unit
+  Reference := Unit
+  coReference := fun _ _ _ => True
+
+/--
+The co-reference regime shared by both discriminating substrates.
+-/
+def coReferenceRegime : CoReferenceRegime referents where
+  entity := coReferenceAccount
+  occurrence := coReferenceAccount
+  institutionalArtifact := coReferenceAccount
+
+/--
+The trivial persistence account used by the discriminating model.
+
+The model uses singleton stages and settings because its semantic
+discrimination concerns substrate commitments rather than persistence.
+-/
+def persistenceAccount : PersistenceAccount Unit where
+  Setting := Unit
+  Stage := Unit
+  eligibleStage := fun _ _ => True
+  persists := fun _ _ _ _ => True
+
+/--
+The persistence regime shared by both discriminating substrates.
+-/
+def persistenceRegime : PersistenceRegime referents where
+  entity := persistenceAccount
+  occurrence := persistenceAccount
+  institutionalArtifact := persistenceAccount
 
 /--
 The referential regime shared by both concrete substrates.
 -/
 def referentialRegime : ReferentialRegime referents where
-  individuationConditions := conditionFamily
-  coReferenceConditions := conditionFamily
-  persistenceConditions := conditionFamily
+  individuation := individuationRegime
+  coReference := coReferenceRegime
+  persistence := persistenceRegime
 
 /--
 The propositions fixed by the model's referential regime.

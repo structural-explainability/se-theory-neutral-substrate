@@ -79,14 +79,49 @@ id = "ReferentCarriers"
 name = "Referent carriers"
 lean_symbol = "SE.Referent.ReferentCarriers"
 source_module = "SE.Referent.Carriers"
-description = "The entity, occurrence, and institutional-artifact carriers over which referential conditions are stated."
+description = "The entity, occurrence, and institutional-artifact carriers governed by referential semantics."
 
-[type.ReferentConditionFamily]
-id = "ReferentConditionFamily"
-name = "Referent condition family"
-lean_symbol = "SE.Substrate.ReferentConditionFamily"
-source_module = "SE.Substrate.ReferentialRegime"
-description = "A family of binary conditions over entity, occurrence, and institutional-artifact referents."
+[type.IndividuationAccount]
+id = "IndividuationAccount"
+name = "Individuation account"
+lean_symbol = "SE.Substrate.IndividuationAccount"
+source_module = "SE.Substrate.ReferentialRegime.Individuation"
+description = "An individuation account for one referent kind, distinguishing candidate presentations, admissible whole-directed presentations, singular unity, and same-unit identity."
+
+[type.IndividuationRegime]
+id = "IndividuationRegime"
+name = "Individuation regime"
+lean_symbol = "SE.Substrate.IndividuationRegime"
+source_module = "SE.Substrate.ReferentialRegime.Individuation"
+description = "The individuation accounts for entities, occurrences, and institutional artifacts."
+
+[type.CoReferenceAccount]
+id = "CoReferenceAccount"
+name = "Co-reference account"
+lean_symbol = "SE.Substrate.CoReferenceAccount"
+source_module = "SE.Substrate.ReferentialRegime.CoReference"
+description = "A co-reference account for one referent kind, providing context-indexed co-reference judgments without identifying co-reference with reference equality, carrier equality, individuation, or persistence."
+
+[type.CoReferenceRegime]
+id = "CoReferenceRegime"
+name = "Co-reference regime"
+lean_symbol = "SE.Substrate.CoReferenceRegime"
+source_module = "SE.Substrate.ReferentialRegime.CoReference"
+description = "The co-reference accounts associated with entities, occurrences, and institutional artifacts."
+
+[type.PersistenceAccount]
+id = "PersistenceAccount"
+name = "Persistence account"
+lean_symbol = "SE.Substrate.PersistenceAccount"
+source_module = "SE.Substrate.ReferentialRegime.Persistence"
+description = "A persistence account for one referent kind, providing eligible stages, settings, and strict diachronic persistence judgments while leaving substantive persistence theory external."
+
+[type.PersistenceRegime]
+id = "PersistenceRegime"
+name = "Persistence regime"
+lean_symbol = "SE.Substrate.PersistenceRegime"
+source_module = "SE.Substrate.ReferentialRegime.Persistence"
+description = "The persistence accounts associated with entities, occurrences, and institutional artifacts."
 
 [type.ReferentialRegime]
 id = "ReferentialRegime"
@@ -94,8 +129,7 @@ cite_id = "se100.def.ReferentialRegime"
 name = "Referential regime"
 lean_symbol = "SE.Substrate.ReferentialRegime"
 source_module = "SE.Substrate.ReferentialRegime"
-description = "A referential regime supplying individuation, co-reference, and persistence conditions for each referent carrier."
-
+description = "A referential regime composing distinct individuation, co-reference, and persistence semantic accounts for the referent carriers."
 # ============================================================
 # SUBSTRATES
 # ============================================================

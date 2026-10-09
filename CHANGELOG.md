@@ -11,6 +11,16 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE SPLIT
+
+- Changed: `SE/Substrate/ReferentialRegime.lean`
+- Added: `SE/Substrate/ReferentialRegime/Individuation.lean`
+- Added: `SE/Substrate/ReferentialRegime/CoReference.lean`
+- Added: `SE/Substrate/ReferentialRegime/Persistence.lean`
+- Removed: `SE.Substrate.ReferentConditionFamily`
+- Planned: update Paper 100 referential-regime section
+  to reflect the individuation / co-reference / persistence split
+
 ---
 
 ## [0.10.0] - 2026-10-02
