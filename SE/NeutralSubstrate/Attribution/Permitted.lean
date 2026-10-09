@@ -4,7 +4,7 @@ public import SE.NeutralSubstrate.Attribution.Basic
 public import SE.Substrate.ReferentialCommitments
 
 /-!
-# Permitted Attribution Propositions
+**# Permitted Attribution Propositions**
 
 This module formalizes:
 
@@ -12,19 +12,30 @@ This module formalizes:
   Permitted Attribution Proposition
 
 An attribution proposition `asserts x φ` is permitted at the foundational
-layer when the attributional basis for `x`'s assertion of `φ` is fixed by the
-substrate's referential commitments.
+layer when the attributional basis for `x`'s assertion of `φ` is semantically
+fixed by the substrate's referential commitments.
 
-The attributional basis includes the source, assertion occurrence,
-provenance, and content reference needed to identify what was asserted, by
-whom, and under what record basis.
+An attributional basis may involve the source, assertion occurrence,
+provenance, content reference, and other information needed to identify what
+was asserted, by whom, and under what record basis. The presence of such
+records does not by itself establish that the attributional basis is fixed.
+That determination remains an explicit semantic judgment.
 
-Because the attributional basis is fixed by the referential commitments, the
-referential commitments entail the attribution proposition. This commits the
-substrate to the attribution, not to the asserted proposition `φ`.
+A fixed attributional basis must support entailment of the corresponding
+attribution proposition. This commits the substrate to the attribution
+`asserts x φ`, not to the asserted proposition `φ`.
+
+In particular, attribution does not by itself establish or endorse:
+
+- the truth of `φ`;
+- substrate commitment to `φ`;
+- framework commitment to `φ`;
+- denotation or co-reference of expressions occurring in `φ`; or
+- the authority, correctness, or evidentiary adequacy of the source's claim.
 
 The structure of an attributional basis remains abstract.
-No finiteness, enumeration, decidability, or computational representation is assumed.
+No finiteness, enumeration, decidability, or computational representation is
+assumed.
 -/
 
 set_option autoImplicit false
@@ -43,14 +54,19 @@ public section
 
 -- RR.DEFINES: SE.NeutralSubstrate.Attribution.AttributionalBasisFixing
 /--
-An abstract account of when an attributional basis is fixed by a commitment
-theory.
+An abstract account of when an attributional basis is semantically fixed by
+a commitment theory.
 
-`fixedBy T x φ` states that `T` fixes the source, assertion occurrence,
-provenance, and content reference needed to identify `x`'s assertion of `φ`.
+`fixedBy T x φ` states that `T` fixes the attributional basis required to
+identify `x`'s assertion of `φ`.
 
-Fixing the attributional basis is required to determine the corresponding
-attribution proposition.
+Concrete realizations may use source identifiers, assertion records,
+provenance, content references, or other records in determining this
+judgment. Their presence alone does not establish `fixedBy`.
+
+The second field explicitly requires a fixed attributional basis to support
+entailment of the corresponding attribution proposition. It does not entail
+or endorse the asserted proposition `φ`.
 -/
 structure AttributionalBasisFixing
     {L : PropositionalLanguage.{u}}
@@ -58,8 +74,8 @@ structure AttributionalBasisFixing
     (A : AttributionSystem.{u, x} L) where
 
   /--
-  Whether a commitment theory fixes the attributional basis for a source's
-  assertion of a proposition.
+  Whether a commitment theory semantically fixes the attributional basis for
+  a source's assertion of a proposition.
   -/
   fixedBy :
     CommitmentTheory L.carrier →
@@ -70,6 +86,8 @@ structure AttributionalBasisFixing
   /--
   A commitment theory that fixes an attributional basis entails the
   corresponding attribution proposition.
+
+  This conclusion concerns `A.asserts source φ`, not `φ`.
   -/
   entailsAssertsOfFixedBy :
     ∀ {T : CommitmentTheory L.carrier}
@@ -82,7 +100,11 @@ structure AttributionalBasisFixing
 -- RR.IMPLEMENTS: se100.def.PermittedAttributionProposition
 /--
 An attribution proposition is permitted at the foundational layer when its
-attributional basis is fixed by the substrate's referential commitments.
+attributional basis is semantically fixed by the substrate's referential
+commitments.
+
+Permission applies to the attribution proposition itself and introduces no
+commitment to the asserted proposition.
 -/
 def PermittedAttributionProposition
     {L : PropositionalLanguage.{u}}
@@ -102,8 +124,8 @@ def PermittedAttributionProposition
 -- RR.DEFINES: SE.NeutralSubstrate.Attribution.permittedAttributionProposition_iff
 /--
 A proposition is permitted exactly when it is an attribution proposition
-whose attributional basis is fixed by the substrate's referential
-commitments.
+whose attributional basis is semantically fixed by the substrate's
+referential commitments.
 -/
 @[simp]
 theorem permittedAttributionProposition_iff
@@ -149,6 +171,9 @@ theorem attributionProposition_of_permittedAttributionProposition
 /--
 The substrate's referential commitments entail every permitted attribution
 proposition.
+
+The entailed proposition is the attribution itself, not its asserted
+content.
 -/
 theorem referentialCommitments_entails_of_permittedAttributionProposition
     {L : PropositionalLanguage.{u}}
@@ -172,6 +197,9 @@ Every permitted attribution proposition is a substrate-layer commitment.
 This follows by generalized cut: the substrate entails every member of its
 referential commitments, and those referential commitments entail the
 permitted attribution proposition.
+
+The resulting substrate commitment remains a commitment to the attribution,
+not to the proposition attributed to the source.
 -/
 theorem substrateCommitment_of_permittedAttributionProposition
     {L : PropositionalLanguage.{u}}

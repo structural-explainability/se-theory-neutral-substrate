@@ -4,28 +4,38 @@ public import SE.NeutralSubstrate.Attribution.Basic
 public import SE.Substrate.Basic
 
 /-!
-# Object-Level Interpretive Propositions
+**# Object-Level Interpretive Propositions**
 
 This module formalizes:
 
-- `se100.def.ObjectLevelInterpretiveProposition` — Object-Level Interpretive
+- `se100.def.ObjectLevelInterpretiveProposition` - Object-Level Interpretive
   Proposition
 
-An object-level interpretive proposition is an asserted proposition itself,
-about the referents fixed by a substrate, rather than an attribution
-proposition stating that some source asserts it.
+An object-level interpretive proposition is an object-language proposition
+whose subject matter concerns the referential domain governed by a
+substrate's referential regime, rather than an attribution proposition
+stating that some source asserts it.
 
-The paper does not reduce proposition aboutness to a formal decision
-procedure.
-This module represents the relationship between a
-proposition and a referential regime abstractly.
+The relationship between proposition content and a referential regime is
+represented abstractly.
+This module does not define a denotation relation from
+proposition content or references to particular referent-carrier elements.
 
 Being non-attributional is not sufficient.
 An object-level interpretive proposition must also concern
-the referents fixed by the substrate's referential regime.
+the referential subject matter governed by the substrate's referential regime.
 
-No decidability, exhaustiveness, syntactic decomposition, or computational
-classification assumption is imposed.
+In particular, `aboutReferents` does not by itself establish:
+
+- denotation of a particular carrier element;
+- co-reference;
+- same-unit identity;
+- persistence;
+- carrier equality; or
+- referential fixing of the proposition.
+
+No decidability, exhaustiveness, syntactic decomposition, denotation
+procedure, or computational classification assumption is imposed.
 -/
 
 set_option autoImplicit false
@@ -44,18 +54,23 @@ public section
 -- RR.DEFINES: SE.NeutralSubstrate.Interpretation.ObjectLevelInterpretation
 /--
 An abstract account of whether an object-language proposition concerns the
-referents fixed by a referential regime.
+referential subject matter governed by a referential regime.
 
 Concrete realizations may determine this relation through a typed
 object-language, declared proposition roles, semantic interpretation, or
 another fixed accountability-context method.
+
+This interface classifies proposition subject matter. It does not supply the
+deferred denotation or co-reference lifting bridges and does not identify
+aboutness with referential fixing.
 -/
 structure ObjectLevelInterpretation
     (L : PropositionalLanguage.{u})
     (R : ReferentCarriers.{v}) where
 
   /--
-  Whether a proposition concerns the referents fixed by a referential regime.
+  Whether a proposition concerns the referential subject matter governed by
+  a referential regime.
   -/
   aboutReferents :
     ReferentialRegime R →
@@ -67,12 +82,13 @@ structure ObjectLevelInterpretation
 /--
 A proposition is object-level interpretive relative to a substrate when:
 
-1. it concerns the referents fixed by that substrate's referential regime;
-   and
+1. it concerns the referential subject matter governed by that substrate's
+   referential regime; and
 2. it is not an attribution proposition.
 
-The definition classifies the proposition.
-It does not state that the substrate commits to that proposition.
+The definition classifies the proposition. It does not state that the
+substrate commits to that proposition or that the proposition denotes any
+particular referent-carrier element.
 -/
 def ObjectLevelInterpretiveProposition
     {L : PropositionalLanguage.{u}}
@@ -89,7 +105,8 @@ def ObjectLevelInterpretiveProposition
 -- RR.DEFINES: SE.NeutralSubstrate.Interpretation.objectLevelInterpretiveProposition_iff
 /--
 A proposition is object-level interpretive exactly when it concerns the
-substrate-fixed referents and is not an attribution proposition.
+referential subject matter governed by the substrate's referential regime
+and is not an attribution proposition.
 -/
 @[simp]
 theorem objectLevelInterpretiveProposition_iff
@@ -107,8 +124,8 @@ theorem objectLevelInterpretiveProposition_iff
 
 -- RR.DEFINES: SE.NeutralSubstrate.Interpretation.aboutReferents_of_objectLevelInterpretiveProposition
 /--
-Every object-level interpretive proposition concerns the referents fixed by
-the substrate's referential regime.
+Every object-level interpretive proposition concerns the referential subject
+matter governed by the substrate's referential regime.
 -/
 theorem aboutReferents_of_objectLevelInterpretiveProposition
     {L : PropositionalLanguage.{u}}

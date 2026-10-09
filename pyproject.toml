@@ -23,7 +23,6 @@ dependencies = []
 
 dev = [
   # REQ: External packages used for linting, testing, type checking, etc.
-  "prek", # WHY: Run repository hooks for consistent formatting, linting, and checks.
 ]
 
 docs = [

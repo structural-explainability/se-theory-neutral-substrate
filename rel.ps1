@@ -102,19 +102,19 @@ function Get-ReferenceSnapshot {
 # === A) Update environment ===
 # ============================================================
 
-Invoke-Step "A0) Update elan" "elan self update" {
-    elan self update
-    elan --version
-}
+# Invoke-Step "A0) Update elan" "elan self update" {
+#     elan self update
+#     elan --version
+# }
 
-Invoke-Step "A1) Update Lean dependencies" "lake update" {
-    lake update
-}
+# Invoke-Step "A1) Update Lean dependencies" "lake update" {
+#     lake update
+# }
 
-Invoke-Step "A2) Lean and lake versions" "lean --version; lake --version" {
-    lean --version
-    lake --version
-}
+# Invoke-Step "A2) Lean and lake versions" "lean --version; lake --version" {
+#     lean --version
+#     lake --version
+# }
 
 # ============================================================
 # === B) Lean build and tests ===

@@ -11,6 +11,26 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+Theory update: ATTRIBUTION BASIS / ASSERTED CONTENT SEPARATION
+
+- Clarified: `AttributionalBasisFixing.fixedBy` concerns the semantic basis
+  for an attribution proposition `asserts source φ`.
+- Clarified: establishing the attribution does not establish or endorse
+  the asserted proposition `φ`.
+- Clarified: source identifiers, assertion records, provenance, and
+  content references may participate in a concrete attributional basis
+  but do not establish that basis merely by being present.
+- Preserved: a permitted attribution proposition may be entailed
+  by referential commitments when its attributional basis
+  is semantically fixed.
+
+Theory update: ABOUTNESS / CLASSIFICATION NARROWING
+
+- Changed: `ObjectLevelInterpretation.aboutReferents` is an aboutness/classification relation.
+- Clarified: `aboutReferents` does not establish
+  denotation, co-reference, same-unit identity, persistence,
+  carrier equality, or referential fixing.
+
 Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE SPLIT
 
 - Changed: `SE/Substrate/ReferentialRegime.lean`
