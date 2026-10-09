@@ -1,7 +1,7 @@
 module
 
 public import SE.NeutralSubstrate.Attribution.Basic
-public import SE.Substrate.Basic
+public import SE.Substrate.SubstrateSystem
 
 /-!
 **# Object-Level Interpretive Propositions**

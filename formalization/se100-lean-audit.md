@@ -2090,43 +2090,43 @@ After the dependency pass, use the following substantive audit order.
 
 ### Referential Cluster
 
-4. `se100.def.ReferentialRegime`
+1. `se100.def.ReferentialRegime`
 
 ### Framework Cluster
 
-5. `se100.def.AdmissibleFramework`
-6. `se100.note.FrameworkClass`
+1. `se100.def.AdmissibleFramework`
+2. `se100.note.FrameworkClass`
 
 ### Substrate Core
 
-7. `se100.def.Substrate`
-8. `se100.def.SubstrateCommitment`
+1. `se100.def.Substrate`
+2. `se100.def.SubstrateCommitment`
 
 ### Derived Foundational Content
 
-9. `se100.def.ObjectLevelCausalNormativeCommitment`
-10. `se100.def.ReferentialCommitments`
-11. `se100.def.PermittedAttributionProposition`
+1. `se100.def.ObjectLevelCausalNormativeCommitment`
+2. `se100.def.ReferentialCommitments`
+3. `se100.def.PermittedAttributionProposition`
 
 ### Framework-Relative Properties
 
-12. `se100.def.FrameworkVariant`
-13. `se100.def.FrameworkInvariant`
-14. `se100.def.FrameworkCompatibleCommitmentSet`
+ 1. `se100.def.FrameworkVariant`
+ 2. `se100.def.FrameworkInvariant`
+ 3. `se100.def.FrameworkCompatibleCommitmentSet`
 
 ### Assumptions, Consequences, and Main Result
 
-15. `se100.def.ContestedCausalNormative`
-16. `se100.assump.Contestability`
-17. `se100.assump.ReferentialCommonGround`
-18. `se100.remark.AttributionCommonGround`
-19. `se100.def.InterpretiveNonCommitment`
-20. `se100.def.ExtensionStability`
-21. `se100.assump.SubstrateConsistency`
-22. `se100.remark.PropertyRelation`
-23. `se100.def.NeutralityByDesign`
-24. `se100.constraint.Neutrality`
-25. `se100.example.ReificationFragment`
+ 1. `se100.def.ContestedCausalNormative`
+ 2. `se100.assump.Contestability`
+ 3. `se100.assump.ReferentialCommonGround`
+ 4. `se100.remark.AttributionCommonGround`
+ 5. `se100.def.InterpretiveNonCommitment`
+ 6. `se100.def.ExtensionStability`
+ 7. `se100.assump.SubstrateConsistency`
+ 8. `se100.remark.PropertyRelation`
+ 9. `se100.def.NeutralityByDesign`
+10. `se100.constraint.Neutrality`
+11. `se100.example.ReificationFragment`
 
 No Lean module is created until the relevant item and all of its dependencies have accepted audit records.
 

@@ -11,6 +11,36 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+---
+
+## [0.11.0] - 2026-10-09
+
+Theory update: REFERENTIAL TYPE / REFERENCE SYNCHRONIZATION
+
+- Changed: theory-reference declarations and generated substrate-type artifacts to match the revised referential-regime surface.
+- Removed: obsolete `SE.Substrate.ReferentConditionFamily` reference declarations.
+- Added: reference declarations for the distinct individuation, co-reference, and persistence account/regime types.
+- Changed: `SE.Substrate.ReferentialRegime` documentation to describe composition of the three distinct semantic accounts.
+- Preserved: existing Paper 100 citation identifiers only for concepts already defined by the paper.
+- Deferred: new citation identifiers for individuation, co-reference, and persistence concepts until the corresponding Paper 100 revision defines them explicitly.
+
+Theory update: NEUTRAL-SUBSTRATE SEMANTIC OWNERSHIP
+
+- Changed: `SE_MANIFEST.toml` to distinguish Neutral Substrate ownership of referential-regime interfaces from substantive downstream theories.
+- Clarified: Neutral Substrate owns the abstract individuation, co-reference, and persistence interfaces used by a referential regime.
+- Clarified: substantive persistence theory remains outside this repository.
+- Clarified: denotation and co-reference lifting remain deferred semantic bridges rather than implicit consequences of referent carriers or referential records.
+- Clarified: domain-specific individuation criteria, mappings, and interpretation policies remain outside this repository.
+- Preserved: Neutral Substrate remains the foundational owner of referent carriers, substrate systems, referential fixing, and referential commitments.
+
+Theory update: SUBSTRATE / REFERENTIAL-REGIME COMPOSITION
+
+- Renamed: `SE/Substrate/Basic.lean` to `SE/Substrate/SubstrateSystem.lean` for explicit ownership of `SE.Substrate.SubstrateSystem`.
+- Changed: `SubstrateSystem.referentialRegime` supplies distinct individuation, co-reference, and persistence semantic accounts rather than a common family of referential conditions.
+- Clarified: a substrate provides stable reference through the composed referential regime without identifying the three component semantics.
+- Clarified: the substrate interface does not itself define substantive individuation, denotation/co-reference lifting, or persistence theory.
+- Preserved: each substrate supplies its substrate-layer commitment theory and an associated referential regime.
+
 Theory update: ATTRIBUTION BASIS / ASSERTED CONTENT SEPARATION
 
 - Clarified: `AttributionalBasisFixing.fixedBy` concerns the semantic basis
@@ -478,10 +508,11 @@ Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE SPLIT
 ## Notes on versioning and releases
 
 - We use **SemVer**:
-  - **MAJOR** - breaking changes to formal surface or validation semantics
-  - **MINOR** - backward-compatible additions to theory vocabulary or artifacts
+  - **MAJOR** - breaking changes
+  - **MINOR** - backward-compatible additions
   - **PATCH** - fixes, documentation, tooling
-- Versions are driven by git tags. Tag `vX.Y.Z` to release.
+- Versions are driven by git tags.
+- Tag `vX.Y.Z` to release.
 - During `0.x` development, breaking formal-surface changes
   may occur in a **MINOR** release.
 
@@ -518,6 +549,7 @@ Follow these steps exactly when creating a new release.
 uvx gha-tools autoupdate --pin=all --write .github/workflows
 
 # Update hooks.
+uvx prek install --force
 uvx prek update
 git add -A
 uvx prek run --all-files
@@ -532,32 +564,10 @@ uvx se-manifest-schema validate-manifest --strict
 # Format Markdown.
 npx markdownlint-cli2 --fix
 
-# update lean
-elan self update
-lake update
-
-# build Lean (source of truth)
-# lake clean
-lake build
-lake test
-lake lint
-
 # check docs (may not work on windows/runs via gh action)
 # cd docbuild
 # lake build SE.NeutralSubstrate:docs
 # cd ..
-
-# Generate JSON artifacts and catalog from reference TOML.
-uvx se-theory-reference-kit@latest inspect
-uvx se-theory-reference-kit@latest export
-uvx se-theory-reference-kit@latest catalog
-
-# Validate the reference artifacts against the Lean public surface.
-uvx se-theory-reference-kit@latest validate --strict
-
-# Verify generated artifacts are current without rewriting them.
-uvx se-theory-reference-kit@latest export --check
-uvx se-theory-reference-kit@latest catalog --check
 
 .\rel.ps1
 .\sit.ps1
@@ -599,7 +609,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.11.0
 [0.10.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.10.0
 [0.9.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.9.0
 [0.8.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.8.0

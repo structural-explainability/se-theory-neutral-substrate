@@ -14,7 +14,7 @@
       "lean_symbol": "SE.NeutralSubstrate.Spec.se100DefSubstrate",
       "source_module": "SE.NeutralSubstrate.Spec",
       "target_symbol": "SubstrateSystem",
-      "target_module": "SE.Substrate.Basic",
+      "target_module": "SE.Substrate.SubstrateSystem",
       "description": "Stable paper identifier for the substrate-system definition."
     },
     {

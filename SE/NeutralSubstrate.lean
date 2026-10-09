@@ -15,7 +15,7 @@ public import SE.Framework.Class
 public import SE.Referent.Carriers
 
 public import SE.Substrate.ReferentialRegime
-public import SE.Substrate.Basic
+public import SE.Substrate.SubstrateSystem
 public import SE.Substrate.Commitment
 public import SE.Substrate.ReferentialCommitments
 

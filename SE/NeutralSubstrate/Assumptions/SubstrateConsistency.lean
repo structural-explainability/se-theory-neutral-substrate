@@ -1,7 +1,7 @@
 module
 
 public import SE.Logic.Consistency
-public import SE.Substrate.Basic
+public import SE.Substrate.SubstrateSystem
 
 /-!
 # Substrate Consistency

@@ -3,7 +3,7 @@
 # ============================================================
 
 schema = "se-manifest-schema"
-schema_version = "0.5.0"
+schema_version = "0.5.1"
 schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/main/manifest-schema.toml"
 
 # === Framework Context ===
@@ -42,17 +42,12 @@ required = []
 
 [provides]
 # Theory repositories expose Lean modules and theorem sets.
-artifacts = [
-  "lean-library",
-  "theorem-set",
-]
+artifacts = ["lean-library", "theorem-set"]
 
 [provides.formalization.public_surface]
 kind = "lean-surface"
 status = "active"
-symbols = [
-  "SE",
-]
+symbols = ["SE"]
 path = "SE.lean"
 reason = "Public Lean root for the Neutral Substrate foundation and its reusable Structural Explainability definitions and theorems."
 
@@ -60,7 +55,7 @@ reason = "Public Lean root for the Neutral Substrate foundation and its reusable
 kind = "lean-theorem-set"
 status = "active"
 symbols = [
-  "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_extensionStability",
+    "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_extensionStability",
 ]
 path = "SE/NeutralSubstrate/Neutrality/PropertyRelation.lean"
 reason = "Machine-checked relation between extension stability and interpretive non-commitment."
@@ -69,9 +64,9 @@ reason = "Machine-checked relation between extension stability and interpretive 
 kind = "lean-theorem-set"
 status = "active"
 symbols = [
-  "SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted",
-  "SE.NeutralSubstrate.noObjectLevelCommitment_of_foundationalLayerRestricted",
-  "SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign",
+    "SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted",
+    "SE.NeutralSubstrate.noObjectLevelCommitment_of_foundationalLayerRestricted",
+    "SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign",
 ]
 path = "SE/NeutralSubstrate/Constraint.lean"
 reason = "Machine-checked characterization and consequences of the Neutral Substrate constraint."
@@ -80,43 +75,49 @@ reason = "Machine-checked characterization and consequences of the Neutral Subst
 
 [scope]
 includes = [
-  "propositional languages, negation, and contradiction",
-  "commitment theories and theory extension",
-  "consequence systems and consistency",
-  "interpretive framework systems",
-  "documented and admissible frameworks",
-  "referent carriers and referential regimes",
-  "substrate systems and substrate commitments",
-  "referential fixing and referential commitments",
-  "causal and normative proposition classification",
-  "attribution propositions and permitted attribution",
-  "object-level interpretive propositions",
-  "framework-variant and framework-invariant propositions",
-  "framework-compatible commitment sets",
-  "contested causal or normative propositions",
-  "design-time guarantee systems",
-  "contestability",
-  "referential common ground",
-  "substrate consistency",
-  "interpretive non-commitment",
-  "extension stability",
-  "neutrality and neutrality by design",
-  "the Neutral Substrate constraint",
-  "machine-checked Lean definitions and theorems",
-  "theory-reference declarations and generated reference artifacts",
+    "propositional languages, negation, and contradiction",
+    "commitment theories and theory extension",
+    "consequence systems and consistency",
+    "interpretive framework systems",
+    "documented and admissible frameworks",
+    "referent carriers",
+    "referential regimes composed from distinct individuation, co-reference, and persistence interfaces",
+    "abstract individuation interfaces for candidate presentation, admissibility, singular unity, and same-unit identity",
+    "abstract co-reference interfaces",
+    "abstract persistence interfaces",
+    "substrate systems and substrate commitments",
+    "referential fixing and referential commitments",
+    "causal and normative proposition classification",
+    "attribution propositions and permitted attribution",
+    "object-level interpretive proposition classification",
+    "framework-variant and framework-invariant propositions",
+    "framework-compatible commitment sets",
+    "contested causal or normative propositions",
+    "design-time guarantee systems",
+    "contestability",
+    "referential common ground",
+    "substrate consistency",
+    "interpretive non-commitment",
+    "extension stability",
+    "neutrality and neutrality by design",
+    "the Neutral Substrate constraint",
+    "machine-checked Lean definitions and theorems",
+    "theory-reference declarations and generated reference artifacts",
 ]
 
 excludes = [
-  "identity-regime classification",
-  "operational identity auditing",
-  "persistence theory",
-  "transformation theory",
-  "interpretive-kernel constructions",
-  "Structural Explainability integration theory",
-  "domain-specific interpretation policies",
-  "domain-specific mappings or data",
-  "runtime systems",
-  "schema definitions owned by other repositories",
+    "identity-regime classification",
+    "operational identity auditing",
+    "substantive persistence theory",
+    "denotation and co-reference lifting semantics",
+    "domain-specific individuation criteria",
+    "transformation theory",
+    "interpretive-kernel constructions",
+    "Structural Explainability integration theory",
+    "domain-specific interpretation policies",
+    "domain-specific mappings or data",
+    "runtime systems",
+    "schema definitions owned by other repositories",
 ]
 
 # === Validation ===

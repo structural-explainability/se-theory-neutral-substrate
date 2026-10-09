@@ -3,7 +3,7 @@ module
 public import SETest.NeutralSubstrate.Model.Consequence
 public import SE.Framework.Basic
 public import SE.Referent.Carriers
-public import SE.Substrate.Basic
+public import SE.Substrate.SubstrateSystem
 public import SE.Substrate.ReferentialRegime
 
 /-!

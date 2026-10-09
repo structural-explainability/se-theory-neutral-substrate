@@ -1,7 +1,7 @@
 module
 
 public import SE.Logic.Consequence
-public import SE.Substrate.Basic
+public import SE.Substrate.SubstrateSystem
 
 /-!
 # Substrate-Layer Commitment

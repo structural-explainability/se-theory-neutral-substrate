@@ -10,7 +10,7 @@ import SETest.NeutralSubstrate.Framework.Admissible
 import SETest.NeutralSubstrate.Framework.Class
 import SETest.NeutralSubstrate.Referent.Carriers
 import SETest.NeutralSubstrate.Substrate.ReferentialRegime
-import SETest.NeutralSubstrate.Substrate.Basic
+import SETest.NeutralSubstrate.Substrate.SubstrateSystem
 import SETest.NeutralSubstrate.Substrate.Commitment
 import SETest.NeutralSubstrate.Substrate.ReferentialCommitments
 import SETest.NeutralSubstrate.Classification.CausalNormative

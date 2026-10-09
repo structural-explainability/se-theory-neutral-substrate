@@ -2,7 +2,7 @@ module
 
 public import SE.Framework.Class
 public import SE.Logic.Theory.TheoryExtension
-public import SE.Substrate.Basic
+public import SE.Substrate.SubstrateSystem
 public import SE.Substrate.Commitment
 
 /-!

@@ -63,7 +63,7 @@ Test Lean code uses the `SETest.*` namespace.
 ```mermaid
 flowchart TD
     A["Propositional Language"] --> B["Commitment Theory and Consequence"]
-    B --> C["Frameworks, Referents, and Substrates"]
+    B --> C["Frameworks, Referent Carriers, Referential Regimes, and Substrates"]
     C --> D["Referential Commitments"]
     D --> E["Classification, Attribution, and Interpretation"]
     E --> F["Framework-Relative Properties"]
@@ -168,7 +168,12 @@ git push -u origin main
 
 ## Documentation
 
-[Documentation](https://structural-explainability.github.io/se-theory-neutral-substrate/)
+[Documentation](https://structural-explainability.github.io/se-theory-neutral-substrate/) -
+descriptive orientation
+
+## Formal Semantics
+
+[Lean](./SE.lean)
 
 ## License
 
@@ -176,4 +181,10 @@ git push -u origin main
 
 ## Repository Manifest
 
-[SE_MANIFEST.toml](./SE_MANIFEST.toml)
+[SE_MANIFEST.toml](./SE_MANIFEST.toml) -
+repository semantic ownership/scope
+
+## Reference
+
+[reference/](./reference/) -
+public-surface classification and traceability

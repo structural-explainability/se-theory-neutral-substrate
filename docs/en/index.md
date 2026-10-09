@@ -33,10 +33,23 @@ The formalization distinguishes:
 - neutrality by design
 - the neutrality constraint
 
-Neutral Substrate theory defines foundational neutrality and admissibility
-conditions. Relationships to Transformation Theory, Persistence Theory,
-Identity Regimes, Operational Identity, and the Interpretive Kernel are
-introduced only where later theory layers explicitly compose them.
+Neutral Substrate theory defines
+foundational **neutrality and admissibility conditions**
+together with the **abstract referential interfaces**
+required by a referential regime.
+
+A **referential regime** composes distinct
+individuation, co-reference, and persistence interfaces.
+This repository defines those interfaces without
+collapsing them into a common referential condition.
+
+Substantive persistence theory, transformation theory, identity-regime
+classification, operational identity, and later integration theory
+remain outside this repository.
+Denotation and co-reference lifting are also
+deferred semantic bridges
+rather than consequences of
+referent carriers or referential records.
 
 ## Theory Structure
 
@@ -55,7 +68,7 @@ flowchart TD
 
 ## Covers
 
-This repository covers:
+At a descriptive level, this repository covers:
 
 - propositional-language foundations
 - commitment theories and theory extension
@@ -63,9 +76,14 @@ This repository covers:
 - interpretive framework systems
 - admissible framework classes
 - referent carriers
-- referential regimes
+- referential regimes composed from distinct individuation, co-reference,
+  and persistence interfaces
+- abstract individuation interfaces for candidate presentation,
+  admissibility, singular unity, and same-unit identity
+- abstract co-reference interfaces
+- abstract persistence interfaces
 - substrate systems and commitments
-- referential commitments
+- referential fixing and referential commitments
 - causal and normative classification
 - attribution propositions
 - permitted attribution
@@ -106,15 +124,22 @@ This repository owns:
 
 ## Out of Scope
 
-Those concerns belong to downstream Structural Explainability repositories:
+The exact repository semantic boundary is declared in
+`SE_MANIFEST.toml`.
 
+In particular, this repository does not define:
+
+- substantive persistence theory
+- denotation and co-reference lifting semantics
+- domain-specific individuation criteria
 - transformation theory
-- persistence theory
-- mapping semantics
-- domain-specific scheduling semantics
-- runtime validation
+- identity-regime classification
+- operational identity auditing
+- interpretive-kernel constructions
+- Structural Explainability integration theory
+- domain-specific interpretation policies
+- domain-specific mappings or data
 - runtime systems
-- operational policy
 
 ## Authority
 

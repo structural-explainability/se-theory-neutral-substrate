@@ -139,7 +139,7 @@ id = "SubstrateSystem"
 cite_id = "se100.def.Substrate"
 name = "Substrate system"
 lean_symbol = "SE.Substrate.SubstrateSystem"
-source_module = "SE.Substrate.Basic"
+source_module = "SE.Substrate.SubstrateSystem"
 description = "A family of substrates, each with a commitment theory and an associated referential regime."
 
 [type.ReferentialFixing]
