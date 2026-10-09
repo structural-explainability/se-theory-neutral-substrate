@@ -291,7 +291,7 @@ Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE SPLIT
 - Replaced repo-local reference-tool command usage with shared
   `se-theory-reference` commands.
 - Updated release validation to run Lean builds, shared reference validation,
-  export freshness checks, catalog checks, manifest validation, pre-commit, and
+  export freshness checks, catalog checks, manifest validation, hooks, and
   documentation build.
 - Updated README command guidance to use `uv run se-theory-reference ...`
   directly.
@@ -330,7 +330,7 @@ Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE SPLIT
 - Updated generated neutral-substrate JSON artifacts from the refreshed reference TOML registries.
 - Replaced manifest-sync command surface with reference validation and export commands.
 - Added `rel.ps1` release validation script with explicit staged checks.
-- Updated CI, pre-commit, markdownlint, documentation, manifest, citation,
+- Updated CI, hooks, markdownlint, documentation, manifest, citation,
   and agent guidance for the updated structure.
 - Expanded Python tests for reference tooling, path handling, export freshness, and validation behavior.
 
@@ -370,7 +370,7 @@ Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE SPLIT
 
 - Updated `lean-toolchain` to `leanprover/lean4:stable`.
 - Replaced `.markdownlint.yml` with `.markdownlint-cli2.yaml`.
-- Updated `.pre-commit-config.yaml`.
+- Updated `prek.toml`.
 - Updated `lakefile.toml`.
 - Updated `NeutralSubstrate.Spec` with stable uppercase citation identifiers for tracked helper theorems.
 - Updated `NeutralSubstrate.Surface` to align with the current public surface.

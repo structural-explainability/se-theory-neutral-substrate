@@ -156,7 +156,7 @@ object_kind = "directory"
 paths = [
 ".github/workflows/**",
 ".github/dependabot.yml",
-".pre-commit-config.yaml",
+"prek.toml",
 ]
 description = "Repository automation, CI, security, and validation workflow authority."
 
