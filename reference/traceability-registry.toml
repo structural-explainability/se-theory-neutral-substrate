@@ -8,7 +8,7 @@ kind = "traceability"
 repo = "se-theory-neutral-substrate"
 
 # ============================================================
-# ATTRIBUTION
+# === ATTRIBUTION ===
 # ============================================================
 
 [trace.attributionProposition_of_permittedAttributionProposition]
@@ -42,7 +42,7 @@ to = [
 relation = "depends_on"
 
 # ============================================================
-# FRAMEWORK VARIANCE
+# === FRAMEWORK VARIANCE ===
 # ============================================================
 
 [trace.exists_entails_of_frameworkVariantProposition]
@@ -66,7 +66,7 @@ to = [
 relation = "depends_on"
 
 # ============================================================
-# CONTESTABILITY
+# === CONTESTABILITY ===
 # ============================================================
 
 [trace.not_guaranteedFrameworkInvariant_of_contestability]
@@ -81,7 +81,7 @@ to = [
 relation = "depends_on"
 
 # ============================================================
-# REFERENTIAL COMMON GROUND
+# === REFERENTIAL COMMON GROUND ===
 # ============================================================
 
 [trace.referentialCommitments_compatible_of_referentialCommonGround]
@@ -105,7 +105,7 @@ to = [
 relation = "depends_on"
 
 # ============================================================
-# NEUTRALITY PROPERTIES
+# === NEUTRALITY PROPERTIES ===
 # ============================================================
 
 [trace.interpretiveNonCommitment_of_extensionStability]
@@ -150,7 +150,7 @@ to = [
 relation = "depends_on"
 
 # ============================================================
-# NEUTRALITY CONSTRAINT
+# === NEUTRALITY CONSTRAINT ===
 # ============================================================
 
 [trace.neutralByDesign_iff_foundationalLayerRestricted]

@@ -66,7 +66,7 @@ target_repo = "se-theory-persistence"
 dependency_kind = "forbidden-formal-theory-dependency"
 required = false
 allowed = false
-description = "Neutral Substrate must not depend on persistence theory; persistence theory is downstream of the foundational substrate layer."
+description = "Neutral Substrate must not depend on persistence theory; substantive persistence constructions and their connections to the substrate interfaces are supplied externally."
 
 [dependency.no_transformation_dependency]
 kind = "dependency"
@@ -75,7 +75,7 @@ target_repo = "se-theory-transformation"
 dependency_kind = "forbidden-formal-theory-dependency"
 required = false
 allowed = false
-description = "Neutral Substrate must not depend on transformation theory; transformation theory consumes foundational Structural Explainability concepts rather than defining them."
+description = "Neutral Substrate must not depend on transformation theory; connections between transformation semantics and substrate interfaces are supplied externally."
 
 [dependency.no_interpretive_kernel_dependency]
 kind = "dependency"

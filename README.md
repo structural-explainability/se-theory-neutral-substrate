@@ -2,7 +2,7 @@
 
 [![Docs Site](https://img.shields.io/badge/docs-site-blue?logo=github)](https://structural-explainability.github.io/se-theory-neutral-substrate/)
 [![Repo](https://img.shields.io/badge/repo-GitHub-black?logo=github)](https://github.com/structural-explainability/se-theory-neutral-substrate)
-[![Tooling](https://img.shields.io/badge/python-3.15%2B-blue?logo=python)](./pyproject.toml)
+[![Tooling](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](./pyproject.toml)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21694487.svg)](https://doi.org/10.5281/zenodo.21694487)
 
@@ -15,8 +15,11 @@
 > Lean 4 formalization of the neutral structural substrate of
 > Structural Explainability.
 
-This repository defines the formal substrate conditions needed for
-Structural Explainability theory.
+This repository formalizes neutrality conditions and the abstract
+individuation, co-reference, and persistence interfaces composed by a
+referential regime.
+Substantive criteria and compatibility among those accounts
+require separate justification.
 
 ## Authority
 
@@ -26,11 +29,12 @@ theorems, proof obligations, and reference rules.
 Reference artifacts under `reference/` declare the repository-owned
 classification, traceability, and export intent for the Lean public surface.
 
-Generated artifacts under `data/neutral-substrate/` are outputs.
+Generated artifacts under `data/` are outputs.
 They do not define theory semantics independently of Lean or the reference artifacts.
 
 The reusable `se-theory-reference-kit` owns the generic validation,
 cataloging, inspection, and export machinery.
+
 This repository owns its Lean source, reference declarations, and
 generated neutral-substrate artifacts.
 
@@ -47,16 +51,17 @@ import SE.NeutralSubstrate
 Production Lean code uses the `SE.*` namespace.
 
 - `SE.lean` is the repository production entry point.
-- `SE/<Project>.lean` is the project public import surface.
-- Production modules live under `SE/<Project>/`.
+- `SE/NeutralSubstrate.lean` is the public theory import surface.
+- Production modules are organized under `SE/Logic/`, `SE/Framework/`,
+  `SE/Referent/`, `SE/Substrate/`, and `SE/NeutralSubstrate/`.
 
 Test Lean code uses the `SETest.*` namespace.
 
 - `SETest.lean` is the repository test entry point.
-- `SETest/<Project>.lean` is the project test surface.
-- Test modules live under `SETest/<Project>/`.
+- `SETest/NeutralSubstrate.lean` is the project test surface.
+- Test modules live under `SETest/NeutralSubstrate/`.
 
-`Spec.lean` is used when the project defines a specification module.
+`Spec.lean` defines a specification module.
 
 ## Theory Structure
 
@@ -82,7 +87,7 @@ reference/theory-reference.toml
 ```
 
 That file declares this repository's Lean public modules,
-reference artifact layout, export targets, and validation commands.
+reference artifact layout, and export targets.
 Public symbols are declared in the reference artifacts.
 
 ## Developer

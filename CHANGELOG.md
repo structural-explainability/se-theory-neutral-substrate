@@ -13,63 +13,61 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
-## [0.11.0] - 2026-10-09
+## [0.11.0] - 2026-10-18
 
-Theory update: REFERENTIAL TYPE / REFERENCE SYNCHRONIZATION
+Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE INTERFACES
 
-- Changed: theory-reference declarations and generated substrate-type artifacts to match the revised referential-regime surface.
-- Removed: obsolete `SE.Substrate.ReferentConditionFamily` reference declarations.
-- Added: reference declarations for the distinct individuation, co-reference, and persistence account/regime types.
-- Changed: `SE.Substrate.ReferentialRegime` documentation to describe composition of the three distinct semantic accounts.
-- Preserved: existing Paper 100 citation identifiers only for concepts already defined by the paper.
-- Deferred: new citation identifiers for individuation, co-reference, and persistence concepts until the corresponding Paper 100 revision defines them explicitly.
+- Changed: `SE.Substrate.ReferentialRegime` to compose distinct individuation, co-reference, and persistence accounts.
+- Added: `SE/Substrate/ReferentialRegime/Individuation.lean`.
+- Added: `SE/Substrate/ReferentialRegime/CoReference.lean`.
+- Added: `SE/Substrate/ReferentialRegime/Persistence.lean`.
+- Removed: `SE.Substrate.ReferentConditionFamily`.
+- Clarified: individuation distinguishes candidate presentations, admissibility, singular unity, and same-unit identity.
+- Clarified: co-reference supplies context-indexed judgments without identifying them with reference equality, carrier equality, individuation, or persistence.
+- Clarified: persistence supplies settings, eligible stages, and strict diachronic persistence judgments.
+- Clarified: these abstract interfaces do not themselves establish substantive identity criteria, denotation semantics, or compatibility among the three accounts.
 
 Theory update: NEUTRAL-SUBSTRATE SEMANTIC OWNERSHIP
 
-- Changed: `SE_MANIFEST.toml` to distinguish Neutral Substrate ownership of referential-regime interfaces from substantive downstream theories.
+- Changed: `SE_MANIFEST.toml` to distinguish ownership of referential-regime interfaces from substantive theories and semantic bridges.
 - Clarified: Neutral Substrate owns the abstract individuation, co-reference, and persistence interfaces used by a referential regime.
-- Clarified: substantive persistence theory remains outside this repository.
-- Clarified: denotation and co-reference lifting remain deferred semantic bridges rather than implicit consequences of referent carriers or referential records.
+- Clarified: substantive individuation, co-reference, and persistence accounts require independently justified criteria and explicit connections to these interfaces.
+- Clarified: denotation and co-reference lifting remain explicit semantic obligations rather than consequences of referent carriers or referential records.
 - Clarified: domain-specific individuation criteria, mappings, and interpretation policies remain outside this repository.
-- Preserved: Neutral Substrate remains the foundational owner of referent carriers, substrate systems, referential fixing, and referential commitments.
+- Preserved: Neutral Substrate ownership of referent carriers, substrate systems, referential fixing, and referential commitments.
 
 Theory update: SUBSTRATE / REFERENTIAL-REGIME COMPOSITION
 
 - Renamed: `SE/Substrate/Basic.lean` to `SE/Substrate/SubstrateSystem.lean` for explicit ownership of `SE.Substrate.SubstrateSystem`.
-- Changed: `SubstrateSystem.referentialRegime` supplies distinct individuation, co-reference, and persistence semantic accounts rather than a common family of referential conditions.
-- Clarified: a substrate provides stable reference through the composed referential regime without identifying the three component semantics.
-- Clarified: the substrate interface does not itself define substantive individuation, denotation/co-reference lifting, or persistence theory.
+- Changed: `SubstrateSystem.referentialRegime` supplies the composed individuation, co-reference, and persistence interfaces.
+- Clarified: supplying a referential regime does not by itself establish the adequacy of its component accounts or their compatibility.
 - Preserved: each substrate supplies its substrate-layer commitment theory and an associated referential regime.
 
 Theory update: ATTRIBUTION BASIS / ASSERTED CONTENT SEPARATION
 
-- Clarified: `AttributionalBasisFixing.fixedBy` concerns the semantic basis
-  for an attribution proposition `asserts source φ`.
-- Clarified: establishing the attribution does not establish or endorse
-  the asserted proposition `φ`.
-- Clarified: source identifiers, assertion records, provenance, and
-  content references may participate in a concrete attributional basis
-  but do not establish that basis merely by being present.
-- Preserved: a permitted attribution proposition may be entailed
-  by referential commitments when its attributional basis
-  is semantically fixed.
+- Clarified: `AttributionalBasisFixing.fixedBy` concerns the semantic basis for an attribution proposition `asserts source φ`.
+- Clarified: establishing the attribution does not establish or endorse the asserted proposition `φ`.
+- Clarified: source identifiers, assertion records, provenance, and content references may participate in a concrete attributional basis but do not establish that basis merely by being present.
+- Preserved: a permitted attribution proposition may be entailed by referential commitments when its attributional basis is semantically fixed.
 
 Theory update: ABOUTNESS / CLASSIFICATION NARROWING
 
-- Changed: `ObjectLevelInterpretation.aboutReferents` is an aboutness/classification relation.
-- Clarified: `aboutReferents` does not establish
-  denotation, co-reference, same-unit identity, persistence,
-  carrier equality, or referential fixing.
+- Clarified: `ObjectLevelInterpretation.aboutReferents` supplies an aboutness/classification relation.
+- Clarified: `aboutReferents` does not establish denotation, co-reference, same-unit identity, persistence, carrier equality, or referential fixing.
 
-Theory update: INDIVIDUATION / CO-REFERENCE / PERSISTENCE SPLIT
+Theory update: REFERENCE SYNCHRONIZATION / PAPER TRACEABILITY
 
-- Changed: `SE/Substrate/ReferentialRegime.lean`
-- Added: `SE/Substrate/ReferentialRegime/Individuation.lean`
-- Added: `SE/Substrate/ReferentialRegime/CoReference.lean`
-- Added: `SE/Substrate/ReferentialRegime/Persistence.lean`
-- Removed: `SE.Substrate.ReferentConditionFamily`
-- Planned: update Paper 100 referential-regime section
-  to reflect the individuation / co-reference / persistence split
+- Changed: theory-reference declarations and generated substrate-type artifacts to match the revised referential-regime surface.
+- Removed: obsolete reference declarations for `SE.Substrate.ReferentConditionFamily`.
+- Added: reference declarations for the distinct individuation, co-reference, and persistence account/regime types.
+- Preserved: existing Paper 100 citation identifiers for concepts already defined by the paper.
+- Deferred: new Paper 100 citation identifiers for the component accounts until the paper defines them explicitly.
+- Planned: revise the Paper 100 referential-regime section to reflect the distinct interfaces and their semantic obligations.
+- Added: public-module registrations for the referential account modules and the other previously omitted public modules.
+- Added: theorem registrations for `extensionStability_of_restricted_of_commonGround` and `neutral_of_restricted_of_commonGround`.
+- Clarified: the sufficiency results establish extension stability and neutrality
+  under Referential Common Ground,
+  while neutrality by design requires a permitted design-time guarantee basis.
 
 ---
 
@@ -548,13 +546,9 @@ Follow these steps exactly when creating a new release.
 # Update GitHub Actions and pin all action references to immutable SHAs.
 uvx gha-tools autoupdate --pin=all --write .github/workflows
 
-# Update hooks.
-uvx prek install --force
-uvx prek update
-git add -A
-uvx prek run --all-files
-
 # Audit the resulting GitHub configuration for security findings.
+# NO .github\workflows\deploy-zensical.yml
+# YES  .github\workflows\deploy-zensical-lean.yml
 uvx zizmor@latest .github/
 
 # Validate.
@@ -597,7 +591,7 @@ git push origin vX.Y.Z
 Create GitHub Release after pushing tag, for example with a command like this:
 
 ```shell
-gh release create v0.10.0 --verify-tag --title "0.10.0"  --generate-notes
+gh release create v0.11.0 --verify-tag --title "0.11.0" --generate-notes
 ```
 
 ## Only As Needed (delete a tag)

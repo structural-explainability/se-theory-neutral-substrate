@@ -69,7 +69,7 @@ symbols = [
     "SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign",
 ]
 path = "SE/NeutralSubstrate/Constraint.lean"
-reason = "Machine-checked characterization and consequences of the Neutral Substrate constraint."
+reason = "Machine-checked consequences under the explicitly assumed NeutralityConstraint, Contestability, and Referential Common Ground."
 
 # === Scope ===
 
@@ -100,6 +100,7 @@ includes = [
     "interpretive non-commitment",
     "extension stability",
     "neutrality and neutrality by design",
+    "sufficiency of foundational restriction for extension stability and neutrality under referential common ground",
     "the Neutral Substrate constraint",
     "machine-checked Lean definitions and theorems",
     "theory-reference declarations and generated reference artifacts",
@@ -108,6 +109,8 @@ includes = [
 excludes = [
     "identity-regime classification",
     "operational identity auditing",
+    "substantive individuation theory",
+    "substantive co-reference theory",
     "substantive persistence theory",
     "denotation and co-reference lifting semantics",
     "domain-specific individuation criteria",

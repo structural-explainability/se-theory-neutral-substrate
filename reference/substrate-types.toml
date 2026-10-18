@@ -10,7 +10,7 @@ surface_module = "SE"
 namespace = "SE"
 
 # ============================================================
-# LOGIC LANGUAGE
+# === LOGIC LANGUAGE ===
 # ============================================================
 
 [type.PropositionCarrier]
@@ -42,7 +42,7 @@ source_module = "SE.Logic.Language.Basic"
 description = "A propositional language consisting of a proposition carrier, a negation operation, and a distinguished contradiction proposition."
 
 # ============================================================
-# COMMITMENT THEORY AND CONSEQUENCE
+# === COMMITMENT THEORY AND CONSEQUENCE ===
 # ============================================================
 
 [type.CommitmentTheory]
@@ -60,7 +60,7 @@ source_module = "SE.Logic.Consequence"
 description = "An entailment system over commitment theories, with entailment from membership, cut, and contradiction closure."
 
 # ============================================================
-# FRAMEWORKS
+# === FRAMEWORKS ===
 # ============================================================
 
 [type.FrameworkSystem]
@@ -71,7 +71,7 @@ source_module = "SE.Framework.Basic"
 description = "A family of interpretive frameworks with associated commitment theories and evidence used to determine whether a framework is admissible."
 
 # ============================================================
-# REFERENTS
+# === REFERENTS ===
 # ============================================================
 
 [type.ReferentCarriers]
@@ -130,8 +130,9 @@ name = "Referential regime"
 lean_symbol = "SE.Substrate.ReferentialRegime"
 source_module = "SE.Substrate.ReferentialRegime"
 description = "A referential regime composing distinct individuation, co-reference, and persistence semantic accounts for the referent carriers."
+
 # ============================================================
-# SUBSTRATES
+# === SUBSTRATES ===
 # ============================================================
 
 [type.SubstrateSystem]
@@ -150,7 +151,7 @@ source_module = "SE.Substrate.ReferentialCommitments"
 description = "A relation recording whether a proposition is fixed by a specified referential regime."
 
 # ============================================================
-# CAUSAL AND NORMATIVE CLASSIFICATION
+# === CAUSAL AND NORMATIVE CLASSIFICATION ===
 # ============================================================
 
 [type.CausalNormativeClassification]
@@ -169,7 +170,7 @@ source_module = "SE.NeutralSubstrate.Classification.ContestedCausalOrNormative"
 description = "A context-indexed relation specifying whether the interpretive status of a proposition is fixed by a commitment theory."
 
 # ============================================================
-# ATTRIBUTION
+# === ATTRIBUTION ===
 # ============================================================
 
 [type.AttributionSystem]
@@ -187,7 +188,7 @@ source_module = "SE.NeutralSubstrate.Attribution.Permitted"
 description = "A relation specifying when an attributional source and attributed proposition are fixed by a commitment theory, together with a soundness condition connecting that fixing to entailment."
 
 # ============================================================
-# OBJECT-LEVEL INTERPRETATION
+# === OBJECT-LEVEL INTERPRETATION ===
 # ============================================================
 
 [type.ObjectLevelInterpretation]
@@ -198,7 +199,7 @@ source_module = "SE.NeutralSubstrate.Interpretation.ObjectLevelProposition"
 description = "A relation specifying when a proposition is about referents under a particular referential regime."
 
 # ============================================================
-# DESIGN-TIME GUARANTEES
+# === DESIGN-TIME GUARANTEES ===
 # ============================================================
 
 [type.DesignTimeGuaranteeSystem]

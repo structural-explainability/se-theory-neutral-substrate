@@ -12,7 +12,7 @@ type: software
 
 title: "Formal Theory: Neutral Substrate"
 version: "0.11.0"
-date-released: "2026-10-09"
+date-released: "2026-10-18"
 
 identifiers:
   - type: doi
@@ -31,11 +31,14 @@ license: MIT
 
 abstract: >
   Lean 4 formalization of the neutral structural substrate of Structural
-  Explainability. The theory provides an abstract propositional language,
-  commitment theories and consequence, framework and referent structures,
-  substrate commitments, attribution and interpretation predicates,
-  framework-relative properties, and formal conditions for interpretive
-  non-commitment, extension stability, and neutrality by design.
+  Explainability. The theory provides propositional languages, commitment
+  theories and consequence, interpretive frameworks, referent carriers,
+  and referential regimes composed from distinct abstract individuation,
+  co-reference, and persistence accounts. It formalizes substrate commitments,
+  attribution, framework-relative properties, interpretive non-commitment,
+  extension stability, neutrality, and neutrality by design. Under referential
+  common ground, foundational restriction is proved sufficient for neutrality.
+  The full neutrality constraint is an explicit condition on realizations.
 
 keywords:
   - structural-explainability

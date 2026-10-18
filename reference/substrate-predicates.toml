@@ -16,7 +16,7 @@ artifact = "substrate-predicates"
 status = "canonical"
 
 # ============================================================
-# LOGIC
+# === LOGIC ===
 # ============================================================
 
 [predicate.Consistent]
@@ -27,7 +27,7 @@ source_module = "SE.Logic.Consistency"
 description = "A commitment theory is consistent under a consequence system when it does not entail the distinguished contradiction proposition."
 
 # ============================================================
-# FRAMEWORKS
+# === FRAMEWORKS ===
 # ============================================================
 
 [predicate.DocumentedInterpretiveFunction]
@@ -54,7 +54,7 @@ source_module = "SE.Framework.Class"
 description = "The set of carriers in a framework system that satisfy the admissible-framework predicate."
 
 # ============================================================
-# SUBSTRATES AND REFERENTIAL COMMITMENTS
+# === SUBSTRATES AND REFERENTIAL COMMITMENTS ===
 # ============================================================
 
 [predicate.SubstrateCommitment]
@@ -74,7 +74,7 @@ source_module = "SE.Substrate.ReferentialCommitments"
 description = "The commitment theory containing propositions that are both substrate commitments and fixed by the substrate's referential regime."
 
 # ============================================================
-# CAUSAL AND NORMATIVE CLASSIFICATION
+# === CAUSAL AND NORMATIVE CLASSIFICATION ===
 # ============================================================
 
 [predicate.CausalProposition]
@@ -114,7 +114,7 @@ source_module = "SE.NeutralSubstrate.Classification.ContestedCausalOrNormative"
 description = "The set of propositions satisfying the contested-causal-or-normative predicate for the selected context, substrate, and referential fixing."
 
 # ============================================================
-# ATTRIBUTION
+# === ATTRIBUTION ===
 # ============================================================
 
 [predicate.AttributionProposition]
@@ -134,7 +134,7 @@ source_module = "SE.NeutralSubstrate.Attribution.Permitted"
 description = "An attribution proposition whose source and attributed content are fixed by an attributional basis over the substrate's referential commitments."
 
 # ============================================================
-# OBJECT-LEVEL INTERPRETATION
+# === OBJECT-LEVEL INTERPRETATION ===
 # ============================================================
 
 [predicate.ObjectLevelInterpretiveProposition]
@@ -161,7 +161,7 @@ source_module = "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormative
 description = "An object-level causal or normative proposition that is also a commitment of the selected substrate."
 
 # ============================================================
-# FRAMEWORK-RELATIVE PROPERTIES
+# === FRAMEWORK-RELATIVE PROPERTIES ===
 # ============================================================
 
 [predicate.SubstrateFrameworkCommitments]
@@ -196,7 +196,7 @@ source_module = "SE.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet"
 description = "A commitment theory that remains consistent when combined with the commitments of every admissible framework."
 
 # ============================================================
-# DESIGN-TIME GUARANTEES
+# === DESIGN-TIME GUARANTEES ===
 # ============================================================
 
 [predicate.GuaranteedAtDesignTime]
@@ -207,7 +207,7 @@ source_module = "SE.NeutralSubstrate.DesignTimeGuarantee"
 description = "A proposition is guaranteed at design time when some permitted guarantee basis establishes it."
 
 # ============================================================
-# PAPER ASSUMPTIONS
+# === PAPER ASSUMPTIONS ===
 # ============================================================
 
 [predicate.Contestability]
@@ -235,7 +235,7 @@ source_module = "SE.NeutralSubstrate.Assumptions.SubstrateConsistency"
 description = "The commitment theory associated with the selected substrate is consistent under the selected consequence system."
 
 # ============================================================
-# NEUTRALITY PROPERTIES
+# === NEUTRALITY PROPERTIES ===
 # ============================================================
 
 [predicate.InterpretiveNonCommitment]
@@ -270,7 +270,7 @@ source_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
 description = "Neutrality is guaranteed at design time by the selected design-time guarantee system."
 
 # ============================================================
-# NEUTRALITY CONSTRAINT
+# === NEUTRALITY CONSTRAINT ===
 # ============================================================
 
 [predicate.FoundationalLayerRestrictedToPermittedClasses]

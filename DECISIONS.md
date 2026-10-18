@@ -1,612 +1,103 @@
-# DECISIONS.md
+# Design Decisions
 
-## AUX-001 — Proposition Carrier
+This file records design rationale.
+Lean source defines the formal semantics;
+`reference/` declares public-surface classification and traceability.
+This file does not introduce additional assumptions or requirements.
 
-Use an arbitrary type: Proposition : Type u
-Do not use Lean Prop.
-The paper distinguishes: object-language proposition p
-from:
-the Lean proposition asserting that T entails p.
-They must remain separate.
-For example: `entails T p`
-is a Lean proposition about an object-language proposition p.
+## Object Language and Metalanguage
 
-If p : Prop, then object language and metalanguage begin to collapse.
-That would make later distinctions such as:
+Object-language propositions use an arbitrary carrier.
+Entailment judgments are Lean propositions about that carrier.
 
-```text
-Asserts(x, φ)
-φ
-neg φ
-T ⊢ φ
-```
+Object-language negation and contradiction remain distinct from Lean `Not`
+and `False`.
+This preserves the distinction among an asserted proposition,
+its negation, an attribution of it, and an entailment judgment about it.
 
-less controlled.
+The shared language does not require finite enumeration, decidable equality,
+or decidable entailment.
 
-Don't require:
+## Commitment Theories and Consequence
 
-- DecidableEq Proposition
-- Fintype Proposition
-- BEq Proposition
-- Repr Proposition
+Commitment theories are sets of object-language propositions.
+Combination and adjoining use ordinary set operations.
 
-Paper 100 quantifies over an open proposition space.
-Papers 200, 210, and 220 use finite carriers where their theorems require finiteness,
-but do not justify making the shared proposition carrier finite.
+Consequence remains abstract.
+Its structural laws are stated in Lean;
+additional logical principles require explicit assumptions.
 
-So AUX-001 should be:
+Consistency is defined through non-entailment of contradiction.
+It is not built into every commitment theory, since inconsistent theories
+must remain representable.
 
-```lean
-structure PropositionalLanguage where
-Proposition : Type u
-```
+Generalized cut supports reasoning about arbitrary collections of entailed
+commitments without assuming finite enumeration.
 
-or the corresponding field of a larger logical system.
+## Frameworks and Admissibility
 
-## AUX-002 — Negation
+Candidate frameworks remain distinct from their commitment theories.
+Grounding and documentation are represented separately from commitments.
 
-Use a primitive object-language operation: `neg : Proposition → Proposition`
-This must not be Lean metalevel `Not`.
-The distinction is: `neg p`
-is an object-language proposition, while: `¬ entails T p`
-is a Lean proposition denying an entailment judgment.
-They're different.
+Admissibility is a predicate on candidates rather than a property made true
+by the carrier's construction.
+Its abstract grounding and documentation predicates
+require justification in concrete realizations.
 
-Do not initially assume `neg (neg p) = p`
-or: `neg bottom = ...`
-or excluded middle, completeness, or decidability.
+No identification with other theories' frame or
+interpretation structures is implicit.
 
-Paper 100 does not require involutive negation
-(twice brings you back to original).
-Adding it would be stronger logic than the paper needs.
+## Referential Interfaces
 
-The required connection (item 22) between negation and contradiction belongs in the consequence system:
+A referential regime composes distinct individuation, co-reference, and
+persistence accounts.
 
-```text
-T ⊢ p →
-T ⊢ neg p →
-T ⊢ bottom
-```
+- Individuation distinguishes candidate presentations, admissibility,
+  singular unity, and same-unit identity.
+- Co-reference concerns references to the same referent.
+- Persistence concerns strict diachronic identity across settings.
 
-## AUX-003 — Contradiction / Bottom
+The interfaces do not identify these judgments with carrier equality,
+identifier equality, observational agreement, provenance, or succession.
 
-Use a distinguished object-language proposition: `bottom : Proposition`.
-Do not identify it with Lean False.
-The paper statement: `T ⊬ bottom`
-is a claim about the object-language consequence relation.
-It is not just: `¬False`
-or a Lean kernel consistency statement.
+Supplying the interfaces does not establish substantive criteria or
+compatibility among the accounts.
+Those require explicit constructions and justified semantic connections.
 
-Do not add explosion unless needed.
-Paper 100 requires:
+## Attribution and Aboutness
 
-```text
-T ⊢ p
-T ⊢ neg p
-────────────
-T ⊢ bottom
-```
+Establishing that a source asserts a proposition does not establish the
+asserted proposition.
 
-It does not require:
+A concrete attributional basis must justify the attribution;
+identifiers, records, and provenance do not establish
+that basis merely by being present.
 
-```text
-T ⊢ bottom
-────────────
-T ⊢ q
-```
+Aboutness/classification does not itself establish
+denotation, co-reference, same-unit identity, persistence,
+or referential fixing.
 
-Explosion is conventional in classical logic but not needed by the paper proofs.
-Keeps the interface usable even if a later account wants to
-distinguish contradiction detection from arbitrary consequence.
+## Proof Boundaries
 
-## AUX-004 — Commitment Theory
+Under Referential Common Ground, foundational restriction is proved
+sufficient for extension stability and neutrality.
 
-Use:
+That result does not establish neutrality by design,
+which additionally requires a permitted design-time guarantee basis.
 
-```lean
-abbrev Theory (L : PropositionalLanguage) :=
-Set L.Proposition
-```
+The full `NeutralityConstraint` is an explicit condition on realizations.
+Theorems assuming that condition must not be described as independently
+deriving it from the minimal interfaces.
 
-It supports:
+## Access to Definitions
 
-```text
-T ∪ U
-{p}
-p ∈ T
-T ⊆ U
-```
+Definitions needed across module boundaries must provide an explicit access
+path through an exposed body or a controlled theorem API.
 
-Use Set, not Finset.
-The paper doesn't say commitment theories are finite.
-The framework class and design-time guarantees are deliberately open-ended.
-The central result must not depend on enumeration.
-Set gives arbitrary commitment collections without requiring: `DecidableEq Proposition`.
-A computational implementation can later use Finset and
-prove that its finite representation denotes the relevant Set.
-That would be a realization layer, not theory-layer definition.
+Use `@[expose]` where unfolding is intended.
+Otherwise provide appropriate characterization,
+introduction, or elimination lemmas.
 
-Theory id not a new structure.
-There is currently no additional invariant that every commitment set must carry.
-A wrapper structure would add indirection without adding semantics.
-Introduce later only if downstream formalization exposes a need.
-
-## AUX-005 — Entailment
-
-Use an abstract consequence relation: `entails : Theory L → L.Proposition → Prop`.
-Do not commit Paper 100 to a particular proof calculus, model theory, theorem prover, or syntax.
-The paper reasons only through structural consequence laws.
-For minimal required laws use the following interface:
-
-```lean
-structure ConsequenceSystem extends PropositionalLanguage where
-entails :
-Set Proposition → Proposition → Prop
-
-entails_of_mem :
-∀ {T p}, p ∈ T → entails T p
-
-monotone :
-∀ {T U p},
-T ⊆ U →
-entails T p →
-entails U p
-
-cut :
-∀ {T U p},
-(∀ q ∈ U, entails T q) →
-entails U p →
-entails T p
-
-contradiction :
-∀ {T p},
-entails T p →
-entails T (neg p) →
-entails T bottom
-```
-
-Field names may change but logical content should be approximately this.
-
-Membership or reflexivity:
-
-```text
-p ∈ T
-──────
-T ⊢ p
-```
-
-A commitment in a theory is entailed by that theory.
-
-Monotonicity:
-
-```text
-T ⊆ U
-T ⊢ p
-──────
-U ⊢ p
-```
-
-Used in item 22 when moving from: `S ⊢ p`
-to: `S ∪ F ⊢ p`.
-
-Generalized cut:
-
-```text
-T entails every member of U
-U ⊢ p
-──────────────────────────
-T ⊢ p
-```
-
-Supports the attribution-common-ground argument.
-Proves that adding propositions already entailed by a theory does not add independent consequence.
-
-Contradiction introduction:
-
-```text
-T ⊢ p
-T ⊢ neg p
-────────────
-T ⊢ bottom
-```
-
-Required by item 22.
-Generalized cut matters.
-For one permitted attribution proposition q, it gives:
-
-```text
-T ⊢ q
-→
-(T ∪ {q} ∪ U ⊢ bottom ↔ T ∪ U ⊢ bottom)
-```
-
-It gives the arbitrary-set version needed by the central constraint:
-
-```text
-(∀ q ∈ A, T ⊢ q)
-→
-(T ∪ A ∪ U ⊢ bottom ↔ T ∪ U ⊢ bottom)
-```
-
-Do not need:
-finiteness of the permitted attribution set;
-compactness;
-enumeration;
-induction over a list of attributions.
-Generalized cut handles the whole set.
-Strengthens sufficiency side of item 24 without strengthening paper substantive claims.
-
-## AUX-006 — Consistency
-
-Define consistency, rather than introducing it as an independent primitive:
-
-```lean
-def Consistent
-(C : ConsequenceSystem)
-(T : Set C.Proposition) : Prop :=
-¬ C.entails T C.bottom
-```
-
-Matches the paper notation: `T ⊬ bottom`.
-
-Consistency should remain proposition-valued, not:
-a Boolean;
-a decision procedure;
-a typeclass;
-a proof field carried by every theory;
-or a property automatically true by construction.
-
-The paper assumes substrate consistency and defines admissibility using framework consistency.
-Those statements would lose content if only consistent theories could be constructed.
-
-## AUX-007 — Theory Extension
-
-Use ordinary set operations, like `T ∪ U`
-and: `insert p T`
-or equivalently: `T ∪ {p}`.
-No additional theory-extension structure is needed.
-Provide named helpers for readability:
-
-```lean
-def Theory.combine
-(T U : Set P) : Set P :=
-T ∪ U
-
-def Theory.adjoin
-(T : Set P)
-(p : P) : Set P :=
-insert p T
-```
-
-Transparent definitions over sets.
-Avoid coercing frameworks into sets.
-The paper writes: `S ∪ F` for readability.
-In Lean, keep the actual projection explicit:
-`substrateCommitments S ∪ frameworkCommitments F`
-or provide a clearly named helper: `combinedTheory S F`.
-
-Avoid a broad coercion from Framework to Set Proposition.
-A framework is not just a commitment theory;
-it has evidentiary and documentary properties.
-
-## AUX-008 — Framework
-
-Use an abstract candidate-framework carrier with observable predicates and projections.
-Do not define: `Framework := Theory`.
-A framework has more structure than its commitments.
-Do not define: `Framework := {F // Admissible F}`.
-That would make admissibility true by construction and erase item 09.
-Do not use a Lean typeclass to represent the paper framework class.
-The word `class` in the paper is mathematical.
-
-## Recommended interface
-
-Something close to:
-
-```lean
-structure FrameworkSystem
-(C : ConsequenceSystem) where
-
-Framework : Type v
-
-commitments :
-Framework → Set C.Proposition
-
-evidentiallyGrounded :
-Framework → Prop
-
-presentedAsInterpretiveFunction :
-Framework → Prop
-
-hasNamedSource :
-Framework → Prop
-
-hasDocumentedScope :
-Framework → Prop
-
-hasCitableBasis :
-Framework → Prop
-
-Then item 09 becomes:
-
-def AdmissibleFramework
-(M : FrameworkSystem C)
-(F : M.Framework) : Prop :=
-Consistent C (M.commitments F) ∧
-M.evidentiallyGrounded F ∧
-M.presentedAsInterpretiveFunction F ∧
-M.hasNamedSource F ∧
-M.hasDocumentedScope F ∧
-M.hasCitableBasis F
-```
-
-Preserves all three paper conditions:
-internal consistency;
-evidentiary grounding;
-documented interpretive function with:
-named source;
-documented scope;
-citable basis.
-
-## Nonlogical Conditions As Predicates
-
-Paper 100 never analyzes the internal structure of
-evidence, methods, measurements, records, standards, sources, or documents.
-It uses only the result that a framework is or is not admissible.
-The shared theory layer should expose those conditions as predicates.
-A concrete realization may later prove: `evidentiallyGrounded F`
-from structured claims and evidence records.
-But the Paper 100 theorem layer does not need that realization.
-Same separation we use elsewhere:
-
-```text
-abstract theory property
-vs.
-concrete executable checker
-```
-
-Keep Framework distinct from Paper 220 Frame is especially important.
-Paper 100 framework is an interpretive position carrying commitments, grounding, and documentation.
-Paper 220 interpreted frames participate in:
-finite probe families;
-interpretation functions;
-output equivalences;
-interpretive kernels;
-environment regimes.
-Related concepts, but not definitionally identical.
-The names remain distinct:
-
-```text
-SE.Framework
-SE.InterpretiveFrame
-SE.InterpretiveKernel
-```
-
-Paper 220 may later define a map from an admissible framework to one or more interpreted frames.
-Not forced to identify them.
-
-## Recommended Combined Interface
-
-The conceptual organization should look like this:
-
-```lean
-universe u v
-
-namespace SE
-
-structure PropositionalLanguage where
-Proposition : Type u
-neg : Proposition → Proposition
-bottom : Proposition
-
-abbrev Theory (L : PropositionalLanguage) :=
-Set L.Proposition
-
-structure ConsequenceSystem
-extends PropositionalLanguage where
-
-entails :
-Theory toPropositionalLanguage →
-Proposition →
-Prop
-
-entails_of_mem :
-∀ {T p}, p ∈ T → entails T p
-
-monotone :
-∀ {T U p},
-T ⊆ U →
-entails T p →
-entails U p
-
-cut :
-∀ {T U p},
-(∀ q ∈ U, entails T q) →
-entails U p →
-entails T p
-
-contradiction :
-∀ {T p},
-entails T p →
-entails T (neg p) →
-entails T bottom
-
-def Consistent
-(C : ConsequenceSystem)
-(T : Theory C.toPropositionalLanguage) : Prop :=
-¬ C.entails T C.bottom
-
-structure FrameworkSystem
-(C : ConsequenceSystem) where
-
-Framework : Type v
-
-commitments :
-Framework → Theory C.toPropositionalLanguage
-
-evidentiallyGrounded :
-Framework → Prop
-
-presentedAsInterpretiveFunction :
-Framework → Prop
-
-hasNamedSource :
-Framework → Prop
-
-hasDocumentedScope :
-Framework → Prop
-
-hasCitableBasis :
-Framework → Prop
-
-end SE
-```
-
-## Later Papers
-
-### Paper 200 — Referential Regimes
-
-Paper 200 needs finite carriers, equivalence relations, partitions, refinement, and regime structure.
-None of that requires the proposition carrier to be finite.
-Its finite carriers should be local parameters such as:
-
-```lean
-Record : Type u
-[Finite Record]
-```
-
-or whatever exact representation the Paper 200 audit selects.
-The logical foundation remains independent.
-
-### Paper 210 — Operational Identity
-
-Paper 210 needs:
-declared partitions;
-operational partitions;
-transformation histories;
-signatures;
-witnesses;
-finite comparison procedures.
-Those should not be encoded into Proposition, Theory, or Framework.
-Operational audit can produce propositions or evidence artifacts later,
-but partition machinery should remain structurally separate.
-
-### Paper 220 — Interpretive Kernels
-
-Paper 220 needs:
-frame carriers;
-occurrence carriers;
-probes;
-interpretation functions;
-output equivalence;
-induced kernels;
-refinement thresholds.
-Keeping Framework abstract lets Paper 220 relate frameworks to frames without identifying the two.
-Keeping entailment abstract prevents Paper 220 finite kernel semantics from
-becoming the accidental definition of Paper 100 consequence.
-
-## Rejected
-
-Rejected these implementations:
-
-```text
-Proposition := Prop
-Theory := Finset Proposition
-Entailment := membership
-Consistency := a Boolean checker
-Framework := Theory
-Framework := subtype of admissible frameworks
-FrameworkClass := List Framework
-Negation := Lean Not
-Bottom := Lean False
-```
-
-Each would collapse a distinction made by the paper or
-impose a computational restriction that is not in the theory.
-
-## Aux Resolution
-
-The auxiliaries resolve as follows:
-
-```text
-AUX-001  arbitrary object-language carrier
-AUX-002  primitive object-language negation
-AUX-003  distinguished object-language bottom
-AUX-004  Set-valued commitment theory
-AUX-005  abstract Tarskian consequence relation
-         plus contradiction introduction
-AUX-006  non-entailment of bottom
-AUX-007  set union and singleton extension
-AUX-008  abstract candidate-framework carrier
-         with commitment projection and admissibility predicates
-```
-
-Smallest foundation sufficient for Paper 100
-and neutral toward Papers 200, 210, and 220.
-
-## Expose Definitions Used by Instantiable Interfaces
-
-Every opaque `def` that may need to unfold in an implementation, instance, or proof must provide an explicit access path.
-Use one of the following approaches.
-
-### 1. Expose definitions
-
-Use:
-
-```lean
-@[expose] public section
-```
-
-when several definitions in a module are intended to reduce across module boundaries.
-
-Alternatively, mark an individual definition:
-
-```lean
-@[expose] def
-```
-
-This is appropriate for computational definitions and
-transparent notation-like constructions
-whose implementation is intentionally available,
-such as a definition representing `S ∪ F`.
-
-See `SE/Logic/Language/Basic.lean`.
-
-### 2. Keep the definition opaque and provide an API
-
-For theory-level concepts, keep the underlying `def` opaque
-and provide controlled access through lemmas such as:
-
-- `_iff`
-- `_eq`
-- introduction lemmas
-- elimination lemmas
-
-This is appropriate for concepts such as `Consistent` and `Neutral`,
-where proofs should depend on the stated logical interface
-rather than on the implementation body.
-
-See `SE/Logic/Consistency.lean`.
-
-### Rule
-
-No opaque definition should be required during a proof unless it has one of these access paths.
-
-Without an exposed body or a controlled theorem API,
-Lean may fail during reduction with errors such as:
-
-```text
-not definitionally equal
-definition is not exposed
-```
-
-These failures often appear in the middle of otherwise straightforward proofs.
-
-### Related distinction
-
-`public import` and `@[expose]` serve different purposes:
-
-- `public import` makes imported declarations available to downstream modules.
-- `@[expose]` allows downstream elaboration and reduction to unfold an opaque definition.
-
-A module may require both.
+Public imports and definition exposure serve different purposes:
+public imports provide access to declarations;
+exposure supports unfolding.

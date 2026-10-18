@@ -1,7 +1,7 @@
 # ============================================================
 # reference/theory-reference.toml
 # ============================================================
-# Theory reference configuration for se-theory-reference-kit.
+# Theory reference configuration.
 #
 # WHY: The theory repository owns Lean source, reference TOML,
 # and exported JSON artifacts.
@@ -26,7 +26,11 @@ root_module = "SE"
 
 public_modules = [
     "SE",
+    "SE.NeutralSubstrate",
     "SE.Logic.Language.Basic",
+    "SE.Logic.Language.PropositionCarrier",
+    "SE.Logic.Language.Negation",
+    "SE.Logic.Language.Bottom",
     "SE.Logic.Theory.CommitmentTheory",
     "SE.Logic.Theory.TheoryExtension",
     "SE.Logic.Consequence",
@@ -36,6 +40,9 @@ public_modules = [
     "SE.Framework.Class",
     "SE.Referent.Carriers",
     "SE.Substrate.ReferentialRegime",
+    "SE.Substrate.ReferentialRegime.Individuation",
+    "SE.Substrate.ReferentialRegime.CoReference",
+    "SE.Substrate.ReferentialRegime.Persistence",
     "SE.Substrate.SubstrateSystem",
     "SE.Substrate.Commitment",
     "SE.Substrate.ReferentialCommitments",
@@ -46,6 +53,7 @@ public_modules = [
     "SE.NeutralSubstrate.Attribution.CommonGround",
     "SE.NeutralSubstrate.Interpretation.ObjectLevelProposition",
     "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormativeCommitment",
+    "SE.NeutralSubstrate.FoundationalLayer",
     "SE.NeutralSubstrate.FrameworkRelative.Variant",
     "SE.NeutralSubstrate.FrameworkRelative.Invariant",
     "SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation",
@@ -54,10 +62,12 @@ public_modules = [
     "SE.NeutralSubstrate.Assumptions.Contestability",
     "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround",
     "SE.NeutralSubstrate.Assumptions.SubstrateConsistency",
+    "SE.NeutralSubstrate.Examples.ReificationFragment",
     "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment",
     "SE.NeutralSubstrate.Neutrality.ExtensionStability",
     "SE.NeutralSubstrate.Neutrality.PropertyRelation",
     "SE.NeutralSubstrate.Neutrality.ByDesign",
+    "SE.NeutralSubstrate.Neutrality.Sufficiency",
     "SE.NeutralSubstrate.Constraint",
     "SE.NeutralSubstrate.Spec",
 ]

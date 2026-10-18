@@ -175,6 +175,14 @@
       "description": "A substrate that is neutral by design satisfies extension stability."
     },
     {
+      "id": "extensionStability_of_restricted_of_commonGround",
+      "name": "Foundational restriction yields extension stability under common ground",
+      "lean_symbol": "SE.NeutralSubstrate.Neutrality.extensionStability_of_restricted_of_commonGround",
+      "source_module": "SE.NeutralSubstrate.Neutrality.Sufficiency",
+      "status": "proved",
+      "description": "Under referential common ground, restricting substrate commitments to referential commitments and permitted attribution propositions yields extension stability."
+    },
+    {
       "id": "fixedByReferentialRegime_of_mem_referentialCommitments",
       "name": "Referential commitment is fixed by the regime",
       "lean_symbol": "SE.Substrate.fixedByReferentialRegime_of_mem_referentialCommitments",
@@ -293,6 +301,14 @@
       "source_module": "SE.NeutralSubstrate.Neutrality.ByDesign",
       "status": "proved",
       "description": "A substrate that is neutral by design is neutral."
+    },
+    {
+      "id": "neutral_of_restricted_of_commonGround",
+      "name": "Foundational restriction yields neutrality under common ground",
+      "lean_symbol": "SE.NeutralSubstrate.Neutrality.neutral_of_restricted_of_commonGround",
+      "source_module": "SE.NeutralSubstrate.Neutrality.Sufficiency",
+      "status": "proved",
+      "description": "Under referential common ground, restricting substrate commitments to referential commitments and permitted attribution propositions yields neutrality. This result does not establish neutrality by design."
     },
     {
       "id": "noObjectLevelCommitment_of_foundationalLayerRestricted",

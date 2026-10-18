@@ -43,13 +43,22 @@ individuation, co-reference, and persistence interfaces.
 This repository defines those interfaces without
 collapsing them into a common referential condition.
 
-Substantive persistence theory, transformation theory, identity-regime
-classification, operational identity, and later integration theory
-remain outside this repository.
-Denotation and co-reference lifting are also
-deferred semantic bridges
-rather than consequences of
-referent carriers or referential records.
+Substantive individuation, co-reference, and persistence theories remain
+outside this repository, together with transformation theory,
+identity-regime classification, operational identity, and integration theory.
+Connections among the three abstract accounts require explicit justification.
+Denotation and co-reference lifting are semantic obligations rather than
+consequences of referent carriers or referential records.
+
+Under Referential Common Ground, restricting foundational commitments to
+referential commitments and permitted attribution propositions is proved
+sufficient for extension stability and neutrality.
+
+This result does not establish neutrality by design.
+The full `NeutralityConstraint` is an explicit condition
+that a realization must satisfy;
+the theorems in `Constraint.lean`
+derive consequences under that condition.
 
 ## Theory Structure
 
@@ -129,6 +138,8 @@ The exact repository semantic boundary is declared in
 
 In particular, this repository does not define:
 
+- substantive individuation theory
+- substantive co-reference theory
 - substantive persistence theory
 - denotation and co-reference lifting semantics
 - domain-specific individuation criteria

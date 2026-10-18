@@ -17,7 +17,7 @@ version = "0.8.0"
 status = "canonical"
 
 # ============================================================
-# 01. SUBSTRATE
+# === 01. SUBSTRATE ===
 # ============================================================
 
 [requirement.se100DefSubstrate]
@@ -32,7 +32,7 @@ target_module = "SE.Substrate.SubstrateSystem"
 description = "Stable paper identifier for the substrate-system definition."
 
 # ============================================================
-# 02. SUBSTRATE COMMITMENT
+# === 02. SUBSTRATE COMMITMENT ===
 # ============================================================
 
 [requirement.se100DefSubstrateCommitment]
@@ -47,7 +47,7 @@ target_module = "SE.Substrate.Commitment"
 description = "Stable paper identifier for the substrate-commitment predicate."
 
 # ============================================================
-# 03. CAUSAL OR NORMATIVE
+# === 03. CAUSAL OR NORMATIVE ===
 # ============================================================
 
 [requirement.se100NoteCausalNormative]
@@ -62,7 +62,7 @@ target_module = "SE.NeutralSubstrate.Classification.CausalNormative"
 description = "Stable paper identifier for the causal and normative classification note."
 
 # ============================================================
-# 04. ATTRIBUTION PROPOSITION
+# === 04. ATTRIBUTION PROPOSITION ===
 # ============================================================
 
 [requirement.se100DefAttributionProposition]
@@ -77,7 +77,7 @@ target_module = "SE.NeutralSubstrate.Attribution.Basic"
 description = "Stable paper identifier for the attribution-proposition predicate."
 
 # ============================================================
-# 05. OBJECT-LEVEL INTERPRETIVE PROPOSITION
+# === 05. OBJECT-LEVEL INTERPRETIVE PROPOSITION ===
 # ============================================================
 
 [requirement.se100DefObjectLevelInterpretiveProposition]
@@ -92,7 +92,7 @@ target_module = "SE.NeutralSubstrate.Interpretation.ObjectLevelProposition"
 description = "Stable paper identifier for the object-level interpretive-proposition predicate."
 
 # ============================================================
-# 06. OBJECT-LEVEL CAUSAL OR NORMATIVE COMMITMENT
+# === 06. OBJECT-LEVEL CAUSAL OR NORMATIVE COMMITMENT ===
 # ============================================================
 
 [requirement.se100DefObjectLevelCausalNormativeCommitment]
@@ -107,7 +107,7 @@ target_module = "SE.NeutralSubstrate.Interpretation.ObjectLevelCausalOrNormative
 description = "Stable paper identifier for the object-level causal-or-normative commitment predicate."
 
 # ============================================================
-# 07. REFERENTIAL REGIME
+# === 07. REFERENTIAL REGIME ===
 # ============================================================
 
 [requirement.se100DefReferentialRegime]
@@ -122,7 +122,7 @@ target_module = "SE.Substrate.ReferentialRegime"
 description = "Stable paper identifier for the referential-regime structure."
 
 # ============================================================
-# 08. REFERENTIAL COMMITMENTS
+# === 08. REFERENTIAL COMMITMENTS ===
 # ============================================================
 
 [requirement.se100DefReferentialCommitments]
@@ -137,7 +137,7 @@ target_module = "SE.Substrate.ReferentialCommitments"
 description = "Stable paper identifier for the referential-commitments definition."
 
 # ============================================================
-# 09. ADMISSIBLE FRAMEWORK
+# === 09. ADMISSIBLE FRAMEWORK ===
 # ============================================================
 
 [requirement.se100DefAdmissibleFramework]
@@ -152,7 +152,7 @@ target_module = "SE.Framework.Admissible"
 description = "Stable paper identifier for the admissible-framework predicate."
 
 # ============================================================
-# 10. FRAMEWORK CLASS
+# === 10. FRAMEWORK CLASS ===
 # ============================================================
 
 [requirement.se100NoteFrameworkClass]
@@ -167,7 +167,7 @@ target_module = "SE.Framework.Class"
 description = "Stable paper identifier for the admissible framework class."
 
 # ============================================================
-# 11. PERMITTED ATTRIBUTION PROPOSITION
+# === 11. PERMITTED ATTRIBUTION PROPOSITION ===
 # ============================================================
 
 [requirement.se100DefPermittedAttributionProposition]
@@ -182,7 +182,7 @@ target_module = "SE.NeutralSubstrate.Attribution.Permitted"
 description = "Stable paper identifier for the permitted-attribution-proposition predicate."
 
 # ============================================================
-# 12. FRAMEWORK VARIANT
+# === 12. FRAMEWORK VARIANT ===
 # ============================================================
 
 [requirement.se100DefFrameworkVariant]
@@ -197,7 +197,7 @@ target_module = "SE.NeutralSubstrate.FrameworkRelative.Variant"
 description = "Stable paper identifier for the framework-variant-proposition predicate."
 
 # ============================================================
-# 13. FRAMEWORK INVARIANT
+# === 13. FRAMEWORK INVARIANT ===
 # ============================================================
 
 [requirement.se100DefFrameworkInvariant]
@@ -212,7 +212,7 @@ target_module = "SE.NeutralSubstrate.FrameworkRelative.Invariant"
 description = "Stable paper identifier for the framework-invariant-proposition predicate."
 
 # ============================================================
-# 14. FRAMEWORK-COMPATIBLE COMMITMENT SET
+# === 14. FRAMEWORK-COMPATIBLE COMMITMENT SET ===
 # ============================================================
 
 [requirement.se100DefFrameworkCompatibleCommitmentSet]
@@ -227,7 +227,7 @@ target_module = "SE.NeutralSubstrate.FrameworkRelative.CompatibleCommitmentSet"
 description = "Stable paper identifier for the framework-compatible commitment-set predicate."
 
 # ============================================================
-# 15. CONTESTED CAUSAL OR NORMATIVE PROPOSITION
+# === 15. CONTESTED CAUSAL OR NORMATIVE PROPOSITION ===
 # ============================================================
 
 [requirement.se100DefContestedCausalNormative]
@@ -242,7 +242,7 @@ target_module = "SE.NeutralSubstrate.Classification.ContestedCausalOrNormative"
 description = "Stable paper identifier for the contested causal-or-normative-proposition predicate."
 
 # ============================================================
-# 16. CONTESTABILITY
+# === 16. CONTESTABILITY ===
 # ============================================================
 
 [requirement.se100AssumpContestability]
@@ -257,7 +257,7 @@ target_module = "SE.NeutralSubstrate.Assumptions.Contestability"
 description = "Stable paper identifier for the contestability assumption."
 
 # ============================================================
-# 17. REFERENTIAL COMMON GROUND
+# === 17. REFERENTIAL COMMON GROUND ===
 # ============================================================
 
 [requirement.se100AssumpReferentialCommonGround]
@@ -272,7 +272,7 @@ target_module = "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround"
 description = "Stable paper identifier for the referential-common-ground assumption."
 
 # ============================================================
-# 18. ATTRIBUTION AND COMMON GROUND
+# === 18. ATTRIBUTION AND COMMON GROUND ===
 # ============================================================
 
 [requirement.se100RemarkAttributionCommonGround]
@@ -287,7 +287,7 @@ target_module = "SE.NeutralSubstrate.Attribution.CommonGround"
 description = "Stable paper identifier for the result that permitted attribution preserves consistency under referential common ground."
 
 # ============================================================
-# 19. INTERPRETIVE NON-COMMITMENT
+# === 19. INTERPRETIVE NON-COMMITMENT ===
 # ============================================================
 
 [requirement.se100DefInterpretiveNonCommitment]
@@ -302,7 +302,7 @@ target_module = "SE.NeutralSubstrate.Neutrality.InterpretiveNonCommitment"
 description = "Stable paper identifier for the interpretive-non-commitment predicate."
 
 # ============================================================
-# 20. EXTENSION STABILITY
+# === 20. EXTENSION STABILITY ===
 # ============================================================
 
 [requirement.se100DefExtensionStability]
@@ -317,7 +317,7 @@ target_module = "SE.NeutralSubstrate.Neutrality.ExtensionStability"
 description = "Stable paper identifier for the extension-stability predicate."
 
 # ============================================================
-# 21. SUBSTRATE CONSISTENCY
+# === 21. SUBSTRATE CONSISTENCY ===
 # ============================================================
 
 [requirement.se100AssumpSubstrateConsistency]
@@ -332,7 +332,7 @@ target_module = "SE.NeutralSubstrate.Assumptions.SubstrateConsistency"
 description = "Stable paper identifier for the substrate-consistency assumption."
 
 # ============================================================
-# 22. RELATION BETWEEN THE NEUTRALITY PROPERTIES
+# === 22. RELATION BETWEEN THE NEUTRALITY PROPERTIES ===
 # ============================================================
 
 [requirement.se100RemarkPropertyRelation]
@@ -347,7 +347,7 @@ target_module = "SE.NeutralSubstrate.Neutrality.PropertyRelation"
 description = "Stable paper identifier for the result that extension stability entails interpretive non-commitment."
 
 # ============================================================
-# 23. NEUTRALITY BY DESIGN
+# === 23. NEUTRALITY BY DESIGN ===
 # ============================================================
 
 [requirement.se100DefNeutralityByDesign]
@@ -362,7 +362,7 @@ target_module = "SE.NeutralSubstrate.Neutrality.ByDesign"
 description = "Stable paper identifier for the neutrality-by-design predicate."
 
 # ============================================================
-# 24. NEUTRALITY CONSTRAINT
+# === 24. NEUTRALITY CONSTRAINT ===
 # ============================================================
 
 [requirement.se100ConstraintNeutrality]
@@ -377,7 +377,7 @@ target_module = "SE.NeutralSubstrate.Constraint"
 description = "Stable paper identifier for the Neutral Substrate constraint."
 
 # ============================================================
-# 25. REIFICATION FRAGMENT
+# === 25. REIFICATION FRAGMENT ===
 # ============================================================
 
 [requirement.se100ExampleReificationFragment]

@@ -10,7 +10,7 @@ surface_module = "SE"
 namespace = "SE"
 
 # ============================================================
-# THEORY EXTENSION
+# === THEORY EXTENSION ===
 # ============================================================
 
 [theorem.mem_combine_iff]
@@ -54,7 +54,7 @@ status = "proved"
 description = "A commitment theory is a subset of the theory obtained by adjoining one proposition."
 
 # ============================================================
-# CONSEQUENCE AND CONSISTENCY
+# === CONSEQUENCE AND CONSISTENCY ===
 # ============================================================
 
 [theorem.entailsMono]
@@ -82,7 +82,7 @@ status = "proved"
 description = "A commitment theory is consistent when it does not entail the distinguished contradiction proposition."
 
 # ============================================================
-# SUBSTRATE COMMITMENTS
+# === SUBSTRATE COMMITMENTS ===
 # ============================================================
 
 [theorem.entails_of_substrateCommitment]
@@ -118,7 +118,7 @@ status = "proved"
 description = "Every member of the referential commitment theory is fixed by the substrate's referential regime."
 
 # ============================================================
-# ATTRIBUTION
+# === ATTRIBUTION ===
 # ============================================================
 
 [theorem.attributionProposition_asserts]
@@ -154,7 +154,7 @@ status = "proved"
 description = "Every permitted attribution proposition is a commitment of the selected substrate."
 
 # ============================================================
-# FRAMEWORK-RELATIVE PROPERTIES
+# === FRAMEWORK-RELATIVE PROPERTIES
 # ============================================================
 
 [theorem.entails_substrateFrameworkCommitments_of_substrateCommitment]
@@ -206,7 +206,7 @@ status = "proved"
 description = "A framework-compatible commitment set remains consistent when combined with the commitments of any admissible framework."
 
 # ============================================================
-# DESIGN-TIME GUARANTEES
+# === DESIGN-TIME GUARANTEES ===
 # ============================================================
 
 [theorem.guaranteedAtDesignTime_iff]
@@ -242,7 +242,7 @@ status = "proved"
 description = "Every design-time guarantee has a permitted basis that establishes the guaranteed proposition."
 
 # ============================================================
-# CONTESTABILITY
+# === CONTESTABILITY ===
 # ============================================================
 
 [theorem.contestability_iff]
@@ -262,7 +262,7 @@ status = "proved"
 description = "Under contestability, a contested causal or normative proposition is not guaranteed at design time to be framework invariant."
 
 # ============================================================
-# REFERENTIAL COMMON GROUND
+# === REFERENTIAL COMMON GROUND ===
 # ============================================================
 
 [theorem.referentialCommonGround_iff]
@@ -306,7 +306,7 @@ status = "proved"
 description = "Under referential common ground, referential commitments with a permitted attribution proposition remain consistent with every admissible framework."
 
 # ============================================================
-# ATTRIBUTION AND COMMON GROUND
+# === ATTRIBUTION AND COMMON GROUND ===
 # ============================================================
 
 [theorem.entailsBottom_combine_adjoin_iff_of_entails]
@@ -334,7 +334,7 @@ status = "proved"
 description = "Referential common ground ensures that adjoining a permitted attribution proposition remains consistent with any admissible framework."
 
 # ============================================================
-# INTERPRETIVE NON-COMMITMENT
+# === INTERPRETIVE NON-COMMITMENT ===
 # ============================================================
 
 [theorem.interpretiveNonCommitment_iff]
@@ -370,7 +370,7 @@ status = "proved"
 description = "For every framework-variant proposition, interpretive non-commitment excludes commitment to both the proposition and its negation."
 
 # ============================================================
-# EXTENSION STABILITY
+# === EXTENSION STABILITY ===
 # ============================================================
 
 [theorem.extensionStability_iff]
@@ -390,7 +390,7 @@ status = "proved"
 description = "An extension-stable substrate remains consistent when combined with any admissible framework."
 
 # ============================================================
-# SUBSTRATE CONSISTENCY
+# === SUBSTRATE CONSISTENCY ===
 # ============================================================
 
 [theorem.substrateConsistency_iff]
@@ -418,7 +418,7 @@ status = "proved"
 description = "Consistency of the substrate's commitment theory yields the substrate-consistency assumption."
 
 # ============================================================
-# RELATION BETWEEN NEUTRALITY PROPERTIES
+# === RELATION BETWEEN NEUTRALITY PROPERTIES ===
 # ============================================================
 
 [theorem.interpretiveNonCommitment_of_extensionStability]
@@ -430,7 +430,7 @@ status = "proved"
 description = "Extension stability implies interpretive non-commitment. The converse is not asserted."
 
 # ============================================================
-# NEUTRALITY BY DESIGN
+# === NEUTRALITY BY DESIGN ===
 # ============================================================
 
 [theorem.neutral_iff]
@@ -490,7 +490,27 @@ status = "proved"
 description = "A substrate that is neutral by design satisfies extension stability."
 
 # ============================================================
-# NEUTRALITY CONSTRAINT
+# === SUFFICIENCY OF THE FOUNDATIONAL-LAYER RESTRICTION ===
+# ============================================================
+
+[theorem.extensionStability_of_restricted_of_commonGround]
+id = "extensionStability_of_restricted_of_commonGround"
+name = "Foundational restriction yields extension stability under common ground"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.extensionStability_of_restricted_of_commonGround"
+source_module = "SE.NeutralSubstrate.Neutrality.Sufficiency"
+status = "proved"
+description = "Under referential common ground, restricting substrate commitments to referential commitments and permitted attribution propositions yields extension stability."
+
+[theorem.neutral_of_restricted_of_commonGround]
+id = "neutral_of_restricted_of_commonGround"
+name = "Foundational restriction yields neutrality under common ground"
+lean_symbol = "SE.NeutralSubstrate.Neutrality.neutral_of_restricted_of_commonGround"
+source_module = "SE.NeutralSubstrate.Neutrality.Sufficiency"
+status = "proved"
+description = "Under referential common ground, restricting substrate commitments to referential commitments and permitted attribution propositions yields neutrality. This result does not establish neutrality by design."
+
+# ============================================================
+# === NEUTRALITY CONSTRAINT ===
 # ============================================================
 
 [theorem.neutralByDesign_iff_foundationalLayerRestricted]
