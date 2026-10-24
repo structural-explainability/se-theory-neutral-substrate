@@ -156,7 +156,7 @@ jobs:
         working-directory: docbuild
         run: |
           lake update
-          lake build -j 2 SE.NeutralSubstrate:docs
+          LEAN_NUM_THREADS=2 lake build SE.NeutralSubstrate:docs
 
       - name: BB3) Verify Lean API output
         run: |
