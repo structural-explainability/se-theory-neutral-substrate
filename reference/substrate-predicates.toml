@@ -287,10 +287,10 @@ lean_symbol = "SE.NeutralSubstrate.NoObjectLevelCausalOrNormativeCommitment"
 source_module = "SE.NeutralSubstrate.Constraint"
 description = "The substrate makes no object-level causal or normative commitment in the selected classification and interpretation context."
 
-[predicate.NeutralityConstraint]
-id = "NeutralityConstraint"
-cite_id = "se100.constraint.Neutrality"
+[predicate.CharacterizationHypothesis]
+id = "CharacterizationHypothesis"
+cite_id = "se100.remark.CharacterizationHypothesis"
 name = "Neutrality constraint"
-lean_symbol = "SE.NeutralSubstrate.NeutralityConstraint"
+lean_symbol = "SE.NeutralSubstrate.CharacterizationHypothesis"
 source_module = "SE.NeutralSubstrate.Constraint"
 description = "Under contestability and referential common ground, neutrality by design is equivalent to restricting foundational commitments to referential commitments and permitted attribution propositions; that restriction also excludes object-level causal or normative commitments."

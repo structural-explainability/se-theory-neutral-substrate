@@ -236,7 +236,7 @@
       "lean_symbol": "SE.NeutralSubstrate.Neutrality.interpretiveNonCommitment_of_extensionStability",
       "source_module": "SE.NeutralSubstrate.Neutrality.PropertyRelation",
       "status": "proved",
-      "description": "Extension stability implies interpretive non-commitment. The converse is not asserted."
+      "description": "Extension stability implies interpretive non-commitment. The converse is not derived from the abstract consequence interface, which assumes no explosion principle."
     },
     {
       "id": "interpretiveNonCommitment_of_neutral",

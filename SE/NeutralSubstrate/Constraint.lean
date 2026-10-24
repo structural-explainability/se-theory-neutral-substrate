@@ -7,13 +7,17 @@ public import SE.NeutralSubstrate.Neutrality.ByDesign
 public import SE.NeutralSubstrate.FoundationalLayer
 
 /-!
-# Neutrality Constraint
+# Characterization Hypothesis
 
 This module formalizes:
 
-- `se100.constraint.Neutrality` — Neutrality
+- `se100.remark.CharacterizationHypothesis` - Characterization as an Explicit Hypothesis
 
-For a substrate intended to remain usable by the complete intrinsic class of
+The semantic sufficiency direction of `se100.constraint.Neutrality` is
+proved in `SE.NeutralSubstrate.Neutrality.Sufficiency`.
+
+This module states, as an explicit hypothesis on a realization, that for a
+substrate intended to remain usable by the complete intrinsic class of
 admissible frameworks, and under Contestability and Referential Common
 Ground, neutrality by design is equivalent to restricting the foundational
 layer to:
@@ -21,12 +25,11 @@ layer to:
 - referential commitments; and
 - permitted attribution propositions.
 
-The constraint also records the resulting exclusion of object-level causal
+The hypothesis also records the resulting exclusion of object-level causal
 or normative commitments.
 
-The biconditional is represented as a constraint that a realization of the
-abstract interfaces must satisfy. It is not asserted to follow from the
-minimal consequence-system interfaces alone.
+It is not asserted to follow from the minimal consequence-system interfaces
+alone; the theorems below derive consequences under it.
 -/
 
 set_option autoImplicit false
@@ -69,10 +72,10 @@ def NoObjectLevelCausalOrNormativeCommitment
     ¬ ObjectLevelCausalOrNormativeCommitment
       C K c A I S s p
 
--- RR.DEFINES: SE.NeutralSubstrate.NeutralityConstraint
--- RR.IMPLEMENTS: se100.constraint.Neutrality
+-- RR.DEFINES: SE.NeutralSubstrate.CharacterizationHypothesis
+-- RR.IMPLEMENTS: se100.remark.CharacterizationHypothesis
 /--
-The neutrality constraint states that, under Contestability and Referential
+The characterization hypothesis states that, under Contestability and Referential
 Common Ground:
 
 1. neutrality by design is equivalent to restriction of the foundational
@@ -81,10 +84,11 @@ Common Ground:
 2. that restriction excludes every object-level causal or normative
    commitment.
 
+It is an explicit condition on a realization, not a theorem.
 The design-time guarantee ranges over the complete intrinsic framework class
 through `NeutralByDesign`; it does not depend on framework enumeration.
 -/
-def NeutralityConstraint
+def CharacterizationHypothesis
     {L : PropositionalLanguage.{u}}
     {R : ReferentCarriers.{v}}
     (C : ConsequenceSystem L)
@@ -112,7 +116,7 @@ def NeutralityConstraint
 
 -- RR.DEFINES: SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted
 /--
-Under the neutrality constraint, Contestability, and Referential Common
+Under the characterization hypothesis, Contestability, and Referential Common
 Ground, neutrality by design is equivalent to restriction of the
 foundational layer to the permitted classes.
 -/
@@ -131,8 +135,8 @@ theorem neutralByDesign_iff_foundationalLayerRestricted
     {s : S.Carrier}
     {M : FrameworkSystem.{u, z} L.carrier}
     {D : DesignTimeGuaranteeSystem.{t}}
-    (hconstraint :
-      NeutralityConstraint C K c G S F A B I s M D)
+    (hcharacterization :
+      CharacterizationHypothesis C K c G S F A B I s M D)
     (hcontestability :
       Contestability C K c G S F s M D)
     (hcommonGround :
@@ -140,11 +144,11 @@ theorem neutralByDesign_iff_foundationalLayerRestricted
     NeutralByDesign C S s M D ↔
       FoundationalLayerRestrictedToPermittedClasses
         C S F A B s :=
-  (hconstraint hcontestability hcommonGround).1
+  (hcharacterization hcontestability hcommonGround).1
 
 -- RR.DEFINES: SE.NeutralSubstrate.noObjectLevelCommitment_of_foundationalLayerRestricted
 /--
-Under the neutrality constraint, restriction to the permitted foundational
+Under the characterization hypothesis, restriction to the permitted foundational
 classes excludes object-level causal or normative commitments.
 -/
 theorem noObjectLevelCommitment_of_foundationalLayerRestricted
@@ -162,8 +166,8 @@ theorem noObjectLevelCommitment_of_foundationalLayerRestricted
     {s : S.Carrier}
     {M : FrameworkSystem.{u, z} L.carrier}
     {D : DesignTimeGuaranteeSystem.{t}}
-    (hconstraint :
-      NeutralityConstraint C K c G S F A B I s M D)
+    (hcharacterization :
+      CharacterizationHypothesis C K c G S F A B I s M D)
     (hcontestability :
       Contestability C K c G S F s M D)
     (hcommonGround :
@@ -173,12 +177,12 @@ theorem noObjectLevelCommitment_of_foundationalLayerRestricted
         C S F A B s) :
     NoObjectLevelCausalOrNormativeCommitment
       C K c A I S s :=
-  (hconstraint hcontestability hcommonGround).2
+  (hcharacterization hcontestability hcommonGround).2
     hrestricted
 
 -- RR.DEFINES: SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign
 /--
-Under the neutrality constraint, a substrate that is neutral by design makes
+Under the characterization hypothesis, a substrate that is neutral by design makes
 no object-level causal or normative commitment.
 -/
 theorem noObjectLevelCommitment_of_neutralByDesign
@@ -196,8 +200,8 @@ theorem noObjectLevelCommitment_of_neutralByDesign
     {s : S.Carrier}
     {M : FrameworkSystem.{u, z} L.carrier}
     {D : DesignTimeGuaranteeSystem.{t}}
-    (hconstraint :
-      NeutralityConstraint C K c G S F A B I s M D)
+    (hcharacterization :
+      CharacterizationHypothesis C K c G S F A B I s M D)
     (hcontestability :
       Contestability C K c G S F s M D)
     (hcommonGround :
@@ -210,12 +214,12 @@ theorem noObjectLevelCommitment_of_neutralByDesign
       FoundationalLayerRestrictedToPermittedClasses
         C S F A B s :=
     (neutralByDesign_iff_foundationalLayerRestricted
-      hconstraint
+      hcharacterization
       hcontestability
       hcommonGround).mp hdesign
   exact
     noObjectLevelCommitment_of_foundationalLayerRestricted
-      hconstraint
+      hcharacterization
       hcontestability
       hcommonGround
       hrestricted

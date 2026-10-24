@@ -263,15 +263,48 @@
       "order": 24,
       "id": "se100ConstraintNeutrality",
       "cite_id": "se100.constraint.Neutrality",
-      "name": "Neutrality constraint",
+      "name": "Neutrality constraint (semantic sufficiency)",
       "lean_symbol": "SE.NeutralSubstrate.Spec.se100ConstraintNeutrality",
       "source_module": "SE.NeutralSubstrate.Spec",
-      "target_symbol": "NeutralityConstraint",
-      "target_module": "SE.NeutralSubstrate.Constraint",
-      "description": "Stable paper identifier for the Neutral Substrate constraint."
+      "target_symbol": "neutral_of_restricted_of_commonGround",
+      "target_module": "SE.NeutralSubstrate.Neutrality.Sufficiency",
+      "description": "Stable paper identifier for the Neutral Substrate constraint: under referential common ground, the foundational-layer restriction yields semantic neutrality."
     },
     {
-      "order": 25,
+      "order": 26,
+      "id": "se100RemarkCharacterizationHypothesis",
+      "cite_id": "se100.remark.CharacterizationHypothesis",
+      "name": "Characterization as an explicit hypothesis",
+      "lean_symbol": "SE.NeutralSubstrate.Spec.se100RemarkCharacterizationHypothesis",
+      "source_module": "SE.NeutralSubstrate.Spec",
+      "target_symbol": "CharacterizationHypothesis",
+      "target_module": "SE.NeutralSubstrate.Constraint",
+      "description": "Stable paper identifier for the characterization of neutrality by design, represented as an explicit hypothesis on a realization."
+    },
+    {
+      "order": 27,
+      "id": "se100NoteConsequenceRelation",
+      "cite_id": "se100.note.ConsequenceRelation",
+      "name": "Consequence relation",
+      "lean_symbol": "SE.NeutralSubstrate.Spec.se100NoteConsequenceRelation",
+      "source_module": "SE.NeutralSubstrate.Spec",
+      "target_symbol": "ConsequenceSystem",
+      "target_module": "SE.Logic.Consequence",
+      "description": "Stable paper identifier for the structural properties of consequence the arguments rely on."
+    },
+    {
+      "order": 28,
+      "id": "se100RemarkFrameworkInvariantRefutation",
+      "cite_id": "se100.remark.FrameworkInvariantRefutation",
+      "name": "Framework invariance and refutation",
+      "lean_symbol": "SE.NeutralSubstrate.Spec.se100RemarkFrameworkInvariantRefutation",
+      "source_module": "SE.NeutralSubstrate.Spec",
+      "target_symbol": "not_entails_neg_of_frameworkInvariantProposition",
+      "target_module": "SE.NeutralSubstrate.FrameworkRelative.InvariantRefutation",
+      "description": "Stable paper identifier for the remark relating framework invariance to non-refutation."
+    },
+    {
+      "order": 29,
       "id": "se100ExampleReificationFragment",
       "cite_id": "se100.example.ReificationFragment",
       "name": "Reification fragment",

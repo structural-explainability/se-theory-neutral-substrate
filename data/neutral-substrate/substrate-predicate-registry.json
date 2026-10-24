@@ -37,6 +37,14 @@
       "description": "A proposition classified as causal in a specified classification context."
     },
     {
+      "id": "CharacterizationHypothesis",
+      "cite_id": "se100.remark.CharacterizationHypothesis",
+      "name": "Neutrality constraint",
+      "lean_symbol": "SE.NeutralSubstrate.CharacterizationHypothesis",
+      "source_module": "SE.NeutralSubstrate.Constraint",
+      "description": "Under contestability and referential common ground, neutrality by design is equivalent to restricting foundational commitments to referential commitments and permitted attribution propositions; that restriction also excludes object-level causal or normative commitments."
+    },
+    {
       "id": "Consistent",
       "name": "Consistent",
       "lean_symbol": "SE.Logic.Consistent",
@@ -149,14 +157,6 @@
       "lean_symbol": "SE.NeutralSubstrate.Neutrality.NeutralByDesign",
       "source_module": "SE.NeutralSubstrate.Neutrality.ByDesign",
       "description": "Neutrality is guaranteed at design time by the selected design-time guarantee system."
-    },
-    {
-      "id": "NeutralityConstraint",
-      "cite_id": "se100.constraint.Neutrality",
-      "name": "Neutrality constraint",
-      "lean_symbol": "SE.NeutralSubstrate.NeutralityConstraint",
-      "source_module": "SE.NeutralSubstrate.Constraint",
-      "description": "Under contestability and referential common ground, neutrality by design is equivalent to restricting foundational commitments to referential commitments and permitted attribution propositions; that restriction also excludes object-level causal or normative commitments."
     },
     {
       "id": "NoObjectLevelCausalOrNormativeCommitment",

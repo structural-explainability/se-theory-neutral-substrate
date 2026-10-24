@@ -69,7 +69,7 @@ symbols = [
     "SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign",
 ]
 path = "SE/NeutralSubstrate/Constraint.lean"
-reason = "Machine-checked consequences under the explicitly assumed NeutralityConstraint, Contestability, and Referential Common Ground."
+reason = "Machine-checked consequences under the explicitly assumed CharacterizationHypothesis, Contestability, and Referential Common Ground."
 
 # === Scope ===
 

@@ -157,7 +157,7 @@ relation = "depends_on"
 id = "trace-neutral-by-design-iff-foundational-layer-restricted"
 from = "neutralByDesign_iff_foundationalLayerRestricted"
 to = [
-  "NeutralityConstraint",
+  "CharacterizationHypothesis",
   "Contestability",
   "ReferentialCommonGround",
   "NeutralByDesign",
@@ -169,7 +169,7 @@ relation = "depends_on"
 id = "trace-no-object-level-commitment-of-foundational-layer-restricted"
 from = "noObjectLevelCommitment_of_foundationalLayerRestricted"
 to = [
-  "NeutralityConstraint",
+  "CharacterizationHypothesis",
   "Contestability",
   "ReferentialCommonGround",
   "FoundationalLayerRestrictedToPermittedClasses",
@@ -182,7 +182,7 @@ relation = "depends_on"
 id = "trace-no-object-level-commitment-of-neutral-by-design"
 from = "noObjectLevelCommitment_of_neutralByDesign"
 to = [
-  "NeutralityConstraint",
+  "CharacterizationHypothesis",
   "Contestability",
   "ReferentialCommonGround",
   "NeutralByDesign",

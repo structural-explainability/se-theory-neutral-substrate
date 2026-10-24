@@ -16,6 +16,22 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 - Recorded the unresolved grounding and compatibility obligations
   for concrete referential realizations.
 - partial `uvx pup-up` updates
+- Renamed `NeutralityConstraint` to `CharacterizationHypothesis`
+  (breaking: public definition and theorem arguments).
+  The paper's neutrality constraint is now the sufficiency direction,
+  proved in `Sufficiency.lean`; the hypothesis stays an explicit condition
+  on realizations.
+- Added stable paper tags for the characterization hypothesis and for the
+  structural properties of consequence the arguments rely on, and registered
+  the missing framework-invariance refutation tag.
+- Added `admissibleFramework_iff` and `documentedInterpretiveFunction_iff`.
+- Replaced the discriminating-model placeholders with proofs: the neutral
+  substrate is neutral, the non-neutral substrate is not, and the contested
+  proposition is framework-variant.
+- Corrected `Constraint.lean` docstrings to match the renamed hypothesis.
+- CI builds the Lean surface with `lake build --wfail`.
+- Reduced README and documentation to navigation; scope and exclusions are
+  defined in `SE_MANIFEST.toml`.
 
 ---
 

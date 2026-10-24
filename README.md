@@ -15,20 +15,12 @@
 > Lean 4 formalization of the neutral structural substrate of
 > Structural Explainability.
 
-This repository formalizes neutrality conditions and the abstract
-individuation, co-reference, and persistence interfaces composed by a
-referential regime.
-Substantive criteria and compatibility among those accounts
-require separate justification.
-
-The `NeutralityConstraint` is an explicit condition on realizations,
-not a theorem derived from the abstract interfaces.
-Its consequences require that constraint, Contestability, and Referential Common Ground.
-
-Separately, under Referential Common Ground, restricting the foundational
-layer to permitted classes is proved sufficient for semantic neutrality.
-That result does not independently establish neutrality by design,
-which requires a permitted design-time guarantee basis.
+Scope and exclusions are defined in [SE_MANIFEST.toml](./SE_MANIFEST.toml).
+The Lean source states what is proved and under which assumptions.
+This library states neutrality conditions in the abstract;
+it does not certify any concrete realization,
+which must justify its own referential
+fixing and framework compatibility.
 
 ## Authority
 
@@ -54,26 +46,11 @@ Import the public theory surface:
 import SE.NeutralSubstrate
 ```
 
-## Theory Structure
-
-```mermaid
-flowchart TD
-    A["Propositional Language"] --> B["Commitment Theory and Consequence"]
-    B --> C["Frameworks, Referent Carriers, Referential Regimes, and Substrates"]
-    C --> D["Referential Commitments"]
-    D --> E["Classification, Attribution, and Interpretation"]
-    E --> F["Framework-Relative Properties"]
-    F --> G["Contestability and Referential Common Ground"]
-    G --> H["Interpretive Non-Commitment and Extension Stability"]
-    H --> I["Neutrality by Design"]
-    I --> J["Neutrality Constraint"]
-```
-
 ## Developer
 
 Maintain:
 
-- `formalization\source\se100-lean-basis.md` - from the paper
+- `formalization/source/se100-lean-basis.md` - from the paper
 - `lakefile.toml`
 - `lean-toolchain`
 - `reference/theory-reference.toml` - hand-maintained configuration
@@ -101,33 +78,8 @@ View / Command Palette / `Developer: Reload Window` to refresh.
 .\sit.ps1
 .\rel.ps1
 
-# inspect shared theory-reference command surface
+# shared theory-reference tooling: commands and options
 uvx se-theory-reference-kit@latest --help
-uvx se-theory-reference-kit@latest validate --help
-uvx se-theory-reference-kit@latest scaffold --help
-uvx se-theory-reference-kit@latest export --help
-uvx se-theory-reference-kit@latest catalog --help
-uvx se-theory-reference-kit@latest inspect --help
-
-# validate reference artifacts against the declared Lean public surface
-uvx se-theory-reference-kit@latest validate
-uvx se-theory-reference-kit@latest validate --strict
-
-# scaffold reference artifacts from Lean public declarations
-uvx se-theory-reference-kit@latest scaffold
-uvx se-theory-reference-kit@latest scaffold --dry-run
-uvx se-theory-reference-kit@latest scaffold --overwrite
-
-# regenerate or check generated JSON artifacts from reference TOML
-uvx se-theory-reference-kit@latest export
-uvx se-theory-reference-kit@latest export --check
-
-# build or verify the generated reference catalog
-uvx se-theory-reference-kit@latest catalog
-uvx se-theory-reference-kit@latest catalog --check
-
-# inspect resolved repository configuration and reference declarations
-uvx se-theory-reference-kit@latest inspect
 
 # validate SE manifest file
 uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict

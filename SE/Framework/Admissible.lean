@@ -53,6 +53,23 @@ def DocumentedInterpretiveFunction
     M.hasDocumentedScope F ∧
     M.hasCitableBasis F
 
+-- RR.DEFINES: SE.Framework.documentedInterpretiveFunction_iff
+/--
+A framework has a documented interpretive function exactly when it is
+presented as an interpretive function with a named source, documented scope,
+and citable basis.
+-/
+@[simp]
+theorem documentedInterpretiveFunction_iff
+    {M : FrameworkSystem L.carrier}
+    {F : M.Carrier} :
+    DocumentedInterpretiveFunction M F ↔
+      M.presentedAsInterpretiveFunction F ∧
+        M.hasNamedSource F ∧
+        M.hasDocumentedScope F ∧
+        M.hasCitableBasis F :=
+  Iff.rfl
+
 -- RR.DEFINES: SE.Framework.AdmissibleFramework
 -- RR.IMPLEMENTS: se100.def.AdmissibleFramework
 /--
@@ -67,6 +84,23 @@ def AdmissibleFramework
   Consistent C (M.commitments F) ∧
     M.evidentiallyGrounded F ∧
     DocumentedInterpretiveFunction M F
+
+
+-- RR.DEFINES: SE.Framework.admissibleFramework_iff
+/--
+A framework is admissible exactly when it is internally consistent,
+evidentially grounded, and has a documented interpretive function.
+-/
+@[simp]
+theorem admissibleFramework_iff
+    {C : ConsequenceSystem L}
+    {M : FrameworkSystem.{u, v} L.carrier}
+    {F : M.Carrier} :
+    AdmissibleFramework C M F ↔
+      Consistent C (M.commitments F) ∧
+        M.evidentiallyGrounded F ∧
+        DocumentedInterpretiveFunction M F :=
+  Iff.rfl
 
 end
 

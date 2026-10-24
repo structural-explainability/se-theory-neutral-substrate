@@ -105,9 +105,17 @@ def se100RemarkPropertyRelation : String :=
 def se100DefNeutralityByDesign : String :=
   "se100.def.NeutralityByDesign"
 
-/-- Paper item: neutrality constraint. -/
+/-- Paper item: neutrality constraint (semantic sufficiency). -/
 def se100ConstraintNeutrality : String :=
   "se100.constraint.Neutrality"
+
+/-- Paper item: characterization of neutrality by design as an explicit hypothesis. -/
+def se100RemarkCharacterizationHypothesis : String :=
+  "se100.remark.CharacterizationHypothesis"
+
+/-- Paper item: consequence relation. -/
+def se100NoteConsequenceRelation : String :=
+  "se100.note.ConsequenceRelation"
 
 /-- Paper item: reification fragment. -/
 def se100ExampleReificationFragment : String :=

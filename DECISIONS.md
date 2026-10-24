@@ -131,7 +131,7 @@ sufficient for extension stability and neutrality.
 That result does not establish neutrality by design,
 which additionally requires a permitted design-time guarantee basis.
 
-The full `NeutralityConstraint` is an explicit condition on realizations.
+The full `CharacterizationHypothesis` is an explicit condition on realizations.
 Theorems assuming that condition must not be described as independently
 deriving it from the minimal interfaces.
 
