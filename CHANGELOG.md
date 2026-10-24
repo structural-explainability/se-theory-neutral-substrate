@@ -15,6 +15,7 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 - Clarified joint compatibility of complete referential commitment sets.
 - Recorded the unresolved grounding and compatibility obligations
   for concrete referential realizations.
+- partial `uvx pup-up` updates
 
 ---
 

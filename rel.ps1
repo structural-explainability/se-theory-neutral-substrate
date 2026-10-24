@@ -120,8 +120,8 @@ Invoke-Step "A2) Lean and lake versions" "lean --version; lake --version" {
 # === B) Lean build and tests ===
 # ============================================================
 
-Invoke-Step "B1) Build Lean library" "lake build" {
-    lake build
+Invoke-Step "B1) Build Lean library" "lake build --wfail" {
+    lake build --wfail
 }
 
 Invoke-Step "B2) Run Lean tests" "lake test" {

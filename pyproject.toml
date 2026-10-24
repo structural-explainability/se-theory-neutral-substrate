@@ -15,7 +15,7 @@
 [project]
 name = "se-theory-neutral-substrate" # Package distribution name (lowercase and dashes).
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.15"
 version = "0.11.0"
 
 # ============================================================
@@ -38,7 +38,6 @@ dev = []
 
 docs = [
     # REQ.DOCS.DEPS: Standard tools for generating project documentation.
-    "mkdocstrings[python]", # WHY: Generate API documentation from Python docstrings.
     "zensical",             # WHY: Build the project documentation website.
 ]
 
@@ -58,7 +57,7 @@ MD033 = false # WHY: Allow inline HTML such as details, summary, iframe, and vid
 default-groups = "all"
 
 # WHY: Give a bit of time to find hijacked releases before installing.
-# CUSTOM: Should match `uv run prek update --freeze --cooldown-days 7`.
+# CUSTOM: Should match `uvx prek update --freeze --cooldown-days 7`.
 exclude-newer = "7 days"
 
 # WHY: Repository tooling updates must be usable immediately.

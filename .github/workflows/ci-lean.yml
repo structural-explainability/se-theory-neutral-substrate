@@ -1,7 +1,7 @@
 # ============================================================
 # .github/workflows/ci-lean.yml (ALL-LEAN)
 # ============================================================
-# UPDATED: 2026-10-01
+# UPDATED: 2026-10-24
 
 name: CI Lean
 
@@ -49,8 +49,8 @@ jobs:
       # ============================================================
 
       - name: B1) Build Lean project
-        run: lake build
-        # WHY: Compiles the public Lean theory surface.
+        run: lake build --wfail
+        # WHY: Compiles the public Lean theory surface; --wfail fails the build on any warning, including `sorry`.
 
       - name: B2) Build Lean test surface
         run: lake test

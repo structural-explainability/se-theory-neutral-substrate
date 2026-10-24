@@ -2,7 +2,7 @@
 
 [![Docs Site](https://img.shields.io/badge/docs-site-blue?logo=github)](https://structural-explainability.github.io/se-theory-neutral-substrate/)
 [![Repo](https://img.shields.io/badge/repo-GitHub-black?logo=github)](https://github.com/structural-explainability/se-theory-neutral-substrate)
-[![Tooling](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](./pyproject.toml)
+[![Tooling](https://img.shields.io/badge/python-3.15%2B-blue?logo=python)](./pyproject.toml)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21694487.svg)](https://doi.org/10.5281/zenodo.21694487)
 
@@ -20,6 +20,15 @@ individuation, co-reference, and persistence interfaces composed by a
 referential regime.
 Substantive criteria and compatibility among those accounts
 require separate justification.
+
+The `NeutralityConstraint` is an explicit condition on realizations,
+not a theorem derived from the abstract interfaces.
+Its consequences require that constraint, Contestability, and Referential Common Ground.
+
+Separately, under Referential Common Ground, restricting the foundational
+layer to permitted classes is proved sufficient for semantic neutrality.
+That result does not independently establish neutrality by design,
+which requires a permitted design-time guarantee basis.
 
 ## Authority
 
@@ -98,7 +107,7 @@ Maintain:
 - `lakefile.toml`
 - `lean-toolchain`
 - `reference/theory-reference.toml` - hand-maintained configuration
-- `reference/*.toml` - hand-maintained/scaffolded reference source artifacts
+- `reference/*.toml` - reference source artifacts
 - Lean source + RR comments - hand-maintained theory source
 
 ### Clone and Open Project in VS Code
