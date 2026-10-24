@@ -50,6 +50,7 @@ import SE.NeutralSubstrate
 
 Maintain:
 
+- `scripts/get-basis.ps1` update `$ExpectedItemCount` from the paper
 - `formalization/source/se100-lean-basis.md` - from the paper
 - `lakefile.toml`
 - `lean-toolchain`

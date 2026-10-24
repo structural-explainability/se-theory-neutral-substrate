@@ -121,7 +121,7 @@ $PaperIds = @(
         Sort-Object -Unique
 )
 
-$ExpectedItemCount = 25
+$ExpectedItemCount = 28 # CUSTOM: Keep this consistent with the paper basis
 
 if ($PaperIds.Count -ne $ExpectedItemCount) {
     Remove-Item -LiteralPath $TemporaryPath -Force
