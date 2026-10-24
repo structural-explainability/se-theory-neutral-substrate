@@ -79,6 +79,12 @@ The requirement is evaluated against each admissible framework.
 It does not require all admissible frameworks to be mutually
 consistent when their commitments are combined.
 
+Compatibility is distinct from entailment.
+The openness of the admissible framework class does not imply that
+every identity proposition not entailed by the referential commitments
+is rejected by some admissible framework.
+No such criterion-openness assumption is adopted or established.
+
 Under `ReferentialCommonGround`, the requirement applies to the
 complete set of referential commitments.
 Permitted attribution propositions are already entailed by those
