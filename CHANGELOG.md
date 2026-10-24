@@ -11,8 +11,10 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
-- Updated some GitHub action versions
-- Minor documentation changes
+- Updated available GitHub Actions versions.
+- Clarified joint compatibility of complete referential commitment sets.
+- Recorded the unresolved grounding and compatibility obligations
+  for concrete referential realizations.
 
 ---
 

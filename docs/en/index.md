@@ -46,9 +46,18 @@ collapsing them into a common referential condition.
 Substantive individuation, co-reference, and persistence theories remain
 outside this repository, together with transformation theory,
 identity-regime classification, operational identity, and integration theory.
+
 Connections among the three abstract accounts require explicit justification.
 Denotation and co-reference lifting are semantic obligations rather than
 consequences of referent carriers or referential records.
+
+Framework compatibility applies to complete commitment sets, not merely
+to individual propositions.
+The Lean theory expresses this condition, but a concrete realization
+must justify its referential fixing and
+establish compatibility of its resulting commitments with every
+admissible framework.
+Supplying the abstract referential interfaces does not discharge that obligation.
 
 Under Referential Common Ground, restricting foundational commitments to
 referential commitments and permitted attribution propositions is proved

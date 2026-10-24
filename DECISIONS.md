@@ -64,6 +64,46 @@ Supplying the interfaces does not establish substantive criteria or
 compatibility among the accounts.
 Those require explicit constructions and justified semantic connections.
 
+## Joint Compatibility of Referential Commitments
+
+The existing `FrameworkCompatibleCommitmentSet` definition requires
+the complete commitment set to remain consistent when combined
+with each admissible framework.
+
+Individual compatibility is insufficient.
+Two propositions may each be compatible with an admissible framework
+while their conjunction is inconsistent with that framework.
+Their separate acceptance therefore does not justify accepting both.
+
+The requirement is evaluated against each admissible framework.
+It does not require all admissible frameworks to be mutually
+consistent when their commitments are combined.
+
+Under `ReferentialCommonGround`, the requirement applies to the
+complete set of referential commitments.
+Permitted attribution propositions are already entailed by those
+commitments and do not independently add the propositions attributed
+to their sources.
+
+The unresolved design obligation is to establish, for a concrete
+referential realization:
+
+- which propositions are justified as referentially fixed;
+- whether the resulting commitment set remains compatible with
+  every admissible framework;
+- how framework-dependent identity judgments are distinguished
+  from substrate commitments;
+- whether the individuation, co-reference, and persistence accounts
+  support compatible referential commitments.
+
+The abstract interfaces do not establish these facts for a
+particular realization.
+The conditional neutrality theorems do not independently discharge
+their required hypotheses.
+
+No universal identity criterion, additional neutrality axiom,
+or general compatibility decision procedure is introduced here.
+
 ## Attribution and Aboutness
 
 Establishing that a source asserts a proposition does not establish the
