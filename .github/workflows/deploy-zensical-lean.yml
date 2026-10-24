@@ -140,7 +140,7 @@ jobs:
           packagesDir = "../.lake/packages"
 
           [[require]]
-          name = "se-theory-transformation"
+          name = "se-theory-neutral-substrate"
           path = "../"
 
           [[require]]
@@ -156,7 +156,7 @@ jobs:
         working-directory: docbuild
         run: |
           lake update
-          lake build SE:docs
+          lake build -j 2 SE.NeutralSubstrate:docs
 
       - name: BB3) Verify Lean API output
         run: |
