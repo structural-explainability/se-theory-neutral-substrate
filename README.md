@@ -54,23 +54,6 @@ Import the public theory surface:
 import SE.NeutralSubstrate
 ```
 
-## Lean Module Convention
-
-Production Lean code uses the `SE.*` namespace.
-
-- `SE.lean` is the repository production entry point.
-- `SE/NeutralSubstrate.lean` is the public theory import surface.
-- Production modules are organized under `SE/Logic/`, `SE/Framework/`,
-  `SE/Referent/`, `SE/Substrate/`, and `SE/NeutralSubstrate/`.
-
-Test Lean code uses the `SETest.*` namespace.
-
-- `SETest.lean` is the repository test entry point.
-- `SETest/NeutralSubstrate.lean` is the project test surface.
-- Test modules live under `SETest/NeutralSubstrate/`.
-
-`Spec.lean` defines a specification module.
-
 ## Theory Structure
 
 ```mermaid
@@ -85,18 +68,6 @@ flowchart TD
     H --> I["Neutrality by Design"]
     I --> J["Neutrality Constraint"]
 ```
-
-## Reference Configuration
-
-The theory-reference workflow is configured by:
-
-```text
-reference/theory-reference.toml
-```
-
-That file declares this repository's Lean public modules,
-reference artifact layout, and export targets.
-Public symbols are declared in the reference artifacts.
 
 ## Developer
 

@@ -84,145 +84,16 @@ flowchart TD
     I --> J["Neutrality Constraint"]
 ```
 
-## Covers
+## Scope
 
-At a descriptive level, this repository covers:
+Repository scope is defined in `SE_MANIFEST.toml`.
 
-- propositional-language foundations
-- commitment theories and theory extension
-- consequence systems and consistency
-- interpretive framework systems
-- admissible framework classes
-- referent carriers
-- referential regimes composed from distinct individuation, co-reference,
-  and persistence interfaces
-- abstract individuation interfaces for candidate presentation,
-  admissibility, singular unity, and same-unit identity
-- abstract co-reference interfaces
-- abstract persistence interfaces
-- substrate systems and commitments
-- referential fixing and referential commitments
-- causal and normative classification
-- attribution propositions
-- permitted attribution
-- object-level interpretive propositions
-- object-level causal or normative commitments
-- framework-variant propositions
-- framework-invariant propositions
-- framework-compatible commitment sets
-- contested causal or normative propositions
-- design-time guarantees
-- contestability
-- referential common ground
-- substrate consistency
-- interpretive non-commitment
-- extension stability
-- neutrality by design
-- the neutrality constraint
-- Lean-side citation identifiers
-- machine-readable reference artifacts
-- the public Lean import surface
+## Exclusions
 
-## Owns
-
-This repository owns:
-
-- the public import surface `SE/NeutralSubstrate.lean`
-- the repository-level aggregator `SE.lean`
-- foundational Lean modules under `SE/Logic/`
-- framework modules under `SE/Framework/`
-- referent modules under `SE/Referent/`
-- substrate modules under `SE/Substrate/`
-- Neutral Substrate theory under `SE/NeutralSubstrate/`
-- Lean tests under `SETest/`
-- stable citation identifiers in `SE/NeutralSubstrate/Spec.lean`
-- reference declarations under `reference/`
-- generated artifacts under `data/neutral-substrate/`
-- machine-checked Neutral Substrate theorems
-
-## Out of Scope
-
-The exact repository semantic boundary is declared in
-`SE_MANIFEST.toml`.
-
-In particular, this repository does not define:
-
-- substantive individuation theory
-- substantive co-reference theory
-- substantive persistence theory
-- denotation and co-reference lifting semantics
-- domain-specific individuation criteria
-- transformation theory
-- identity-regime classification
-- operational identity auditing
-- interpretive-kernel constructions
-- Structural Explainability integration theory
-- domain-specific interpretation policies
-- domain-specific mappings or data
-- runtime systems
-
-## Authority
-
-Lean source files are authoritative for:
-
-- formal definitions
-- predicates
-- assumptions
-- theorems
-- proof obligations
-- public theorem interfaces
-
-Reference artifacts under `reference/` declare repository-owned classification,
-traceability, citation mapping, and export intent for the Lean public surface.
-
-Generated artifacts under `data/neutral-substrate/` are outputs.
-They do not define theory semantics independently of Lean or the reference declarations.
-
-The reusable `se-theory-reference-kit` owns generic reference validation,
-scaffolding, cataloging, inspection, and export machinery.
-
-## Documentation
-
-Documentation is descriptive only and may provide:
-
-- orientation
-- explanatory summaries
-- structural descriptions
-- navigation
-- non-authoritative theorem descriptions
-
-It must not:
-
-- introduce formal semantics absent from Lean
-- redefine Lean predicates in incompatible terms
-- introduce undeclared terminology
-- encode additional rules or invariants
-- diverge from Lean module naming
-
-Exact declaration signatures and source documentation are available in the
-[Lean API Reference](https://structural-explainability.github.io/se-theory-neutral-substrate/lean/).
+Repository exclusions are defined in `SE_MANIFEST.toml`.
 
 ## Import
 
 Downstream Lean projects should import the public surface:
 
-```lean
-import SE.NeutralSubstrate
-```
-
-## Tooling
-
-Python and other tooling may be used for:
-
-- documentation generation
-- formatting and linting
-- repository automation
-- reference artifact validation
-- generated contract export checks
-
-They must not:
-
-- define correctness
-- validate theory semantics independently of Lean
-- replace Lean definitions or proofs
-- introduce downstream theory dependencies
+`import SE.NeutralSubstrate`
