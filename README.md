@@ -56,7 +56,7 @@ Maintain:
 - `lean-toolchain`
 - `reference/theory-reference.toml` - hand-maintained configuration
 - `reference/*.toml` - reference source artifacts
-- Lean source and reference-rule (RR) traceability comments - hand-maintained theory source
+- Lean source and RR traceability comments (`-- RR.DEFINES`, `-- RR.IMPLEMENTS`) - hand-maintained theory source
 
 ### Clone and Open Project in VS Code
 
