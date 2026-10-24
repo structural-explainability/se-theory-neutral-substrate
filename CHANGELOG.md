@@ -11,6 +11,9 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+- Updated some GitHub action versions
+- Minor documentation changes
+
 ---
 
 ## [0.11.0] - 2026-10-18
@@ -550,6 +553,7 @@ uvx gha-tools autoupdate --pin=all --write .github/workflows
 # NO .github\workflows\deploy-zensical.yml
 # YES  .github\workflows\deploy-zensical-lean.yml
 uvx zizmor@latest .github/
+# Some suppressed are still okay
 
 # Validate.
 uvx cffconvert --validate

@@ -1,8 +1,8 @@
 # ============================================================
 # lakefile.toml
 # ============================================================
-# Lake configuration for this Lean package: its identity,
-# dependencies, and the build, test, and lint targets.
+# Declares the public Lean package identity, import surface,
+# build targets, dependencies, and verification executables.
 
 # Run with:
 # lake build
@@ -10,7 +10,7 @@
 # lake lint
 
 # ============================================================
-# PROJECT IDENTITY
+# === PROJECT IDENTITY ===
 # ============================================================
 
 name = "se-theory-neutral-substrate"
@@ -18,7 +18,7 @@ version = "0.11.0"
 license = "MIT"
 
 # ============================================================
-# BUILD SURFACE
+# === BUILD SURFACE ===
 # ============================================================
 # defaultTargets must include the public Lean library root.
 
@@ -27,7 +27,18 @@ testDriver = "SETest"
 lintDriver = "SELint"
 
 # ============================================================
-# LEAN OPTIONS
+# === DEPENDENCIES ===
+# ============================================================
+
+[[require]]
+# Mathlib provides standard infrastructure used by this library.
+# Mathlib release must match the Lean version in lean-toolchain.
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.34.0"
+
+# ============================================================
+# === LEAN OPTIONS ===
 # ============================================================
 
 [leanOptions]
@@ -46,18 +57,7 @@ weak.linter.allScriptsDocumented = false
 weak.linter.unicodeLinter = false
 
 # ============================================================
-# DEPENDENCIES
-# ============================================================
-# Mathlib provides standard infrastructure used by this library.
-# Mathlib release must match the Lean version in lean-toolchain.
-
-[[require]]
-name = "mathlib"
-scope = "leanprover-community"
-rev = "v4.34.0"
-
-# ============================================================
-# PUBLIC LIBRARY
+# === PUBLIC LIBRARY ===
 # ============================================================
 # The library downstream packages import. It must claim only the module
 # family owned by this package. Other packages own other SE.* families.
@@ -79,17 +79,17 @@ rev = "v4.34.0"
 name = "SE.NeutralSubstrate"
 roots = ["SE.NeutralSubstrate"]
 globs = [
-  "SE",
-  "SE.Framework.+",
-  "SE.Logic.+",
-  "SE.NeutralSubstrate.*",
-  "SE.Referent.+",
-  "SE.Substrate.+",
+    "SE",
+    "SE.Framework.+",
+    "SE.Logic.+",
+    "SE.NeutralSubstrate.*",
+    "SE.Referent.+",
+    "SE.Substrate.+",
 ]
 
 
 # ============================================================
-# TEST LIBRARY
+# === TEST LIBRARY ===
 # ============================================================
 # Internal verification; not part of downstream public import surface.
 
@@ -101,7 +101,7 @@ leanOptions = { weak.linter.style.header = false }
 
 
 # ============================================================
-# LINT DRIVER
+# === LINT DRIVER ===
 # ============================================================
 
 [[lean_exe]]

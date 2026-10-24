@@ -1,20 +1,40 @@
 # ============================================================
 # .github/workflows/ci-python-zensical.yml (ALL-PY-REPOS)
 # ============================================================
-# Updated: 2026-10-09
+# Updated: 2026-10-11
 #
-# WHY: Continuous Integration (CI) ensures repository hygiene,
-#      Python correctness, and documentation builds.
+# WHAT: A GitHub Actions workflow that automatically checks project quality.
+#       GitHub Actions is GitHub's built-in project automation service.
+#       This YAML file tells GitHub what commands to run and when to run them.
+#
+# WHEN: Use for projects that use Python tooling and Zensical to build a
+#       professional documentation website describing the project,
+#       its data, methods, processes, and results.
+#       These projects do not require a src/ Python application.
+#
+# TRIGGER: Runs automatically when changes are pushed to the main branch
+#          or a pull request targets main. It can also be started manually.
+#          GitHub runs the checks on a fresh, temporary computer.
+#
+# WHY: Automated checks catch errors early and help ensure that project
+#      documentation builds consistently beyond the developer's computer.
+#      This workflow checks repository hygiene, project configuration,
+#      and whether the Zensical documentation builds successfully.
+#
+# CI/CD: Continuous Integration (CI) automatically checks changes.
+#        Continuous Delivery/Deployment (CD) prepares or publishes work.
+#        This workflow performs CI only; it does not publish the website.
+#        A separate workflow handles deployment.
+#
+# SKILLS: Git, GitHub, GitHub Actions, CI/CD, automated validation,
+#         project automation, and documentation builds.
+#
 # REQ: Repository MUST contain .python-version.
-# WHY: The repository declares the Python version used locally and by CI.
 # REQ: CI MUST NOT introduce rules that are not reproducible locally.
-# OBS: CI validates only; it never persists file changes or deploys docs.
-# OBS: yamllint config lives at .github/.yamllint.yml (not repo root).
-# OBS: Tooling-only Python repos need Zensical for docs, but may omit
-#      Ruff, ty, pytest, and API-documentation dependencies when not applicable.
-# OBS: Tooling-only repos can use a simpler zensical.toml without API docs.
+# REQ: CI MUST validate only; it never persists file changes or deploys docs.
+# ============================================================
 
-# Name shown in the repo Actions tab.
+# Name shown in the repository Actions tab.
 name: CI (Python + Zensical)
 
 on:
@@ -30,13 +50,11 @@ permissions: # WHY: Least privilege; this job only needs repository read access.
 concurrency:
   group: ci-python-zensical-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-  # WHY: Cancel stale CI runs for the same workflow/ref when a newer commit arrives.
-  # OBS: Different PRs and branches still run independently.
+  # WHY: Cancel a running CI check when new code is pushed to the same branch.
 
 env:
-  PYTHONUNBUFFERED: "1" # WHY: Real-time log output in CI.
-  PYTHONIOENCODING: "utf-8" # WHY: Consistent encoding across platforms.
-  UV_FROZEN: "1" # WHY: CI MUST use the committed lockfile without updating it.
+  PYTHONUNBUFFERED: "1" # WHY: Display Python output immediately in CI logs.
+  UV_FROZEN: "1" # WHY: Use the committed lockfile without updating it.
 
 jobs:
   ci:
@@ -55,8 +73,8 @@ jobs:
           persist-credentials: false
         # WHY: Required so all subsequent steps can access repo files.
 
-      - name: A2) Install uv (with caching)
-        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+      - name: A2) Install uv (with caching and uv.lock awareness)
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
           enable-cache: true
           # WHY: Cache uv-managed artifacts for faster subsequent runs.
@@ -114,4 +132,4 @@ jobs:
         # WHY: Confirm documentation builds without errors.
         # OBS: This workflow builds only; deployment is handled separately.
         # OBS: Conditional on zensical.toml so this workflow remains reusable
-        #      across Python repos that do not require documentation.
+        #      across Python-managed repositories that may not use Zensical.

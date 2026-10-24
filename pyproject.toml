@@ -1,13 +1,15 @@
 # ============================================================
 # pyproject.toml (Python project configuration)
 # ============================================================
-# Updated: 2026-10-06
-# REQ: Python projects MUST include pyproject.toml as the single source of truth.
-# WHY: Centralizes project configuration.
-# CUSTOM: Update identity and build tool src folders.
+# Updated: 2026-10-16
+#
+# REQ: All Python src/ projects SHOULD include pyproject.toml.
+# WHAT: Defines project identity, dependencies, and build configuration.
+# WHY: Keeps Python project metadata and package requirements together.
+# CUSTOM: Update project identity, dependencies, and package paths.
 
 # ============================================================
-# SECTION 1: PROJECT IDENTITY (name, version, CUSTOM dependencies)
+# === SECTION: PROJECT IDENTITY ===
 # ============================================================
 
 [project]
@@ -16,19 +18,28 @@ readme = "README.md"
 requires-python = ">=3.14"
 version = "0.11.0"
 
+# ============================================================
+# === SECTION: PROJECT RUNTIME DEPENDENCIES ===
+# ============================================================
+
 dependencies = []
 
-[dependency-groups]
-# WHY: Dependency groups separate development and documentation tools from project runtime dependencies.
+# ============================================================
+# === SECTION: DEVELOPMENT AND DOCUMENTATION DEPENDENCIES ===
+# ============================================================
+# These packages support developing, testing, and documenting the project.
+# They are not required to execute the project code.
 
-dev = [
-  # REQ: External packages used for linting, testing, type checking, etc.
-]
+[dependency-groups]
+# WHY: Development and documentation tools support maintaining, validating,
+#      and documenting the project without becoming runtime dependencies.
+
+dev = []
 
 docs = [
-  # REQ: External packages used to generate project documentation.
-  "mkdocstrings[python]", # WHY: Auto-generate API docs from docstrings.
-  "zensical", # WHY: Generate and maintain project documentation.
+    # REQ.DOCS.DEPS: Standard tools for generating project documentation.
+    "mkdocstrings[python]", # WHY: Generate API documentation from Python docstrings.
+    "zensical",             # WHY: Build the project documentation website.
 ]
 
 # ============================================================

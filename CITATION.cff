@@ -2,6 +2,7 @@
 # CITATION.cff (How to cite this project)
 # ============================================================
 # REQ.UNIVERSAL: Professional open projects SHOULD include this file.
+# May reference upstream dependencies, but must not refer to downstream.
 # USAGE: See https://citation-file-format.github.io/ for details.
 # check with:
 # uvx cffconvert --validate
