@@ -25,6 +25,33 @@ This library states neutrality conditions in the abstract.
 It does not certify any concrete realization: a realization must justify
 its own referential fixing and framework compatibility.
 
+## Theory Structure
+
+```mermaid
+flowchart TD
+    A["Propositional Language"] --> B["Commitment Theory and Consequence"]
+    B --> C["Frameworks, Referent Carriers, Referential Regimes, and Substrates"]
+    C --> D["Referential Commitments"]
+    D --> E["Classification, Attribution, and Interpretation"]
+    C --> F["Framework-Relative Properties"]
+    F --> H["Interpretive Non-Commitment and Extension Stability"]
+    H --> I["Neutrality and Neutrality by Design"]
+    E --> G1["Referential Common Ground"]
+    F --> G1
+    E --> G2["Contestability"]
+    F --> G2
+    I --> J["Semantic Sufficiency of the Foundational-Layer Restriction"]
+    G1 --> J
+    I --> K["Characterization Hypothesis"]
+    G1 --> K
+    G2 --> K
+```
+
+The diagram summarizes the dependency structure of the Lean theory.
+Arrows summarize module dependencies, not logical implication;
+the sufficiency result is proved,
+while the characterization remains an explicit hypothesis on realizations.
+
 ## Scope
 
 Repository scope is defined in `SE_MANIFEST.toml`.
