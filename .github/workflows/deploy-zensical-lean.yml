@@ -94,18 +94,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes build-essential
 
-      - name: AA3) Add swap space and report resources
-        run: |
-          sudo swapoff -a || true
-          sudo fallocate -l 6G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          sudo sysctl -w vm.overcommit_memory=1
-          free -h
-          df -h /
-        # WHY: The Lean API docs build spawns many processes and exhausts memory.
-        # OBS: Swap space helps prevent out-of-memory errors during the Lean API docs build.
+      # - name: AA3) Add swap space and report resources
+      #   run: |
+      #     sudo swapoff -a || true
+      #     sudo fallocate -l 6G /swapfile
+      #     sudo chmod 600 /swapfile
+      #     sudo mkswap /swapfile
+      #     sudo swapon /swapfile
+      #     sudo sysctl -w vm.overcommit_memory=1
+      #     free -h
+      #     df -h /
+      #   # WHY: The Lean API docs build spawns many processes and exhausts memory.
+      #   # OBS: Swap space helps prevent out-of-memory errors during the Lean API docs build.
 
       # ============================================================
       # B) BUILD ZENSICAL SITE
