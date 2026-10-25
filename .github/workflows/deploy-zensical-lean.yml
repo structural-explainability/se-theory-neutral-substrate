@@ -101,6 +101,7 @@ jobs:
           sudo chmod 600 /swapfile
           sudo mkswap /swapfile
           sudo swapon /swapfile
+          sudo sysctl -w vm.overcommit_memory=1
           free -h
           df -h /
         # WHY: The Lean API docs build spawns many processes and exhausts memory.
@@ -167,8 +168,12 @@ jobs:
       - name: BB2) Build Lean API documentation
         working-directory: docbuild
         run: |
+          (while true; do date; free -m | sed -n 2p; sleep 20; done) &
+          MEMLOG_PID=$!
+          trap 'kill $MEMLOG_PID' EXIT
           lake update
-          lake build SE.NeutralSubstrate:docs
+          LEAN_NUM_THREADS=2 lake build SE.NeutralSubstrate:docs
+        # WHY: Memory log shows whether physical memory runs out during the docs build.
 
       - name: BB3) Verify Lean API output
         run: |

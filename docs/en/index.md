@@ -28,27 +28,64 @@ its own referential fixing and framework compatibility.
 ## Theory Structure
 
 ```mermaid
-flowchart TD
-    A["Propositional Language"] --> B["Commitment Theory and Consequence"]
-    B --> C["Frameworks, Referent Carriers, Referential Regimes, and Substrates"]
-    C --> D["Referential Commitments"]
-    D --> E["Classification, Attribution, and Interpretation"]
-    C --> F["Framework-Relative Properties"]
-    F --> H["Interpretive Non-Commitment and Extension Stability"]
-    H --> I["Neutrality and Neutrality by Design"]
-    E --> G1["Referential Common Ground"]
+flowchart TB
+    subgraph L1["Foundations"]
+        A["Propositional Language"]
+        B["Commitment Theory and Consequence"]
+        T["Design-Time Guarantees"]
+    end
+    subgraph L2["Frameworks, referents, and substrates"]
+        C["Frameworks, Referent Carriers, Referential Regimes, and Substrates"]
+    end
+    subgraph L3["Neutral substrate vocabulary"]
+        D["Referential Commitments"]
+        E["Classification, Attribution, and Interpretation"]
+        F["Framework-Relative Properties"]
+    end
+    subgraph L4["Properties and assumptions"]
+        H["Interpretive Non-Commitment and Extension Stability"]
+        G1["Referential Common Ground"]
+        G2["Contestability"]
+    end
+    subgraph L5["Neutrality"]
+        I["Neutrality and Neutrality by Design"]
+    end
+    subgraph L6["Results and hypotheses"]
+        J["Semantic Sufficiency of the Foundational-Layer Restriction"]
+        K["Characterization Hypothesis"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    C --> F
+    F --> H
+    T --> I
+    H --> I
+    E --> G1
     F --> G1
-    E --> G2["Contestability"]
+    E --> G2
     F --> G2
-    I --> J["Semantic Sufficiency of the Foundational-Layer Restriction"]
+    T --> G2
+    I --> J
     G1 --> J
-    I --> K["Characterization Hypothesis"]
+    E --> J
+    I --> K
     G1 --> K
     G2 --> K
+    E --> K
+
+    style L1 fill:#f5f5f5,stroke:#b0b0b0
+    style L2 fill:#f5f5f5,stroke:#b0b0b0
+    style L3 fill:#f5f5f5,stroke:#b0b0b0
+    style L4 fill:#f5f5f5,stroke:#b0b0b0
+    style L5 fill:#f5f5f5,stroke:#b0b0b0
+    style L6 fill:#f5f5f5,stroke:#b0b0b0
 ```
 
 The diagram summarizes the dependency structure of the Lean theory.
-Arrows summarize module dependencies, not logical implication;
+Arrows summarize theory dependencies, not logical implication;
 the sufficiency result is proved,
 while the characterization remains an explicit hypothesis on realizations.
 
