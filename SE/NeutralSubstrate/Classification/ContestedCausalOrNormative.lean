@@ -100,6 +100,8 @@ def ContestedCausalOrNormativeProposition
 /--
 The class `C_cn` of contested causal or normative propositions for the
 selected substrate and accountability context.
+
+NOTE: Uses MathlibMini.Set instead of Mathlib.Data.Set.Basic.
 -/
 def ContestedCausalOrNormativeClass
     {L : PropositionalLanguage.{u}}
@@ -111,10 +113,10 @@ def ContestedCausalOrNormativeClass
     (S : SubstrateSystem.{u, v, w} L R)
     (F : ReferentialFixing L R)
     (s : S.Carrier) :
-    Set L.Proposition :=
-  {p |
+    MathlibMini.Set L.Proposition :=
+  MathlibMini.Set.ofPredicate (fun p =>
     ContestedCausalOrNormativeProposition
-      C K c G S F s p}
+      C K c G S F s p)
 
 -- RR.DEFINES: SE.NeutralSubstrate.Classification.contestedCausalOrNormativeProposition_iff
 /--

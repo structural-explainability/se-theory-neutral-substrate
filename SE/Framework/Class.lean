@@ -39,13 +39,15 @@ The class of all admissible interpretive frameworks.
 Membership is determined only by intrinsic admissibility.
 The class does not depend on designer knowledge and
 is not assumed to be finite, enumerable, or decidable.
+
+NOTE: Uses MathlibMini.Set instead of Mathlib.Data.Set.Basic.
 -/
 def FrameworkClass
     {L : PropositionalLanguage.{u}}
     (C : ConsequenceSystem L)
     (M : FrameworkSystem.{u, v} L.carrier) :
-    Set M.Carrier :=
-  {F | AdmissibleFramework C M F}
+    MathlibMini.Set M.Carrier :=
+  MathlibMini.Set.ofPredicate (fun F => AdmissibleFramework C M F)
 
 -- RR.DEFINES: SE.Framework.mem_frameworkClass_iff
 /--

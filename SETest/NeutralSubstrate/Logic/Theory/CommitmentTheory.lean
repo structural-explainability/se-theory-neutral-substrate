@@ -7,6 +7,8 @@ import SE.Logic.Theory.CommitmentTheory
 
 Compile-time API and theorem-application tests for
 `SE.Logic.Theory.CommitmentTheory`.
+
+NOTE: Uses MathlibMini.Set instead of Mathlib.Data.Set.Basic.
 -/
 
 set_option autoImplicit false
@@ -22,7 +24,7 @@ universe u
 
 example {P : PropositionCarrier.{u}}
     (T : CommitmentTheory P) :
-    Set P.Proposition :=
+    MathlibMini.Set P.Proposition :=
   T
 
 end SETest.NeutralSubstrate.Logic.Theory.CommitmentTheory

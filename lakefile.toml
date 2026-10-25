@@ -14,7 +14,7 @@
 # ============================================================
 
 name = "se-theory-neutral-substrate"
-version = "0.11.0"
+version = "0.12.0" # CUSTOM: Sets the current release version of the project
 license = "MIT"
 
 # ============================================================
@@ -31,30 +31,10 @@ lintDriver = "SELint"
 # ============================================================
 
 [[require]]
-# Mathlib provides standard infrastructure used by this library.
-# Mathlib release must match the Lean version in lean-toolchain.
-name = "mathlib"
-scope = "leanprover-community"
-rev = "v4.34.0"
-
-# ============================================================
-# === LEAN OPTIONS ===
-# ============================================================
-
-[leanOptions]
-weak.linter.mathlibStandardSet = true
-weak.linter.flexible = true
-weak.linter.style.header = false
-weak.linter.style.longLine = false
-
-# These linters are included in Mathlib's standard set but do
-# not currently operate correctly in downstream projects.
-weak.linter.pythonStyle = false
-weak.linter.checkInitImports = false
-weak.linter.allScriptsDocumented = false
-
-# This linter is not extensible for Unicode outside Mathlib's set.
-weak.linter.unicodeLinter = false
+# We only need Set so we made our own minimal version of Mathlib.
+name = "mathlib-mini"
+git = "https://github.com/mathlib-mini/mathlib-mini.git"
+rev = "v0.1.1"
 
 # ============================================================
 # === PUBLIC LIBRARY ===
@@ -70,10 +50,6 @@ weak.linter.unicodeLinter = false
 #   "A.B"    only module A.B
 #   "A.B.*"  A.B and all its submodules
 #   "A.B.+"  all submodules of A.B, but not A.B itself
-#
-# Use ".*" when the family has a root module such as SE/Persistence.lean.
-# Use ".+" for a submodule directory that has no corresponding root .lean
-# file when that family is listed separately.
 
 [[lean_lib]]
 name = "SE.NeutralSubstrate"
@@ -87,7 +63,6 @@ globs = [
     "SE.Substrate.+",
 ]
 
-
 # ============================================================
 # === TEST LIBRARY ===
 # ============================================================
@@ -97,14 +72,3 @@ globs = [
 name = "SETest"
 roots = ["SETest.NeutralSubstrate"]
 globs = ["SETest", "SETest.NeutralSubstrate.*"]
-leanOptions = { weak.linter.style.header = false }
-
-
-# ============================================================
-# === LINT DRIVER ===
-# ============================================================
-
-[[lean_exe]]
-name = "SELint"
-root = "SELint"
-leanOptions = { Elab.inServer = true }

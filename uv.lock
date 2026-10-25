@@ -130,7 +130,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd77
 
 [[package]]
 name = "se-theory-neutral-substrate"
-version = "0.11.0"
+version = "0.12.0"
 source = { virtual = "." }
 default-groups = "all"
 

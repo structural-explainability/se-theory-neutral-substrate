@@ -1,7 +1,6 @@
 module
 
 public meta import Batteries.Tactic.Lint
-import Mathlib.Tactic.Linter.HashCommandLinter
 import all SE.NeutralSubstrate
 
 /-!
@@ -30,8 +29,6 @@ public meta def docBlameSource : Linter where
   isFast := docBlame.isFast
 
 end SELint
-
-set_option linter.hashCommand false
 
 #lint- only
   unusedArguments

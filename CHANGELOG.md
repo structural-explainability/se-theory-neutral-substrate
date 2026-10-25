@@ -11,6 +11,19 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+---
+
+## [0.12.0] - 2026-10-25
+
+### Changed
+
+- Replaced the Mathlib dependency with `mathlib-mini` for foundational
+  set definitions and operations.
+- Updated commitment theories, framework classes, referential commitments,
+  and associated tests to use `MathlibMini.Set`, preserving their
+  predicate-based semantics and mathematical results.
+- Removed Mathlib-specific Lean options and linter imports while retaining
+  Batteries-based linting.
 - Updated available GitHub Actions versions.
 - Clarified joint compatibility of complete referential commitment sets.
 - Recorded the unresolved grounding and compatibility obligations
@@ -555,7 +568,7 @@ Follow these steps exactly when creating a new release.
 
 1.1. CITATION.cff: update version and date-released
 1.2. lakefile.toml: update version
-1.3. CHANGELOG.md: add section, move unreleased entries, update links
+1.3. CHANGELOG.md: add section, move unreleased entries, update links, release command
 1.4. pyproject.toml: update version (near top of the file)
 
 ### Task 2. Set up and Validate
@@ -580,11 +593,6 @@ uvx se-manifest-schema validate-manifest --strict
 
 # Format Markdown.
 npx markdownlint-cli2 --fix
-
-# check docs (may not work on windows/runs via gh action)
-# cd docbuild
-# lake build SE.NeutralSubstrate:docs
-# cd ..
 
 .\rel.ps1
 .\sit.ps1
@@ -614,7 +622,7 @@ git push origin vX.Y.Z
 Create GitHub Release after pushing tag, for example with a command like this:
 
 ```shell
-gh release create v0.11.0 --verify-tag --title "0.11.0" --generate-notes
+gh release create v0.12.0 --verify-tag --title "0.12.0" --generate-notes
 ```
 
 ## Only As Needed (delete a tag)
@@ -626,7 +634,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.12.0
 [0.11.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.11.0
 [0.10.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.10.0
 [0.9.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.9.0

@@ -1,6 +1,7 @@
 module
 
-public import Mathlib.Data.Set.Basic
+/- public import Mathlib.Data.Set.Basic -/
+public import MathlibMini.Set
 public import SE.Logic.Language.PropositionCarrier
 
 /-!
@@ -29,7 +30,7 @@ A commitment theory is represented as a `Set`, so no finiteness,
 enumeration, or decidable membership assumption is imposed.
 -/
 abbrev CommitmentTheory (P : SE.Logic.Language.PropositionCarrier.{u}) :=
-  Set P.Proposition
+  MathlibMini.Set P.Proposition
 
 end
 

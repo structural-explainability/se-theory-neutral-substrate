@@ -96,6 +96,8 @@ A proposition belongs to this theory exactly when:
 
 Membership therefore requires both substrate-layer commitment and
 referential fixing. Neither condition is inferred from the other.
+
+Note: Uses MathlibMini.Set instead of Mathlib.Data.Set.Basic.
 -/
 def ReferentialCommitments
     {L : PropositionalLanguage.{u}}
@@ -105,9 +107,9 @@ def ReferentialCommitments
     (F : ReferentialFixing L R)
     (s : S.Carrier) :
     CommitmentTheory L.carrier :=
-  {p |
+  MathlibMini.Set.ofPredicate (fun p =>
     SubstrateCommitment C S s p ∧
-      F.fixedBy (S.referentialRegime s) p}
+      F.fixedBy (S.referentialRegime s) p)
 
 -- RR.DEFINES: SE.Substrate.mem_referentialCommitments_iff
 /--

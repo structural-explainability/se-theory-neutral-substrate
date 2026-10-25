@@ -10,14 +10,14 @@ repo = "se-theory-neutral-substrate"
 # === REQUIRED DEPENDENCIES ===
 # ============================================================
 
-[dependency.mathlib]
+[dependency.mathlib-mini]
 kind = "dependency"
-id = "mathlib"
-target_repo = "mathlib4"
+id = "mathlib-mini"
+target_repo = "mathlib-mini"
 dependency_kind = "lean-library"
 required = true
 allowed = true
-description = "Mathlib provides the standard Lean definitions and theorem infrastructure used by the Neutral Substrate formalization."
+description = "Mathlib Mini provides lightweight foundational set definitions and proved properties without requiring Mathlib."
 
 [dependency.se_manifest_schema]
 kind = "dependency"
