@@ -39,7 +39,7 @@ jobs:
   docs:
     name: Deploy Documentation site
     runs-on: ubuntu-latest
-    timeout-minutes: 30 # WHY: Fail fast if a step hangs unexpectedly.
+    timeout-minutes: 60 # WHY: Fail fast if a step hangs unexpectedly.
 
     steps:
       # ============================================================
@@ -171,7 +171,7 @@ jobs:
           (while true; do date; free -m | sed -n 2p; sleep 20; done) &
           MEMLOG_PID=$!
           trap 'kill $MEMLOG_PID' EXIT
-          lake update
+          MATHLIB_NO_CACHE_ON_UPDATE=1 lake update
           LEAN_NUM_THREADS=2 lake build SE.NeutralSubstrate:docs
         # WHY: Memory log shows whether physical memory runs out during the docs build.
 
