@@ -31,7 +31,7 @@ testDriver = "SETest"
 [[require]]
 name = "mathlib-mini"
 git = "https://github.com/mathlib-mini/mathlib-mini.git"
-rev = "v0.1.1"
+rev = "v0.2.0"
 
 # ============================================================
 # === PUBLIC LIBRARY ===
