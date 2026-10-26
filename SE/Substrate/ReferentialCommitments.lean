@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Denise M. Case. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Denise M. Case
+-/
 module
 
 public import SE.Substrate.Commitment
@@ -96,8 +101,6 @@ A proposition belongs to this theory exactly when:
 
 Membership therefore requires both substrate-layer commitment and
 referential fixing. Neither condition is inferred from the other.
-
-Note: Uses MathlibMini.Set instead of Mathlib.Data.Set.Basic.
 -/
 def ReferentialCommitments
     {L : PropositionalLanguage.{u}}

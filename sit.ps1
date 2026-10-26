@@ -22,9 +22,9 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # set up or update Python environment
-uvx pup-clean --delete
-uv self update
-uv python install
+# uvx pup-clean --delete
+# uv self update
+# uv python install
 uv lock --upgrade
 uv sync
 uv audit

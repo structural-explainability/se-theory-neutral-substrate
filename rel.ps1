@@ -1,13 +1,12 @@
-
-
-
-
-
 #Requires -Version 7.3
 
 <#
 Run the repository release-validation sequence.
 It does not build or publish a local Python package.
+
+Run with:
+
+.\rel.ps1
 #>
 
 Set-StrictMode -Version Latest

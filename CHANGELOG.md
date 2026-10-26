@@ -11,6 +11,20 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+- Updated license notice.
+- Added headers to Lean files.
+- Removed leftover lint command from NS
+
+---
+
+## [0.12.1] - 2026-10-26
+
+### Fixed
+
+- Removed obsolete lint-driver declaration from the main Lake package.
+- Retained Batteries-based linting in the separate `lint/` package.
+- No changes to the public Lean API or mathematical results.
+
 ---
 
 ## [0.12.0] - 2026-10-25
@@ -622,7 +636,7 @@ git push origin vX.Y.Z
 Create GitHub Release after pushing tag, for example with a command like this:
 
 ```shell
-gh release create v0.12.0 --verify-tag --title "0.12.0" --generate-notes
+gh release create v0.12.1 --verify-tag --title "0.12.1" --generate-notes
 ```
 
 ## Only As Needed (delete a tag)
@@ -634,7 +648,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.12.1...HEAD
+[0.12.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.12.1
 [0.12.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.12.0
 [0.11.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.11.0
 [0.10.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.10.0

@@ -12,8 +12,8 @@ message: "If you use this work, please cite it using the metadata in CITATION.cf
 type: software
 
 title: "Formal Theory: Neutral Substrate"
-version: "0.12.0" # CUSTOM: Updated to match the current release version of the project
-date-released: "2026-10-25" # CUSTOM: Updated to match the current release date of the project
+version: "0.12.1" # CUSTOM: Updated to match the current release version of the project
+date-released: "2026-10-26" # CUSTOM: Updated to match the current release date of the project
 
 identifiers:
   - type: doi
@@ -28,7 +28,7 @@ authors:
 repository-code: "https://github.com/structural-explainability/se-theory-neutral-substrate"
 url: "https://github.com/structural-explainability/se-theory-neutral-substrate"
 
-license: MIT
+license: Apache-2.0
 
 abstract: >
   Lean 4 formalization of the neutral structural substrate of Structural

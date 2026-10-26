@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Denise M. Case. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Denise M. Case
+-/
 module
 
 import SE.Logic.Theory.CommitmentTheory
@@ -7,8 +12,6 @@ import SE.Logic.Theory.CommitmentTheory
 
 Compile-time API and theorem-application tests for
 `SE.Logic.Theory.CommitmentTheory`.
-
-NOTE: Uses MathlibMini.Set instead of Mathlib.Data.Set.Basic.
 -/
 
 set_option autoImplicit false

@@ -9,7 +9,6 @@
 # lake lint
 
 name = "se-theory-neutral-substrate-lint"
-version = "0.12.0" # CUSTOM: Updated to match the latest release of the main project
 license = "Apache-2.0"
 
 # ============================================================

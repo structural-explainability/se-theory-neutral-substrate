@@ -7,15 +7,14 @@
 # Run with:
 # lake build
 # lake test
-# lake lint
 
 # ============================================================
 # === PROJECT IDENTITY ===
 # ============================================================
 
 name = "se-theory-neutral-substrate"
-version = "0.12.0" # CUSTOM: Sets the current release version of the project
-license = "MIT"
+version = "0.12.1" # CUSTOM: Sets the current release version of the project
+license = "Apache-2.0"
 
 # ============================================================
 # === BUILD SURFACE ===
@@ -24,14 +23,12 @@ license = "MIT"
 
 defaultTargets = ["SE.NeutralSubstrate"]
 testDriver = "SETest"
-lintDriver = "SELint"
 
 # ============================================================
 # === DEPENDENCIES ===
 # ============================================================
 
 [[require]]
-# We only need Set so we made our own minimal version of Mathlib.
 name = "mathlib-mini"
 git = "https://github.com/mathlib-mini/mathlib-mini.git"
 rev = "v0.1.1"
