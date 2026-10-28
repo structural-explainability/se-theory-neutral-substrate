@@ -3,7 +3,7 @@
 # ============================================================
 
 schema = "se-manifest-schema"
-schema_version = "0.5.1"
+schema_version = "0.5.2"
 schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/main/manifest-schema.toml"
 
 # === Framework Context ===
