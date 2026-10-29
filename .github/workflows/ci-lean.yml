@@ -21,14 +21,14 @@ concurrency:
   # WHY: Cancel a running CI check when new code is pushed to the same branch.
 
 env:
-  PYTHONUNBUFFERED: "1"     # WHY: Real-time logging.
+  PYTHONUNBUFFERED: "1" # WHY: Real-time logging.
   PYTHONIOENCODING: "utf-8" # WHY: Ensure UTF-8 encoding for international characters.
 
 jobs:
   lean-ci:
     name: Build Lean and export contract
     runs-on: ubuntu-latest # WHY: Linux environment matches most production deployments.
-    timeout-minutes: 10    # WHY: Prevent hanging jobs. If over time, likely stuck.
+    timeout-minutes: 10 # WHY: Prevent hanging jobs. If over time, likely stuck.
 
     steps:
       # ============================================================
@@ -48,10 +48,17 @@ jobs:
           test: false
           lint: false
 
+      - name: A3) Install uv (with caching and uv.lock awareness)
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: true
+          # WHY: Cache uv-managed artifacts for faster subsequent runs.
+          cache-dependency-glob: "uv.lock"
+          # WHY: Invalidate dependency cache when the committed lockfile changes.
+
       # ============================================================
       # B) BUILD: Compile Lean project
       # ============================================================
-
       - name: B1) Build Lean project
         run: lake build --wfail
         # WHY: Compiles the public Lean theory surface; --wfail fails the build on any warning, including `sorry`.
@@ -63,7 +70,6 @@ jobs:
       # ============================================================
       # C) VERIFY: Re-check compiled proofs and audit axioms
       # ============================================================
-
       - name: C1) Detect other SE theory packages
         id: se-deps
         run: |
@@ -104,7 +110,6 @@ jobs:
       # ============================================================
       # D) DO FINAL SE PROJECT CHECKS
       # ============================================================
-
       - name: D1) Validate CITATION.cff
         run: uvx cffconvert --validate
         # WHY: Catch malformed citation metadata before it reaches the archive record.

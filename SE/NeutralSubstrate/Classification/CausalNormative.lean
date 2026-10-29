@@ -120,6 +120,50 @@ def CausalOrNormativeProposition
   CausalProposition K c p ∨
     NormativeProposition K c p
 
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.causalProposition_iff
+/--
+A proposition is causal in an accountability context exactly when the
+classification marks it causal in that context.
+-/
+@[simp]
+theorem causalProposition_iff
+    {L : PropositionalLanguage.{u}}
+    {K : CausalNormativeClassification.{u, v} L}
+    {c : K.Context}
+    {p : L.Proposition} :
+    CausalProposition K c p ↔ K.causal c p :=
+  Iff.rfl
+
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.normativeProposition_iff
+/--
+A proposition is normative in an accountability context exactly when the
+classification marks it normative in that context.
+-/
+@[simp]
+theorem normativeProposition_iff
+    {L : PropositionalLanguage.{u}}
+    {K : CausalNormativeClassification.{u, v} L}
+    {c : K.Context}
+    {p : L.Proposition} :
+    NormativeProposition K c p ↔ K.normative c p :=
+  Iff.rfl
+
+-- RR.DEFINES: SE.NeutralSubstrate.Classification.causalOrNormativeProposition_iff
+/--
+A proposition is causal or normative in an accountability context exactly
+when it is causal or normative in that context.
+-/
+@[simp]
+theorem causalOrNormativeProposition_iff
+    {L : PropositionalLanguage.{u}}
+    {K : CausalNormativeClassification.{u, v} L}
+    {c : K.Context}
+    {p : L.Proposition} :
+    CausalOrNormativeProposition K c p ↔
+      CausalProposition K c p ∨
+        NormativeProposition K c p :=
+  Iff.rfl
+
 end
 
 end SE.NeutralSubstrate.Classification

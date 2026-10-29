@@ -41,6 +41,18 @@ to = [
 ]
 relation = "depends_on"
 
+[trace.referentialCommonGround_of_frameworkCompatibleCommitmentSet]
+id = "trace-referential-common-ground-of-framework-compatible-commitment-set"
+from = "referentialCommonGround_of_frameworkCompatibleCommitmentSet"
+to = [
+  "ReferentialCommonGround",
+  "FrameworkCompatibleCommitmentSet",
+  "ReferentialCommitments",
+  "PermittedAttributionProposition",
+  "entailsBottom_permittedAttribution_iff",
+]
+relation = "depends_on"
+
 # ============================================================
 # === FRAMEWORK VARIANCE ===
 # ============================================================

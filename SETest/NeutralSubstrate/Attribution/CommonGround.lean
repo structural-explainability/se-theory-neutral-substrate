@@ -21,5 +21,6 @@ namespace SETest.NeutralSubstrate.Attribution.CommonGround
 #check SE.NeutralSubstrate.Attribution.entailsBottom_combine_adjoin_iff_of_entails
 #check SE.NeutralSubstrate.Attribution.entailsBottom_permittedAttribution_iff
 #check SE.NeutralSubstrate.Attribution.consistent_permittedAttribution_of_commonGround
+#check SE.NeutralSubstrate.Attribution.referentialCommonGround_of_frameworkCompatibleCommitmentSet
 
 end SETest.NeutralSubstrate.Attribution.CommonGround

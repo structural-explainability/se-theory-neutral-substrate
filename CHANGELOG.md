@@ -11,6 +11,10 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+- Added lean modules.
+- Added initial DOUBTS.md
+- Added additional checks.
+- Updated lean version.
 - Updated license notice.
 - Added headers to Lean files.
 - Removed leftover lint command from NS

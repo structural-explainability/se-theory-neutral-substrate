@@ -19,7 +19,9 @@ set_option autoImplicit false
 namespace SETest.NeutralSubstrate.Constraint
 
 #check SE.NeutralSubstrate.NoObjectLevelCausalOrNormativeCommitment
+#check SE.NeutralSubstrate.noObjectLevelCausalOrNormativeCommitment_iff
 #check SE.NeutralSubstrate.CharacterizationHypothesis
+#check SE.NeutralSubstrate.characterizationHypothesis_iff
 #check SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted
 #check SE.NeutralSubstrate.noObjectLevelCommitment_of_foundationalLayerRestricted
 #check SE.NeutralSubstrate.noObjectLevelCommitment_of_neutralByDesign

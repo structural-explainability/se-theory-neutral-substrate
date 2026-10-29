@@ -23,6 +23,14 @@
       "description": "Every permitted attribution proposition is an attribution proposition."
     },
     {
+      "id": "characterizationHypothesis_iff",
+      "name": "Characterization hypothesis characterization",
+      "lean_symbol": "SE.NeutralSubstrate.characterizationHypothesis_iff",
+      "source_module": "SE.NeutralSubstrate.Constraint",
+      "status": "proved",
+      "description": "The characterization hypothesis is equivalent to the statement that, under contestability and referential common ground, neutrality by design is equivalent to restricting the foundational layer to the permitted classes and that restriction excludes object-level causal or normative commitments."
+    },
+    {
       "id": "consistent_combine_of_frameworkCompatibleCommitmentSet",
       "name": "Framework-compatible commitment set remains consistent",
       "lean_symbol": "SE.NeutralSubstrate.FrameworkRelative.consistent_combine_of_frameworkCompatibleCommitmentSet",
@@ -405,6 +413,14 @@
       "source_module": "SE.NeutralSubstrate.Assumptions.ReferentialCommonGround",
       "status": "proved",
       "description": "Referential common ground is characterized by compatibility of referential commitments and preservation of compatibility after adjoining permitted attribution."
+    },
+    {
+      "id": "referentialCommonGround_of_frameworkCompatibleCommitmentSet",
+      "name": "Referential common ground from framework compatibility",
+      "lean_symbol": "SE.NeutralSubstrate.Attribution.referentialCommonGround_of_frameworkCompatibleCommitmentSet",
+      "source_module": "SE.NeutralSubstrate.Attribution.CommonGround",
+      "status": "proved",
+      "description": "Framework compatibility of the referential commitments alone yields referential common ground, because the permitted-attribution condition follows from it."
     },
     {
       "id": "subset_adjoin",

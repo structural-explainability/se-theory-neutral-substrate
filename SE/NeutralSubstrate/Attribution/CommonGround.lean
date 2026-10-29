@@ -180,6 +180,43 @@ theorem consistent_permittedAttribution_of_commonGround
     hp
     hframework
 
+-- RR.DEFINES: SE.NeutralSubstrate.Attribution.referentialCommonGround_of_frameworkCompatibleCommitmentSet
+/--
+Referential Common Ground follows from framework compatibility of the
+referential commitments alone.
+
+The permitted-attribution condition is not independent: a permitted
+attribution proposition is already entailed by the referential commitments,
+so adjoining it does not change whether the combination with a framework
+entails contradiction.
+-/
+theorem referentialCommonGround_of_frameworkCompatibleCommitmentSet
+    {L : PropositionalLanguage.{u}}
+    {R : ReferentCarriers.{v}}
+    {C : ConsequenceSystem L}
+    {S : SubstrateSystem.{u, v, w} L R}
+    {F : ReferentialFixing L R}
+    {A : AttributionSystem.{u, x} L}
+    {B : AttributionalBasisFixing C A}
+    {s : S.Carrier}
+    {M : FrameworkSystem.{u, y} L.carrier}
+    (hcompatible :
+      SE.NeutralSubstrate.FrameworkRelative.FrameworkCompatibleCommitmentSet
+        C M (ReferentialCommitments C S F s)) :
+    ReferentialCommonGround C S F A B s M := by
+  rw [referentialCommonGround_iff]
+  refine ⟨hcompatible, ?_⟩
+  intro p hp
+  rw [SE.NeutralSubstrate.FrameworkRelative.frameworkCompatibleCommitmentSet_iff]
+    at hcompatible ⊢
+  intro framework hframework
+  apply consistent_of_not_entailsBottom
+  intro hbottom
+  exact
+    not_entailsBottom_of_consistent
+      (hcompatible framework hframework)
+      ((entailsBottom_permittedAttribution_iff B hp framework).mp hbottom)
+
 end
 
 end SE.NeutralSubstrate.Attribution

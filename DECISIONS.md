@@ -94,7 +94,9 @@ to their sources.
 The unresolved design obligation is to establish, for a concrete
 referential realization:
 
-- which propositions are justified as referentially fixed;
+- which propositions are justified as referentially fixed,
+  including whether that fixing is closed under the consequences of the
+  substrate's commitments;
 - whether the resulting commitment set remains compatible with
   every admissible framework;
 - how framework-dependent identity judgments are distinguished

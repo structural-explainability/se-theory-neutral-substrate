@@ -22,5 +22,8 @@ namespace SETest.NeutralSubstrate.Classification.CausalNormative
 #check SE.NeutralSubstrate.Classification.CausalProposition
 #check SE.NeutralSubstrate.Classification.NormativeProposition
 #check SE.NeutralSubstrate.Classification.CausalOrNormativeProposition
+#check SE.NeutralSubstrate.Classification.causalProposition_iff
+#check SE.NeutralSubstrate.Classification.normativeProposition_iff
+#check SE.NeutralSubstrate.Classification.causalOrNormativeProposition_iff
 
 end SETest.NeutralSubstrate.Classification.CausalNormative

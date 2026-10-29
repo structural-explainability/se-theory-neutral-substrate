@@ -77,6 +77,28 @@ def NoObjectLevelCausalOrNormativeCommitment
     ¬ ObjectLevelCausalOrNormativeCommitment
       C K c A I S s p
 
+-- RR.DEFINES: SE.NeutralSubstrate.noObjectLevelCausalOrNormativeCommitment_iff
+/--
+A substrate makes no object-level causal or normative commitment exactly
+when no proposition is an object-level causal or normative commitment of it.
+-/
+@[simp]
+theorem noObjectLevelCausalOrNormativeCommitment_iff
+    {L : PropositionalLanguage.{u}}
+    {R : ReferentCarriers.{v}}
+    {C : ConsequenceSystem L}
+    {K : CausalNormativeClassification.{u, x} L}
+    {c : K.Context}
+    {A : AttributionSystem.{u, y} L}
+    {I : ObjectLevelInterpretation.{u, v} L R}
+    {S : SubstrateSystem.{u, v, w} L R}
+    {s : S.Carrier} :
+    NoObjectLevelCausalOrNormativeCommitment C K c A I S s ↔
+      ∀ p,
+        ¬ ObjectLevelCausalOrNormativeCommitment
+          C K c A I S s p :=
+  Iff.rfl
+
 -- RR.DEFINES: SE.NeutralSubstrate.CharacterizationHypothesis
 -- RR.IMPLEMENTS: se100.remark.CharacterizationHypothesis
 /--
@@ -118,6 +140,41 @@ def CharacterizationHypothesis
           C S F A B s →
         NoObjectLevelCausalOrNormativeCommitment
           C K c A I S s)
+
+-- RR.DEFINES: SE.NeutralSubstrate.characterizationHypothesis_iff
+/--
+The characterization hypothesis holds exactly when, under Contestability and
+Referential Common Ground, neutrality by design is equivalent to restriction
+of the foundational layer to the permitted classes, and that restriction
+excludes every object-level causal or normative commitment.
+-/
+@[simp]
+theorem characterizationHypothesis_iff
+    {L : PropositionalLanguage.{u}}
+    {R : ReferentCarriers.{v}}
+    {C : ConsequenceSystem L}
+    {K : CausalNormativeClassification.{u, x} L}
+    {c : K.Context}
+    {G : InterpretiveStatusFixing.{u, x} L K.Context}
+    {S : SubstrateSystem.{u, v, w} L R}
+    {F : ReferentialFixing L R}
+    {A : AttributionSystem.{u, y} L}
+    {B : AttributionalBasisFixing C A}
+    {I : ObjectLevelInterpretation.{u, v} L R}
+    {s : S.Carrier}
+    {M : FrameworkSystem.{u, z} L.carrier}
+    {D : DesignTimeGuaranteeSystem.{t}} :
+    CharacterizationHypothesis C K c G S F A B I s M D ↔
+      (Contestability C K c G S F s M D →
+        ReferentialCommonGround C S F A B s M →
+          (NeutralByDesign C S s M D ↔
+            FoundationalLayerRestrictedToPermittedClasses
+              C S F A B s) ∧
+          (FoundationalLayerRestrictedToPermittedClasses
+              C S F A B s →
+            NoObjectLevelCausalOrNormativeCommitment
+              C K c A I S s)) :=
+  Iff.rfl
 
 -- RR.DEFINES: SE.NeutralSubstrate.neutralByDesign_iff_foundationalLayerRestricted
 /--

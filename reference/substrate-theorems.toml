@@ -333,6 +333,14 @@ source_module = "SE.NeutralSubstrate.Attribution.CommonGround"
 status = "proved"
 description = "Referential common ground ensures that adjoining a permitted attribution proposition remains consistent with any admissible framework."
 
+[theorem.referentialCommonGround_of_frameworkCompatibleCommitmentSet]
+id = "referentialCommonGround_of_frameworkCompatibleCommitmentSet"
+name = "Referential common ground from framework compatibility"
+lean_symbol = "SE.NeutralSubstrate.Attribution.referentialCommonGround_of_frameworkCompatibleCommitmentSet"
+source_module = "SE.NeutralSubstrate.Attribution.CommonGround"
+status = "proved"
+description = "Framework compatibility of the referential commitments alone yields referential common ground, because the permitted-attribution condition follows from it."
+
 # ============================================================
 # === INTERPRETIVE NON-COMMITMENT ===
 # ============================================================
@@ -512,6 +520,14 @@ description = "Under referential common ground, restricting substrate commitment
 # ============================================================
 # === NEUTRALITY CONSTRAINT ===
 # ============================================================
+
+[theorem.characterizationHypothesis_iff]
+id = "characterizationHypothesis_iff"
+name = "Characterization hypothesis characterization"
+lean_symbol = "SE.NeutralSubstrate.characterizationHypothesis_iff"
+source_module = "SE.NeutralSubstrate.Constraint"
+status = "proved"
+description = "The characterization hypothesis is equivalent to the statement that, under contestability and referential common ground, neutrality by design is equivalent to restricting the foundational layer to the permitted classes and that restriction excludes object-level causal or normative commitments."
 
 [theorem.neutralByDesign_iff_foundationalLayerRestricted]
 id = "neutralByDesign_iff_foundationalLayerRestricted"

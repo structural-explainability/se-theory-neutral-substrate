@@ -13,6 +13,7 @@ public import SETest.NeutralSubstrate.Model.Discriminating.Frameworks
 public import SETest.NeutralSubstrate.Model.Discriminating.Substrates
 public import SETest.NeutralSubstrate.Model.Discriminating.Neutral
 public import SETest.NeutralSubstrate.Model.Discriminating.NonNeutral
+public import SETest.NeutralSubstrate.Model.Discriminating.Assumptions
 
 /-!
 # Test Models of Neutral Substrates
