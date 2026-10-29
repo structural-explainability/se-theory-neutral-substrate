@@ -587,7 +587,7 @@ Follow these steps exactly when creating a new release.
 
 ### Task 2. Set up and Validate
 
-```shell
+```pwsh
 # set up or update Python environment
 # Run repository checks.
 .\sit.ps1
@@ -607,6 +607,9 @@ uvx se-manifest-schema validate-manifest --strict
 
 # Format Markdown.
 npx markdownlint-cli2 --fix
+
+# OPTIONAL: if build is stale run:
+# lake clean
 
 .\rel.ps1
 .\sit.ps1

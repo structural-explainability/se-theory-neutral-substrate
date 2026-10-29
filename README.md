@@ -37,6 +37,7 @@ failing on reported warnings, including `sorry`.
 Successful compilation verifies formal declarations against their
 stated assumptions; it does not establish the scientific adequacy
 of those assumptions or interpretations.
+Recorded doubts about them are in [DOUBTS.md](./DOUBTS.md).
 
 ## Import
 
