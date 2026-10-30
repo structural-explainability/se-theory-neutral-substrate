@@ -13,7 +13,7 @@
 # ============================================================
 
 name = "se-theory-neutral-substrate"
-version = "0.12.1" # CUSTOM: Sets the current release version of the project
+version = "0.13.0" # CUSTOM: Sets the current release version of the project
 license = "Apache-2.0"
 
 # ============================================================

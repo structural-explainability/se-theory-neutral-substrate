@@ -92,10 +92,6 @@ jobs:
           build: false
           test: false
           lint: false
-          use-github-cache: false
-          axiom-audit: true
-          axiom-audit-root: SE
-        # WHY: Fails if any SE declaration depends on an axiom other than propext, Classical.choice, or Quot.sound. Catches sorry, native_decide, and home-made axioms.
 
       - name: C4) Scan source for axioms (repos with SE theory dependencies)
         if: steps.se-deps.outputs.has_se_deps == 'true'

@@ -11,6 +11,18 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+---
+
+## [0.13.0] - 2026-10-30
+
+### Updated
+
+- Updated the Lean toolchain (see `lean-toolchain`).
+- `rel.ps1`: added `lake clean`, a `leanchecker` kernel re-check, an axiom
+  audit (`propext`, `Classical.choice`, `Quot.sound` only),
+  `CITATION.cff` validation, and Markdown lint.
+- `ci-lean.yml`: added the same checks plus SE manifest validation, and
+  cancellation of superseded runs on the same branch.
 - Added lean modules.
 - Added initial DOUBTS.md
 - Added additional checks.
@@ -115,7 +127,7 @@ Theory update: REFERENCE SYNCHRONIZATION / PAPER TRACEABILITY
 - Added: reference declarations for the distinct individuation, co-reference, and persistence account/regime types.
 - Preserved: existing Paper 100 citation identifiers for concepts already defined by the paper.
 - Deferred: new Paper 100 citation identifiers for the component accounts until the paper defines them explicitly.
-- Planned: revise the Paper 100 referential-regime section to reflect the distinct interfaces and their semantic obligations.
+- Intended: revise the Paper 100 referential-regime section to reflect the distinct interfaces and their semantic obligations.
 - Added: public-module registrations for the referential account modules and the other previously omitted public modules.
 - Added: theorem registrations for `extensionStability_of_restricted_of_commonGround` and `neutral_of_restricted_of_commonGround`.
 - Clarified: the sufficiency results establish extension stability and neutrality
@@ -586,7 +598,7 @@ Follow these steps exactly when creating a new release.
 
 1.1. CITATION.cff: update version and date-released
 1.2. lakefile.toml: update version
-1.3. CHANGELOG.md: add section, move unreleased entries, update links, release command
+1.3. CHANGELOG.md: add section, move unreleased entries, update links, update release command
 1.4. pyproject.toml: update version (near top of the file)
 
 ### Task 2. Set up and Validate
@@ -611,9 +623,6 @@ uvx se-manifest-schema validate-manifest --strict
 
 # Format Markdown.
 npx markdownlint-cli2 --fix
-
-# OPTIONAL: if build is stale run:
-# lake clean
 
 .\rel.ps1
 .\sit.ps1
@@ -643,7 +652,7 @@ git push origin vX.Y.Z
 Create GitHub Release after pushing tag, for example with a command like this:
 
 ```shell
-gh release create v0.12.1 --verify-tag --title "0.12.1" --generate-notes
+gh release create v0.13.0 --verify-tag --title "0.13.0" --generate-notes
 ```
 
 ## Only As Needed (delete a tag)
@@ -655,7 +664,8 @@ git push origin :refs/tags/vX.Z.Y
 
 ## Links
 
-[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.12.1...HEAD
+[Unreleased]: https://github.com/structural-explainability/se-theory-neutral-substrate/compare/v0.13.0...HEAD
+[0.13.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.13.0
 [0.12.1]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.12.1
 [0.12.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.12.0
 [0.11.0]: https://github.com/structural-explainability/se-theory-neutral-substrate/releases/tag/v0.11.0

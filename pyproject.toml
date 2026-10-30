@@ -16,7 +16,7 @@
 name = "se-theory-neutral-substrate" # Package distribution name (lowercase and dashes).
 readme = "README.md"
 requires-python = ">=3.15"
-version = "0.12.1" # CUSTOM: Updated to match the current release version of the project
+version = "0.13.0" # CUSTOM: Updated to match the current release version
 license-files = ["LICENSE"]
 
 # ============================================================
