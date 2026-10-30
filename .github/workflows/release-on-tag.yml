@@ -1,0 +1,67 @@
+# ============================================================
+# .github/workflows/release-on-tag.yml (ALL-SE-LEAN-REPOS)
+# ============================================================
+# Updated: 2026-10-30
+#
+# WHAT: Publish a GitHub Release when a version tag is pushed.
+# REQ: Version tags use vMAJOR.MINOR.PATCH.
+# REQ: Required CI checks MUST pass before tagging.
+# REQ: Never create or modify Git tags automatically.
+# REQ: Never publish a duplicate GitHub Release.
+# ============================================================
+
+name: Release on Tag
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Publish GitHub Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: A1) Validate release tag
+        env:
+          TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: $TAG"
+            echo "Expected vMAJOR.MINOR.PATCH."
+            exit 1
+          fi
+
+      - name: A2) Check for existing release
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release $TAG already exists."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: A3) Publish GitHub Release
+        if: steps.existing.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          gh release create "$TAG" \
+            --verify-tag \
+            --title "${TAG#v}" \
+            --generate-notes
