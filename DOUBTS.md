@@ -6,7 +6,7 @@ against overclaiming for this theory.
 
 For the three research criteria, doubt classifications,
 status definitions, and procedures, see the
-[Structural Explainability Research Doubts Standard](https://github.com/structural-explainability/.github/blob/main/RESEARCH-DOUBTS-STANDARD.md).
+[SE Research Doubts Standard](https://raw.githubusercontent.com/structural-explainability/.github/refs/heads/main/docs/en/research/doubts.md).
 
 ## Repository Summary
 
