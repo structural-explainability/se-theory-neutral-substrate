@@ -1,7 +1,7 @@
 # ============================================================
-# .github/workflows/deploy-zensical-lean.yml (LEAN+ALL-PY-REPOS)
+# .github/workflows/deploy-zensical-lean.yml (CUSTOM LEAN+ALL-PY-REPOS)
 # ============================================================
-# Updated: 2026-10-02
+# Updated: 2026-10-30
 #
 # WHY: Build and deploy documentation to GitHub Pages on pushes to main.
 # REQ: Repo Settings -> Pages -> Build and deployment -> Source:
@@ -39,7 +39,7 @@ jobs:
   docs:
     name: Deploy Documentation site
     runs-on: ubuntu-latest
-    timeout-minutes: 60 # WHY: Fail fast if a step hangs unexpectedly.
+    timeout-minutes: 30 # WHY: Fail fast if a step hangs unexpectedly.
 
     steps:
       # ============================================================
@@ -64,6 +64,11 @@ jobs:
           cache-dependency-glob: "uv.lock"
           # WHY: Invalidate dependency cache when the committed lockfile changes.
 
+      - name: A4) Install project Python
+        run: uv python install
+        # WHY: Ensures the Python version declared in .python-version is available.
+        # OBS: uv manages the interpreter locally in the CI environment.
+
       - name: A5) Install dependencies from committed lockfile
         run: uv sync --frozen
         # WHY: Install all configured dependency groups exactly from uv.lock.
@@ -79,7 +84,7 @@ jobs:
         # WHY: Version output makes deployment logs easier to debug when tools change.
 
       # ============================================================
-      # AA) ASSEMBLE: Checkout code and set up environment
+      # AA) ASSEMBLE LEAN ENVIRONMENT
       # ============================================================
 
       - name: AA1) Set up Lean
@@ -88,24 +93,21 @@ jobs:
           build: false
           test: false
           lint: false
+        # WHY: Install the repository's declared Lean toolchain for API docs.
+        # OBS: Build, test, and lint are handled by the Lean CI workflow.
 
       - name: AA2) Install native build tools
         run: |
           sudo apt-get update
           sudo apt-get install --yes build-essential
+        # WHY: Lean API documentation generation requires native build tooling
+        # on the Linux GitHub Actions runner.
 
-      # - name: AA3) Add swap space and report resources
-      #   run: |
-      #     sudo swapoff -a || true
-      #     sudo fallocate -l 6G /swapfile
-      #     sudo chmod 600 /swapfile
-      #     sudo mkswap /swapfile
-      #     sudo swapon /swapfile
-      #     sudo sysctl -w vm.overcommit_memory=1
-      #     free -h
-      #     df -h /
-      #   # WHY: The Lean API docs build spawns many processes and exhausts memory.
-      #   # OBS: Swap space helps prevent out-of-memory errors during the Lean API docs build.
+      - name: AA3) Show lean tool versions
+        run: |
+          lean --version
+          lake --version
+          # WHY: Version output makes Lean documentation failures easier to diagnose.
 
       # ============================================================
       # B) BUILD ZENSICAL SITE
@@ -135,7 +137,7 @@ jobs:
         #      configures a different output directory.
 
       # ============================================================
-      # BB) BUILD LEAN API DOCUMENTATION
+      # BB) BUILD LEAN API DOCUMENTATION (CUSTOM)
       # ============================================================
 
       - name: BB1) Prepare Lean API documentation build
@@ -149,7 +151,6 @@ jobs:
           cat > docbuild/lakefile.toml <<EOF
           name = "docbuild"
           reservoir = false
-          version = "0.11.0"
           packagesDir = "../.lake/packages"
 
           [[require]]
@@ -189,6 +190,7 @@ jobs:
           rm -rf site/lean
           mkdir -p site/lean
           cp -R docbuild/.lake/build/doc/. site/lean/
+        # WHY: Publish generated Lean API documentation under /lean/.
 
       - name: BB5) Verify combined documentation site
         run: |
@@ -200,6 +202,7 @@ jobs:
             >> "$GITHUB_STEP_SUMMARY"
           echo "- Lean API reference: site/lean/index.html" \
             >> "$GITHUB_STEP_SUMMARY"
+        # WHY: Confirm both documentation surfaces exist before deployment.
 
       # ============================================================
       # D) DEPLOY

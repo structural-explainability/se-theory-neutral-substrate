@@ -15,6 +15,8 @@ predicates, assumptions, theorems, and proof obligations.
 - [Paper: Neutral Substrates (arXiv:2601.14271)](https://doi.org/10.48550/arXiv.2601.14271)
 - [Reference registries](https://github.com/structural-explainability/se-theory-neutral-substrate/tree/main/reference)
   mapping the paper's stable `se100.*` tags to Lean declarations
+- [Research Doubts and Open Questions](https://github.com/structural-explainability/se-theory-neutral-substrate/blob/main/DOUBTS.md)
+- [Research Decisions](https://github.com/structural-explainability/se-theory-neutral-substrate/blob/main/DECISIONS.md)
 
 ## Neutral Substrate
 
