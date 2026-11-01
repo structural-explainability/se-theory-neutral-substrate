@@ -598,7 +598,7 @@ Follow these steps exactly when creating a new release.
 
 1.1. CITATION.cff: update version and date-released
 1.2. lakefile.toml: update version
-1.3. CHANGELOG.md: add section, move unreleased entries, update links, update release command
+1.3. CHANGELOG.md: add section, move unreleased entries, update links
 1.4. pyproject.toml: update version (near top of the file)
 
 ### Task 2. Set up and Validate
