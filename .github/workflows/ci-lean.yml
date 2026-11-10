@@ -42,7 +42,7 @@ jobs:
         # WHY: Required so all subsequent steps can access repo files.
 
       - name: A2) Set up Lean toolchain
-        uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
+        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64 # v1
         with:
           build: false
           test: false
@@ -87,7 +87,7 @@ jobs:
 
       - name: C3) Audit axioms
         if: steps.se-deps.outputs.has_se_deps == 'false'
-        uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
+        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64 # v1
         with:
           build: false
           test: false
